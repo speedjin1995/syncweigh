@@ -1,856 +1,833 @@
-Content Header (Page header)
 <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Weight Weighing</h1>
-        </div><!-- /.col -->
-        <!-- <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Weight Weighing</li>
-          </ol>
-        </div> -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Weight Weighing</h1>
+      </div><!-- /.col -->
+      <!-- <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Weight Weighing</li>
+        </ol>
+      </div> -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
 
-  <!-- Main content -->
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
 
-        <!-- <div class="col-lg-6 col-6">
-          <div class="small-box bg-success">
-            <div class="inner">
-             <h3 style="text-align: center; font-size: 80px">
-               100.00
-               <sup style="font-size: 20px">KG</sup>
-             </h3>
-            </div>
-              <a href="#" class="small-box-footer">
-                More info
-              </a>
+      <!-- <div class="col-lg-6 col-6">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3 style="text-align: center; font-size: 80px">
+              100.00
+              <sup style="font-size: 20px">KG</sup>
+            </h3>
           </div>
-        </div> -->
+            <a href="#" class="small-box-footer">
+              More info
+            </a>
+        </div>
+      </div> -->
 <!-- 
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header border-0">
-             <button type="button" class="btn btn-block bg-gradient-primary btn-lg"  data-toggle="modal" data-target="#modal-xl">
-               New Entry
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <button type="button" class="btn btn-block bg-gradient-primary btn-lg"  data-toggle="modal" data-target="#modal-xl">
+              New Entry
+            </button>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header bg-gray-dark color-palette">
+              <h4 class="modal-title">Add New Entry</h4>
+              <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
-          </div>
-        </div> -->
+            <div class="modal-body">
 
-        <div class="modal fade" id="modal-xl">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header bg-gray-dark color-palette">
-                <h4 class="modal-title">Add New Entry</h4>
-                <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+              <div class="col-lg-12 col-12 d-flex justify-content-center">
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3 style="text-align: center; font-size: 80px">
+                      100.00
+                      <sup style="font-size: 20px">KG</sup>
+                    </h3>
+                  </div>
+                    <a href="#" class="small-box-footer">
+                      More info
+                    </a>
+                </div>
               </div>
-              <div class="modal-body">
 
-                <div class="col-lg-12 col-12 d-flex justify-content-center">
-                  <div class="small-box bg-success">
-                    <div class="inner">
-                     <h3 style="text-align: center; font-size: 80px">
-                       100.00
-                       <sup style="font-size: 20px">KG</sup>
-                     </h3>
-                    </div>
-                      <a href="#" class="small-box-footer">
-                        More info
-                      </a>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Status :</label>
+                    <select class="form-control Status" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label>Status :</label>
-                      <select class="form-control Status" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-md-1">
-                    <div class="form-group">
-                      <label>Lot No :</label>
-                      <select class="form-control lotNo" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-3">
-                    <label>Invoice No</label>
-                    <input class="form-control" type="text" placeholder="Invoice No">
-                  </div>
-                  
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Vehicle No</label>
-                      <select class="form-control vehicleNo" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label>Lot No :</label>
+                    <select class="form-control lotNo" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Customer No</label>
-                      <select class="form-control customerNo" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-3">
-                    <label>Delivery No</label>
-                    <input class="form-control" type="text" placeholder="Delivery No">
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Unit Weight</label>
-                      <select class="form-control unitWeight" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-md-3">
-                    <label>Batch No</label>
-                    <input class="form-control" type="text" placeholder="Batch No">
-                  </div>
-
-                  <div class="form-group col-md-3">
-                    <label>Purchase No</label>
-                    <input class="form-control" type="text" placeholder="Purchase No">
-                  </div>
-
-                  <div class="form-group col-md-3">
-                    <label>Current Weight</label>
-                    <div class="input-group" id="currentWeight" data-target-input="currentWeight">
-                      <input class="form-control" type="text" placeholder="Current Weight"/>
-                      <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Product</label>
-                      <select class="form-control product" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-3">
-                    <label>M.O.Q</label>
-                    <input class="form-control" type="text" placeholder="customer">
-                  </div>
-
- 
-                    <div class="form-group col-md-3">
-                      <label>Tare Weight</label>
-                      <div class="input-group" id="tareWeight" data-target-input="tareWeight">
-                        <input class="form-control" type="text" placeholder="Tare Weight"/>
-                        <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Package</label>
-                      <select class="form-control package" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-
-                    <div class="form-group col-md-3">
-                      <label>Unit Price</label>
-                      <div class="input-group" id="unitPrice" data-target-input="unitPrice">
-                        <div class="input-group-text"><i>RM</i></div>
-                        <input class="form-control" type="text" placeholder="unitPrice"/>                        
-                      </div>
-                  </div>
-
-                    <div class="form-group col-md-3">
-                      <label>Actual Weight</label>
-                      <div class="input-group" id="actualWeight" data-target-input="actualWeight">
-                        <input class="form-control" type="text" placeholder="Actual Weight"/>
-                        <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-3">
-                    <div class="form-group">
-                      <label>Remark</label>
-                      <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                    </div>
-                  </div>
-
-                    <div class="form-group col-md-3">
-                      <label>Total Price</label>
-                      <div class="input-group" id="totalPrice" data-target-input="totalPrice">
-                        <div class="input-group-text"><i>RM</i></div>
-                        <input class="form-control" type="text" placeholder="Total Price"/>                        
-                      </div>
-                  </div>
-
-                    <div class="form-group col-md-3">
-                      <label>Total Weight</label>
-                      <div class="input-group" id="totalWeight" data-target-input="totalWeight">
-                        <input class="form-control" type="text" placeholder="Total Weight"/>
-                        <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
-                      </div>
-                    </div>
+                <div class="form-group col-md-3">
+                  <label>Invoice No</label>
+                  <input class="form-control" type="text" placeholder="Invoice No">
                 </div>
                 
-              </div>
-              <div class="modal-footer justify-content-between bg-gray-dark color-palette">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Capture Indicator</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card card-primary">
-              <div class="card-header">
-              <div class="row">
-
-                <h3 class="card-title">Billboard Description :</h3>
-
-                <div class="col-lg-3" style="margin-left: auto;">
-
-                     <button type="button" class="btn btn-block bg-gray-dark color-palette btn-lg"  data-toggle="modal" data-target="#modal-xl">
-                       New Entry
-                      </button>
-
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Vehicle No</label>
+                    <select class="form-control vehicleNo" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-
-              </div>
-              <div class="card-body">
 
               <div class="row">
-                <div class="form-group col-md-2">
-                  <label>From Date:</label>
-                    <div class="input-group date" id="fromDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
-                        <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Customer No</label>
+                    <select class="form-control customerNo" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div class="form-group col-md-2">
-                  <label>To Date:</label>
-                    <div class="input-group date" id="toDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#toDate"/>
-                        <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
+                <div class="form-group col-md-3">
+                  <label>Delivery No</label>
+                  <input class="form-control" type="text" placeholder="Delivery No">
                 </div>
 
-                <div class="form-group col-md-2">
-                  <label>Customer</label>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Unit Weight</label>
+                    <select class="form-control unitWeight" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <label>Batch No</label>
+                  <input class="form-control" type="text" placeholder="Batch No">
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>Purchase No</label>
+                  <input class="form-control" type="text" placeholder="Purchase No">
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>Current Weight</label>
+                  <div class="input-group" id="currentWeight" data-target-input="currentWeight">
+                    <input class="form-control" type="text" placeholder="Current Weight"/>
+                    <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Product</label>
+                    <select class="form-control product" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>M.O.Q</label>
                   <input class="form-control" type="text" placeholder="customer">
                 </div>
 
-                <div class="col-md-2" style="margin-left: auto;">
-                  <div id="example1_filter" class="dataTables_filter">
-                    <label>
-                      Search :
-                    </label> 
-                      <input type="search" class="form-control" placeholder aria-controls="">                                       
+
+                  <div class="form-group col-md-3">
+                    <label>Tare Weight</label>
+                    <div class="input-group" id="tareWeight" data-target-input="tareWeight">
+                      <input class="form-control" type="text" placeholder="Tare Weight"/>
+                      <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
+                    </div>
                   </div>
-                </div>
               </div>
 
-                <div class="row">
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select class="form-control Status" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label>Vehicle No</label>
-                      <select class="form-control vehicleNo" style="width: 100%;">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="form-group col-md-2">
-                    <label>Invoice No</label>
-                    <input class="form-control" type="text" placeholder="Invoice No">
-                  </div>
-
-                  <div class="form-group col-md-2">
-                    <label>Batch No</label>
-                    <input class="form-control" type="text" placeholder="Batch No">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Package</label>
+                    <select class="form-control package" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
                   </div>
                 </div>
 
-                
+                  <div class="form-group col-md-3">
+                    <label>Unit Price</label>
+                    <div class="input-group" id="unitPrice" data-target-input="unitPrice">
+                      <div class="input-group-text"><i>RM</i></div>
+                      <input class="form-control" type="text" placeholder="unitPrice"/>                        
+                    </div>
+                </div>
 
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Package</th>
-                    <th>Unit Weight</th>
-                    <th>Tare</th>
-                    <th>Total Weight</th>
-                    <th>Actual Weight</th>
-                    <th>Unit</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>MOQ</th>
-                    <th>Unit Price</th>
-                    <th>Total Price</th>
-                    <th>Remark</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.5
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 6
-                    </td>
-                    <td>Win 98+</td>
-                    <td>6</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet Explorer 7</td>
-                    <td>Win XP SP2+</td>
-                    <td>7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>AOL browser (AOL desktop)</td>
-                    <td>Win XP</td>
-                    <td>6</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 1.0</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 1.5</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 2.0</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 3.0</td>
-                    <td>Win 2k+ / OSX.3+</td>
-                    <td>1.9</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Camino 1.0</td>
-                    <td>OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Camino 1.5</td>
-                    <td>OSX.3+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Netscape 7.2</td>
-                    <td>Win 95+ / Mac OS 8.6-9.2</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Netscape Browser 8</td>
-                    <td>Win 98SE+</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Netscape Navigator 9</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.0</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.1</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.2</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.2</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.3</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.3</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.4</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.4</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.5</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.6</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.6</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.7</td>
-                    <td>Win 98+ / OSX.1+</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.8</td>
-                    <td>Win 98+ / OSX.1+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Seamonkey 1.1</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Epiphany 2.20</td>
-                    <td>Gnome</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 1.2</td>
-                    <td>OSX.3</td>
-                    <td>125.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 1.3</td>
-                    <td>OSX.3</td>
-                    <td>312.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 2.0</td>
-                    <td>OSX.4+</td>
-                    <td>419.3</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 3.0</td>
-                    <td>OSX.4+</td>
-                    <td>522.1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>OmniWeb 5.5</td>
-                    <td>OSX.4+</td>
-                    <td>420</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>iPod Touch / iPhone</td>
-                    <td>iPod</td>
-                    <td>420.1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>S60</td>
-                    <td>S60</td>
-                    <td>413</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 7.0</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 7.5</td>
-                    <td>Win 95+ / OSX.2+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 8.0</td>
-                    <td>Win 95+ / OSX.2+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 8.5</td>
-                    <td>Win 95+ / OSX.2+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 9.0</td>
-                    <td>Win 95+ / OSX.3+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 9.2</td>
-                    <td>Win 88+ / OSX.3+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 9.5</td>
-                    <td>Win 88+ / OSX.3+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera for Wii</td>
-                    <td>Wii</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Nokia N800</td>
-                    <td>N800</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Nintendo DS browser</td>
-                    <td>Nintendo DS</td>
-                    <td>8.5</td>
-                    <td>C/A<sup>1</sup></td>
-                  </tr>
-                  <tr>
-                    <td>KHTML</td>
-                    <td>Konqureror 3.1</td>
-                    <td>KDE 3.1</td>
-                    <td>3.1</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>KHTML</td>
-                    <td>Konqureror 3.3</td>
-                    <td>KDE 3.3</td>
-                    <td>3.3</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>KHTML</td>
-                    <td>Konqureror 3.5</td>
-                    <td>KDE 3.5</td>
-                    <td>3.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Tasman</td>
-                    <td>Internet Explorer 4.5</td>
-                    <td>Mac OS 8-9</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Tasman</td>
-                    <td>Internet Explorer 5.1</td>
-                    <td>Mac OS 7.6-9</td>
-                    <td>1</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Tasman</td>
-                    <td>Internet Explorer 5.2</td>
-                    <td>Mac OS 8-X</td>
-                    <td>1</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>NetFront 3.1</td>
-                    <td>Embedded devices</td>
-                    <td>-</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>NetFront 3.4</td>
-                    <td>Embedded devices</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>Dillo 0.8</td>
-                    <td>Embedded devices</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>Links</td>
-                    <td>Text only</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>Lynx</td>
-                    <td>Text only</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>IE Mobile</td>
-                    <td>Windows Mobile 6</td>
-                    <td>-</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>PSP browser</td>
-                    <td>PSP</td>
-                    <td>-</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>U</td>
-                  </tr>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </tfoot>
-                </table>
+                  <div class="form-group col-md-3">
+                    <label>Actual Weight</label>
+                    <div class="input-group" id="actualWeight" data-target-input="actualWeight">
+                      <input class="form-control" type="text" placeholder="Actual Weight"/>
+                      <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
+                    </div>
+                  </div>
               </div>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label>Remark</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                  </div>
+                </div>
+
+                  <div class="form-group col-md-3">
+                    <label>Total Price</label>
+                    <div class="input-group" id="totalPrice" data-target-input="totalPrice">
+                      <div class="input-group-text"><i>RM</i></div>
+                      <input class="form-control" type="text" placeholder="Total Price"/>                        
+                    </div>
+                </div>
+
+                  <div class="form-group col-md-3">
+                    <label>Total Weight</label>
+                    <div class="input-group" id="totalWeight" data-target-input="totalWeight">
+                      <input class="form-control" type="text" placeholder="Total Weight"/>
+                      <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
+                    </div>
+                  </div>
+              </div>
+              
+            </div>
+            <div class="modal-footer justify-content-between bg-gray-dark color-palette">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Capture Indicator</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card card-primary">
+            <div class="card-header">
+            <div class="row">
+
+              <h3 class="card-title">Billboard Description :</h3>
+
+              <div class="col-lg-3" style="margin-left: auto;">
+
+                    <button type="button" class="btn btn-block bg-gray-dark color-palette btn-lg"  data-toggle="modal" data-target="#modal-xl">
+                      New Entry
+                    </button>
+
+              </div>
+            </div>
+
+            </div>
+            <div class="card-body">
+
+            <div class="row">
+              <div class="form-group col-md-2">
+                <label>From Date:</label>
+                  <div class="input-group date" id="fromDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
+                      <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label>To Date:</label>
+                  <div class="input-group date" id="toDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#toDate"/>
+                      <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label>Customer</label>
+                <input class="form-control" type="text" placeholder="customer">
+              </div>
+
+              <div class="col-md-2" style="margin-left: auto;">
+                <div id="example1_filter" class="dataTables_filter">
+                  <label>
+                    Search :
+                  </label> 
+                    <input type="search" class="form-control" placeholder aria-controls="">                                       
+                </div>
+              </div>
+            </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Status</label>
+                    <select class="form-control Status" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Vehicle No</label>
+                    <select class="form-control vehicleNo" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Invoice No</label>
+                  <input class="form-control" type="text" placeholder="Invoice No">
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Batch No</label>
+                  <input class="form-control" type="text" placeholder="Batch No">
+                </div>
+              </div>
+
+              
+
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Package</th>
+                  <th>Unit Weight</th>
+                  <th>Tare</th>
+                  <th>Total Weight</th>
+                  <th>Actual Weight</th>
+                  <th>Unit</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>MOQ</th>
+                  <th>Unit Price</th>
+                  <th>Total Price</th>
+                  <th>Remark</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 4.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td> 4</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 5.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td>5</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 5.5
+                  </td>
+                  <td>Win 95+</td>
+                  <td>5.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 6
+                  </td>
+                  <td>Win 98+</td>
+                  <td>6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet Explorer 7</td>
+                  <td>Win XP SP2+</td>
+                  <td>7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>AOL browser (AOL desktop)</td>
+                  <td>Win XP</td>
+                  <td>6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 2.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 3.0</td>
+                  <td>Win 2k+ / OSX.3+</td>
+                  <td>1.9</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Camino 1.0</td>
+                  <td>OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Camino 1.5</td>
+                  <td>OSX.3+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape 7.2</td>
+                  <td>Win 95+ / Mac OS 8.6-9.2</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape Browser 8</td>
+                  <td>Win 98SE+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.1</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.2</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.2</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.3</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.4</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.4</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.5</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.6</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.7</td>
+                  <td>Win 98+ / OSX.1+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.8</td>
+                  <td>Win 98+ / OSX.1+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Seamonkey 1.1</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Epiphany 2.20</td>
+                  <td>Gnome</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 1.2</td>
+                  <td>OSX.3</td>
+                  <td>125.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 1.3</td>
+                  <td>OSX.3</td>
+                  <td>312.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 2.0</td>
+                  <td>OSX.4+</td>
+                  <td>419.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 3.0</td>
+                  <td>OSX.4+</td>
+                  <td>522.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>OmniWeb 5.5</td>
+                  <td>OSX.4+</td>
+                  <td>420</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>iPod Touch / iPhone</td>
+                  <td>iPod</td>
+                  <td>420.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>S60</td>
+                  <td>S60</td>
+                  <td>413</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 7.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 7.5</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 8.0</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 8.5</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.0</td>
+                  <td>Win 95+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.2</td>
+                  <td>Win 88+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.5</td>
+                  <td>Win 88+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera for Wii</td>
+                  <td>Wii</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Nokia N800</td>
+                  <td>N800</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Nintendo DS browser</td>
+                  <td>Nintendo DS</td>
+                  <td>8.5</td>
+                  <td>C/A<sup>1</sup></td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.1</td>
+                  <td>KDE 3.1</td>
+                  <td>3.1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.3</td>
+                  <td>KDE 3.3</td>
+                  <td>3.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.5</td>
+                  <td>KDE 3.5</td>
+                  <td>3.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 4.5</td>
+                  <td>Mac OS 8-9</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 5.1</td>
+                  <td>Mac OS 7.6-9</td>
+                  <td>1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 5.2</td>
+                  <td>Mac OS 8-X</td>
+                  <td>1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>NetFront 3.1</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>NetFront 3.4</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Dillo 0.8</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Links</td>
+                  <td>Text only</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Lynx</td>
+                  <td>Text only</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>IE Mobile</td>
+                  <td>Windows Mobile 6</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>PSP browser</td>
+                  <td>PSP</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Other browsers</td>
+                  <td>All others</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>U</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
-
-
       </div>
+
 
     </div>
 
   </div>
 
-  <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-
-<!-- Select2 -->
-<script src="../../plugins/select2/js/select2.full.min.js"></script>
-<!-- Bootstrap4 Duallistbox -->
-<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- InputMask -->
-<script src="../../plugins/moment/moment.min.js"></script>
-<script src="../../plugins/inputmask/jquery.inputmask.min.js"></script>
-<!-- date-range-picker -->
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Bootstrap Switch -->
-<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- Page specific script -->
+</div>
 
 <script>
   $(function () {
