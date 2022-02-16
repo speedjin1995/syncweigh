@@ -19,7 +19,7 @@
 				
 				<div class="form-group">
 					<label for="name">Username *</label>
-					<input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="Enter Email" readonly="">
+					<input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="Enter Username" readonly="">
 				</div>
 			</div>
 			
@@ -40,7 +40,7 @@ $(function () {
                 if(obj.status === 'success'){
                     toastr["success"](obj.message, "Success:");
                     
-                    $.get('myProfile.php', function(data) {
+                    $.get('myprofile.php', function(data) {
                         $('#mainContents').html(data);
                     });
         		}
