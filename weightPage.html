@@ -36,7 +36,7 @@
             </div>
             <div class="row" style="margin-top: 3%;">
               <div class="col-12">
-                <button type="button" class="btn btn-block bg-gradient-primary btn-lg"  data-toggle="modal" data-target="#modal-xl">
+                <button type="button" class="btn btn-block bg-gradient-primary btn-lg"  onclick="newEntry()">
                   New Entry
                 </button>
               </div>
@@ -239,9 +239,11 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal-xl">
+<div class="modal fade" id="extendModal">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
+
+    <form role="form" id="extendForm">
       <div class="modal-header bg-gray-dark color-palette">
         <h4 class="modal-title">Add New Entry</h4>
         <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
@@ -265,10 +267,10 @@
           <div class="col-md-2">
             <div class="form-group">
               <label>Status :</label>
-              <select class="form-control Status" style="width: 100%;">
-                <option selected="selected">-</option>
-                <option>Sales</option>
-                <option>Puchases</option>
+              <select class="form-control Status" style="width: 100%;" id="status" name="status">
+                <option selected="selected" value="-">-</option>
+                <option value="SALES">Sales</option>
+                <option value="PURCHASES">Puchases</option>
               </select>
             </div>
           </div>
@@ -276,31 +278,31 @@
           <div class="col-md-1">
             <div class="form-group">
               <label>Lot No :</label>
-              <select class="form-control lotNo" style="width: 100%;">
-                <option selected="selected">-</option>
-                <option>L001</option>
-                <option>L002</option>
-                <option>L003</option>
-                <option>L004</option>
-                <option>L005</option>
-                <option>L006</option>
+              <select class="form-control lotNo" style="width: 100%;" id="lotNo" name="lotNo">
+                <option selected="selected" value="-"></option>
+                <option value="L001">L001</option>
+                <option value="L002">L002</option>
+                <option value="L003">L003</option>
+                <option value="L004">L004</option>
+                <option value="L005">L005</option>
+                <option value="L006">L006</option>
               </select>
             </div>
           </div>
 
           <div class="form-group col-md-3">
             <label>Invoice No</label>
-            <input class="form-control" type="text" placeholder="Invoice No">
+            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo">
           </div>
           
           <div class="col-md-3">
             <div class="form-group">
               <label>Vehicle No</label>
-              <select class="form-control vehicleNo" style="width: 100%;">
-                <option selected="selected">-</option>
-                <option>ABC1234</option>
-                <option>WWE1234</option>
-                <option>WWW1234</option>
+              <select class="form-control vehicleNo" style="width: 100%;" id="vehicleNo" name="vehicleNo">
+                <option selected="selected" value="-">-</option>
+                <option value="ABC1234">ABC1234</option>
+                <option value="WWE1234">WWE1234</option>
+                <option value="WWW1234">WWW1234</option>
               </select>
             </div>
           </div>
@@ -310,28 +312,28 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>Customer No</label>
-              <select class="form-control customerNo" style="width: 100%;">
-                <option selected="selected">-</option>
-                <option>ABC</option>
-                <option>DEF</option>
-                <option>GHI</option>
-                <option>JKL</option>
+              <select class="form-control customerNo" style="width: 100%;" id="customerNo" name="customerNo">
+                <option selected="selected" value="-">-</option>
+                <option value="ABC">ABC</option>
+                <option value="DEF">DEF</option>
+                <option value="GHI">GHI</option>
+                <option value="JKL">JKL</option>
               </select>
             </div>
           </div>
 
           <div class="form-group col-md-3">
             <label>Delivery No</label>
-            <input class="form-control" type="text" placeholder="Delivery No">
+            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo">
           </div>
 
           <div class="col-md-3">
             <div class="form-group">
               <label>Unit Weight</label>
-              <select class="form-control unitWeight" style="width: 100%;">
-                <option selected="selected">-</option>
-                <option>g</option>
-                <option>kg</option>
+              <select class="form-control unitWeight" style="width: 100%;" id="unitWeight" name="unitWeight">
+                <option selected="selected" value="-">-</option>
+                <option value="g">g</option>
+                <option value="kg">kg</option>
               </select>
             </div>
           </div>
@@ -340,18 +342,18 @@
         <div class="row">
           <div class="form-group col-md-3">
             <label>Batch No</label>
-            <input class="form-control" type="text" placeholder="Batch No">
+            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo">
           </div>
 
           <div class="form-group col-md-3">
             <label>Purchase No</label>
-            <input class="form-control" type="text" placeholder="Purchase No">
+            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo">
           </div>
 
           <div class="form-group col-md-3">
             <label>Current Weight</label>
             <div class="input-group" id="currentWeight" data-target-input="currentWeight">
-              <input class="form-control" type="text" placeholder="Current Weight"/>
+              <input class="form-control" type="text" placeholder="Current Weight" id="currentWeight" name="currentWeight"/>
               <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
             </div>
           </div>
@@ -361,24 +363,24 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>Product</label>
-              <select class="form-control product" style="width: 100%;">
-                <option selected="selected">-</option>
-                <option>Iron</option>
-                <option>Steel</option>
-                <option>Aluminium</option>
+              <select class="form-control product" style="width: 100%;" id="product" name="product">
+                <option selected="selected" value="-">-</option>
+                <option value="Iron">Iron</option>
+                <option value="Steel">Steel</option>
+                <option value="Aluminium">Aluminium</option>
               </select>
             </div>
           </div>
 
           <div class="form-group col-md-3">
             <label>M.O.Q</label>
-            <input class="form-control" type="text" placeholder="customer">
+            <input class="form-control" type="text" placeholder="moq" id="moq" name="moq">
           </div>
 
           <div class="form-group col-md-3">
             <label>Tare Weight</label>
             <div class="input-group" id="tareWeight" data-target-input="tareWeight">
-              <input class="form-control" type="text" placeholder="Tare Weight"/>
+              <input class="form-control" type="text" placeholder="Tare Weight" id="tareWeight" name="tareWeight"/>
               <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
             </div>
           </div>
@@ -388,10 +390,10 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>Package</label>
-              <select class="form-control package" style="width: 100%;">
-                <option selected="selected">--</option>
-                <option>Bag</option>
-                <option>Boxes</option>
+              <select class="form-control package" style="width: 100%;" id="package" name="package">
+                <option selected="selected" value="-">-</option>
+                <option value="Bag">Bag</option>
+                <option value="Boxes">Boxes</option>
               </select>
             </div>
           </div>
@@ -400,14 +402,14 @@
               <label>Unit Price</label>
               <div class="input-group" id="unitPrice" data-target-input="unitPrice">
                 <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="text" placeholder="unitPrice"/>                        
+                <input class="form-control" type="text" placeholder="unitPrice" id="unitPrice" name="unitPrice"/>                        
               </div>
           </div>
 
             <div class="form-group col-md-3">
               <label>Actual Weight</label>
               <div class="input-group" id="actualWeight" data-target-input="actualWeight">
-                <input class="form-control" type="text" placeholder="Actual Weight"/>
+                <input class="form-control" type="text" placeholder="Actual Weight" id="actualWeight" name="actualWeight"/>
                 <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
               </div>
             </div>
@@ -417,7 +419,7 @@
           <div class="col-sm-3">
             <div class="form-group">
               <label>Remark</label>
-              <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+              <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
             </div>
           </div>
 
@@ -425,14 +427,14 @@
               <label>Total Price</label>
               <div class="input-group" id="totalPrice" data-target-input="totalPrice">
                 <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="text" placeholder="Total Price"/>                        
+                <input class="form-control" type="text" placeholder="Total Price"  id="totalPrice" name="totalPrice"/>                        
               </div>
           </div>
 
             <div class="form-group col-md-3">
               <label>Total Weight</label>
               <div class="input-group" id="totalWeight" data-target-input="totalWeight">
-                <input class="form-control" type="text" placeholder="Total Weight"/>
+                <input class="form-control" type="text" placeholder="Total Weight" id="totalWeight" name="totalWeight"/>
                 <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
               </div>
             </div>
@@ -442,8 +444,10 @@
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Capture Indicator</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
+    
+    </form>
     </div>
     <!-- /.modal-content -->
   </div>
@@ -485,6 +489,73 @@
       format: 'L'
     });
 
+    $.validator.setDefaults({
+        submitHandler: function () {
+            if($('#extendModal').hasClass('show')){
+              debugger;
+                $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
+                    var obj = JSON.parse(data); 
+                    
+                    if(obj.status === 'success'){
+                        $('#assignModal').modal('hide');
+                        toastr["success"](obj.message, "Success:");
+                        
+            			$.get('members.php', function(data) {
+                            $('#mainContents').html(data);
+                        });
+            		}
+            		else if(obj.status === 'failed'){
+                        toastr["error"](obj.message, "Failed:");
+                    }
+            		else{
+            			alert("Something wrong when edit");
+            		}
+                });
+            }
+            // else if($('#extendModal').hasClass('show')){
+            //     $.post('php/extendMember.php', $('#extendForm').serialize(), function(data){
+            //         var obj = JSON.parse(data); 
+                    
+            //         if(obj.status === 'success'){
+            //             $('#extendModal').modal('hide');
+            //             toastr["success"](obj.message, "Success:");
+                        
+            // 			$.get('members.php', function(data) {
+            //                 $('#mainContents').html(data);
+            //             });
+            // 		}
+            // 		else if(obj.status === 'failed'){
+            //             toastr["error"](obj.message, "Failed:");
+            //         }
+            // 		else{
+            // 			alert("Something wrong when edit");
+            // 		}
+            //     });
+            // }
+        }
+    });
+});
 
-  });
+
+  function newEntry(){
+    // $('#extendModal').find('#numDays').val('');
+    // $('#extendModal').find('#ID').val(id);
+    $('#extendModal').modal('show');
+    
+    $('#extendForm').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+}
+
+
 </script>
