@@ -79,11 +79,11 @@ else{
     				</div>
     				<div class="form-group">
     					<label for="username">Username *</label>
-    					<input type="username" class="form-control" name="username" id="username" placeholder="Enter Username" required>
+    					<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" required>
     				</div>
                     <div class="form-group">
     					<label for="name">Name *</label>
-    					<input type="name" class="form-control" name="name" id="name" placeholder="Enter Full Name" required>
+    					<input type="text" class="form-control" name="name" id="name" placeholder="Enter Full Name" required>
     				</div>
                     <div class="form-group">
 						<label>Role *</label>

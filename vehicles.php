@@ -71,7 +71,7 @@ else{
     				</div>
     				<div class="form-group">
     					<label for="vehicleNumber">Vehicles No. *</label>
-    					<input type="vehicleNumber" class="form-control" name="vehicleNumber" id="vehicleNumber" placeholder="Enter Vehicle Number" required>
+    					<input type="type" class="form-control" name="vehicleNumber" id="vehicleNumber" placeholder="Enter Vehicle Number" required>
     				</div>
     			</div>
             </div>

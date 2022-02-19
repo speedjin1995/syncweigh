@@ -30,13 +30,13 @@ else{
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-              <div class="row">
-                  <div class="col-9"></div>
-                  <div class="col-3">
-                      <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addLots">Add Lots</button>
-                  </div>
-              </div>
-          </div>
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addLots">Add Lots</button>
+                            </div>
+                        </div>
+                    </div>
 					<div class="card-body">
 						<table id="lotTable" class="table table-bordered table-striped">
 							<thead>
@@ -70,8 +70,8 @@ else{
     					<input type="hidden" class="form-control" id="id" name="id">
     				</div>
     				<div class="form-group">
-    					<label for="lotsNumber">Lot No. *</label>
-    					<input type="lotsNumber" class="form-control" name="lotsNumber" id="lotsNumber" placeholder="Enter Lots Number" required>
+    					<label for="lotsNumber">Lots Number *</label>
+    					<input type="text" class="form-control" name="lotsNumber" id="lotsNumber" placeholder="Enter Lots Number" required>
     				</div>
     			</div>
             </div>
@@ -88,7 +88,7 @@ else{
 
 <script>
 $(function () {
-    $("#vehicleTable").DataTable({
+    $("#lotTable").DataTable({
         "responsive": true,
         "autoWidth": false,
         'processing': true,
@@ -186,7 +186,7 @@ function edit(id){
 }
 
 function deactivate(id){
-    $.post('php/deleteVehicle.php', {userID: id}, function(data){
+    $.post('php/deletePackage.php', {userID: id}, function(data){
         var obj = JSON.parse(data);
         
         if(obj.status === 'success'){
