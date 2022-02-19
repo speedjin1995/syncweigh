@@ -492,17 +492,17 @@
     $.validator.setDefaults({
         submitHandler: function () {
             if($('#extendModal').hasClass('show')){
-              debugger;
-                $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
+              
+                $.post('/php/insertWeight.php', $('#extendForm').serialize(), function(data){
                     var obj = JSON.parse(data); 
                     
                     if(obj.status === 'success'){
                         $('#assignModal').modal('hide');
                         toastr["success"](obj.message, "Success:");
                         
-            			$.get('members.php', function(data) {
-                            $('#mainContents').html(data);
-                        });
+            			// $.get('members.php', function(data) {
+                  //           $('#mainContents').html(data);
+                  //       });
             		}
             		else if(obj.status === 'failed'){
                         toastr["error"](obj.message, "Failed:");
