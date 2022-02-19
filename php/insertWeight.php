@@ -1,23 +1,13 @@
 <?php
 require_once 'db_connect.php';
-//require_once 'includes/users.php';
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 session_start();
-
-/*(!isset($_SESSION['userDetail'])){
-	echo '<script type="text/javascript">location.href = "../login.html";</script>'; 
-} else{
-	$user = $_SESSION['userDetail'];
-	$role = $user->getId();
-}*/
 
 if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicleNo'],$_POST['customerNo'],$_POST['deliveryNo'],$_POST['unitWeight']
 ,$_POST['batchNo'],$_POST['purchaseNo'],$_POST['currentWeight'],$_POST['product'],$_POST['moq'],$_POST['tareWeight'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight']
 ,$_POST['remark'],$_POST['totalPrice'],$_POST['totalWeight'])){
-    // echo $_POST['status'].' ';
-    // echo $_POST['invoiceNo'].' ';
-    // echo $_POST['remark'].' ';
-	$serialNo = "S000001";
+
 	$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
 	$lotNo = filter_input(INPUT_POST, 'lotNo', FILTER_SANITIZE_STRING);
 	$invoiceNo = filter_input(INPUT_POST, 'invoiceNo', FILTER_SANITIZE_STRING);
@@ -37,26 +27,24 @@ if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicle
 	$remark = filter_input(INPUT_POST, 'remark', FILTER_SANITIZE_STRING);
 	$totalPrice = filter_input(INPUT_POST, 'totalPrice', FILTER_SANITIZE_STRING);
 	$totalWeight = filter_input(INPUT_POST, 'totalWeight', FILTER_SANITIZE_STRING);
-	$date = new DateTime();
-	$dateT = $date->format('Y-m-d');
 
-	if ($insert_stmt = $db->prepare("INSERT INTO weight (serialNo, vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, product, package
-	, currentWeight, tareWeight, totalWeight, actualWeight, unitWeight, date, time, moq, unitPrice, totalPrice, remark, status) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-		$insert_stmt->bind_param('ssssssssssssssssssssss', $serialNo, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
-		, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $dateT, null , $moq, $unitPrice, $totalPrice, $remark, $status);
+	if ($insert_stmt = $db->prepare("INSERT INTO weight (vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
+	, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status) 
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+		$insert_stmt->bind_param('sssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+		, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status);
 		
 		// Execute the prepared query.
 		if (! $insert_stmt->execute()){
 			// echo '<script type="text/javascript">alert("'.$insert_stmt->error.'");';
 			// echo 'location.href = "../register.html";</script>';
 		} else{
-			echo '<script type="text/javascript">alert("You registered successfully");';
-			// echo 'location.href = "../login.html";</script>';
+			// echo '<script type="text/javascript">alert("You registered successfully");';
+			// echo 'location.href = "../weightPage.html";</script>';
 		}
 	} else{
 		// echo '<script type="text/javascript">alert("Something wrong with the server");';
-		echo '<script type="text/javascript">alert("'.$insert_stmt->error.'");';
+		var_dump($insert_stmt);
 		// echo 'location.href = "../register.html";</script>';
 	}		
 
@@ -67,8 +55,8 @@ if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicle
 	// $role = "USER";
 	
 	// if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-	// 	echo '<script type="text/javascript">alert("Please enter a valid email address");';
-	// 	echo 'location.href = "../register.html";</script>';  
+		// echo '<script type="text/javascript">alert("Please enter a valid email address");';
+		// echo 'location.href = "../register.html";</script>';  
 	// } else{
 	// 	if ($stmt = $db->prepare("SELECT id FROM users WHERE email = ?")){
 	// 		$stmt->bind_param('s', $email);

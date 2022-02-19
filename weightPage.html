@@ -495,9 +495,10 @@
               
                 $.post('/php/insertWeight.php', $('#extendForm').serialize(), function(data){
                     var obj = JSON.parse(data); 
-                    
+                    alert("1");
                     if(obj.status === 'success'){
-                        $('#assignModal').modal('hide');
+                      alert("2");
+                        $('#extendModal').modal('hide');
                         toastr["success"](obj.message, "Success:");
                         
             			// $.get('members.php', function(data) {
@@ -505,6 +506,7 @@
                   //       });
             		}
             		else if(obj.status === 'failed'){
+                  alert("3");
                         toastr["error"](obj.message, "Failed:");
                     }
             		else{
