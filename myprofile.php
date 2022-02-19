@@ -1,3 +1,28 @@
+<?php
+require_once 'php/db_connect.php';
+
+session_start();
+
+if(!isset($_SESSION['userID'])){
+    echo '<script type="text/javascript">';
+    echo 'window.location.href = "login.html";</script>';
+}
+else{
+    $id = $_SESSION['userID'];
+    $stmt = $db->prepare("SELECT * from users where id = ?");
+	$stmt->bind_param('s', $id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+    $fullName = '';
+    $userName = '';
+	
+	if(($row = $result->fetch_assoc()) !== null){
+        $fullName = $row['name'];
+        $userName = $row['username'];
+    }
+}
+?>
+
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -14,12 +39,12 @@
 			<div class="card-body">
 				<div class="form-group">
 					<label for="name">Full Name *</label>
-					<input type="text" class="form-control" id="userName" name="userName" placeholder="Enter Full Name" required="">
+					<input type="text" class="form-control" id="userName" name="userName" value="<?=$fullName ?>" placeholder="Enter Full Name" required="">
 				</div>
 				
 				<div class="form-group">
 					<label for="name">Username *</label>
-					<input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="Enter Username" readonly="">
+					<input type="text" class="form-control" id="userEmail" name="userEmail" value="<?=$userName ?>" placeholder="Enter Username" readonly="">
 				</div>
 			</div>
 			
@@ -56,10 +81,6 @@ $(function () {
     
     $('#profileForm').validate({
         rules: {
-            email: {
-                required: true,
-                email: true,
-            },
             text: {
                 required: true
             }

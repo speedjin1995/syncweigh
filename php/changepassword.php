@@ -4,54 +4,69 @@ require_once 'db_connect.php';
 session_start();
 
 if(!isset($_SESSION['userID'])){
-    echo '<script type="text/javascript">';
-    echo 'window.location.href = "../login.html";</script>';
-}
-else{
-    $userId = $_SESSION['userID'];
+	echo '<script type="text/javascript">location.href = "../login.html";</script>'; 
+} else{
+	$id = $_SESSION['userID'];
 }
 
 if(isset($_POST['oldPassword'], $_POST['newPassword'], $_POST['confirmPassword'])){
-    $password = $_POST['oldPassword'];
-    $newpassword = $_POST['newPassword'];
-
-    $stmt = $db->prepare("SELECT * from user where id = ? LIMIT 1");
-    $stmt->bind_param('s', $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if($row = $result->fetch_assoc()){
-        $password = hash('sha512', $password . $row['password_salt']);
-        
-        if($password == $row['user_password']){
-            $newpassword = hash('sha512', $newpassword . $row['password_salt']);
-
-            if ($update_stmt = $db->prepare("UPDATE user SET user_password=? WHERE id=?")) {
-                $update_stmt->bind_param('ss', $newpassword, $userId);
-                
-                // Execute the prepared query.
-                if (! $update_stmt->execute()) {
-                    echo '<script type="text/javascript">alert("Somethings wrong");';
-                    echo 'location.href = "../changepassword.php";</script>';  
-                }
-                else{
-                    echo '<script type="text/javascript">alert("Updated successfully");';
-                    echo 'location.href = "../changepassword.php";</script>';   
-                }
-            }
-        }
-        else{
-            echo '<script type="text/javascript">alert("Old password is not matched");';
-            echo 'window.location.href = "../changepassword.php";</script>';
-        }
-    }
-    else {
-        echo '<script type="text/javascript">alert("Login unsuccessful, password or email is not matched");';
-        echo 'window.location.href = "../login.html";</script>';
-    }
-}
-else{
-    echo '<script type="text/javascript">alert("Missing Attributes");';
-    echo 'window.location.href = "../changepassword.php";</script>';
+	$oldPassword = filter_input(INPUT_POST, 'oldPassword', FILTER_SANITIZE_STRING);
+	$newPassword = filter_input(INPUT_POST, 'newPassword', FILTER_SANITIZE_STRING);
+	$confirmPassword = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_STRING);
+	
+	$stmt = $db->prepare("SELECT * from users where id = ?");
+	$stmt->bind_param('s', $id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	if(($row = $result->fetch_assoc()) !== null){
+		$oldPassword = hash('sha512', $oldPassword . $row['salt']);
+		
+		if($oldPassword == $row['password']){
+			$password = hash('sha512', $newPassword . $row['salt']);
+			$stmt2 = $db->prepare("UPDATE users SET password = ? WHERE ID = ?");
+			$stmt2->bind_param('ss', $password, $id);
+			
+			if($stmt2->execute()){
+    			$stmt2->close();
+    			$db->close();
+    			
+    			echo json_encode(
+        	        array(
+        	            "status"=> "success", 
+        	            "message"=> "Update successfully"
+        	        )
+        	    );
+    		} else{
+    		    echo json_encode(
+        	        array(
+        	            "status"=> "failed", 
+        	            "message"=> $stmt2->error
+        	        )
+        	    );
+    		}
+		} else{
+		    echo json_encode(
+    	        array(
+    	            "status"=> "failed", 
+    	            "message"=> "Old password is not matched"
+    	        )
+    	    );
+		}
+	} else{
+	     echo json_encode(
+	        array(
+	            "status"=> "failed", 
+	            "message"=> "Data retrieve failed"
+	        )
+	    );
+	}
+} else{
+    echo json_encode(
+        array(
+            "status"=> "failed", 
+            "message"=> "Please fill in all the fields"
+        )
+    );
 }
 ?>

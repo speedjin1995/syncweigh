@@ -1,3 +1,17 @@
+<?php
+require_once 'php/db_connect.php';
+
+session_start();
+
+if(!isset($_SESSION['userID'])){
+  echo '<script type="text/javascript">';
+  echo 'window.location.href = "login.html";</script>';
+}
+else{
+  $user = $_SESSION['userID'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,19 +125,19 @@ to get the desired effect
           <!-- Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
             <li class="nav-item">
-            <a href="#weight" data-file="weightPage.html" class="nav-link link">
+            <a href="#weight" data-file="weightPage.php" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Weight Weighing</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#counting" data-file="countingPage.html" class="nav-link link">
+            <a href="#counting" data-file="countingPage.php" class="nav-link link">
               <i class="nav-icon fas fa-th"></i>
               <p>Counting Weighing</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#users" data-file="users.html" class="nav-link link">
+            <a href="#users" data-file="users.php" class="nav-link link">
               <i class="nav-icon fas fa-user"></i>
               <p>Staffs</p>
             </a>
@@ -136,31 +150,31 @@ to get the desired effect
         
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="#lots" data-file="lots.html" class="nav-link link">
+                <a href="#lots" data-file="lots.php" class="nav-link link">
                   <i class="nav-icon fas fa-store"></i>
                   <p>Lot Number</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#customers" data-file="customers.html" class="nav-link link">
+                <a href="#customers" data-file="customers.php" class="nav-link link">
                   <i class="nav-icon fas fa-book"></i>
                   <p>Customers</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#products" data-file="products.html" class="nav-link link">
+                <a href="#products" data-file="products.php" class="nav-link link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>Products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#packages" data-file="packages.html" class="nav-link link">
+                <a href="#packages" data-file="packages.php" class="nav-link link">
                   <i class="nav-icon fas fa-shopping-bag"></i>
                   <p>Packages</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#vehicles" data-file="vehicles.html" class="nav-link link">
+                <a href="#vehicles" data-file="vehicles.php" class="nav-link link">
                   <i class="nav-icon fas fa-car"></i>
                   <p>Vehicles</p>
                 </a>
@@ -175,14 +189,14 @@ to get the desired effect
         
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="#myprofile" data-file="myprofile.html" class="nav-link link">
+                <a href="#myprofile" data-file="myprofile.php" class="nav-link link">
                   <i class="nav-icon fas fa-id-badge"></i>
                   <p>Profile</p>
                 </a>
               </li>
           
               <li class="nav-item">
-                <a href="#changepassword" data-file="changepassword.html" class="nav-link link">
+                <a href="#changepassword" data-file="changePassword.php" class="nav-link link">
                   <i class="nav-icon fas fa-key"></i>
                   <p>Change Password</p>
                 </a>
