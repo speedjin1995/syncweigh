@@ -9,6 +9,15 @@ if(!isset($_SESSION['userID'])){
 }
 else{
   $user = $_SESSION['userID'];
+  $stmt = $db->prepare("SELECT * from users where id = ?");
+	$stmt->bind_param('s', $id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+  $role = 'NORMAL';
+	
+	if(($row = $result->fetch_assoc()) !== null){
+    $role = $row['role_code'];
+  }
 }
 ?>
 
@@ -136,51 +145,54 @@ to get the desired effect
               <p>Counting Weighing</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#users" data-file="users.php" class="nav-link link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Staffs</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-database"></i>
-              <p>Master Data<i class="fas fa-angle-left right"></i></p>
-            </a>
-        
-            <ul class="nav nav-treeview" style="display: none;">
-              <li class="nav-item">
-                <a href="#lots" data-file="lots.php" class="nav-link link">
-                  <i class="nav-icon fas fa-store"></i>
-                  <p>Lot Number</p>
+          <?php 
+              if($role == "ADMIN"){
+                echo '<li class="nav-item">
+                <a href="#users" data-file="users.php" class="nav-link link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>Staffs</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#customers" data-file="customers.php" class="nav-link link">
-                  <i class="nav-icon fas fa-book"></i>
-                  <p>Customers</p>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-database"></i>
+                  <p>Master Data<i class="fas fa-angle-left right"></i></p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="#products" data-file="products.php" class="nav-link link">
-                  <i class="nav-icon fas fa-shopping-cart"></i>
-                  <p>Products</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#packages" data-file="packages.php" class="nav-link link">
-                  <i class="nav-icon fas fa-shopping-bag"></i>
-                  <p>Packages</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#vehicles" data-file="vehicles.php" class="nav-link link">
-                  <i class="nav-icon fas fa-car"></i>
-                  <p>Vehicles</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+                <ul class="nav nav-treeview" style="display: none;">
+                  <li class="nav-item">
+                    <a href="#lots" data-file="lots.php" class="nav-link link">
+                      <i class="nav-icon fas fa-store"></i>
+                      <p>Lot Number</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#customers" data-file="customers.php" class="nav-link link">
+                      <i class="nav-icon fas fa-book"></i>
+                      <p>Customers</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#products" data-file="products.php" class="nav-link link">
+                      <i class="nav-icon fas fa-shopping-cart"></i>
+                      <p>Products</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#packages" data-file="packages.php" class="nav-link link">
+                      <i class="nav-icon fas fa-shopping-bag"></i>
+                      <p>Packages</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#vehicles" data-file="vehicles.php" class="nav-link link">
+                      <i class="nav-icon fas fa-car"></i>
+                      <p>Vehicles</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>';
+              }
+          ?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
