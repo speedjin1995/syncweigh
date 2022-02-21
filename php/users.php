@@ -14,7 +14,7 @@ else{
 if(isset($_POST['username'], $_POST['name'], $_POST['userRole'])){
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
 	$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-    $roleCode = filter_input(INPUT_POST, 'roleCode', FILTER_SANITIZE_STRING);
+    $roleCode = filter_input(INPUT_POST, 'userRole', FILTER_SANITIZE_STRING);
 
     if($_POST['id'] != null && $_POST['id'] != ''){
         if ($update_stmt = $db->prepare("UPDATE users SET username=?, name=?, role_code=? WHERE id=?")) {

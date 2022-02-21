@@ -10,7 +10,7 @@ if(!isset($_SESSION['userID'])){
 else{
   $user = $_SESSION['userID'];
   $stmt = $db->prepare("SELECT * from users where id = ?");
-	$stmt->bind_param('s', $id);
+	$stmt->bind_param('s', $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
   $role = 'NORMAL';

@@ -160,7 +160,7 @@ function edit(id){
         
         if(obj.status === 'success'){
             $('#packagesModal').find('#id').val(obj.message.id);
-            $('#packagesModal').find('#packages').val(obj.message.lots_no);
+            $('#packagesModal').find('#packages').val(obj.message.packages);
             $('#packagesModal').modal('show');
             
             $('#packageForm').validate({
