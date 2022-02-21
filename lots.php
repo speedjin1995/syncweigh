@@ -94,6 +94,8 @@ $(function () {
         'processing': true,
         'serverSide': true,
         'serverMethod': 'post',
+        'order': [[ 1, 'asc' ]],
+        'columnDefs': [ { orderable: false, targets: [0] }],
         'ajax': {
             'url':'php/loadLots.php'
         },
@@ -111,7 +113,7 @@ $(function () {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            $.post('php/lots.php', $('#vehicleForm').serialize(), function(data){
+            $.post('php/lots.php', $('#lotForm').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
                 if(obj.status === 'success'){

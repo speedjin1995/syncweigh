@@ -30,13 +30,13 @@ else{
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-              <div class="row">
-                  <div class="col-9"></div>
-                  <div class="col-3">
-                    <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addProducts">Add Products</button>
-                  </div>
-              </div>
-          </div>
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addProducts">Add Products</button>
+                            </div>
+                        </div>
+                    </div>
 					<div class="card-body">
 						<table id="productTable" class="table table-bordered table-striped">
 							<thead>
@@ -115,7 +115,7 @@ $(function () {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            $.post('php/products.php', $('#customerForm').serialize(), function(data){
+            $.post('php/products.php', $('#productForms').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
                 if(obj.status === 'success'){

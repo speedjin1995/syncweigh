@@ -14,7 +14,7 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " packages like '%".$searchValue."%') ";
+   $searchQuery = " WHERE packages like '%".$searchValue."%'";
 }
 
 ## Total number of records without filtering
@@ -24,12 +24,12 @@ $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
 //echo "select count(*) as allcount from users, roles WHERE".$searchQuery;
-$sel = mysqli_query($db,"select count(*) as allcount from packages WHERE".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from packages".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select * from packages WHERE".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+$empQuery = "select * from packages".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;

@@ -24,7 +24,7 @@ else{
 
 <section class="content">
     <div class="card">
-        <form action="php/changepassword.php" method="post">
+        <form role="form" id="passwordForm">
             <div class="card-body">
                 <div class="form-group">
                     <label for="oldPassword">Old Password *</label>

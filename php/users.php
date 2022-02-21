@@ -17,7 +17,7 @@ if(isset($_POST['username'], $_POST['name'], $_POST['userRole'])){
     $roleCode = filter_input(INPUT_POST, 'roleCode', FILTER_SANITIZE_STRING);
 
     if($_POST['id'] != null && $_POST['id'] != ''){
-        if ($update_stmt = $db->prepare("UPDATE user SET username=?, name=?, role_code=? WHERE id=?")) {
+        if ($update_stmt = $db->prepare("UPDATE users SET username=?, name=?, role_code=? WHERE id=?")) {
             $update_stmt->bind_param('ssss', $username, $name, $roleCode, $_POST['id']);
             
             // Execute the prepared query.
@@ -47,7 +47,7 @@ if(isset($_POST['username'], $_POST['name'], $_POST['userRole'])){
         $password = '123456';
         $password = hash('sha512', $password . $random_salt);
 
-        if ($insert_stmt = $db->prepare("INSERT INTO user (username, name, password, salt, created_by, role_code) VALUES (?, ?, ?, ?, ?, ?)")) {
+        if ($insert_stmt = $db->prepare("INSERT INTO users (username, name, password, salt, created_by, role_code) VALUES (?, ?, ?, ?, ?, ?)")) {
             $insert_stmt->bind_param('ssssss', $username, $name, $password, $random_salt, $userId, $roleCode);
             
             // Execute the prepared query.

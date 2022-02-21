@@ -94,6 +94,8 @@ $(function () {
         'processing': true,
         'serverSide': true,
         'serverMethod': 'post',
+        'order': [[ 1, 'asc' ]],
+        'columnDefs': [ { orderable: false, targets: [0] }],
         'ajax': {
             'url':'php/loadVehicles.php'
         },

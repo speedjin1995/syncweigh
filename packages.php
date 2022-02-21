@@ -15,7 +15,7 @@ else{
     <div class="container-fluid">
         <div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Lots</h1>
+				<h1 class="m-0 text-dark">Packages</h1>
 			</div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -29,13 +29,13 @@ else{
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-              <div class="row">
-                  <div class="col-9"></div>
-                  <div class="col-3">
-                      <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addPackages">Add Packages</button>
-                  </div>
-              </div>
-          </div>
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addPackages">Add Packages</button>
+                            </div>
+                        </div>
+                    </div>
 					<div class="card-body">
 						<table id="packageTable" class="table table-bordered table-striped">
 							<thead>
@@ -87,12 +87,14 @@ else{
 
 <script>
 $(function () {
-    $("#vehicleTable").DataTable({
+    $("#packageTable").DataTable({
         "responsive": true,
         "autoWidth": false,
         'processing': true,
         'serverSide': true,
         'serverMethod': 'post',
+        'order': [[ 1, 'asc' ]],
+        'columnDefs': [ { orderable: false, targets: [0] }],
         'ajax': {
             'url':'php/loadPackages.php'
         },
