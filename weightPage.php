@@ -281,7 +281,7 @@ else{
           <div class="col-md-2">
             <div class="form-group">
               <label>Status :</label>
-              <select class="form-control Status" style="width: 100%;" id="status" name="status">
+              <select class="form-control" style="width: 100%;" id="status" name="status" required>
                 <option selected="selected" value="-">-</option>
                 <option value="SALES">Sales</option>
                 <option value="PURCHASES">Puchases</option>
@@ -289,10 +289,10 @@ else{
             </div>
           </div>
 
-          <div class="col-md-1">
+          <div class="col-md-2">
             <div class="form-group">
               <label>Lot No :</label>
-              <select class="form-control lotNo" style="width: 100%;" id="lotNo" name="lotNo">
+              <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
                 <option selected="selected" value="-"></option>
                 <option value="L001">L001</option>
                 <option value="L002">L002</option>
@@ -306,13 +306,13 @@ else{
 
           <div class="form-group col-md-3">
             <label>Invoice No</label>
-            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo">
+            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" required>
           </div>
           
           <div class="col-md-3">
             <div class="form-group">
               <label>Vehicle No</label>
-              <select class="form-control vehicleNo" style="width: 100%;" id="vehicleNo" name="vehicleNo">
+              <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo" required>
                 <option selected="selected" value="-">-</option>
                 <option value="ABC1234">ABC1234</option>
                 <option value="WWE1234">WWE1234</option>
@@ -323,10 +323,10 @@ else{
         </div>
 
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-group">
               <label>Customer No</label>
-              <select class="form-control customerNo" style="width: 100%;" id="customerNo" name="customerNo">
+              <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
                 <option selected="selected" value="-">-</option>
                 <option value="ABC">ABC</option>
                 <option value="DEF">DEF</option>
@@ -338,46 +338,46 @@ else{
 
           <div class="form-group col-md-3">
             <label>Delivery No</label>
-            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo">
+            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" required>
           </div>
 
           <div class="col-md-3">
             <div class="form-group">
               <label>Unit Weight</label>
-              <select class="form-control unitWeight" style="width: 100%;" id="unitWeight" name="unitWeight">
+              <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
                 <option selected="selected" value="-">-</option>
-                <option value="g">g</option>
-                <option value="kg">kg</option>
+                <option value="KG">KG</option>
+                <option value="G">G</option>
               </select>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-4">
             <label>Batch No</label>
-            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo">
+            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" required>
           </div>
 
           <div class="form-group col-md-3">
             <label>Purchase No</label>
-            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo">
+            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" required>
           </div>
 
           <div class="form-group col-md-3">
             <label>Current Weight</label>
-            <div class="input-group" id="currentWeight" data-target-input="currentWeight">
-              <input class="form-control" type="text" placeholder="Current Weight" id="currentWeight" name="currentWeight"/>
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Current Weight" id="currentWeight" name="currentWeight" required/>
               <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-group">
               <label>Product</label>
-              <select class="form-control product" style="width: 100%;" id="product" name="product">
+              <select class="form-control" style="width: 100%;" id="product" name="product" required>
                 <option selected="selected" value="-">-</option>
                 <option value="Iron">Iron</option>
                 <option value="Steel">Steel</option>
@@ -388,23 +388,23 @@ else{
 
           <div class="form-group col-md-3">
             <label>M.O.Q</label>
-            <input class="form-control" type="text" placeholder="moq" id="moq" name="moq">
+            <input class="form-control" type="text" placeholder="moq" id="moq" name="moq" required>
           </div>
 
           <div class="form-group col-md-3">
             <label>Tare Weight</label>
-            <div class="input-group" id="tareWeight" data-target-input="tareWeight">
-              <input class="form-control" type="text" placeholder="Tare Weight" id="tareWeight" name="tareWeight"/>
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
               <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-group">
               <label>Package</label>
-              <select class="form-control package" style="width: 100%;" id="package" name="package">
+              <select class="form-control" style="width: 100%;" id="package" name="package" required>
                 <option selected="selected" value="-">-</option>
                 <option value="Bag">Bag</option>
                 <option value="Boxes">Boxes</option>
@@ -414,23 +414,23 @@ else{
 
             <div class="form-group col-md-3">
               <label>Unit Price</label>
-              <div class="input-group" id="unitPrice" data-target-input="unitPrice">
+              <div class="input-group">
                 <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="text" placeholder="unitPrice" id="unitPrice" name="unitPrice"/>                        
+                <input class="form-control" type="text" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
               </div>
           </div>
 
             <div class="form-group col-md-3">
               <label>Actual Weight</label>
-              <div class="input-group" id="actualWeight" data-target-input="actualWeight">
-                <input class="form-control" type="text" placeholder="Actual Weight" id="actualWeight" name="actualWeight"/>
+              <div class="input-group">
+                <input class="form-control" type="text" placeholder="Actual Weight" id="actualWeight" name="actualWeight" required/>
                 <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
               </div>
             </div>
         </div>
 
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <div class="form-group">
               <label>Remark</label>
               <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
@@ -439,16 +439,16 @@ else{
 
             <div class="form-group col-md-3">
               <label>Total Price</label>
-              <div class="input-group" id="totalPrice" data-target-input="totalPrice">
+              <div class="input-group">
                 <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="text" placeholder="Total Price"  id="totalPrice" name="totalPrice"/>                        
+                <input class="form-control" type="text" placeholder="Total Price"  id="totalPrice" name="totalPrice" required/>                        
               </div>
           </div>
 
             <div class="form-group col-md-3">
               <label>Total Weight</label>
-              <div class="input-group" id="totalWeight" data-target-input="totalWeight">
-                <input class="form-control" type="text" placeholder="Total Weight" id="totalWeight" name="totalWeight"/>
+              <div class="input-group">
+                <input class="form-control" type="text" placeholder="Total Weight" id="totalWeight" name="totalWeight" required/>
                 <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
               </div>
             </div>
@@ -509,18 +509,15 @@ else{
               
                 $.post('/php/insertWeight.php', $('#extendForm').serialize(), function(data){
                     var obj = JSON.parse(data); 
-                    alert("1");
                     if(obj.status === 'success'){
-                      alert("2");
                         $('#extendModal').modal('hide');
                         toastr["success"](obj.message, "Success:");
                         
-            			// $.get('members.php', function(data) {
+            			// $.get('insertWeight.php', function(data) {
                   //           $('#mainContents').html(data);
                   //       });
             		}
             		else if(obj.status === 'failed'){
-                  alert("3");
                         toastr["error"](obj.message, "Failed:");
                     }
             		else{
@@ -528,34 +525,31 @@ else{
             		}
                 });
             }
-            // else if($('#extendModal').hasClass('show')){
-            //     $.post('php/extendMember.php', $('#extendForm').serialize(), function(data){
-            //         var obj = JSON.parse(data); 
-                    
-            //         if(obj.status === 'success'){
-            //             $('#extendModal').modal('hide');
-            //             toastr["success"](obj.message, "Success:");
-                        
-            // 			$.get('members.php', function(data) {
-            //                 $('#mainContents').html(data);
-            //             });
-            // 		}
-            // 		else if(obj.status === 'failed'){
-            //             toastr["error"](obj.message, "Failed:");
-            //         }
-            // 		else{
-            // 			alert("Something wrong when edit");
-            // 		}
-            //     });
-            // }
         }
     });
 });
 
 
   function newEntry(){
-    // $('#extendModal').find('#numDays').val('');
-    // $('#extendModal').find('#ID').val(id);
+    $('#extendModal').find('#unitWeight').val('');
+    $('#extendModal').find('#invoiceNo').val("");
+    $('#extendModal').find('#status').val('');
+    $('#extendModal').find('#lotNo').val('');
+    $('#extendModal').find('#vehicleNo').val('');
+    $('#extendModal').find('#customerNo').val('');
+    $('#extendModal').find('#deliveryNo').val("");
+    $('#extendModal').find('#batchNo').val("");
+    $('#extendModal').find('#purchaseNo').val("");
+    $('#extendModal').find('#currentWeight').val("");
+    $('#extendModal').find('#product').val('');
+    $('#extendModal').find('#moq').val("");
+    $('#extendModal').find('#tareWeight').val("");
+    $('#extendModal').find('#package').val('');
+    $('#extendModal').find('#actualWeight').val("");
+    $('#extendModal').find('#remark').val("");
+    $('#extendModal').find('#totalPrice').val("");
+    $('#extendModal').find('#unitPrice').val("");
+    $('#extendModal').find('#totalWeight').val("");
     $('#extendModal').modal('show');
     
     $('#extendForm').validate({
