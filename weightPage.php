@@ -162,18 +162,19 @@ else{
                 <th></th>
               </tr>
             </thead>
-            <!--tfoot>
+            <tfoot>
               <tr>
                 <th colspan="3" style="text-align: right;">Total Accumulate</th>
-                <th>100.00 kg</th>
-                <th>0.05 kg</th>
-                <th>99.95 kg</th>
-                <th>99.95 kg</th>
-                <th>10</th>
-                <th>RM 20.00</th>
-                <th>RM 19,990.00</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
               </tr>
-            </tfoot-->
+            </tfoot>
           </table>
         </div>
       </div>
@@ -404,7 +405,7 @@ $(function () {
     'serverMethod': 'post',
     'searching': false,
     'ajax': {
-      'url':'php/loadWeights.php'
+        'url':'php/loadWeights.php'
     },
     'columns': [
       { data: 'serialNo' },
@@ -425,9 +426,44 @@ $(function () {
           return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
         }
       }
-    ]
+    ],
+    "footerCallback": function ( row, data, start, end, display ) {
+      var api = this.api();
+
+      // Remove the formatting to get integer data for summation
+      var intVal = function (i) {
+        return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+      };
+
+      // Total over all pages
+      total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+
+      // Total over this page
+      pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+
+      // Update footer
+      $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+      $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+      $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+      $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+      $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
+      $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+      $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+    }
   });
-    
+  
   // Add event listener for opening and closing details
   $('#weightTable tbody').on('click', 'td.dt-control', function () {
     var tr = $(this).closest('tr');
@@ -445,7 +481,7 @@ $(function () {
     }
   });
 
-  //Initialize Select2 Elements
+    //Initialize Select2 Elements
   $('.Status').select2({
     theme: 'bootstrap4'
   }),
@@ -500,7 +536,7 @@ $(function () {
   });
 });
 
-function format ( row ) {
+function format (row) {
   return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+'</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+'</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+'</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+'</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+'</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+'</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+'</p></div><div class="col-md-3"><p>Package: '+row.packages+'</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.date+'</p></div><div class="col-md-3"><p>Time: '+row.time+'</p></div><div class="col-md-3"><p>Remark: '+row.remark+'</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="excel('+row.serialNo+')"><i class="fas fa-file-excel"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="view('+row.serialNo+')"><i class="fas fa-file"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+')"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
@@ -541,17 +577,16 @@ function newEntry(){
   });
 }
 
-function excel(id){
+function excel(id) {
 
 }
 
-function view(id){
+function view(id) {
 
 }
 
-function print(id){
+function print(id) {
 
 }
-
 
 </script>

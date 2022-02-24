@@ -36,30 +36,30 @@ $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 
 while($row = mysqli_fetch_assoc($empRecords)) {
-    $data[] = array( 
-        "serialNo"=>$row['serialNo'],
-        "veh_number"=>$row['veh_number'],
-        "lots_no"=>$row['lots_no'],
-        "batchNo"=>$row['batchNo'],
-        "invoiceNo"=>$row['invoiceNo'],
-        "deliveryNo"=>$row['deliveryNo'],
-        "purchaseNo"=>$row['purchaseNo'],
-        "customer_name"=>$row['customer_name'],
-        "product_name"=>$row['product_name'],
-        "packages"=>$row['packages'],
-        "unitWeight"=>$row['unitWeight'],
-        "tare"=>$row['tare'],
-        "totalWeight"=>$row['totalWeight'],
-        "actualWeight"=>$row['actualWeight'],
-        "unit"=>$row['unit'],
-        "moq"=>$row['moq'],
-        "date"=>$row['date'],
-        "time"=>$row['time'],
-        "unitPrice"=>$row['unitPrice'],
-        "totalPrice"=>$row['totalPrice'],
-        "remark"=>$row['remark'],
-        "status"=>$row['status']
-    );
+  $data[] = array( 
+    "serialNo"=>$row['serialNo'],
+    "veh_number"=>$row['veh_number'],
+    "lots_no"=>$row['lots_no'],
+    "batchNo"=>$row['batchNo'],
+    "invoiceNo"=>$row['invoiceNo'],
+    "deliveryNo"=>$row['deliveryNo'],
+    "purchaseNo"=>$row['purchaseNo'],
+    "customer_name"=>$row['customer_name'],
+    "product_name"=>$row['product_name'],
+    "packages"=>$row['packages'],
+    "unitWeight"=>$row['unitWeight'],
+    "tare"=>$row['tare'],
+    "totalWeight"=>$row['totalWeight'],
+    "actualWeight"=>$row['actualWeight'],
+    "unit"=>$row['unit'],
+    "moq"=>$row['moq'],
+    "date"=>$row['date'],
+    "time"=>$row['time'],
+    "unitPrice"=>$row['unitPrice'],
+    "totalPrice"=>$row['totalPrice'],
+    "remark"=>$row['remark'],
+    "status"=>$row['status']
+  );
 }
 
 ## Response
