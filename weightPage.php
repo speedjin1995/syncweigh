@@ -146,7 +146,7 @@ else{
             </div>
           </div>
 
-          <table id="weightTable" class="table table-bordered table-striped">
+          <table id="weightTable" class="table table-bordered table-striped display">
             <thead>
               <tr>
                 <th>Serial No.</th>
@@ -162,21 +162,7 @@ else{
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="cell-1" data-toggle="collapse" data-target="#demo1">
-                <td>S000001</td>
-                <td>Paper Roll</td>
-                <td>kg</td>
-                <td>100.00</td>
-                <td>0.05</td>
-                <td>99.95</td>
-                <td>99.95</td>
-                <td>10</td>
-                <td>20.00</td>
-                <td>19,990.00</td>
-              </tr>
-            </tbody>
-            <tfoot>
+            <!--tfoot>
               <tr>
                 <th colspan="3" style="text-align: right;">Total Accumulate</th>
                 <th>100.00 kg</th>
@@ -187,7 +173,7 @@ else{
                 <th>RM 20.00</th>
                 <th>RM 19,990.00</th>
               </tr>
-            </tfoot>
+            </tfoot-->
           </table>
         </div>
       </div>
@@ -409,127 +395,162 @@ else{
 <!-- /.modal -->
 
 <script>
-  $(function () {
-    $("#weightTable").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-      'processing': true,
-      'serverSide': true,
-      'serverMethod': 'post',
-      'ajax': {
-          'url':'php/loadWeights.php'
-      },
-      'columns': [
-        { data: 'serialNo' },
-        { data: 'product_name' },
-        { data: 'unit' },
-        { data: 'unitWeight' },
-        { data: 'tare' },
-        { data: 'totalWeight' },
-        { data: 'actualWeight' },
-        { data: 'moq' },
-        { data: 'unitPrice' },
-        { data: 'totalPrice' },
-        { 
-          render: function ( data, type, row ) {
-            return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td></tr><tr id="demo'+row.serialNo+'" class="collapse expand-body cell-1 row-child"><td colspan="13"><div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+'</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+'</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+'</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+'</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+'</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+'</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+'</p></div><div class="col-md-3"><p>Package: '+row.packages+'</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.date+'</p></div><div class="col-md-3"><p>Time: '+row.time+'</p></div><div class="col-md-3"><p>Remark: '+row.remark+'</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="excel('+row.serialNo+')"><i class="fas fa-file-excel"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="view('+row.serialNo+')"><i class="fas fa-file"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+')"><i class="fas fa-print"></i></button></div></div></div></div></td>';
+$(function () {
+  var table = $("#weightTable").DataTable({
+    "responsive": true,
+    "autoWidth": false,
+    'processing': true,
+    'serverSide': true,
+    'serverMethod': 'post',
+    'searching': false,
+    'ajax': {
+      'url':'php/loadWeights.php'
+    },
+    'columns': [
+      { data: 'serialNo' },
+      { data: 'product_name' },
+      { data: 'unit' },
+      { data: 'unitWeight' },
+      { data: 'tare' },
+      { data: 'totalWeight' },
+      { data: 'actualWeight' },
+      { data: 'moq' },
+      { data: 'unitPrice' },
+      { data: 'totalPrice' },
+      { 
+        className: 'dt-control',
+        orderable: false,
+        data: null,
+        render: function ( data, type, row ) {
+          return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+        }
+      }
+    ]
+  });
+    
+  // Add event listener for opening and closing details
+  $('#weightTable tbody').on('click', 'td.dt-control', function () {
+    var tr = $(this).closest('tr');
+    var row = table.row( tr );
+
+    if ( row.child.isShown() ) {
+      // This row is already open - close it
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      // Open this row
+      row.child( format(row.data()) ).show();
+      tr.addClass('shown');
+    }
+  });
+
+  //Initialize Select2 Elements
+  $('.Status').select2({
+    theme: 'bootstrap4'
+  }),
+  $('.vehicleNo').select2({
+    theme: 'bootstrap4'
+  }),
+  $('.lotNo').select2({
+    theme: 'bootstrap4'
+  }),
+  $('.customerNo').select2({
+    theme: 'bootstrap4'
+  }),
+  $('.unitWeight').select2({
+    theme: 'bootstrap4'
+  }),
+  $('.product').select2({
+    theme: 'bootstrap4'
+  }),
+  $('.package').select2({
+    theme: 'bootstrap4'
+  }),
+      //Date picker
+  $('#fromDate').datetimepicker({
+    format: 'L'
+  }),
+  $('#toDate').datetimepicker({
+    format: 'L'
+  });
+
+  $.validator.setDefaults({
+    submitHandler: function () {
+        if($('#extendModal').hasClass('show')){
+          $.post('/php/insertWeight.php', $('#extendForm').serialize(), function(data){
+            var obj = JSON.parse(data); 
+            if(obj.status === 'success'){
+              $('#extendModal').modal('hide');
+              toastr["success"](obj.message, "Success:");
+                  
+            // $.get('insertWeight.php', function(data) {
+            //           $('#mainContents').html(data);
+            //       });
           }
-        }
-      ]
-    });
-
-     //Initialize Select2 Elements
-    $('.Status').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.vehicleNo').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.lotNo').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.customerNo').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.unitWeight').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.product').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.package').select2({
-      theme: 'bootstrap4'
-    }),
-       //Date picker
-    $('#fromDate').datetimepicker({
-      format: 'L'
-    }),
-    $('#toDate').datetimepicker({
-      format: 'L'
-    });
-
-    $.validator.setDefaults({
-        submitHandler: function () {
-            if($('#extendModal').hasClass('show')){
-              
-                $.post('/php/insertWeight.php', $('#extendForm').serialize(), function(data){
-                    var obj = JSON.parse(data); 
-                    if(obj.status === 'success'){
-                        $('#extendModal').modal('hide');
-                        toastr["success"](obj.message, "Success:");
-                        
-            			// $.get('insertWeight.php', function(data) {
-                  //           $('#mainContents').html(data);
-                  //       });
-            		}
-            		else if(obj.status === 'failed'){
-                        toastr["error"](obj.message, "Failed:");
-                    }
-            		else{
-            			alert("Something wrong when edit");
-            		}
-                });
-            }
-        }
-    });
+          else if(obj.status === 'failed'){
+            toastr["error"](obj.message, "Failed:");
+          }
+          else{
+            alert("Something wrong when edit");
+          }
+        });
+      }
+    }
+  });
 });
 
+function format ( row ) {
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+'</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+'</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+'</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+'</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+'</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+'</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+'</p></div><div class="col-md-3"><p>Package: '+row.packages+'</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.date+'</p></div><div class="col-md-3"><p>Time: '+row.time+'</p></div><div class="col-md-3"><p>Remark: '+row.remark+'</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="excel('+row.serialNo+')"><i class="fas fa-file-excel"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="view('+row.serialNo+')"><i class="fas fa-file"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+')"><i class="fas fa-print"></i></button></div></div></div></div>';
+}
 
-  function newEntry(){
-    $('#extendModal').find('#unitWeight').val('');
-    $('#extendModal').find('#invoiceNo').val("");
-    $('#extendModal').find('#status').val('');
-    $('#extendModal').find('#lotNo').val('');
-    $('#extendModal').find('#vehicleNo').val('');
-    $('#extendModal').find('#customerNo').val('');
-    $('#extendModal').find('#deliveryNo').val("");
-    $('#extendModal').find('#batchNo').val("");
-    $('#extendModal').find('#purchaseNo').val("");
-    $('#extendModal').find('#currentWeight').val("");
-    $('#extendModal').find('#product').val('');
-    $('#extendModal').find('#moq').val("");
-    $('#extendModal').find('#tareWeight').val("");
-    $('#extendModal').find('#package').val('');
-    $('#extendModal').find('#actualWeight').val("");
-    $('#extendModal').find('#remark').val("");
-    $('#extendModal').find('#totalPrice').val("");
-    $('#extendModal').find('#unitPrice').val("");
-    $('#extendModal').find('#totalWeight').val("");
-    $('#extendModal').modal('show');
-    
-    $('#extendForm').validate({
-        errorElement: 'span',
-        errorPlacement: function (error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-        }
-    });
+function newEntry(){
+  $('#extendModal').find('#unitWeight').val('');
+  $('#extendModal').find('#invoiceNo').val("");
+  $('#extendModal').find('#status').val('');
+  $('#extendModal').find('#lotNo').val('');
+  $('#extendModal').find('#vehicleNo').val('');
+  $('#extendModal').find('#customerNo').val('');
+  $('#extendModal').find('#deliveryNo').val("");
+  $('#extendModal').find('#batchNo').val("");
+  $('#extendModal').find('#purchaseNo').val("");
+  $('#extendModal').find('#currentWeight').val("");
+  $('#extendModal').find('#product').val('');
+  $('#extendModal').find('#moq').val("");
+  $('#extendModal').find('#tareWeight').val("");
+  $('#extendModal').find('#package').val('');
+  $('#extendModal').find('#actualWeight').val("");
+  $('#extendModal').find('#remark').val("");
+  $('#extendModal').find('#totalPrice').val("");
+  $('#extendModal').find('#unitPrice').val("");
+  $('#extendModal').find('#totalWeight').val("");
+  $('#extendModal').modal('show');
+  
+  $('#extendForm').validate({
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+}
+
+function excel(id){
+
+}
+
+function view(id){
+
+}
+
+function print(id){
+
 }
 
 
