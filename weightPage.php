@@ -11,6 +11,7 @@ else{
   $user = $_SESSION['userID'];
   $lots = $db->query("SELECT * FROM lots");
   $vehicles = $db->query("SELECT * FROM vehicles");
+  $vehicles1 = $db->query("SELECT * FROM vehicles");
   $products = $db->query("SELECT * FROM products");
   $packages = $db->query("SELECT * FROM packages");
   $customers = $db->query("SELECT * FROM customers");
@@ -127,8 +128,8 @@ else{
                   <label>Vehicle No</label>
                   <select class="form-control vehicleNo" style="width: 100%;">
                     <option selected="selected">-</option>
-                    <?php while($row=mysqli_fetch_assoc($vehicles)){ ?>
-                      <option value="<?=$row['id'] ?>"><?=$row['veh_number'] ?></option>
+                    <?php while($row1=mysqli_fetch_assoc($vehicles1)){ ?>
+                      <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -482,27 +483,27 @@ $(function () {
   });
 
     //Initialize Select2 Elements
-  $('.Status').select2({
-    theme: 'bootstrap4'
-  }),
-  $('.vehicleNo').select2({
-    theme: 'bootstrap4'
-  }),
-  $('.lotNo').select2({
-    theme: 'bootstrap4'
-  }),
-  $('.customerNo').select2({
-    theme: 'bootstrap4'
-  }),
-  $('.unitWeight').select2({
-    theme: 'bootstrap4'
-  }),
-  $('.product').select2({
-    theme: 'bootstrap4'
-  }),
-  $('.package').select2({
-    theme: 'bootstrap4'
-  }),
+  // $('.Status').select2({
+  //   theme: 'bootstrap4'
+  // }),
+  // $('.vehicleNo').select2({
+  //   theme: 'bootstrap4'
+  // }),
+  // $('.lotNo').select2({
+  //   theme: 'bootstrap4'
+  // }),
+  // $('.customerNo').select2({
+  //   theme: 'bootstrap4'
+  // }),
+  // $('.unitWeight').select2({
+  //   theme: 'bootstrap4'
+  // }),
+  // $('.product').select2({
+  //   theme: 'bootstrap4'
+  // }),
+  // $('.package').select2({
+  //   theme: 'bootstrap4'
+  // }),
       //Date picker
   $('#fromDate').datetimepicker({
     format: 'L'
@@ -577,12 +578,12 @@ function newEntry(){
   });
 }
 
-function delete(id) {
+// function delete(id) {
 
-}
+// }
 
-function print(id) {
+// function print(id) {
 
-}
+// }
 
 </script>

@@ -9,6 +9,12 @@ if(!isset($_SESSION['userID'])){
 }
 else{
   $user = $_SESSION['userID'];
+  $lots = $db->query("SELECT * FROM lots");
+  $vehicles = $db->query("SELECT * FROM vehicles");
+  $vehicles1 = $db->query("SELECT * FROM vehicles");
+  $products = $db->query("SELECT * FROM products");
+  $packages = $db->query("SELECT * FROM packages");
+  $customers = $db->query("SELECT * FROM customers");
 }
 ?>
 
@@ -142,7 +148,7 @@ else{
                         <div class="col-3">
                           <div class="form-group">
                             <label>Status</label>
-                            <select class="form-control status" style="width: 100%;">
+                            <select class="form-control" style="width: 100%;">
                               <option selected="selected">-</option>
                               <option>Sales</option>
                               <option>Purchase</option>
@@ -155,11 +161,11 @@ else{
                         <div class="col-3">
                           <div class="form-group">
                             <label>Vehicle No</label>
-                            <select class="form-control vehicleNo" style="width: 100%;">
+                            <select class="form-control" style="width: 100%;">
                               <option selected="selected">-</option>
-                              <option>ABC1234</option>
-                              <option>WWE1234</option>
-                              <option>WWW1234</option>
+                              <?php while($row1=mysqli_fetch_assoc($vehicles1)){ ?>
+                                  <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
+                                <?php } ?>
                             </select>
                           </div>
                         </div>
@@ -176,118 +182,37 @@ else{
                       </div>
                     </div>
           
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="countTable" class="table table-bordered table-striped display">
                       <thead>
                         <tr>
-                          <th>Serial No.</th>
+                          <th>Serial No</th>
                           <th>Product Name</th>
                           <th>Unit</th>
                           <th>Unit Weight</th>
                           <th>Tare</th>
                           <th>Current Weight</th>
                           <th>Actual Weight</th>
-                          <th>Total Weight</th>
+                          <!-- <th>Total Weight</th> -->
                           <th>Total PCS</th>
                           <th>MOQ</th>
                           <th>Unit Price <br> (RM)</th>
                           <th>Total Price <br> (RM)</th>
-                          <th>Price/Pcs Amount <br> (RM)</th>
+                          <!-- <th>Price/Pcs Amount <br> (RM)</th> -->
                           <th></th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr class="cell-1" data-toggle="collapse" data-target="#demo1">
-                          <td>S000001</td>
-                          <td>Screw nut</td>
-                          <td>kg</td>
-                          <td>0.1</td>
-                          <td>0.05</td>
-                          <td>100.00</td>
-                          <td>99.95</td>
-                          <td>1.00</td>
-                          <td>100</td>
-                          <td>10</td>
-                          <td>20.00</td>
-                          <td>200.00</td>
-                          <th>2,000.00</th>
-                          <td class="table-elipse" data-toggle="collapse" data-target="#demo"><i class="fas fa-angle-down"></i></td>
-                        </tr>
-                        <tr id="demo1" class="collapse expand-body cell-1 row-child">
-                          <td colspan="13">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <p>Vehicle No.: F88</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Lot No.: L013</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Batch No.: A021-21A001</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Invoice No.: SO22/123456</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-3">
-                                <p>Delivery No.: SO22/123456</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Purchase No.: PO8754/MCT</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Customer: SM Metel Sdn Bhd</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Package: Jambo Bag</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-3">
-                                <p>Date: 10/01/2022</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Time: 13:55:55</p>
-                              </div>
-                              <div class="col-md-3">
-                                <p>Remark: </p>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="row">
-                                  <div class="col-3">
-                                    <button type="button" class="btn btn-success btn-sm">
-                                      <i class="fas fa-file-excel"></i>
-                                    </button>
-                                  </div>
-                                  <div class="col-3">
-                                    <button type="button" class="btn btn-warning btn-sm">
-                                      <i class="fas fa-file"></i>
-                                    </button>
-                                  </div>
-                                  <div class="col-3">
-                                    <button type="button" class="btn btn-warning btn-sm">
-                                      <i class="fas fa-print"></i>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
                       <tfoot>
                       <tr>
-                        <th colspan="3" style="text-align: right;">Total Accumulate</th>
-                        <th>0.1 kg</th>
-                        <th>0.05 kg</th>
-                        <th>100.00 kg</th>
-                        <th>99.95 kg</th>
-                        <th>1.00 kg</th>
-                        <th>100 Pcs</th>
-                        <th>10</th>
-                        <th>RM 20.00</th>
-                        <th>RM 200.00</th>
-                        <th>RM 2,000.00</th>
+                        <th colspan="4" style="text-align: right;">Total Accumulate</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        
                       </tr>
                       </tfoot>
                     </table>
@@ -397,13 +322,10 @@ else{
                             <div class="form-group">
                               <label>Lot No :</label>
                               <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="L001">L001</option>
-                                <option value="L002">L002</option>
-                                <option value="L003">L003</option>
-                                <option value="L004">L004</option>
-                                <option value="L005">L005</option>
-                                <option value="L006">L006</option>
+                                <option selected="selected">-</option>
+                                <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
+                                  <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
+                                <?php } ?>
                               </select>
                             </div>
                           </div>
@@ -417,13 +339,14 @@ else{
                             <div class="form-group">
                               <label>Vehicle No</label>
                               <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="ABC1234">ABC1234</option>
-                                <option value="WWE1234">WWE1234</option>
-                                <option value="WWW1234">WWW1234</option>
+                                <option selected="selected">-</option>
+                                <?php while($row=mysqli_fetch_assoc($vehicles)){ ?>
+                                  <option value="<?=$row['id'] ?>"><?=$row['veh_number'] ?></option>
+                                <?php } ?>
                               </select>
                             </div>
                           </div>
+
                         </div>
 
                         <div class="row">
@@ -431,11 +354,10 @@ else{
                             <div class="form-group">
                               <label>Customer No</label>
                               <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="ABC">ABC</option>
-                                <option value="DEF">DEF</option>
-                                <option value="GHI">GHI</option>
-                                <option value="JKL">JKL</option>
+                                <option selected="selected">-</option>
+                                <?php while($row4=mysqli_fetch_assoc($customers)){ ?>
+                                  <option value="<?=$row4['id'] ?>"><?=$row4['customer_name'] ?></option>
+                                <?php } ?>
                               </select>
                             </div>
                           </div>
@@ -482,10 +404,10 @@ else{
                             <div class="form-group">
                               <label>Product</label>
                               <select class="form-control" style="width: 100%;" id="product" name="product" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="Iron">Iron</option>
-                                <option value="Steel">Steel</option>
-                                <option value="Aluminium">Aluminium</option>
+                                <option selected="selected">-</option>
+                                <?php while($row5=mysqli_fetch_assoc($products)){ ?>
+                                  <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
+                                <?php } ?>
                               </select>
                             </div>
                           </div>
@@ -509,9 +431,10 @@ else{
                             <div class="form-group">
                               <label>Package</label>
                               <select class="form-control" style="width: 100%;" id="package" name="package" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="Bag">Bag</option>
-                                <option value="Boxes">Boxes</option>
+                                <option selected="selected">-</option>
+                                <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
+                                  <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
+                                <?php } ?>
                               </select>
                             </div>
                           </div>
@@ -576,32 +499,119 @@ else{
 <script>
   $(function () {
     
-     //Initialize Select2 Elements
+    var table = $("#countTable").DataTable({
+    "responsive": true,
+    "autoWidth": false,
+    'processing': true,
+    'serverSide': true,
+    'serverMethod': 'post',
+    'searching': false,
+    'ajax': {
+        'url':'php/loadCount.php'
+    },
+    'columns': [
+      //total weight
 
-    $('.status').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.vehicleNo').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.lotNo').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.customerNo').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.unitWeight').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.product').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.package').select2({
-      theme: 'bootstrap4'
-    }),
-    $('.unitWeight1').select2({
-      theme: 'bootstrap4'
-    }),
+      { data: 'serialNo' },
+      { data: 'product_name' },
+      { data: 'unit' },
+      { data: 'unitWeight' },
+      { data: 'tare' },
+      { data: 'currentWeight' },
+      { data: 'actualWeight' },
+      { data: 'totalPCS' },
+      { data: 'moq' },
+      { data: 'unitPrice' },
+      { data: 'totalPrice' },
+      { 
+        className: 'dt-control',
+        orderable: false,
+        data: null,
+        render: function ( data, type, row ) {
+          
+          return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+        }
+      }
+    ],
+    "footerCallback": function ( row, data, start, end, display ) {
+      var api = this.api();
+
+      // Remove the formatting to get integer data for summation
+      var intVal = function (i) {
+        return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+      };
+
+      // Total over all pages
+      total = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total2 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total3 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total4 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total5 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total6 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      total7 = api.column(10).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+
+      // Total over this page
+      pageTotal = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal2 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal3 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal4 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal5 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal6 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      pageTotal7 = api.column(10, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+
+      // Update footer
+      $(api.column(4).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+      $(api.column(5).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+      $(api.column(6).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+      $(api.column(7).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+      $(api.column(8).footer()).html(pageTotal5 +' ('+ total5 +')');
+      $(api.column(9).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+      $(api.column(10).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+    }
+  });
+  
+  // Add event listener for opening and closing details
+  $('#countTable tbody').on('click', 'td.dt-control', function () {
+    var tr = $(this).closest('tr');
+    var row = table.row( tr );
+
+    if ( row.child.isShown() ) {
+      // This row is already open - close it
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      // Open this row
+      row.child( format(row.data()) ).show();
+      tr.addClass('shown');
+    }
+  });
+
+     //Initialize Select2 Elements
+    // $('.status').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.vehicleNo').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.lotNo').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.customerNo').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.unitWeight').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.product').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.package').select2({
+    //   theme: 'bootstrap4'
+    // }),
+    // $('.unitWeight1').select2({
+    //   theme: 'bootstrap4'
+    // }),
        //Date picker
     $('#fromDate').datetimepicker({
       format: 'L'
@@ -637,6 +647,23 @@ else{
     });
 
   });
+
+  function format (row) {
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
+  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Package: '+row.packages+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
+
+  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="delete('+row.serialNo+
+  ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
+  }
 
   function newEntry(){
     $('#extendModal').find('#unitWeight').val('');
