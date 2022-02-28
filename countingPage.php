@@ -630,7 +630,7 @@ else{
                     if(obj.status === 'success'){
                         $('#extendModal').modal('hide');
                         toastr["success"](obj.message, "Success:");
-                        
+                        $('#countTable').DataTable().ajax.reload();
             			// $.get('insertCount.php', function(data) {
                   //           $('#mainContents').html(data);
                   //       });

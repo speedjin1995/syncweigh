@@ -520,6 +520,7 @@ $(function () {
             if(obj.status === 'success'){
               $('#extendModal').modal('hide');
               toastr["success"](obj.message, "Success:");
+              $('#weightTable').DataTable().ajax.reload();
                   
             // $.get('insertWeight.php', function(data) {
             //           $('#mainContents').html(data);
