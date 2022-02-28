@@ -393,7 +393,7 @@ else{
                           <div class="form-group col-md-3">
                             <label>Current Weight</label>
                             <div class="input-group">
-                              <input class="form-control" type="text" placeholder="Current Weight" id="currentWeight" name="currentWeight" required/>
+                              <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" required/>
                               <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
                             </div>
                           </div>
@@ -414,13 +414,13 @@ else{
 
                           <div class="form-group col-md-3">
                             <label>M.O.Q</label>
-                            <input class="form-control" type="text" placeholder="moq" id="moq" name="moq" required>
+                            <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" required>
                           </div>
 
                           <div class="form-group col-md-3">
                             <label>Tare Weight</label>
                             <div class="input-group">
-                              <input class="form-control" type="text" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
+                              <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
                               <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
                             </div>
                           </div>
@@ -443,14 +443,14 @@ else{
                               <label>Unit Price</label>
                               <div class="input-group">
                                 <div class="input-group-text"><i>RM</i></div>
-                                <input class="form-control" type="text" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
+                                <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
                               </div>
                           </div>
 
                             <div class="form-group col-md-3">
                               <label>Actual Weight</label>
                               <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Actual Weight" id="actualWeight" name="actualWeight" required/>
+                                <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" required/>
                                 <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
                               </div>
                             </div>
@@ -468,14 +468,14 @@ else{
                               <label>Total Price</label>
                               <div class="input-group">
                                 <div class="input-group-text"><i>RM</i></div>
-                                <input class="form-control" type="text" placeholder="Total Price"  id="totalPrice" name="totalPrice" required/>                        
+                                <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" required/>                     
                               </div>
                           </div>
 
                           <div class="form-group col-md-3">
                               <label>Total PCs</label>
                               <div class="input-group">
-                                <input class="form-control" type="text" placeholder="totalPCS" id="totalPCS" name="totalPCS" required/>
+                                <input class="form-control" type="number" placeholder="totalPCS" id="totalPCS" name="totalPCS" required/>
                                 <div class="input-group-text bg-primary color-palette"><i>PCs</i></div>
                               </div>
                             </div>
