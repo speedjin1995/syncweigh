@@ -563,7 +563,21 @@ $(function () {
 });
 
 function format (row) {
-  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+'</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+'</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+'</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+'</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+'</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+'</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+'</p></div><div class="col-md-3"><p>Package: '+row.packages+'</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.date+'</p></div><div class="col-md-3"><p>Time: '+row.time+'</p></div><div class="col-md-3"><p>Remark: '+row.remark+'</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="delete('+row.serialNo+')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+')"><i class="fas fa-print"></i></button></div></div></div></div>';
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
+  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Package: '+row.packages+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.date+
+  '</p></div><div class="col-md-3"><p>Time: '+row.time+
+  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.serialNo+
+  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="delete('+row.serialNo+
+  ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
 function newEntry(){
@@ -603,12 +617,31 @@ function newEntry(){
   });
 }
 
-// function delete(id) {
+function edit(id) {
 
-// }
+}
 
-// function print(id) {
+function delete(id) {
+  $.post('php/deleteWeight.php', {userID: id}, function(data){
+    var obj = JSON.parse(data);
+    
+    if(obj.status === 'success'){
+      toastr["success"](obj.message, "Success:");
+      $.get('weightPage.php', function(data) {
+        $('#mainContents').html(data);
+      });
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when activate", "Failed:");
+    }
+  });
+}
 
-// }
+function print(id) {
+
+}
 
 </script>
