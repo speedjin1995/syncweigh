@@ -14,7 +14,7 @@ else{
   $vehicles1 = $db->query("SELECT * FROM vehicles");
   $products = $db->query("SELECT * FROM products");
   $packages = $db->query("SELECT * FROM packages");
-  $customers = $db->query("SELECT * FROM customers");
+  $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
 }
 ?>
 
