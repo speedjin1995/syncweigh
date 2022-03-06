@@ -14,7 +14,10 @@ else{
   $vehicles1 = $db->query("SELECT * FROM vehicles");
   $products = $db->query("SELECT * FROM products");
   $packages = $db->query("SELECT * FROM packages");
-  $customers = $db->query("SELECT * FROM customers");
+  $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
+  $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS'");
+  $units = $db->query("SELECT * FROM units");
+  $status = $db->query("SELECT * FROM `status`");
 }
 ?>
 
@@ -29,472 +32,477 @@ else{
 </div>
 <!-- /.content-header -->
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="content">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="small-box bg-success">
-                    <div class="inner">
-                    <h3 style="text-align: center; font-size: 80px">
-                      100.00
-                      <sup style="font-size: 20px">PCs</sup>
-                    </h3>
-                    </div>
-                      <a href="#" class="small-box-footer">
-                      TOTAL COUNT / PCS
-                      </a>
-                  </div>
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="small-box bg-success">
+                <div class="inner">
+                <h3 style="text-align: center; font-size: 80px">
+                  100.00
+                  <sup style="font-size: 20px">PCs</sup>
+                </h3>
                 </div>
-
-                <div class="col-lg-4">
-                  <div class="small-box bg-success">
-                    <div class="inner">
-                      <h3 style="text-align: center; font-size: 80px">
-                        0.01
-                        <sup style="font-size: 20px">Kg/g</sup>
-                      </h3>
-                    </div>
-                      <a href="#" class="small-box-footer">
-                        UNIT WEIGHT Kg/g
-                      </a>
-                  </div>
-                </div>
-
-                <div class="col-lg-4">
-                  <div class="small-box bg-success">
-                    <div class="inner">
-                      <h3 style="text-align: center; font-size: 80px">
-                        1.00Kg
-                        <sup style="font-size: 20px">Kg/g</sup>
-                      </h3>
-                    </div>
-                      <a href="#" class="small-box-footer">
-                          TOTAL WEIGHT Kg/g
-                      </a>
-                  </div>
-                </div>
+                  <a href="#" class="small-box-footer">
+                  TOTAL COUNT / PCS
+                  </a>
               </div>
-            
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="input-group-text bg-primary color-palette"><i>Indicator Connected</i></div>
-                        </div>
-                        <div class="col-4">
-                          <div class="input-group-text color-palette"><i>Checking Connection</i></div>
-                        </div>
-                        <div class="col-4">
-                          <button type="button" class="btn btn-block bg-gradient-primary"  onclick="newEntry()">
-                            New Entry
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3 style="text-align: center; font-size: 80px">
+                    0.01
+                    <sup style="font-size: 20px">Kg/g</sup>
+                  </h3>
                 </div>
-          
-                <div class="col-lg-12">
-                  <div class="card card-primary">
-                    <div class="card-header">
-                      <div class="row">
-                        <div class="col-6">
-                          <h3 class="card-title">Billboard Description :</h3>
-                        </div>
-                        <div class="col-3">
-                          <button type="button" class="btn btn-block bg-gradient-success btn-sm"  data-toggle="modal" data-target="#">
-                            Export Excel
-                          </button>
-                        </div>
-                        <div class="col-3">
-                          <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  data-toggle="modal" data-target="#">
-                            Search
-                          </button>
-                        </div>
-                      </div>
+                  <a href="#" class="small-box-footer">
+                    UNIT WEIGHT Kg/g
+                  </a>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3 style="text-align: center; font-size: 80px">
+                    1.00Kg
+                    <sup style="font-size: 20px">Kg/g</sup>
+                  </h3>
+                </div>
+                  <a href="#" class="small-box-footer">
+                      TOTAL WEIGHT Kg/g
+                  </a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="input-group-text bg-primary color-palette"><i>Indicator Connected</i></div>
                     </div>
-          
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="form-group col-3">
-                          <label>From Date:</label>
-                          <div class="input-group date" id="fromDate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
-                            <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
-                          </div>
-                        </div>
-          
-                        <div class="form-group col-3">
-                          <label>To Date:</label>
-                          <div class="input-group date" id="toDate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#toDate"/>
-                            <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                          </div>
-                        </div>
-          
-                        <div class="form-group col-3">
-                          <label>Customer</label>
-                          <input class="form-control" type="text" placeholder="customer">
-                        </div>
-          
-                        <div class="col-3">
-                          <div class="form-group">
-                            <label>Status</label>
-                            <select class="form-control" style="width: 100%;">
-                              <option selected="selected">-</option>
-                              <option>Sales</option>
-                              <option>Purchase</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-          
-                      <div class="row">
-                        <div class="col-3">
-                          <div class="form-group">
-                            <label>Vehicle No</label>
-                            <select class="form-control" style="width: 100%;">
-                              <option selected="selected">-</option>
-                              <?php while($row1=mysqli_fetch_assoc($vehicles1)){ ?>
-                                  <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
-                                <?php } ?>
-                            </select>
-                          </div>
-                        </div>
-          
-                        <div class="form-group col-3">
-                          <label>Invoice No</label>
-                          <input class="form-control" type="text" placeholder="Invoice No">
-                        </div>
-          
-                        <div class="form-group col-3">
-                          <label>Batch No</label>
-                          <input class="form-control" type="text" placeholder="Batch No">
-                        </div>
-                      </div>
+                    <div class="col-4">
+                      <div class="input-group-text color-palette"><i>Checking Connection</i></div>
                     </div>
-          
-                    <table id="countTable" class="table table-bordered table-striped display">
-                      <thead>
-                        <tr>
-                          <th>Serial No</th>
-                          <th>Product Name</th>
-                          <th>Unit</th>
-                          <th>Unit Weight</th>
-                          <th>Tare</th>
-                          <th>Current Weight</th>
-                          <th>Actual Weight</th>
-                          <!-- <th>Total Weight</th> -->
-                          <th>Total PCS</th>
-                          <th>MOQ</th>
-                          <th>Unit Price <br> (RM)</th>
-                          <th>Total Price <br> (RM)</th>
-                          <!-- <th>Price/Pcs Amount <br> (RM)</th> -->
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                      <tr>
-                        <th colspan="4" style="text-align: right;">Total Accumulate</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        
-                      </tr>
-                      </tfoot>
-                    </table>
+                    <div class="col-4">
+                      <button type="button" class="btn btn-block bg-gradient-primary"  onclick="newEntry()">
+                        New Entry
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>         
-      </div>
-    </div>
-
-          <!-- pop out page -->
-          <div class="modal fade" id="extendModal">       
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content">
-
-                <form role="form" id="extendForm">
-                  <div class="modal-header bg-gray-dark color-palette">
-                    <h4 class="modal-title">Add New Entry</h4>
-                    <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+      
+            <div class="col-lg-12">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-6">
+                      <h3 class="card-title">Billboard Description :</h3>
+                    </div>
+                    <div class="col-3">
+                      <button type="button" class="btn btn-block bg-gradient-success btn-sm"  data-toggle="modal" data-target="#">
+                        Export Excel
+                      </button>
+                    </div>
+                    <div class="col-3">
+                      <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  data-toggle="modal" data-target="#">
+                        Search
+                      </button>
+                    </div>
                   </div>
-                  <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-lg-4">
-                          <div class="small-box bg-success">
-                            <div class="inner">
-                            <h3 style="text-align: center; font-size: 80px">
-                              100.00
-                              <sup style="font-size: 20px">PCs</sup>
-                            </h3>
-                            </div>
-                              <a href="#" class="small-box-footer">
-                              TOTAL COUNT / PCS
-                              </a>
-                          </div>
+                </div>
+      
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-3">
+                      <label>From Date:</label>
+                      <div class="input-group date" id="fromDate" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
+                        <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
+                      </div>
+                    </div>
+      
+                    <div class="form-group col-3">
+                      <label>To Date:</label>
+                      <div class="input-group date" id="toDate" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#toDate"/>
+                        <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-
-                        <div class="col-lg-4">
-                            <div class="small-box bg-success">
-                              <div class="inner">
-                              <h3 style="text-align: center; font-size: 80px">
-                                0.01
-                                <sup style="font-size: 20px">Kg/g</sup>
-                              </h3>
-                              </div>
-                                <a href="#" class="small-box-footer">
-                                UNIT WEIGHT Kg/g
-                                </a>
-                            </div>
-                          </div>
-
-                          <div class="col-lg-4">
-                            <div class="small-box bg-success">
-                              <div class="inner">
-                              <h3 style="text-align: center; font-size: 80px">
-                                1.00Kg
-                                <sup style="font-size: 20px">Kg/g</sup>
-                              </h3>
-                              </div>
-                                <a href="#" class="small-box-footer">
-                                    TOTAL WEIGHT Kg/g
-                                </a>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="form-group col-3">
-                            <label>Date Time</label>
-                              <input type="text" style="border-width:0px; border:none; outline:none;" id="dateT" readonly/>
-                          </div>
-          
-                            <div class="col-md-1">
-                            </div>
-          
-                            <div class="form-group col-md-3">
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Unit Weight</label>
-                                  <select class="form-control" id="unitWeight1" name="unitWeight1" style="width: 100%;" required>
-                                    <option selected="selected" value="-">-</option>
-                                    <option value="KG">KG</option>
-                                    <option value="G">G</option>
-                                  </select>
-                                </div>
-                              </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <label>Status :</label>
-                              <select class="form-control" id="status" name="status" style="width: 100%;" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="SALES">Sales</option>
-                                <option value="PURCHASES">Puchases</option>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <label>Lot No :</label>
-                              <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
-                                <option selected="selected">-</option>
-                                <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
-                                  <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
-                                <?php } ?>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                            <label>Invoice No</label>
-                            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" required>
-                          </div>
-                          
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label>Vehicle No</label>
-                              <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo" required>
-                                <option selected="selected">-</option>
-                                <?php while($row=mysqli_fetch_assoc($vehicles)){ ?>
-                                  <option value="<?=$row['id'] ?>"><?=$row['veh_number'] ?></option>
-                                <?php } ?>
-                              </select>
-                            </div>
-                          </div>
-
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <label>Customer No</label>
-                              <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
-                                <option selected="selected">-</option>
-                                <?php while($row4=mysqli_fetch_assoc($customers)){ ?>
-                                  <option value="<?=$row4['id'] ?>"><?=$row4['customer_name'] ?></option>
-                                <?php } ?>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                            <label>Delivery No</label>
-                            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" required>
-                          </div>
-
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label>Unit Weight</label>
-                              <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required>
-                                <option selected="selected" value="-">-</option>
-                                <option value="KG">KG</option>
-                                <option value="G">G</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="form-group col-md-4">
-                            <label>Batch No</label>
-                            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" required>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                            <label>Purchase No</label>
-                            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" required>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                            <label>Current Weight</label>
-                            <div class="input-group">
-                              <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" required/>
-                              <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <label>Product</label>
-                              <select class="form-control" style="width: 100%;" id="product" name="product" required>
-                                <option selected="selected">-</option>
-                                <?php while($row5=mysqli_fetch_assoc($products)){ ?>
-                                  <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
-                                <?php } ?>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                            <label>M.O.Q</label>
-                            <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" required>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                            <label>Tare Weight</label>
-                            <div class="input-group">
-                              <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
-                              <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <label>Package</label>
-                              <select class="form-control" style="width: 100%;" id="package" name="package" required>
-                                <option selected="selected">-</option>
-                                <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
-                                  <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
-                                <?php } ?>
-                              </select>
-                            </div>
-                          </div>
-
-                            <div class="form-group col-md-3">
-                              <label>Unit Price</label>
-                              <div class="input-group">
-                                <div class="input-group-text"><i>RM</i></div>
-                                <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
-                              </div>
-                          </div>
-
-                            <div class="form-group col-md-3">
-                              <label>Actual Weight</label>
-                              <div class="input-group">
-                                <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" required/>
-                                <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
-                              </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="form-group">
-                              <label>Remark</label>
-                              <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
-                            </div>
-                          </div>
-
-                            <div class="form-group col-md-3">
-                              <label>Total Price</label>
-                              <div class="input-group">
-                                <div class="input-group-text"><i>RM</i></div>
-                                <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" required/>                     
-                              </div>
-                          </div>
-
-                          <div class="form-group col-md-3">
-                              <label>Total PCs</label>
-                              <div class="input-group">
-                                <input class="form-control" type="number" placeholder="totalPCS" id="totalPCS" name="totalPCS" required/>
-                                <div class="input-group-text bg-primary color-palette"><i>PCs</i></div>
-                              </div>
-                            </div>
-                        </div>                
+                      </div>
+                    </div>
+      
+                    <div class="form-group col-3">
+                      <label>Customer</label>
+                      <input class="form-control" type="text" placeholder="customer">
+                    </div>
+      
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" style="width: 100%;">
+                          <option selected="selected">-</option>
+                          <?php while($rowStatus=mysqli_fetch_assoc($status)){ ?>
+                            <option value="<?=$rowStatus['id'] ?>"><?=$rowStatus['status'] ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label>Vehicle No</label>
+                        <select class="form-control" style="width: 100%;">
+                          <option selected="selected">-</option>
+                          <?php while($row1=mysqli_fetch_assoc($vehicles1)){ ?>
+                              <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
+                            <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+      
+                    <div class="form-group col-3">
+                      <label>Invoice No</label>
+                      <input class="form-control" type="text" placeholder="Invoice No">
+                    </div>
+      
+                    <div class="form-group col-3">
+                      <label>Batch No</label>
+                      <input class="form-control" type="text" placeholder="Batch No">
                     </div>
 
-                    <div class="modal-footer justify-content-between bg-gray-dark color-palette">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Capture Indicator</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label>Product</label>
+                        <select class="form-control vehicleNo" style="width: 100%;">
+                          <option selected="selected">-</option>
+                          <?php while($rowProduct=mysqli_fetch_assoc($products)){ ?>
+                            <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                </form>
-
+                </div>
+      
+                <table id="countTable" class="table table-bordered table-striped display">
+                  <thead>
+                    <tr>
+                      <th>Serial No</th>
+                      <th>Product Name</th>
+                      <th>Unit</th>
+                      <th>Unit Weight</th>
+                      <th>Tare</th>
+                      <th>Current Weight</th>
+                      <th>Actual Weight</th>
+                      <!-- <th>Total Weight</th> -->
+                      <th>Total PCS</th>
+                      <th>MOQ</th>
+                      <th>Unit Price <br> (RM)</th>
+                      <th>Total Price <br> (RM)</th>
+                      <!-- <th>Price/Pcs Amount <br> (RM)</th> -->
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th colspan="4" style="text-align: right;">Total Accumulate</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
-              <!-- /.modal-content -->
             </div>
-            <!-- /.modal-dialog -->
-          
+          </div>
         </div>
+      </div>         
+  </div>
+</div>
+
+<!-- pop out page -->
+<div class="modal fade" id="extendModal">       
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form role="form" id="extendForm">
+        <div class="modal-header bg-gray-dark color-palette">
+          <h4 class="modal-title">Add New Entry</h4>
+          <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="small-box bg-success">
+                <div class="inner">
+                <h3 style="text-align: center; font-size: 80px">
+                  100.00
+                  <sup style="font-size: 20px">PCs</sup>
+                </h3>
+                </div>
+                  <a href="#" class="small-box-footer">
+                  TOTAL COUNT / PCS
+                  </a>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="small-box bg-success">
+                  <div class="inner">
+                  <h3 style="text-align: center; font-size: 80px">
+                    0.01
+                    <sup style="font-size: 20px">Kg/g</sup>
+                  </h3>
+                  </div>
+                    <a href="#" class="small-box-footer">
+                    UNIT WEIGHT Kg/g
+                    </a>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="small-box bg-success">
+                  <div class="inner">
+                  <h3 style="text-align: center; font-size: 80px">
+                    1.00Kg
+                    <sup style="font-size: 20px">Kg/g</sup>
+                  </h3>
+                  </div>
+                    <a href="#" class="small-box-footer">
+                        TOTAL WEIGHT Kg/g
+                    </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Date Time</label>
+                <input type="text" style="border-width:0px; border:none; outline:none;" id="dateT" readonly/>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="form-group col-md-3"></div>
+              
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Unit Weight</label>
+                  <select class="form-control" id="unitWeight1" name="unitWeight1" style="width: 100%;" required>
+                    <option selected="selected" value="-">-</option>
+                    <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
+                      <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Status :</label>
+                  <select class="form-control" id="status" name="status" style="width: 100%;" required>
+                    <option selected="selected" value="-">-</option>
+                    <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
+                      <option value="<?=$rowS['id'] ?>"><?=$rowS['status'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Lot No :</label>
+                  <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
+                    <option selected="selected">-</option>
+                    <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
+                      <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Invoice No</label>
+                <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" required>
+              </div>
+              
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Vehicle No</label>
+                  <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo" required>
+                    <option selected="selected">-</option>
+                    <?php while($row=mysqli_fetch_assoc($vehicles)){ ?>
+                      <option value="<?=$row['id'] ?>"><?=$row['veh_number'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Customer No</label>
+                  <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
+                    <option selected="selected">-</option>
+                    <?php while($row4=mysqli_fetch_assoc($customers)){ ?>
+                      <option value="<?=$row4['id'] ?>"><?=$row4['customer_name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Delivery No</label>
+                <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" required>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Unit Weight</label>
+                  <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required>
+                    <option selected="selected" value="-">-</option>
+                    <option value="KG">KG</option>
+                    <option value="G">G</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>Batch No</label>
+                <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" required>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Purchase No</label>
+                <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" required>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Current Weight</label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" required/>
+                  <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Product</label>
+                  <select class="form-control" style="width: 100%;" id="product" name="product" required>
+                    <option selected="selected">-</option>
+                    <?php while($row5=mysqli_fetch_assoc($products)){ ?>
+                      <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>M.O.Q</label>
+                <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" required>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Tare Weight</label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
+                  <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Package</label>
+                  <select class="form-control" style="width: 100%;" id="package" name="package" required>
+                    <option selected="selected">-</option>
+                    <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
+                      <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Unit Price</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i>RM</i></div>
+                  <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Actual Weight</label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" required/>
+                  <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label>Remark</label>
+                  <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Total Price</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i>RM</i></div>
+                  <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" required/>                     
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label>Total PCs</label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="totalPCS" id="totalPCS" name="totalPCS" required/>
+                  <div class="input-group-text bg-primary color-palette"><i>PCs</i></div>
+                </div>
+              </div>
+            </div>                
+          </div>
+
+        <div class="modal-footer justify-content-between bg-gray-dark color-palette">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Capture Indicator</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <script>
   $(function () {

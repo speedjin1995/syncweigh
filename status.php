@@ -16,7 +16,7 @@ else{
     <div class="container-fluid">
         <div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Lots</h1>
+				<h1 class="m-0 text-dark">Status</h1>
 			</div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -33,16 +33,16 @@ else{
                         <div class="row">
                             <div class="col-9"></div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addLots">Add Lots</button>
+                                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addStatus">Status</button>
                             </div>
                         </div>
                     </div>
 					<div class="card-body">
-						<table id="lotTable" class="table table-bordered table-striped">
+						<table id="statusTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th>Lot No.</th>
+									<th>Status</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -54,12 +54,12 @@ else{
 	</div><!-- /.container-fluid -->
 </section><!-- /.content -->
 
-<div class="modal fade" id="lotModal">
+<div class="modal fade" id="statusModal">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
-        <form role="form" id="lotForm">
+        <form role="form" id="statusForm">
             <div class="modal-header">
-              <h4 class="modal-title">Add Lots</h4>
+              <h4 class="modal-title">Add Status</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -70,8 +70,8 @@ else{
     					<input type="hidden" class="form-control" id="id" name="id">
     				</div>
     				<div class="form-group">
-    					<label for="lotsNumber">Lots Number *</label>
-    					<input type="text" class="form-control" name="lotsNumber" id="lotsNumber" placeholder="Enter Lots Number" required>
+    					<label for="status">Status *</label>
+    					<input type="text" class="form-control" name="status" id="status" placeholder="Enter Status" required>
     				</div>
     			</div>
             </div>
@@ -88,7 +88,7 @@ else{
 
 <script>
 $(function () {
-    $("#lotTable").DataTable({
+    $("#statusTable").DataTable({
         "responsive": true,
         "autoWidth": false,
         'processing': true,
@@ -97,11 +97,11 @@ $(function () {
         'order': [[ 1, 'asc' ]],
         'columnDefs': [ { orderable: false, targets: [0] }],
         'ajax': {
-            'url':'php/loadLots.php'
+            'url':'php/loadStatus.php'
         },
         'columns': [
             { data: 'counter' },
-            { data: 'lots_no' },
+            { data: 'status' },
             { 
                 data: 'id',
                 render: function ( data, type, row ) {
@@ -113,14 +113,14 @@ $(function () {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            $.post('php/lots.php', $('#lotForm').serialize(), function(data){
+            $.post('php/status.php', $('#lotForm').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
                 if(obj.status === 'success'){
-                    $('#lotModal').modal('hide');
+                    $('#statusModal').modal('hide');
                     toastr["success"](obj.message, "Success:");
                     
-                    $.get('lots.php', function(data) {
+                    $.get('status.php', function(data) {
                         $('#mainContents').html(data);
                     });
                 }
@@ -134,12 +134,12 @@ $(function () {
         }
     });
 
-    $('#addLots').on('click', function(){
-        $('#lotModal').find('#id').val("");
-        $('#lotModal').find('#lotsNumber').val("");
-        $('#lotModal').modal('show');
+    $('#addStatus').on('click', function(){
+        $('#statusModal').find('#id').val("");
+        $('#statusModal').find('#status').val("");
+        $('#statusModal').modal('show');
         
-        $('#lotForm').validate({
+        $('#statusForm').validate({
             errorElement: 'span',
             errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');
@@ -156,15 +156,15 @@ $(function () {
 });
 
 function edit(id){
-    $.post('php/getLots.php', {userID: id}, function(data){
+    $.post('php/getStatus.php', {userID: id}, function(data){
         var obj = JSON.parse(data);
         
         if(obj.status === 'success'){
-            $('#lotModal').find('#id').val(obj.message.id);
-            $('#lotModal').find('#lotsNumber').val(obj.message.lots_no);
-            $('#lotModal').modal('show');
+            $('#statusModal').find('#id').val(obj.message.id);
+            $('#statusModal').find('#status').val(obj.message.status);
+            $('#statusModal').modal('show');
             
-            $('#lotForm').validate({
+            $('#statusForm').validate({
                 errorElement: 'span',
                 errorPlacement: function (error, element) {
                     error.addClass('invalid-feedback');
@@ -188,12 +188,12 @@ function edit(id){
 }
 
 function deactivate(id){
-    $.post('php/deleteLot.php', {userID: id}, function(data){
+    $.post('php/deleteStatus.php', {userID: id}, function(data){
         var obj = JSON.parse(data);
         
         if(obj.status === 'success'){
             toastr["success"](obj.message, "Success:");
-            $.get('lots.php', function(data) {
+            $.get('status.php', function(data) {
                 $('#mainContents').html(data);
             });
         }

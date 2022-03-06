@@ -166,6 +166,18 @@ to get the desired effect
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="#status" data-file="status.php" class="nav-link link">
+                      <i class="nav-icon fas fa-weight"></i>
+                      <p>Status</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#units" data-file="units.php" class="nav-link link">
+                      <i class="nav-icon fas fa-balance-scale"></i>
+                      <p>Units</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="#customers" data-file="customers.php" class="nav-link link">
                       <i class="nav-icon fas fa-book"></i>
                       <p>Customers</p>
@@ -173,7 +185,7 @@ to get the desired effect
                   </li>
                   <li class="nav-item">
                     <a href="#suppliers" data-file="suppliers.php" class="nav-link link">
-                      <i class="nav-icon fas fa-book"></i>
+                      <i class="nav-icon fas fa-industry"></i>
                       <p>Suppliers</p>
                     </a>
                   </li>

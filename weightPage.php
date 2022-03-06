@@ -11,10 +11,12 @@ else{
   $user = $_SESSION['userID'];
   $lots = $db->query("SELECT * FROM lots");
   $vehicles = $db->query("SELECT * FROM vehicles");
-  $vehicles1 = $db->query("SELECT * FROM vehicles");
   $products = $db->query("SELECT * FROM products");
   $packages = $db->query("SELECT * FROM packages");
   $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
+  $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS'");
+  $units = $db->query("SELECT * FROM units");
+  $status = $db->query("SELECT * FROM `status`");
 }
 ?>
 
@@ -105,9 +107,16 @@ else{
                 </div>
               </div>
 
-              <div class="form-group col-3">
-                <label>Customer</label>
-                <input class="form-control" type="text" placeholder="customer">
+              <div class="col-3">
+                <div class="form-group">
+                  <label>Customer No</label>
+                  <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
+                    <option selected="selected">-</option>
+                    <?php while($rowCustomer=mysqli_fetch_assoc($customers)){ ?>
+                      <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
               </div>
 
               <div class="col-3">
@@ -115,8 +124,9 @@ else{
                   <label>Status</label>
                   <select class="form-control Status" style="width: 100%;">
                     <option selected="selected">-</option>
-                    <option value="SALES">Sales</option>
-                    <option value="PURCHASES">Puchases</option>
+                    <?php while($rowStatus=mysqli_fetch_assoc($status)){ ?>
+                      <option value="<?=$rowStatus['id'] ?>"><?=$rowStatus['status'] ?></option>
+                    <?php } ?>
                   </select>
                 </div>
               </div>
@@ -128,7 +138,7 @@ else{
                   <label>Vehicle No</label>
                   <select class="form-control vehicleNo" style="width: 100%;">
                     <option selected="selected">-</option>
-                    <?php while($row1=mysqli_fetch_assoc($vehicles1)){ ?>
+                    <?php while($row1=mysqli_fetch_assoc($vehicles)){ ?>
                       <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
                     <?php } ?>
                   </select>
@@ -143,6 +153,18 @@ else{
               <div class="form-group col-3">
                 <label>Batch No</label>
                 <input class="form-control" type="text" placeholder="Batch No">
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label>Product</label>
+                  <select class="form-control vehicleNo" style="width: 100%;">
+                    <option selected="selected">-</option>
+                    <?php while($rowProduct=mysqli_fetch_assoc($products)){ ?>
+                      <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -213,8 +235,9 @@ else{
               <label>Status :</label>
               <select class="form-control" style="width: 100%;" id="status" name="status" required>
                 <option selected="selected">-</option>
-                <option value="SALES">Sales</option>
-                <option value="PURCHASES">Puchases</option>
+                <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
+                  <option value="<?=$rowS['id'] ?>"><?=$rowS['status'] ?></option>
+                <?php } ?>
               </select>
             </div>
           </div>
@@ -272,8 +295,9 @@ else{
               <label>Unit Weight</label>
               <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
                 <option selected="selected">-</option>
-                <option value="KG">KG</option>
-                <option value="G">G</option>
+                <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
+                  <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
+                <?php } ?>
               </select>
             </div>
           </div>
