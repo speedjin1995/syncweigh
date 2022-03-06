@@ -20,18 +20,18 @@ $searchQuery = " ";
 }*/
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id");
+$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products, units, status WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
 //echo "select count(*) as allcount from users, roles WHERE".$searchQuery;
-$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products, status, units WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select count.serialNo, vehicles.veh_number, lots.lots_no, count.batchNo, count.invoiceNo, count.deliveryNo, count.purchaseNo, customers.customer_name, products.product_name, packages.packages, count.unitWeight, count.tare, count.totalWeight, count.actualWeight, count.currentWeight, count.unit, count.moq, count.dateTime, count.unitPrice, count.totalPrice,count.totalPCS, count.remark, count.status from count, vehicles, packages, lots, customers, products WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+$empQuery = "select count.serialNo, vehicles.veh_number, lots.lots_no, count.batchNo, count.invoiceNo, count.deliveryNo, count.purchaseNo, customers.customer_name, products.product_name, packages.packages, count.unitWeight, count.tare, count.totalWeight, count.actualWeight, count.currentWeight, units.unit, count.moq, count.dateTime, count.unitPrice, count.totalPrice,count.totalPCS, count.remark, status.status from count, vehicles, packages, lots, customers, products WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 
