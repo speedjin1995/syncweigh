@@ -11,14 +11,31 @@ else{
   $user = $_SESSION['userID'];
   $lots = $db->query("SELECT * FROM lots");
   $vehicles = $db->query("SELECT * FROM vehicles");
+  $vehicles2 = $db->query("SELECT * FROM vehicles");
+  $products2 = $db->query("SELECT * FROM products");
   $products = $db->query("SELECT * FROM products");
   $packages = $db->query("SELECT * FROM packages");
   $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
   $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS'");
   $units = $db->query("SELECT * FROM units");
   $status = $db->query("SELECT * FROM `status`");
+  $status2 = $db->query("SELECT * FROM `status`");
 }
 ?>
+
+<select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
+  <option selected="selected">-</option>
+  <?php while($rowCustomer=mysqli_fetch_assoc($customers)){ ?>
+    <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
+  <?php } ?>
+</select>
+
+<select class="form-control" style="width: 100%;" id="supplierNoHidden" style="display: none;">
+  <option selected="selected">-</option>
+  <?php while($rowCustomer=mysqli_fetch_assoc($suppliers)){ ?>
+    <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
+  <?php } ?>
+</select>
 
 <div class="content-header">
   <div class="container-fluid">
@@ -110,21 +127,16 @@ else{
               <div class="col-3">
                 <div class="form-group">
                   <label>Customer No</label>
-                  <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
-                    <option selected="selected">-</option>
-                    <?php while($rowCustomer=mysqli_fetch_assoc($customers)){ ?>
-                      <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
-                    <?php } ?>
-                  </select>
+                  <select class="form-control" style="width: 100%;" id="customerNoFilter" name="customerNoFilter"></select>
                 </div>
               </div>
 
               <div class="col-3">
                 <div class="form-group">
                   <label>Status</label>
-                  <select class="form-control Status" style="width: 100%;">
+                  <select class="form-control Status" id="statusFilter" name="statusFilter" style="width: 100%;">
                     <option selected="selected">-</option>
-                    <?php while($rowStatus=mysqli_fetch_assoc($status)){ ?>
+                    <?php while($rowStatus=mysqli_fetch_assoc($status2)){ ?>
                       <option value="<?=$rowStatus['id'] ?>"><?=$rowStatus['status'] ?></option>
                     <?php } ?>
                   </select>
@@ -138,7 +150,7 @@ else{
                   <label>Vehicle No</label>
                   <select class="form-control vehicleNo" style="width: 100%;">
                     <option selected="selected">-</option>
-                    <?php while($row1=mysqli_fetch_assoc($vehicles)){ ?>
+                    <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
                       <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
                     <?php } ?>
                   </select>
@@ -160,7 +172,7 @@ else{
                   <label>Product</label>
                   <select class="form-control vehicleNo" style="width: 100%;">
                     <option selected="selected">-</option>
-                    <?php while($rowProduct=mysqli_fetch_assoc($products)){ ?>
+                    <?php while($rowProduct=mysqli_fetch_assoc($products2)){ ?>
                       <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
                     <?php } ?>
                   </select>
@@ -276,12 +288,7 @@ else{
           <div class="col-md-4">
             <div class="form-group">
               <label>Customer No</label>
-              <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required>
-                <option selected="selected">-</option>
-                <?php while($row4=mysqli_fetch_assoc($customers)){ ?>
-                  <option value="<?=$row4['id'] ?>"><?=$row4['customer_name'] ?></option>
-                <?php } ?>
-              </select>
+              <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required></select>
             </div>
           </div>
 
@@ -536,6 +543,27 @@ $(function () {
           }
         });
       }
+    }
+  });
+
+  $('#customerNoHidden').hide();
+  $('#supplierNoHidden').hide();
+
+  $('#statusFilter').on('change', function () {
+    if($(this).val() == '1'){
+      $('#customerNoFilter').html($('select#customerNoHidden').html()).append($(this).val());
+    }
+    else if($(this).val() == '2'){
+      $('#customerNoFilter').html($('select#supplierNoHidden').html()).append($(this).val());
+    }
+  });
+
+  $('#extendModal').find('#status').on('change', function () {
+    if($(this).val() == '1'){
+      $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
+    }
+    else if($(this).val() == '2'){
+      $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
     }
   });
 
