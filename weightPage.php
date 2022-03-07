@@ -350,13 +350,13 @@ else{
 
           <div class="form-group col-md-3">
             <label>M.O.Q</label>
-            <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" required>
+            <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
           </div>
 
           <div class="form-group col-md-3">
             <label>Tare Weight</label>
             <div class="input-group">
-              <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
+              <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" required/>
               <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
             </div>
           </div>
@@ -379,7 +379,7 @@ else{
               <label>Unit Price</label>
               <div class="input-group">
                 <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
+                <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
               </div>
           </div>
 

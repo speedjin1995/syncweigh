@@ -11,15 +11,32 @@ else{
   $user = $_SESSION['userID'];
   $lots = $db->query("SELECT * FROM lots");
   $vehicles = $db->query("SELECT * FROM vehicles");
-  $vehicles1 = $db->query("SELECT * FROM vehicles");
+  $vehicles2 = $db->query("SELECT * FROM vehicles");
+  $products2 = $db->query("SELECT * FROM products");
   $products = $db->query("SELECT * FROM products");
   $packages = $db->query("SELECT * FROM packages");
   $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
   $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS'");
   $units = $db->query("SELECT * FROM units");
+  $units1 = $db->query("SELECT * FROM units");
   $status = $db->query("SELECT * FROM `status`");
+  $status2 = $db->query("SELECT * FROM `status`");
 }
 ?>
+
+<select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
+  <option selected="selected">-</option>
+  <?php while($rowCustomer=mysqli_fetch_assoc($customers)){ ?>
+    <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
+  <?php } ?>
+</select>
+
+<select class="form-control" style="width: 100%;" id="supplierNoHidden" style="display: none;">
+  <option selected="selected">-</option>
+  <?php while($rowCustomer=mysqli_fetch_assoc($suppliers)){ ?>
+    <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
+  <?php } ?>
+</select>
 
 <div class="content-header">
   <div class="container-fluid">
@@ -151,9 +168,9 @@ else{
                     <div class="col-3">
                       <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control" style="width: 100%;">
+                        <select class="form-control Status" id="statusFilter" name="statusFilter" style="width: 100%;">
                           <option selected="selected">-</option>
-                          <?php while($rowStatus=mysqli_fetch_assoc($status)){ ?>
+                          <?php while($rowStatus=mysqli_fetch_assoc($status2)){ ?>
                             <option value="<?=$rowStatus['id'] ?>"><?=$rowStatus['status'] ?></option>
                           <?php } ?>
                         </select>
@@ -162,17 +179,17 @@ else{
                   </div>
       
                   <div class="row">
-                    <div class="col-3">
-                      <div class="form-group">
-                        <label>Vehicle No</label>
-                        <select class="form-control" style="width: 100%;">
-                          <option selected="selected">-</option>
-                          <?php while($row1=mysqli_fetch_assoc($vehicles1)){ ?>
-                              <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
-                            <?php } ?>
-                        </select>
-                      </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>Vehicle No</label>
+                      <select class="form-control vehicleNo" style="width: 100%;">
+                        <option selected="selected">-</option>
+                        <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
+                          <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
+                        <?php } ?>
+                      </select>
                     </div>
+                  </div>
       
                     <div class="form-group col-3">
                       <label>Invoice No</label>
@@ -189,7 +206,7 @@ else{
                         <label>Product</label>
                         <select class="form-control vehicleNo" style="width: 100%;">
                           <option selected="selected">-</option>
-                          <?php while($rowProduct=mysqli_fetch_assoc($products)){ ?>
+                          <?php while($rowProduct=mysqli_fetch_assoc($products2)){ ?>
                             <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
                           <?php } ?>
                         </select>
@@ -380,10 +397,11 @@ else{
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Unit Weight</label>
-                  <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required>
-                    <option selected="selected" value="-">-</option>
-                    <option value="KG">KG</option>
-                    <option value="G">G</option>
+                  <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
+                    <option selected="selected">-</option>
+                    <?php while($rowunits=mysqli_fetch_assoc($units1)){ ?>
+                      <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
+                    <?php } ?>
                   </select>
                 </div>
               </div>
@@ -424,13 +442,13 @@ else{
 
               <div class="form-group col-md-3">
                 <label>M.O.Q</label>
-                <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" required>
+                <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
               </div>
 
               <div class="form-group col-md-3">
                 <label>Tare Weight</label>
                 <div class="input-group">
-                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
+                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" required/>
                   <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
                 </div>
               </div>
@@ -453,7 +471,7 @@ else{
                 <label>Unit Price</label>
                 <div class="input-group">
                   <div class="input-group-text"><i>RM</i></div>
-                  <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" required/>                        
+                  <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
                 </div>
               </div>
 
@@ -630,6 +648,46 @@ else{
         }
     });
 
+  $('#customerNoHidden').hide();
+  $('#supplierNoHidden').hide();
+
+  $('#statusFilter').on('change', function () {
+    if($(this).val() == '1'){
+      $('#customerNoFilter').html($('select#customerNoHidden').html()).append($(this).val());
+    }
+    else if($(this).val() == '2'){
+      $('#customerNoFilter').html($('select#supplierNoHidden').html()).append($(this).val());
+    }
+  });
+
+  $('#extendModal').find('#status').on('change', function () {
+    if($(this).val() == '1'){
+      $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
+    }
+    else if($(this).val() == '2'){
+      $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
+    }
+  });
+
+  $('#extendModal').find('#product').on('change', function () {
+    var id = $(this).val();
+
+    $.post('php/getProduct.php', {userID: id}, function(data){
+      var obj = JSON.parse(data);
+        
+      if(obj.status === 'success'){
+        $('#extendModal').find('#unitPrice').val(obj.message.product_price);
+        $('#extendModal').find('#moq').trigger("keyup");
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when activate", "Failed:");
+      }
+    });
+  });
+
   $('#unitWeight').on('change', function () {
     var unitWeight = $(this).val();
 
@@ -789,28 +847,76 @@ else{
     });
 }
 
-// function edit(id) {
+function edit(id) {
+  $.post('php/getCount.php', {userID: id}, function(data){
+      var obj = JSON.parse(data);
+      
+      if(obj.status === 'success'){
+        $('#extendModal').find('#serialNo').val(obj.message.serialNo);
+        $('#extendModal').find('#unitWeight').val(obj.message.unit);
+        $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
+        $('#extendModal').find('#status').val(obj.message.status);
+        $('#extendModal').find('#lotNo').val(obj.message.lotNo);
+        $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
+        $('#extendModal').find('#customerNo').val(obj.message.customer);
+        $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
+        $('#extendModal').find('#batchNo').val(obj.message.batchNo);
+        $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
+        $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
+        $('#extendModal').find('#product').val(obj.message.productName);
+        $('#extendModal').find('#moq').val(obj.message.moq);
+        $('#extendModal').find('#tareWeight').val(obj.message.tare);
+        $('#extendModal').find('#package').val(obj.message.package);
+        $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
+        $('#extendModal').find('#remark').val(obj.message.remark);
+        $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
+        $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
+        $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
+        $('#extendModal').find('#totalWeight1').val(obj.message.totalWeight1);
+        $('#extendModal').find('#totalPCS').val(obj.message.totalPCS);
+        $('#extendModal').modal('show');
+        
+        $('#lotForm').validate({
+          errorElement: 'span',
+          errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+          },
+          highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+          }
+        });
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when pull data", "Failed:");
+      }
+  });
+}
 
-// }
+function deactivate(id) {
+  $.post('php/deleteCount.php', {userID: id}, function(data){
+    var obj = JSON.parse(data);
 
-// function delete(id) {
-//   $.post('php/deleteCount.php', {userID: id}, function(data){
-//     var obj = JSON.parse(data);
-    
-//     if(obj.status === 'success'){
-//       toastr["success"](obj.message, "Success:");
-//       $.get('countingPage.php', function(data) {
-//         $('#mainContents').html(data);
-//       });
-//     }
-//     else if(obj.status === 'failed'){
-//       toastr["error"](obj.message, "Failed:");
-//     }
-//     else{
-//       toastr["error"]("Something wrong when activate", "Failed:");
-//     }
-//   });
-// }
+    if(obj.status === 'success'){
+    toastr["success"](obj.message, "Success:");
+      $.get('countPage.php', function(data) {
+        $('#mainContents').html(data);
+      });
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when activate", "Failed:");
+    }
+  });
+}
 
 // function print(id) {
 
