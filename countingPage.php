@@ -489,6 +489,8 @@ else{
                   <div class="input-group-text bg-primary color-palette"><i>PCs</i></div>
                 </div>
               </div>
+
+              <input id="totalWeight" name="totalWeight" hidden/>
             </div>                
           </div>
 
@@ -652,6 +654,8 @@ else{
 
   $('#captureWeight').on('click', function () {
       $('#currentWeight').val("100.00");
+      $('#totalWeight').val("1.00");
+      $('#totalPCS').val("100.00");
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
     var moq = $('#moq').val();
