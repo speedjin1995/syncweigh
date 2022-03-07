@@ -246,9 +246,6 @@ else{
         <div class="row">
           <div class="col-md-2">
             <div class="form-group">
-    					<input type="hidden" class="form-control" id="serialNo" name="serialNo">
-    				</div>
-            <div class="form-group">
               <label>Status :</label>
               <select class="form-control" style="width: 100%;" id="status" name="status" required>
                 <option selected="selected">-</option>
@@ -258,7 +255,9 @@ else{
               </select>
             </div>
           </div>
-
+            
+          <input type="hidden" class="form-control" id="serialNo" name="serialNo">
+          
           <div class="col-md-2">
             <div class="form-group">
               <label>Lot No :</label>

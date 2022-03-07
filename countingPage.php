@@ -346,6 +346,8 @@ else{
                 </div>
               </div>
 
+              <input type="hidden" class="form-control" id="serialNo" name="serialNo">
+
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Lot No :</label>
@@ -802,7 +804,7 @@ else{
 
     '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
     '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.serialNo+
-    ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="delete('+row.serialNo+
+    ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.serialNo+
     ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+
     ')"><i class="fas fa-print"></i></button></div></div></div></div>';
   }
@@ -905,7 +907,7 @@ function deactivate(id) {
 
     if(obj.status === 'success'){
     toastr["success"](obj.message, "Success:");
-      $.get('countPage.php', function(data) {
+      $.get('countingPage.php', function(data) {
         $('#mainContents').html(data);
       });
     }
