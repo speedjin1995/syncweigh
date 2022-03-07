@@ -505,8 +505,8 @@ $(function () {
       tr.addClass('shown');
     }
   });
-
-      //Date picker
+  
+  //Date picker
   $('#fromDate').datetimepicker({
     format: 'L'
   }),
@@ -539,6 +539,24 @@ $(function () {
     }
   });
 
+  $('#extendModal').find('#product').on('change', function () {
+    var id = $(this).val();
+
+    $.post('php/getProduct.php', {userID: id}, function(data){
+      var obj = JSON.parse(data);
+        
+      if(obj.status === 'success'){
+        $('#extendModal').find('#unitPrice').val(obj.message.product_price);
+        $('#extendModal').find('#moq').trigger("keyup");
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when activate", "Failed:");
+      }
+    });
+  });
 
   $('#unitWeight').on('change', function () {
     var unitWeight = $(this).val();
@@ -563,8 +581,7 @@ $(function () {
   });
 
   $('#captureWeight').on('click', function () {
-    debugger;
-      $('#currentWeight').val("100.00");
+    $('#currentWeight').val("100.00");
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
     var moq = $('#moq').val();
@@ -574,14 +591,16 @@ $(function () {
     if(tareWeight != ''){
       actualWeight = currentWeight - tareWeight;
       $('#actualWeight').val(actualWeight.toFixed(2));
-    }else{
+    }
+    else{
       $('#actualWeight').val((0).toFixed(2))
     }
 
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
-    }else(
+    }
+    else(
       $('#totalWeight').val((0).toFixed(2))
     )
 
@@ -597,17 +616,18 @@ $(function () {
     if(currentWeight != '' && $(this).val() != ''){
       var actualWeight = currentWeight - $(this).val();
       $('#actualWeight').val(actualWeight.toFixed(2));
-    }else{
+    }
+    else{
       $('#actualWeight').val((0).toFixed(2))
     }
 
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
-    }else(
+    }
+    else{
       $('#totalWeight').val((0).toFixed(2))
-    )
-
+    }
   });
 
   $('#moq').on('keyup', function () {
@@ -618,7 +638,8 @@ $(function () {
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
-    }else(
+    }
+    else(
       $('#totalWeight').val((0).toFixed(2))
     )
 
@@ -633,7 +654,8 @@ $(function () {
     if(unitPrice != '' &&  totalWeight != ''){
       totalPrice = unitPrice * totalWeight;
       $('#totalPrice').val(totalPrice.toFixed(2));
-    }else(
+    }
+    else(
       $('#totalPrice').val((0).toFixed(2))
     )
   });
@@ -699,24 +721,24 @@ function newEntry(){
 
 // }
 
-// function delete(id) {
-//   $.post('php/deleteWeight.php', {userID: id}, function(data){
-//     var obj = JSON.parse(data);
-    
-//     if(obj.status === 'success'){
-//       toastr["success"](obj.message, "Success:");
-//       $.get('weightPage.php', function(data) {
-//         $('#mainContents').html(data);
-//       });
-//     }
-//     else if(obj.status === 'failed'){
-//       toastr["error"](obj.message, "Failed:");
-//     }
-//     else{
-//       toastr["error"]("Something wrong when activate", "Failed:");
-//     }
-//   });
-// }
+function delete(id) {
+  $.post('php/deleteWeight.php', {userID: id}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+    toastr["success"](obj.message, "Success:");
+      $.get('weightPage.php', function(data) {
+        $('#mainContents').html(data);
+      });
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when activate", "Failed:");
+    }
+  });
+}
 
 // function print(id) {
 
