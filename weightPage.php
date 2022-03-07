@@ -241,8 +241,13 @@ else{
           </div>
         </div>
 
+        
+
         <div class="row">
           <div class="col-md-2">
+            <div class="form-group">
+    					<input type="hidden" class="form-control" id="serialNo" name="serialNo">
+    				</div>
             <div class="form-group">
               <label>Status :</label>
               <select class="form-control" style="width: 100%;" id="status" name="status" required>
@@ -709,6 +714,7 @@ function format (row) {
 }
 
 function newEntry(){
+  $('#extendModal').find('#serialNo').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
   $('#extendModal').find('#status').val('');
@@ -746,7 +752,53 @@ function newEntry(){
 }
 
 function edit(id) {
-
+  $.post('php/getWeights.php', {userID: id}, function(data){
+      var obj = JSON.parse(data);
+      
+      if(obj.status === 'success'){
+        $('#extendModal').find('#serialNo').val(obj.message.serialNo);
+        $('#extendModal').find('#unitWeight').val(obj.message.unit);
+        $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
+        $('#extendModal').find('#status').val(obj.message.status);
+        $('#extendModal').find('#lotNo').val(obj.message.lotNo);
+        $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
+        $('#extendModal').find('#customerNo').val(obj.message.customer);
+        $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
+        $('#extendModal').find('#batchNo').val(obj.message.batchNo);
+        $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
+        $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
+        $('#extendModal').find('#product').val(obj.message.productName);
+        $('#extendModal').find('#moq').val(obj.message.moq);
+        $('#extendModal').find('#tareWeight').val(obj.message.tare);
+        $('#extendModal').find('#package').val(obj.message.package);
+        $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
+        $('#extendModal').find('#remark').val(obj.message.remark);
+        $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
+        $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
+        $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
+        $('#extendModal').modal('show');
+        
+        $('#lotForm').validate({
+          errorElement: 'span',
+          errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+          },
+          highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+          }
+        });
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when pull data", "Failed:");
+      }
+  });
 }
 
 function deactivate(id) {

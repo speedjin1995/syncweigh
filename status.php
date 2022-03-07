@@ -113,7 +113,7 @@ $(function () {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            $.post('php/status.php', $('#lotForm').serialize(), function(data){
+            $.post('php/status.php', $('#statusForm').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
                 if(obj.status === 'success'){

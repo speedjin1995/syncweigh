@@ -28,46 +28,81 @@ if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicle
 	$totalPrice = filter_input(INPUT_POST, 'totalPrice', FILTER_SANITIZE_STRING);
 	$totalWeight = filter_input(INPUT_POST, 'totalWeight', FILTER_SANITIZE_STRING);
 
-	if ($insert_stmt = $db->prepare("INSERT INTO weight (vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
-	, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-		$insert_stmt->bind_param('sssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
-		, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status);
+	if($_POST['serialNo'] != null && $_POST['serialNo'] != ''){
+		if ($update_stmt = $db->prepare("UPDATE weight SET vehicleNo=?, lotNo=?, batchNo=?, invoiceNo=?, deliveryNo=?, purchaseNo=?, customer=?, productName=?, package=?
+		, unitWeight=?, tare=?, totalWeight=?, actualWeight=?, unit=?, moq=?, unitPrice=?, totalPrice=?, remark=?, status=? WHERE serialNo=?")){
+			$update_stmt->bind_param('ssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $_POST['serialNo']);
 		
-		// Execute the prepared query.
-		if (! $insert_stmt->execute()){
-
+			// Execute the prepared query.
+			if (! $update_stmt->execute()){
+				echo json_encode(
+					array(
+						"status"=> "failed", 
+						"message"=> $update_stmt->error
+					)
+				);
+			} 
+			else{
+				$update_stmt->close();
+				$db->close();
+				
+				echo json_encode(
+					array(
+						"status"=> "success", 
+						"message"=> "Added Successfully!!" 
+					)
+				);
+			}
+		}
+		else{
 			echo json_encode(
 				array(
 					"status"=> "failed", 
-					"message"=> $update_stmt->error
+					"message"=> $insert_stmt->error
 				)
 			);
-			
-		} else{
-
-            $insert_stmt->close();
-            $db->close();
-            
-            echo json_encode(
-                array(
-                    "status"=> "success", 
-                    "message"=> "Added Successfully!!" 
-                )
-            );
 		}
-	} else{
-
-        echo json_encode(
-            array(
-                "status"=> "failed", 
-                "message"=> $insert_stmt->error
-            )
-        );
-	}		
-
-} else{
-	
+	}
+	else{
+		if ($insert_stmt = $db->prepare("INSERT INTO weight (vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
+		, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status) 
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+			$insert_stmt->bind_param('sssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status);
+			
+			// Execute the prepared query.
+			if (! $insert_stmt->execute()){
+				echo json_encode(
+					array(
+						"status"=> "failed", 
+						"message"=> $insert_stmt->error
+					)
+				);
+			} 
+			else{
+				$insert_stmt->close();
+				$db->close();
+				
+				echo json_encode(
+					array(
+						"status"=> "success", 
+						"message"=> "Added Successfully!!" 
+					)
+				);
+			}
+		} 
+		else{
+			echo json_encode(
+				array(
+					"status"=> "failed", 
+					"message"=> $insert_stmt->error
+				)
+			);
+		}
+	}
+} 
+else{
     echo json_encode(
         array(
             "status"=> "failed", 
