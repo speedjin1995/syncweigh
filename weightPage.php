@@ -38,7 +38,7 @@ else{
       <div class="col-6">
         <div class="small-box bg-success">
           <div class="inner">
-            <h3 style="text-align: center; font-size: 80px">
+            <h3 style="text-align: center; font-size: 80px" class="head">
               100.00
               <sup style="font-size: 20px">KG</sup>
             </h3>
@@ -317,8 +317,8 @@ else{
           <div class="form-group col-md-3">
             <label>Current Weight</label>
             <div class="input-group">
-              <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" required/>
-              <div class="input-group-text bg-primary color-palette"><i>KG/G</i></div>
+              <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
+              <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
             </div>
           </div>
         </div>
@@ -345,7 +345,7 @@ else{
             <label>Tare Weight</label>
             <div class="input-group">
               <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" required/>
-              <div class="input-group-text bg-danger color-palette"><i>KG/G</i></div>
+              <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
             </div>
           </div>
         </div>
@@ -374,8 +374,8 @@ else{
             <div class="form-group col-md-3">
               <label>Actual Weight</label>
               <div class="input-group">
-                <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" required/>
-                <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
+                <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" readonly required/>
+                <div class="input-group-text bg-success color-palette"><i id="changeWeightActual">KG/G</i></div>
               </div>
             </div>
         </div>
@@ -392,15 +392,15 @@ else{
               <label>Total Price</label>
               <div class="input-group">
                 <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" required/>                        
+                <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
               </div>
           </div>
 
             <div class="form-group col-md-3">
               <label>Total Weight</label>
               <div class="input-group">
-                <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" required/>
-                <div class="input-group-text bg-success color-palette"><i>KG/G</i></div>
+                <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" readonly required/>
+                <div class="input-group-text bg-success color-palette"><i id="changeWeightTotal">KG/G</i></div>
               </div>
             </div>
         </div>
@@ -408,7 +408,7 @@ else{
       </div>
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Capture Indicator</button>
+        <button type="button" class="btn btn-primary" id="captureWeight">Capture Indicator</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
     
@@ -506,28 +506,6 @@ $(function () {
     }
   });
 
-    //Initialize Select2 Elements
-  // $('.Status').select2({
-  //   theme: 'bootstrap4'
-  // }),
-  // $('.vehicleNo').select2({
-  //   theme: 'bootstrap4'
-  // }),
-  // $('.lotNo').select2({
-  //   theme: 'bootstrap4'
-  // }),
-  // $('.customerNo').select2({
-  //   theme: 'bootstrap4'
-  // }),
-  // $('.unitWeight').select2({
-  //   theme: 'bootstrap4'
-  // }),
-  // $('.product').select2({
-  //   theme: 'bootstrap4'
-  // }),
-  // $('.package').select2({
-  //   theme: 'bootstrap4'
-  // }),
       //Date picker
   $('#fromDate').datetimepicker({
     format: 'L'
@@ -560,6 +538,106 @@ $(function () {
       }
     }
   });
+
+
+  $('#unitWeight').on('change', function () {
+    var unitWeight = $(this).val();
+
+    if(unitWeight == 1){
+      $('#changeWeight').text("KG");
+      $('#changeWeightTare').text("KG");
+      $('#changeWeightActual').text("KG");
+      $('#changeWeightTotal').text("KG");
+    }else if(unitWeight == 2){
+      $('#changeWeight').text("G");
+      $('#changeWeightTare').text("G");
+      $('#changeWeightActual').text("G");
+      $('#changeWeightTotal').text("G");
+
+    }else if(unitWeight == 3){
+      $('#changeWeight').text("LB");
+      $('#changeWeightTare').text("LB");
+      $('#changeWeightActual').text("LB");
+      $('#changeWeightTotal').text("LB");
+    }
+  });
+
+  $('#captureWeight').on('click', function () {
+    debugger;
+      $('#currentWeight').val("100.00");
+    var tareWeight =  $('#tareWeight').val();
+    var currentWeight =  $('#currentWeight').val();
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
+
+    if(tareWeight != ''){
+      actualWeight = currentWeight - tareWeight;
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $(unitPrice).trigger("keyup");
+  });
+
+  $('#tareWeight').on('keyup', function () {
+    var currentWeight =  $('#currentWeight').val();
+    var actualWeight;
+    var moq = $('#moq').val();
+    var totalWeight;
+
+    if(currentWeight != '' && $(this).val() != ''){
+      var actualWeight = currentWeight - $(this).val();
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+  });
+
+  $('#moq').on('keyup', function () {
+    var actualWeight = $("#actualWeight").val();
+    var moq = $(this).val();
+    var totalWeight;
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $(unitPrice).trigger("keyup");
+  });
+
+  $('#unitPrice').on('keyup', function () {
+    var totalPrice;
+    var unitPrice = $(this).val();
+    var totalWeight = $('#totalWeight').val();
+
+    if(unitPrice != '' &&  totalWeight != ''){
+      totalPrice = unitPrice * totalWeight;
+      $('#totalPrice').val(totalPrice.toFixed(2));
+    }else(
+      $('#totalPrice').val((0).toFixed(2))
+    )
+  });
+
 });
 
 function format (row) {
@@ -617,31 +695,31 @@ function newEntry(){
   });
 }
 
-function edit(id) {
+// function edit(id) {
 
-}
+// }
 
-function delete(id) {
-  $.post('php/deleteWeight.php', {userID: id}, function(data){
-    var obj = JSON.parse(data);
+// function delete(id) {
+//   $.post('php/deleteWeight.php', {userID: id}, function(data){
+//     var obj = JSON.parse(data);
     
-    if(obj.status === 'success'){
-      toastr["success"](obj.message, "Success:");
-      $.get('weightPage.php', function(data) {
-        $('#mainContents').html(data);
-      });
-    }
-    else if(obj.status === 'failed'){
-      toastr["error"](obj.message, "Failed:");
-    }
-    else{
-      toastr["error"]("Something wrong when activate", "Failed:");
-    }
-  });
-}
+//     if(obj.status === 'success'){
+//       toastr["success"](obj.message, "Success:");
+//       $.get('weightPage.php', function(data) {
+//         $('#mainContents').html(data);
+//       });
+//     }
+//     else if(obj.status === 'failed'){
+//       toastr["error"](obj.message, "Failed:");
+//     }
+//     else{
+//       toastr["error"]("Something wrong when activate", "Failed:");
+//     }
+//   });
+// }
 
-function print(id) {
+// function print(id) {
 
-}
+// }
 
 </script>
