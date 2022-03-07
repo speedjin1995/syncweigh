@@ -703,7 +703,7 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Time: '+row.time+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.serialNo+
-  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="delete('+row.serialNo+
+  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.serialNo+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+
   ')"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
@@ -745,11 +745,11 @@ function newEntry(){
   });
 }
 
-// function edit(id) {
+function edit(id) {
 
-// }
+}
 
-function delete(id) {
+function deactivate(id) {
   $.post('php/deleteWeight.php', {userID: id}, function(data){
     var obj = JSON.parse(data);
 
@@ -768,8 +768,8 @@ function delete(id) {
   });
 }
 
-// function print(id) {
+function print(id) {
 
-// }
+}
 
 </script>
