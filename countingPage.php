@@ -315,7 +315,7 @@ else{
             <div class="row">
               <div class="form-group col-3">
                 <label>Date</label>
-                <div class="input-group date" id="dateTime" data-target-input="nearest">
+                <div class="input-group date" data-target-input="nearest">
                   <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
                   <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -630,6 +630,7 @@ else{
       format: 'L'
     });
 
+
     $.validator.setDefaults({
         submitHandler: function () {
             if($('#extendModal').hasClass('show')){
@@ -836,6 +837,7 @@ else{
     $('#extendModal').find('#totalPrice').val("");
     $('#extendModal').find('#totalPCS').val("");
     $('#extendModal').find('#unitPrice').val("");
+    $('#extendModal').find('#dateTime').val("");
 
     $('#extendModal').modal('show');
     $("#dateT").val(new Date().toLocaleString());

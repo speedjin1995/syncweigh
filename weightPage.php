@@ -234,7 +234,7 @@ else{
       <div class="row">
         <div class="form-group col-3" style="padding-top: 60px;">
           <label>Date</label>
-          <div class="input-group date" id="dateTime" data-target-input="nearest">
+          <div class="input-group date" data-target-input="nearest">
             <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
             <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -536,9 +536,7 @@ $(function () {
   $('#toDate').datetimepicker({
     format: 'L'
   });
-  $('#DateTime').datetimepicker({
-    format: 'L'
-  });
+
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -729,6 +727,7 @@ function format (row) {
 }
 
 function newEntry(){
+  debugger;
   $('#extendModal').find('#serialNo').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
@@ -749,11 +748,7 @@ function newEntry(){
   $('#extendModal').find('#totalPrice').val("");
   $('#extendModal').find('#unitPrice').val("");
   $('#extendModal').find('#totalWeight').val("");
-  // $('#DateTime').datetimepicker({
-  //   defaultDate: new Date(),
-  //   format: 'MM-DD-YYYY'
-  // });
-
+  $('#extendModal').find('#dateTime').val("");
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
