@@ -314,9 +314,15 @@ else{
 
             <div class="row">
               <div class="form-group col-3">
-                <label>Date Time</label>
-                <input type="text" style="border-width:0px; border:none; outline:none;" id="dateT" readonly/>
+                <label>Date</label>
+                <div class="input-group date" id="dateTime" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
+                  <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
               </div>
+
               <div class="col-md-1"></div>
               <div class="form-group col-md-3"></div>
               

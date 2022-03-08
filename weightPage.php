@@ -110,7 +110,8 @@ else{
                 <label>From Date:</label>
                 <div class="input-group date" id="fromDate" data-target-input="nearest">
                   <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
-                  <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
+                  <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
                 </div>
               </div>
 
@@ -230,7 +231,18 @@ else{
       </div>
 
       <div class="modal-body">
-        <div class="col-lg-12 col-12 d-flex justify-content-center">
+      <div class="row">
+        <div class="form-group col-3" style="padding-top: 60px;">
+          <label>Date</label>
+          <div class="input-group date" id="dateTime" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
+            <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-6 d-flex justify-content-center">
           <div class="small-box bg-success">
             <div class="inner">
               <h3 style="text-align: center; font-size: 80px">
@@ -240,8 +252,8 @@ else{
             </div>
           </div>
         </div>
-
-        
+      
+      </div>
 
         <div class="row">
           <div class="col-md-2">
@@ -524,6 +536,9 @@ $(function () {
   $('#toDate').datetimepicker({
     format: 'L'
   });
+  $('#DateTime').datetimepicker({
+    format: 'L'
+  });
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -660,6 +675,8 @@ $(function () {
     else{
       $('#totalWeight').val((0).toFixed(2))
     }
+
+    $(unitPrice).trigger("keyup");
   });
 
   $('#moq').on('keyup', function () {
@@ -703,8 +720,7 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
   '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.date+
-  '</p></div><div class="col-md-3"><p>Time: '+row.time+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.serialNo+
   ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.serialNo+
@@ -733,6 +749,11 @@ function newEntry(){
   $('#extendModal').find('#totalPrice').val("");
   $('#extendModal').find('#unitPrice').val("");
   $('#extendModal').find('#totalWeight').val("");
+  // $('#DateTime').datetimepicker({
+  //   defaultDate: new Date(),
+  //   format: 'MM-DD-YYYY'
+  // });
+
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({

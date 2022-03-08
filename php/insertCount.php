@@ -6,7 +6,7 @@ session_start();
 
 if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicleNo'], $_POST['customerNo'], $_POST['deliveryNo'], $_POST['unitWeight']
 , $_POST['batchNo'], $_POST['purchaseNo'], $_POST['currentWeight'], $_POST['product'], $_POST['moq'], $_POST['tareWeight'], $_POST['package'], $_POST['unitPrice'], $_POST['actualWeight']
-, $_POST['remark'], $_POST['totalPrice'], $_POST['totalPCS'], $_POST['unitWeight1'])){
+, $_POST['remark'], $_POST['totalPrice'], $_POST['totalPCS'], $_POST['unitWeight1'], $_POST['dateTime'])){
 
 	$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
 	$lotNo = filter_input(INPUT_POST, 'lotNo', FILTER_SANITIZE_STRING);
@@ -28,13 +28,15 @@ if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicle
 	$totalPrice = filter_input(INPUT_POST, 'totalPrice', FILTER_SANITIZE_STRING);
     $totalPCS = filter_input(INPUT_POST, 'totalPCS', FILTER_SANITIZE_STRING);
     $unitWeight1 = filter_input(INPUT_POST, 'unitWeight1', FILTER_SANITIZE_STRING);
+    $date = new DateTime($_POST['dateTime']);
+	$dateTime = date_format($date,"Y-m-d h:m:s");
 
 	if ($insert_stmt = $db->prepare("INSERT INTO count (vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
-	, unitWeight, tare, currentWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, totalPCS) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-		$insert_stmt->bind_param('ssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+	, unitWeight, tare, currentWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, totalPCS, dateTime) 
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+		$insert_stmt->bind_param('sssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
 		, $package, $unitWeight1, $tareWeight, $currentWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status
-        , $totalPCS);
+        , $totalPCS, $dateTime);
 		
 		// Execute the prepared query.
 		if (! $insert_stmt->execute()){
