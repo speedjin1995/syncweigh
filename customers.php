@@ -41,6 +41,7 @@ else{
 						<table id="customerTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>
+                                    <th>Code</th>
 									<th>Name</th>
 									<th>Address</th>
 									<th>Phone</th>
@@ -70,6 +71,10 @@ else{
               <div class="card-body">
                 <div class="form-group">
                   <input type="hidden" class="form-control" id="id" name="id">
+                </div>
+                <div class="form-group">
+                  <label for="code">Customer Code *</label>
+                  <input type="text" class="form-control" name="code" id="code" placeholder="Enter Customer Code" maxlength="10" required>
                 </div>
                 <div class="form-group">
                   <label for="name">Customer Name *</label>
@@ -112,6 +117,7 @@ $(function () {
             'url':'php/loadCustomers.php'
         },
         'columns': [
+            { data: 'customer_code' },
             { data: 'customer_name' },
             { data: 'customer_address' },
             { data: 'customer_phone' },
@@ -150,6 +156,7 @@ $(function () {
 
     $('#addCustomers').on('click', function(){
         $('#addModal').find('#id').val("");
+        $('#addModal').find('#code').val("");
         $('#addModal').find('#name').val("");
         $('#addModal').find('#address').val("");
         $('#addModal').find('#phone').val("");
@@ -178,6 +185,7 @@ function edit(id){
         
         if(obj.status === 'success'){
             $('#addModal').find('#id').val(obj.message.id);
+            $('#addModal').find('#code').val(obj.message.customer_code);
             $('#addModal').find('#name').val(obj.message.customer_name);
             $('#addModal').find('#address').val(obj.message.customer_address);
             $('#addModal').find('#phone').val(obj.message.customer_phone);

@@ -41,6 +41,7 @@ else{
 						<table id="productTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>
+                                    <th>Code</th>
 									<th>Products</th>
 									<th>Price (RM)</th>
 									<th>Actions</th>
@@ -68,6 +69,10 @@ else{
               <div class="card-body">
                 <div class="form-group">
                   <input type="hidden" class="form-control" id="id" name="id">
+                </div>
+                <div class="form-group">
+                  <label for="code">Product Code *</label>
+                  <input type="text" class="form-control" name="code" id="code" placeholder="Enter Product Code" maxlength="10" required>
                 </div>
                 <div class="form-group">
                   <label for="product">Product Name *</label>
@@ -102,6 +107,7 @@ $(function () {
             'url':'php/loadProducts.php'
         },
         'columns': [
+            { data: 'product_code' },
             { data: 'product_name' },
             { data: 'product_price' },
             { 
@@ -138,6 +144,7 @@ $(function () {
 
     $('#addProducts').on('click', function(){
         $('#addModal').find('#id').val("");
+        $('#addModal').find('#code').val("");
         $('#addModal').find('#product').val("");
         $('#addModal').find('#price').val("");
         $('#addModal').modal('show');
@@ -164,6 +171,7 @@ function edit(id){
         
         if(obj.status === 'success'){
             $('#addModal').find('#id').val(obj.message.id);
+            $('#addModal').find('#code').val(obj.message.product_code);
             $('#addModal').find('#product').val(obj.message.product_name);
             $('#addModal').find('#price').val(obj.message.product_price);
             $('#addModal').modal('show');

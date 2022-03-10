@@ -11,16 +11,16 @@ else{
     $userId = $_SESSION['userID'];
 }
 
-if(isset($_POST['name'], $_POST['address'], $_POST['phone'], $_POST['email'])){
-    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+if(isset($_POST['code'], $_POST['name'], $_POST['address'], $_POST['phone'], $_POST['email'])){
+    $code = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_STRING);
 	$address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
         if($_POST['id'] != null && $_POST['id'] != ''){
-            if ($update_stmt = $db->prepare("UPDATE customers SET customer_name=?, customer_address=?, customer_phone=?, customer_email=? WHERE id=?")) {
-                $update_stmt->bind_param('sssss', $name, $address, $phone, $email, $_POST['id']);
+            if ($update_stmt = $db->prepare("UPDATE customers SET customer_code=?, customer_name=?, customer_address=?, customer_phone=?, customer_email=? WHERE id=?")) {
+                $update_stmt->bind_param('ssssss', $code, $name, $address, $phone, $email, $_POST['id']);
                 
                 // Execute the prepared query.
                 if (! $update_stmt->execute()) {
@@ -45,8 +45,8 @@ if(isset($_POST['name'], $_POST['address'], $_POST['phone'], $_POST['email'])){
             }
         }
         else{
-            if ($insert_stmt = $db->prepare("INSERT INTO customers (customer_name, customer_address, customer_phone, customer_email) VALUES (?, ?, ?, ?)")) {
-                $insert_stmt->bind_param('ssss', $name, $address, $phone, $email);
+            if ($insert_stmt = $db->prepare("INSERT INTO customers (customer_code, customer_name, customer_address, customer_phone, customer_email) VALUES (?, ?, ?, ?, ?)")) {
+                $insert_stmt->bind_param('sssss', $code, $name, $address, $phone, $email);
                 
                 // Execute the prepared query.
                 if (! $insert_stmt->execute()) {

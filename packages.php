@@ -41,6 +41,7 @@ else{
 							<thead>
 								<tr>
 									<th>No.</th>
+                                    <th>Code</th>
 									<th>Packages.</th>
 									<th>Actions</th>
 								</tr>
@@ -67,6 +68,10 @@ else{
               <div class="card-body">
                 <div class="form-group">
                   <input type="hidden" class="form-control" id="id" name="id">
+                </div>
+                <div class="form-group">
+                  <label for="code">Packages Code *</label>
+                  <input type="text" class="form-control" name="code" id="code" placeholder="Enter Product Code" maxlength="10" required>
                 </div>
                 <div class="form-group">
                   <label for="packages">Packages *</label>
@@ -100,6 +105,7 @@ $(function () {
         },
         'columns': [
             { data: 'counter' },
+            { data: 'packages_code' },
             { data: 'packages' },
             { 
                 data: 'id',
@@ -135,6 +141,7 @@ $(function () {
 
     $('#addPackages').on('click', function(){
         $('#packagesModal').find('#id').val("");
+        $('#packagesModal').find('#code').val("");
         $('#packagesModal').find('#packages').val("");
         $('#packagesModal').modal('show');
         
@@ -160,6 +167,7 @@ function edit(id){
         
         if(obj.status === 'success'){
             $('#packagesModal').find('#id').val(obj.message.id);
+            $('#packagesModal').find('#code').val(obj.message.packages_code);
             $('#packagesModal').find('#packages').val(obj.message.packages);
             $('#packagesModal').modal('show');
             

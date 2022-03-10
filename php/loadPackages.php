@@ -14,7 +14,7 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " WHERE packages like '%".$searchValue."%'";
+   $searchQuery = " WHERE packages like '%".$searchValue."%' OR packages_code like '%".$searchValue."%'";
 }
 
 ## Total number of records without filtering
@@ -38,6 +38,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $data[] = array( 
       "counter"=>$counter,
       "id"=>$row['id'],
+      "packages_code"=>$row['packages_code'],
       "packages"=>$row['packages']
     );
 

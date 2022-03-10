@@ -14,7 +14,7 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " WHERE product_name like '%".$searchValue."%'";
+   $searchQuery = " WHERE product_name like '%".$searchValue."%' OR product_code like '%".$searchValue."%'";
 }
 
 ## Total number of records without filtering
@@ -36,6 +36,7 @@ $data = array();
 while($row = mysqli_fetch_assoc($empRecords)) {
     $data[] = array( 
       "id"=>$row['id'],
+      "product_code"=>$row['product_code'],
       "product_name"=>$row['product_name'],
       "product_price"=>$row['product_price']
     );
