@@ -232,12 +232,26 @@ else{
 
       <div class="modal-body">
       <div class="row">
-        <div class="form-group col-3" style="padding-top: 60px;">
-          <label>Date</label>
-          <div class="input-group date" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
-            <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
-              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        <div class="col-3">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>Serial No.</label>
+                <input class="form-control" type="text" placeholder="Serial No" id="serialNo" name="serialNo" readonly required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>Date</label>
+                <div class="input-group date" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
+                  <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -268,7 +282,7 @@ else{
             </div>
           </div>
             
-          <input type="hidden" class="form-control" id="serialNo" name="serialNo">
+          <input type="hidden" class="form-control" id="serialNumber" name="serialNumber">
           
           <div class="col-md-2">
             <div class="form-group">
@@ -720,14 +734,13 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.serialNo+
-  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.serialNo+
-  ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+
-  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit("'+row.serialNo+
+  '")"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate("'+row.serialNo+
+  '")"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.serialNo+
+  '")"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
 function newEntry(){
-  debugger;
   $('#extendModal').find('#serialNo').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");

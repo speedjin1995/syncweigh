@@ -30,12 +30,12 @@ if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicle
 	$date = new DateTime($_POST['dateTime']);
 	$dateTime = date_format($date,"Y-m-d h:m:s");
 
-	if($_POST['serialNo'] != null && $_POST['serialNo'] != ''){
+	if($_POST['serialNumber'] != null && $_POST['serialNumber'] != ''){
 		if ($update_stmt = $db->prepare("UPDATE weight SET vehicleNo=?, lotNo=?, batchNo=?, invoiceNo=?, deliveryNo=?, purchaseNo=?, customer=?, productName=?, package=?
 		, unitWeight=?, tare=?, totalWeight=?, actualWeight=?, unit=?, moq=?, unitPrice=?, totalPrice=?, remark=?, status=?, dateTime=? WHERE serialNo=?")){
 			$update_stmt->bind_param('sssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
 			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, 
-			$dateTime , $_POST['serialNo']);
+			$dateTime , $_POST['serialNumber']);
 		
 			// Execute the prepared query.
 			if (! $update_stmt->execute()){
