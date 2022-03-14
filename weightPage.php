@@ -668,6 +668,23 @@ $(function () {
     format: 'L'
   });
 
+  //JSPrintManager WebSocket settings
+  JSPM.JSPrintManager.auto_reconnect = true;
+  JSPM.JSPrintManager.start();
+  JSPM.JSPrintManager.WS.onStatusChanged = function () {
+    if (jspmWSStatus()) {
+      //get serial ports
+      JSPM.JSPrintManager.getSerialPorts().then(function (portsList) {
+        var options = '';
+
+        for (var i = 0; i < portsList.length; i++) {
+          options += '<option value="' + portsList[i] + '">' + portsList[i] + '</option>';
+        }
+
+        $('#serialPort').html(options);
+      });
+    }
+  };
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -700,24 +717,6 @@ $(function () {
       }
     }
   });
-
-  //JSPrintManager WebSocket settings
-  JSPM.JSPrintManager.auto_reconnect = true;
-  JSPM.JSPrintManager.start();
-  JSPM.JSPrintManager.WS.onStatusChanged = function () {
-    if (jspmWSStatus()) {
-      //get serial ports
-      JSPM.JSPrintManager.getSerialPorts().then(function (portsList) {
-        var options = '';
-
-        for (var i = 0; i < portsList.length; i++) {
-          options += '<option value="' + portsList[i] + '">' + portsList[i] + '</option>';
-        }
-
-        $('#serialPort').html(options);
-      });
-    }
-  };
 
   $('#customerNoHidden').hide();
   $('#supplierNoHidden').hide();
