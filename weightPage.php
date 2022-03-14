@@ -52,7 +52,7 @@ else{
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-6">
+      <!--div class="col-6">
         <div class="small-box bg-success">
           <div class="inner">
             <h3 style="text-align: center; font-size: 80px" class="head">
@@ -82,6 +82,26 @@ else{
             </div>
           </div>
         </div>
+      </div-->
+
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-4">
+                <div class="input-group-text bg-primary color-palette"><i>Indicator Connected</i></div>
+              </div>
+              <div class="col-4">
+                <div class="input-group-text color-palette"><i>Checking Connection</i></div>
+              </div>
+              <div class="col-4">
+                <button type="button" class="btn btn-block bg-gradient-primary"  onclick="setup()">
+                  Setup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="col-lg-12">
@@ -91,13 +111,18 @@ else{
               <div class="col-6">
                 <h3 class="card-title">Billboard Description :</h3>
               </div>
-              <div class="col-3">
-                <button type="button" class="btn btn-block bg-gradient-success btn-sm"  data-toggle="modal" data-target="#">
+              <div class="col-2">
+                <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
+                  New Entry
+                </button>
+              </div>
+              <div class="col-2">
+                <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
                   Export Excel
                 </button>
               </div>
-              <div class="col-3">
-                <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  data-toggle="modal" data-target="#">
+              <div class="col-2">
+                <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
                   Search
                 </button>
               </div>
@@ -237,7 +262,7 @@ else{
             <div class="col-12">
               <div class="form-group">
                 <label>Serial No.</label>
-                <input class="form-control" type="text" placeholder="Serial No" id="serialNo" name="serialNo" readonly required>
+                <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
               </div>
             </div>
           </div>
@@ -281,8 +306,6 @@ else{
               </select>
             </div>
           </div>
-            
-          <input type="hidden" class="form-control" id="serialNumber" name="serialNumber">
           
           <div class="col-md-2">
             <div class="form-group">
@@ -441,14 +464,12 @@ else{
               </div>
             </div>
         </div>
-        
       </div>
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="captureWeight">Capture Indicator</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
-    
     </form>
     </div>
     <!-- /.modal-content -->
@@ -457,7 +478,103 @@ else{
 </div>
 <!-- /.modal -->
 
+<div class="modal fade" id="setupModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+    <form role="form" id="setupForm">
+      <div class="modal-header bg-gray-dark color-palette">
+        <h4 class="modal-title">Setup</h4>
+        <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label>Serial Port</label>
+              <select class="form-control" style="width: 100%;" id="serialPort" name="serialPort" required></select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Baud Rate</label>
+              <input class="form-control" type="number" id="serialPortBaudRate" name="serialPortBaudRate" value="9600" required>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Data Bits</label>
+              <select class="form-control" style="width: 100%;" id="serialPortDataBits" name="serialPortDataBits" required>
+                <option value="Eight">8</option>
+                <option value="Seven">7</option>
+                <option value="Six">6</option>
+                <option value="Five">5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label>Parity</label>
+              <select class="form-control" style="width: 100%;" id="serialPortParity" name="serialPortParity" required>
+                <option value="None">None</option>
+                <option value="Odd">Odd</option>
+                <option value="Even">Even</option>
+                <option value="Mark">Mark</option>
+                <option value="Space">Space</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Stop bits</label>
+              <select class="form-control" style="width: 100%;" id="serialPortStopBits" name="serialPortStopBits" required>
+                <option value="One">1</option>
+                <option value="OnePointFive">1.5</option>
+                <option value="Two">2</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Flow control</label>
+              <select class="form-control" style="width: 100%;" id="serialPortFlowControl" name="serialPortFlowControl" required>
+                <option value="None">None</option>
+                <option value="XOnXOff">XOnXOff</option>
+                <option value="RequestToSend">RTS (Request to send)</option>
+                <option value="RequestToSendXOnXOff">RTS XOnXOff</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between bg-gray-dark color-palette">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>      
+
 <script>
+// Objects
+var _serialComm = null;
+var _dataToSend = '';
+var _dataReceived = '';
+var _this = this;
+
+// Values
+var serialComm = "COM5";
+var baurate = 9600;
+var parity = "None";
+var stopbits = "One";
+var databits = "Eight";
+var controlflow = "None";
+
 $(function () {
   var table = $("#weightTable").DataTable({
     "responsive": true,
@@ -561,10 +678,7 @@ $(function () {
               $('#extendModal').modal('hide');
               toastr["success"](obj.message, "Success:");
               $('#weightTable').DataTable().ajax.reload();
-                  
-            // $.get('insertWeight.php', function(data) {
-            //           $('#mainContents').html(data);
-            //       });
+            }
           }
           else if(obj.status === 'failed'){
             toastr["error"](obj.message, "Failed:");
@@ -574,8 +688,36 @@ $(function () {
           }
         });
       }
+      else if ($('#setupModal').hasClass('show')){
+        serialComm = $('#serialPort').val();
+        baurate = parseInt($('#serialPortBaudRate').val());
+        parity = $('#serialPortParity').val();
+        stopbits = $('#serialPortStopBits').val();
+        databits = $('#serialPortDataBits').val();
+        controlflow = $('#serialPortFlowControl').val();
+        doOpen();
+        $('#setupModal').modal('hide');
+      }
     }
   });
+
+  //JSPrintManager WebSocket settings
+  JSPM.JSPrintManager.auto_reconnect = true;
+  JSPM.JSPrintManager.start();
+  JSPM.JSPrintManager.WS.onStatusChanged = function () {
+    if (jspmWSStatus()) {
+      //get serial ports
+      JSPM.JSPrintManager.getSerialPorts().then(function (portsList) {
+        var options = '';
+
+        for (var i = 0; i < portsList.length; i++) {
+          options += '<option value="' + portsList[i] + '">' + portsList[i] + '</option>';
+        }
+
+        $('#serialPort').html(options);
+      });
+    }
+  };
 
   $('#customerNoHidden').hide();
   $('#supplierNoHidden').hide();
@@ -779,53 +921,75 @@ function newEntry(){
   });
 }
 
+function setup(){
+  $('#setupModal').find('#serialPortBaudRate').val('9600');
+  $('#setupModal').find('#serialPortDataBits').val("Eight");
+  $('#setupModal').find('#serialPortParity').val('None');
+  $('#setupModal').find('#serialPortStopBits').val('One');
+  $('#setupModal').find('#serialPortFlowControl').val('None');
+
+  $('#setupForm').validate({
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+}
+
 function edit(id) {
   $.post('php/getWeights.php', {userID: id}, function(data){
-      var obj = JSON.parse(data);
+    var obj = JSON.parse(data);
+    
+    if(obj.status === 'success'){
+      $('#extendModal').find('#serialNo').val(obj.message.serialNo);
+      $('#extendModal').find('#unitWeight').val(obj.message.unit);
+      $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
+      $('#extendModal').find('#status').val(obj.message.status);
+      $('#extendModal').find('#lotNo').val(obj.message.lotNo);
+      $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
+      $('#extendModal').find('#customerNo').val(obj.message.customer);
+      $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
+      $('#extendModal').find('#batchNo').val(obj.message.batchNo);
+      $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
+      $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
+      $('#extendModal').find('#product').val(obj.message.productName);
+      $('#extendModal').find('#moq').val(obj.message.moq);
+      $('#extendModal').find('#tareWeight').val(obj.message.tare);
+      $('#extendModal').find('#package').val(obj.message.package);
+      $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
+      $('#extendModal').find('#remark').val(obj.message.remark);
+      $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
+      $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
+      $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
+      $('#extendModal').modal('show');
       
-      if(obj.status === 'success'){
-        $('#extendModal').find('#serialNo').val(obj.message.serialNo);
-        $('#extendModal').find('#unitWeight').val(obj.message.unit);
-        $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
-        $('#extendModal').find('#status').val(obj.message.status);
-        $('#extendModal').find('#lotNo').val(obj.message.lotNo);
-        $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
-        $('#extendModal').find('#customerNo').val(obj.message.customer);
-        $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
-        $('#extendModal').find('#batchNo').val(obj.message.batchNo);
-        $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
-        $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
-        $('#extendModal').find('#product').val(obj.message.productName);
-        $('#extendModal').find('#moq').val(obj.message.moq);
-        $('#extendModal').find('#tareWeight').val(obj.message.tare);
-        $('#extendModal').find('#package').val(obj.message.package);
-        $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
-        $('#extendModal').find('#remark').val(obj.message.remark);
-        $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
-        $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
-        $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
-        $('#extendModal').modal('show');
-        
-        $('#lotForm').validate({
-          errorElement: 'span',
-          errorPlacement: function (error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
-          },
-          highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-          },
-          unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-          }
-        });
-      }
-      else if(obj.status === 'failed'){
-        toastr["error"](obj.message, "Failed:");
-      }
-      else{
-        toastr["error"]("Something wrong when pull data", "Failed:");
-      }
+      $('#lotForm').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when pull data", "Failed:");
+    }
   });
 }
 
@@ -834,10 +998,11 @@ function deactivate(id) {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-    toastr["success"](obj.message, "Success:");
-      $.get('weightPage.php', function(data) {
+      toastr["success"](obj.message, "Success:");
+      $('#weightTable').DataTable().ajax.reload();
+      /*$.get('weightPage.php', function(data) {
         $('#mainContents').html(data);
-      });
+      });*/
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");
@@ -849,7 +1014,80 @@ function deactivate(id) {
 }
 
 function print(id) {
+  console.log("pending");
+}
 
+//Check JSPM WebSocket status
+function jspmWSStatus() {
+  if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+    return true;
+  else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+    console.warn('JSPrintManager (JSPM) is not installed or not running!');
+    return false;
+  }
+  else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Blocked) {
+    alert('JSPM has blocked this website!');
+    return false;
+  }
+}
+
+//Sending data to port
+function doSendData() {
+  if (!this._serialComm) {
+    this._dataReceived += "Serial port is not open!\r\n";
+    this.refreshDisplay();
+  } 
+  else {
+    this._dataToSend = $('#txtDataToSend').val();
+    if (this._dataToSend.length > 0) {
+      this._serialComm.send(this._dataToSend + $('#endLineChars').val().replace('CR', '\r').replace('LF', '\n'));
+      this._dataReceived += "> " + this._dataToSend + "\r\n";
+      this.refreshDisplay();
+    }
+  }
+}
+
+//Open port
+function doOpen() {
+  this._serialComm = new JSPM.SerialComm(serialComm, baurate, JSPM.Serial.Parity[parity], JSPM.Serial.StopBits[stopbits], JSPM.Serial.DataBits[databits], JSPM.Serial.Handshake[controlflow]);
+
+  this._serialComm.onDataReceived = function (data) {
+    //_this.dataReceived += "< " + data + "\r\n";
+    console.log("Data Received:" + data);
+    _this.refreshDisplay();
+  };
+
+  this._serialComm.onError = function (data, is_critical) {
+      //_this.dataReceived += "ERROR: " + data + "\r\n";
+      console.log("Error: " + data);
+      _this.refreshDisplay();
+  };
+
+  this._serialComm.onClose = function (data) {
+    //_this.dataReceived += "COMM CLOSED!" + "\r\n";
+    console.log("Closed: " + data);
+    _this.refreshDisplay();
+  };
+
+  this._serialComm.open().then(_ => {
+    //_this.dataReceived += "COMM OPEN!" + "\r\n";
+    _this.refreshDisplay();
+  });
+}
+
+//close port
+function doClose() {
+  if (!this._serialComm && this._serialComm.isOpen !== true) {
+    this._dataReceived += "Serial port is not open!\r\n";
+    this.refreshDisplay();
+  } 
+  else{
+    this._serialComm.close();
+  }
+}
+
+function refreshDisplay() {
+  //$('#txtDataReceived').val(this._dataReceived);
 }
 
 </script>

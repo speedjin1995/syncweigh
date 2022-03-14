@@ -31,7 +31,7 @@ if(isset($_POST['userID'])){
                 array(
                     "status" => "success",
                     "message" => $message
-                ));   
+                ));
         }
     }
 }

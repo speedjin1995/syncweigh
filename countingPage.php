@@ -55,7 +55,7 @@ else{
     <div class="row">
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
+          <!--div class="row">
             <div class="col-lg-4">
               <div class="small-box bg-success">
                 <div class="inner">
@@ -97,7 +97,7 @@ else{
                   </a>
               </div>
             </div>
-          </div>
+          </div-->
         
           <div class="row">
             <div class="col-lg-12">
@@ -111,8 +111,8 @@ else{
                       <div class="input-group-text color-palette"><i>Checking Connection</i></div>
                     </div>
                     <div class="col-4">
-                      <button type="button" class="btn btn-block bg-gradient-primary"  onclick="newEntry()">
-                        New Entry
+                      <button type="button" class="btn btn-block bg-gradient-primary"  onclick="setup()">
+                        Setup
                       </button>
                     </div>
                   </div>
@@ -127,13 +127,18 @@ else{
                     <div class="col-6">
                       <h3 class="card-title">Billboard Description :</h3>
                     </div>
-                    <div class="col-3">
-                      <button type="button" class="btn btn-block bg-gradient-success btn-sm"  data-toggle="modal" data-target="#">
+                    <div class="col-2">
+                      <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
+                        New Entry
+                      </button>
+                    </div>
+                    <div class="col-2">
+                      <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
                         Export Excel
                       </button>
                     </div>
-                    <div class="col-3">
-                      <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  data-toggle="modal" data-target="#">
+                    <div class="col-2">
+                      <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
                         Search
                       </button>
                     </div>
