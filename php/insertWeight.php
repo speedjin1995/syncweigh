@@ -68,40 +68,103 @@ if(isset($_POST['status'], $_POST['lotNo'], $_POST['invoiceNo'], $_POST['vehicle
 		}
 	}
 	else{
-		if ($insert_stmt = $db->prepare("INSERT INTO weight (vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
-		, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, dateTime) 
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-			$insert_stmt->bind_param('ssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
-			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $dateTime);
-			
-			// Execute the prepared query.
-			if (! $insert_stmt->execute()){
-				echo json_encode(
-					array(
-						"status"=> "failed", 
-						"message"=> $insert_stmt->error
-					)
-				);
-			} 
-			else{
-				$insert_stmt->close();
-				$db->close();
-				
-				echo json_encode(
-					array(
-						"status"=> "success", 
-						"message"=> "Added Successfully!!" 
-					)
-				);
+
+
+		$id=$_POST['status'];
+        $x=$_POST['status'];
+        if ($update_stmt = $db->prepare("SELECT * FROM miscellaneous WHERE id=?")) {
+            $update_stmt->bind_param('s', $id);
+            
+            // Execute the prepared query.
+            if (! $update_stmt->execute()) {
+                echo json_encode(
+                    array(
+                        "status" => "failed",
+                        "message" => "Something went wrong"
+                    )); 
+            }
+            else{
+
+                $result = $update_stmt->get_result();
+                $message = array();
+                
+                while ($row = $result->fetch_assoc()) {
+
+                    $firstChar = "";
+                    if($x == "1")
+                    {
+                        $firstChar = "S";
+                    } elseif ($x == "2")
+                    {
+                        $firstChar = "P";
+                    }
+                    $charSize = strlen($row['value']);
+                    $misValue = $row['value'];
+                    for($i=0; $i<(5-(int)$charSize); $i++){
+                        $firstChar.='0';  // S0000
+                    }
+            
+                    $firstChar.=$misValue;  //S00009
+                    // echo($firstChar);
+
+					if ($insert_stmt = $db->prepare("INSERT INTO weight (serialNo, vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
+					, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, dateTime) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+						$insert_stmt->bind_param('sssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+						, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $dateTime);
+						
+						// Execute the prepared query.
+						if (! $insert_stmt->execute()){
+							echo json_encode(
+								array(
+									"status"=> "failed", 
+									"message"=> $insert_stmt->error
+								)
+							);
+						} 
+						else{
+							
+							$misValue++;
+							///insert miscellaneous
+							if ($update_stmt = $db->prepare("UPDATE miscellaneous SET value=? WHERE id=?")){
+								$update_stmt->bind_param('ss', $misValue, $id);
+								
+								// Execute the prepared query.
+								if (! $update_stmt->execute()){
+					
+									echo json_encode(
+										array(
+											"status"=> "failed", 
+											"message"=> $update_stmt->error
+										)
+									);
+					
+								} else{
+					
+									$update_stmt->close();
+									$db->close();
+									
+									echo json_encode(
+										array(
+											"status"=> "success", 
+											"message"=> "Added Successfully!!" 
+										)
+									);
+					
+								}
+							} else{
+					
+								echo json_encode(
+									array(
+										"status"=> "failed", 
+										"message"=> $update_stmt->error
+									)
+								);
+							}
+						}
+					}
+				}
 			}
-		} 
-		else{
-			echo json_encode(
-				array(
-					"status"=> "failed", 
-					"message"=> $insert_stmt->error
-				)
-			);
 		}
 	}
 } 

@@ -129,17 +129,17 @@ else{
                     </div>
                     <div class="col-2">
                       <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
-                        New Entry
+                        <i class="fas fa-plus"></i>
                       </button>
                     </div>
                     <div class="col-2">
                       <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
-                        Export Excel
+                      <i class="fas fa-file-excel"></i>
                       </button>
                     </div>
                     <div class="col-2">
                       <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
-                        Search
+                        <i class="fas fa-search"></i>
                       </button>
                     </div>
                   </div>
@@ -165,11 +165,6 @@ else{
                       </div>
                     </div>
       
-                    <div class="form-group col-3">
-                      <label>Customer</label>
-                      <input class="form-control" type="text" placeholder="customer">
-                    </div>
-      
                     <div class="col-3">
                       <div class="form-group">
                         <label>Status</label>
@@ -180,6 +175,11 @@ else{
                           <?php } ?>
                         </select>
                       </div>
+                    </div>
+
+                    <div class="form-group col-3">
+                      <label>Customer</label>
+                      <input class="form-control" type="text" placeholder="customer">
                     </div>
                   </div>
       
@@ -329,7 +329,14 @@ else{
               </div>
 
               <div class="col-md-1"></div>
-              <div class="form-group col-md-3"></div>
+  
+              <div class="col-3">
+                <div class="form-group">
+                  <label>Serial No.</label>
+                  <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
+                </div>
+              </div>
+
               
               <div class="col-md-3">
                 <div class="form-group">
@@ -628,12 +635,13 @@ else{
     }
   });
 
-    $('#fromDate').datetimepicker({
-      format: 'L'
-    }),
-    $('#toDate').datetimepicker({
-      format: 'L'
-    });
+  //Date picker
+  $('#fromDate').datetimepicker({
+    format: 'D/MM/YYYY h:m:s A'
+  }),
+  $('#toDate').datetimepicker({
+    format: 'D/MM/YYYY h:m:s A'
+  });
 
 
     $.validator.setDefaults({
@@ -822,6 +830,7 @@ else{
   }
 
   function newEntry(){
+    let dateTime = new Date();
     $('#extendModal').find('#unitWeight').val('');
     $('#extendModal').find('#invoiceNo').val("");
     $('#extendModal').find('#status').val('');
@@ -834,16 +843,18 @@ else{
     $('#extendModal').find('#purchaseNo').val("");
     $('#extendModal').find('#currentWeight').val("");
     $('#extendModal').find('#product').val('');
-    $('#extendModal').find('#moq').val("");
-    $('#extendModal').find('#tareWeight').val("");
+    $('#extendModal').find('#moq').val("1");
+    $('#extendModal').find('#tareWeight').val("0.00");
     $('#extendModal').find('#package').val('');
     $('#extendModal').find('#actualWeight').val("");
     $('#extendModal').find('#remark').val("");
     $('#extendModal').find('#totalPrice').val("");
     $('#extendModal').find('#totalPCS').val("");
     $('#extendModal').find('#unitPrice').val("");
-    $('#extendModal').find('#dateTime').val("");
-
+    $('#dateTime').datetimepicker({
+      format: 'D/MM/YYYY h:m:s A'
+    });
+    $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
     $('#extendModal').modal('show');
     $("#dateT").val(new Date().toLocaleString());
     

@@ -5,9 +5,9 @@ session_start();
 
 if(isset($_POST['userID'])){
 	$id = filter_input(INPUT_POST, 'userID', FILTER_SANITIZE_STRING);
-
-    if ($update_stmt = $db->prepare("SELECT * FROM count WHERE id=?")) {
-        $update_stmt->bind_param('s', $id);
+    $del = "1";
+    if ($update_stmt = $db->prepare("SELECT * FROM count WHERE id=?" AND deleted=?)) {
+        $update_stmt->bind_param('s', $del);
         
         // Execute the prepared query.
         if (! $update_stmt->execute()) {

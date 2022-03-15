@@ -9,9 +9,9 @@ if(!isset($_SESSION['userID'])){
 
 if(isset($_POST['userID'])){
 	$id = filter_input(INPUT_POST, 'userID', FILTER_SANITIZE_STRING);
-	
-	if ($stmt2 = $db->prepare("DELETE FROM packages WHERE id=?")) {
-		$stmt2->bind_param('s', $id);
+	$del = "1";
+	if ($stmt2 = $db->prepare("UPDATE packages SET deleted=? WHERE id=?")) {
+		$stmt2->bind_param('ss', $del , $id);
 		
 		if($stmt2->execute()){
 			$stmt2->close();

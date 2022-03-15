@@ -9,6 +9,16 @@ if(!isset($_SESSION['userID'])){
 }
 else{
   $user = $_SESSION['userID'];
+  $stmt = $db->prepare("SELECT * from users where id = ?");
+	$stmt->bind_param('s', $user);
+	$stmt->execute();
+	$result = $stmt->get_result();
+  $role = 'NORMAL';
+	
+	if(($row = $result->fetch_assoc()) !== null){
+    $role = $row['role_code'];
+  }
+
   $lots = $db->query("SELECT * FROM lots");
   $vehicles = $db->query("SELECT * FROM vehicles");
   $vehicles2 = $db->query("SELECT * FROM vehicles");
@@ -113,17 +123,17 @@ else{
               </div>
               <div class="col-2">
                 <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
-                  <i class="fas fa-plus"></i>
+                <i class="fas fa-plus"></i>
                 </button>
               </div>
               <div class="col-2">
                 <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
-                  <i class="fas fa-file-excel"></i>
+                <i class="fas fa-file-excel"></i>
                 </button>
               </div>
               <div class="col-2">
                 <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
-                  <i class="fas fa-search"></i>
+                <i class="fas fa-search"></i>
                 </button>
               </div>
             </div>
@@ -152,13 +162,6 @@ else{
 
               <div class="col-3">
                 <div class="form-group">
-                  <label>Customer No</label>
-                  <select class="form-control" style="width: 100%;" id="customerNoFilter" name="customerNoFilter"></select>
-                </div>
-              </div>
-
-              <div class="col-3">
-                <div class="form-group">
                   <label>Status</label>
                   <select class="form-control Status" id="statusFilter" name="statusFilter" style="width: 100%;">
                     <option selected="selected">-</option>
@@ -166,6 +169,13 @@ else{
                       <option value="<?=$rowStatus['id'] ?>"><?=$rowStatus['status'] ?></option>
                     <?php } ?>
                   </select>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label>Customer No</label>
+                  <select class="form-control" style="width: 100%;" id="customerNoFilter" name="customerNoFilter"></select>
                 </div>
               </div>
             </div>
@@ -655,17 +665,23 @@ $(function () {
     }
     else {
       // Open this row
-      row.child( format(row.data()) ).show();
-      tr.addClass('shown');
+      <?php 
+        if($role == "ADMIN"){
+          echo 'row.child( format(row.data()) ).show();tr.addClass("shown");';
+        }
+        else{
+          echo 'row.child( formatNormal(row.data()) ).show();tr.addClass("shown");';
+        }
+      ?>
     }
   });
   
   //Date picker
   $('#fromDate').datetimepicker({
-    format: 'L'
+    format: 'D/MM/YYYY h:m:s A'
   }),
   $('#toDate').datetimepicker({
-    format: 'L'
+    format: 'D/MM/YYYY h:m:s A'
   });
 
   //JSPrintManager WebSocket settings
@@ -686,8 +702,6 @@ $(function () {
     }
   };
 
-  doOpen();
-
   $.validator.setDefaults({
     submitHandler: function () {
         if($('#extendModal').hasClass('show')){
@@ -698,7 +712,7 @@ $(function () {
               toastr["success"](obj.message, "Success:");
               $('#weightTable').DataTable().ajax.reload();
             }
-          }
+          
           else if(obj.status === 'failed'){
             toastr["error"](obj.message, "Failed:");
           }
@@ -883,7 +897,23 @@ function format (row) {
   '")"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
+function formatNormal (row) {
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
+  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Package: '+row.packages+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
+  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.serialNo+
+  '")"><i class="fas fa-print"></i></button></div></div></div></div>';
+}
+
 function newEntry(){
+  let dateTime = new Date();
   $('#extendModal').find('#serialNo').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
@@ -896,15 +926,18 @@ function newEntry(){
   $('#extendModal').find('#purchaseNo').val("");
   $('#extendModal').find('#currentWeight').val("");
   $('#extendModal').find('#product').val('');
-  $('#extendModal').find('#moq').val("");
-  $('#extendModal').find('#tareWeight').val("");
+  $('#extendModal').find('#moq').val("1");
+  $('#extendModal').find('#tareWeight').val("0.00");
   $('#extendModal').find('#package').val('');
   $('#extendModal').find('#actualWeight').val("");
   $('#extendModal').find('#remark').val("");
   $('#extendModal').find('#totalPrice').val("");
   $('#extendModal').find('#unitPrice').val("");
   $('#extendModal').find('#totalWeight').val("");
-  $('#extendModal').find('#dateTime').val("");
+  $('#dateTime').datetimepicker({
+    format: 'D/MM/YYYY h:m:s A'
+  });
+   $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
