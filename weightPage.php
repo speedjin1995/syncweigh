@@ -113,17 +113,17 @@ else{
               </div>
               <div class="col-2">
                 <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
-                  New Entry
+                  <i class="fas fa-plus"></i>
                 </button>
               </div>
               <div class="col-2">
                 <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
-                  Export Excel
+                  <i class="fas fa-file-excel"></i>
                 </button>
               </div>
               <div class="col-2">
                 <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
-                  Search
+                  <i class="fas fa-search"></i>
                 </button>
               </div>
             </div>
@@ -685,6 +685,8 @@ $(function () {
       });
     }
   };
+
+  doOpen();
 
   $.validator.setDefaults({
     submitHandler: function () {
