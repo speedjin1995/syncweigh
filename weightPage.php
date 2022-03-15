@@ -9,6 +9,16 @@ if(!isset($_SESSION['userID'])){
 }
 else{
   $user = $_SESSION['userID'];
+  $stmt = $db->prepare("SELECT * from users where id = ?");
+	$stmt->bind_param('s', $user);
+	$stmt->execute();
+	$result = $stmt->get_result();
+  $role = 'NORMAL';
+	
+	if(($row = $result->fetch_assoc()) !== null){
+    $role = $row['role_code'];
+  }
+
   $lots = $db->query("SELECT * FROM lots");
   $vehicles = $db->query("SELECT * FROM vehicles");
   $vehicles2 = $db->query("SELECT * FROM vehicles");
@@ -655,8 +665,14 @@ $(function () {
     }
     else {
       // Open this row
-      row.child( format(row.data()) ).show();
-      tr.addClass('shown');
+      <?php 
+        if($role == "ADMIN"){
+          echo 'row.child( format(row.data()) ).show();tr.addClass("shown");';
+        }
+        else{
+          echo 'row.child( formatNormal(row.data()) ).show();tr.addClass("shown");';
+        }
+      ?>
     }
   });
   
@@ -880,6 +896,21 @@ function format (row) {
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit("'+row.serialNo+
   '")"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate("'+row.serialNo+
   '")"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.serialNo+
+  '")"><i class="fas fa-print"></i></button></div></div></div></div>';
+}
+
+function formatNormal (row) {
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
+  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Package: '+row.packages+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
+  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.serialNo+
   '")"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
