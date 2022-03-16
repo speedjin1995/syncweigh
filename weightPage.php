@@ -331,7 +331,7 @@ else{
 
           <div class="form-group col-md-3">
             <label>Invoice No</label>
-            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" required>
+            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" >
           </div>
           
           <div class="col-md-3">
@@ -350,14 +350,14 @@ else{
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label>Customer No</label>
+              <label class="labelStatus">Customer No</label>
               <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required></select>
             </div>
           </div>
 
           <div class="form-group col-md-3">
             <label>Delivery No</label>
-            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" required>
+            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
           </div>
 
           <div class="col-md-3">
@@ -376,12 +376,12 @@ else{
         <div class="row">
           <div class="form-group col-md-4">
             <label>Batch No</label>
-            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" required>
+            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" >
           </div>
 
           <div class="form-group col-md-3">
             <label>Purchase No</label>
-            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" required>
+            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
           </div>
 
           <div class="form-group col-md-3">
@@ -781,11 +781,16 @@ $(function () {
   });
 
   $('#extendModal').find('#status').on('change', function () {
+    debugger
     if($(this).val() == '1'){
       $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
+      $('#extendModal').find('.labelStatus').text('Customer No');
+      
     }
     else if($(this).val() == '2'){
       $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
+      $('#extendModal').find('.labelStatus').text('Supplier No');
+
     }
   });
 
