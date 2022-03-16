@@ -127,12 +127,12 @@ else{
                 </button>
               </div>
               <div class="col-2">
-                <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
+                <button type="button" class="btn btn-success btn-sm" id="excelSearch">
                 <i class="fas fa-file-excel"></i>
                 </button>
               </div>
               <div class="col-2">
-                <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
+                <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
                 <i class="fas fa-search"></i>
                 </button>
               </div>
@@ -184,7 +184,7 @@ else{
               <div class="col-3">
                 <div class="form-group">
                   <label>Vehicle No</label>
-                  <select class="form-control vehicleNo" style="width: 100%;">
+                  <select class="form-control vehicleNo" id="vehicleFilter" style="width: 100%;">
                     <option selected="selected">-</option>
                     <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
                       <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
@@ -195,18 +195,18 @@ else{
 
               <div class="form-group col-3">
                 <label>Invoice No</label>
-                <input class="form-control" type="text" placeholder="Invoice No">
+                <input class="form-control" type="text" id="invoiceFilter" placeholder="Invoice No">
               </div>
 
               <div class="form-group col-3">
                 <label>Batch No</label>
-                <input class="form-control" type="text" placeholder="Batch No">
+                <input class="form-control" type="text" id="batchFilter" placeholder="Batch No">
               </div>
 
               <div class="col-3">
                 <div class="form-group">
                   <label>Product</label>
-                  <select class="form-control vehicleNo" style="width: 100%;">
+                  <select class="form-control" id="productFilter" style="width: 100%;">
                     <option selected="selected">-</option>
                     <?php while($rowProduct=mysqli_fetch_assoc($products2)){ ?>
                       <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
@@ -585,6 +585,32 @@ var stopbits = "One";
 var databits = "Eight";
 var controlflow = "None";
 
+/*.fn.dataTable.ext.search.push(
+  function( settings, data, dataIndex ) {
+    var fromDate = $('#fromDate').val();
+    var toDate = $('#toDate').val();
+    var statusFilter = $('#statusFilter').val();
+    var customerNoFilter = $('#customerNoFilter').val();
+    var vehicleFilter = $('#vehicleFilter').val();
+    var invoiceFilter = $('#invoiceFilter').val();
+    var batchFilter = $('#batchFilter').val();
+    var productFilter = $('#productFilter').val();
+
+    // use data for the each column
+    var age = parseFloat(data[3]) || 0; 
+
+    if ( ( isNaN( min ) && isNaN( max ) ) ||
+          ( isNaN( min ) && age <= max ) ||
+          ( min <= age   && isNaN( max ) ) ||
+          ( min <= age   && age <= max ) )
+    {
+      return true;
+    }
+    
+    return false;
+  }
+);*/
+
 $(function () {
   var table = $("#weightTable").DataTable({
     "responsive": true,
@@ -652,7 +678,7 @@ $(function () {
       $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
     }
   });
-  
+
   // Add event listener for opening and closing details
   $('#weightTable tbody').on('click', 'td.dt-control', function () {
     var tr = $(this).closest('tr');
@@ -736,6 +762,14 @@ $(function () {
 
   $('#customerNoHidden').hide();
   $('#supplierNoHidden').hide();
+
+  $('#filterSearch').on('click', function(){
+
+  });
+
+  $('#excelSearch').on('click', function(){
+
+  });
 
   $('#statusFilter').on('change', function () {
     if($(this).val() == '1'){
