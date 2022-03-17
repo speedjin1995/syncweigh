@@ -711,7 +711,7 @@ $(function () {
   });
 
   //JSPrintManager WebSocket settings
-  JSPM.JSPrintManager.auto_reconnect = true;
+  /*JSPM.JSPrintManager.auto_reconnect = true;
   JSPM.JSPrintManager.start();
   JSPM.JSPrintManager.WS.onStatusChanged = function () {
     if (jspmWSStatus()) {
@@ -726,7 +726,7 @@ $(function () {
         $('#serialPort').html(options);
       });
     }
-  };
+  };*/
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -754,7 +754,7 @@ $(function () {
         stopbits = $('#serialPortStopBits').val();
         databits = $('#serialPortDataBits').val();
         controlflow = $('#serialPortFlowControl').val();
-        doOpen();
+        //doOpen();
         $('#setupModal').modal('hide');
       }
     }
@@ -976,7 +976,7 @@ function newEntry(){
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
-   $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
+  $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
@@ -1000,6 +1000,7 @@ function setup(){
   $('#setupModal').find('#serialPortParity').val('None');
   $('#setupModal').find('#serialPortStopBits').val('One');
   $('#setupModal').find('#serialPortFlowControl').val('None');
+  $('#setupModal').modal('show');
 
   $('#setupForm').validate({
     errorElement: 'span',
@@ -1091,7 +1092,7 @@ function print(id) {
 }
 
 //Check JSPM WebSocket status
-function jspmWSStatus() {
+/*function jspmWSStatus() {
   if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
     return true;
   else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
@@ -1161,6 +1162,6 @@ function doClose() {
 
 function refreshDisplay() {
   //$('#txtDataReceived').val(this._dataReceived);
-}
+}*/
 
 </script>

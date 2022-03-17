@@ -23,8 +23,7 @@ $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-//echo "select count(*) as allcount from users, roles WHERE".$searchQuery;
-$sel = mysqli_query($db,"select count(*) as allcount from lots".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from lots WHERE deleted = '0'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 

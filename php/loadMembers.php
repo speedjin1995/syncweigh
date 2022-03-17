@@ -25,14 +25,13 @@ $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-//echo "select count(*) as allcount from users, roles WHERE".$searchQuery;
-$sel = mysqli_query($db,"select count(*) as allcount from users, roles WHERE users.role_code = roles.role_code".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from users, roles WHERE users.role_code = roles.role_code AND users.deleted = '0'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
 $empQuery = "select users.id, users.username, users.name, users.created_date, users.created_by, roles.role_name from users, roles WHERE 
-users.role_code = roles.role_code".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+users.role_code = roles.role_code AND users.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 
