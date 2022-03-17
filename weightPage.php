@@ -19,17 +19,18 @@ else{
     $role = $row['role_code'];
   }
 
-  $lots = $db->query("SELECT * FROM lots");
-  $vehicles = $db->query("SELECT * FROM vehicles");
-  $vehicles2 = $db->query("SELECT * FROM vehicles");
-  $products2 = $db->query("SELECT * FROM products");
-  $products = $db->query("SELECT * FROM products");
-  $packages = $db->query("SELECT * FROM packages");
-  $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
-  $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS'");
-  $units = $db->query("SELECT * FROM units");
-  $status = $db->query("SELECT * FROM `status`");
-  $status2 = $db->query("SELECT * FROM `status`");
+  $lots = $db->query("SELECT * FROM lots WHERE deleted = '0'");
+  $vehicles = $db->query("SELECT * FROM vehicles WHERE deleted = '0'");
+  $vehicles2 = $db->query("SELECT * FROM vehicles WHERE deleted = '0'");
+  $products2 = $db->query("SELECT * FROM products WHERE deleted = '0'");
+  $products = $db->query("SELECT * FROM products WHERE deleted = '0'");
+  $packages = $db->query("SELECT * FROM packages WHERE deleted = '0'");
+  $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS' AND deleted = '0'");
+  $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS' AND deleted = '0'");
+  $units = $db->query("SELECT * FROM units WHERE deleted = '0'");
+  $units1 = $db->query("SELECT * FROM units WHERE deleted = '0'");
+  $status = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
+  $status2 = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
 }
 ?>
 
@@ -121,17 +122,18 @@ else{
               <div class="col-6">
                 <h3 class="card-title">Billboard Description :</h3>
               </div>
-              <div class="col-2">
+              <div class="col-3"></div>
+              <div class="col-1">
                 <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
                 <i class="fas fa-plus"></i>
                 </button>
               </div>
-              <div class="col-2">
+              <div class="col-1">
                 <button type="button" class="btn btn-success btn-sm" id="excelSearch">
                 <i class="fas fa-file-excel"></i>
                 </button>
               </div>
-              <div class="col-2">
+              <div class="col-1">
                 <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
                 <i class="fas fa-search"></i>
                 </button>
@@ -781,7 +783,6 @@ $(function () {
   });
 
   $('#extendModal').find('#status').on('change', function () {
-    debugger
     if($(this).val() == '1'){
       $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
       $('#extendModal').find('.labelStatus').text('Customer No');
@@ -930,9 +931,9 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit("'+row.serialNo+
-  '")"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate("'+row.serialNo+
-  '")"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.serialNo+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit("'+row.id+
+  '")"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate("'+row.id+
+  '")"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.id+
   '")"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
@@ -947,7 +948,7 @@ function formatNormal (row) {
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.serialNo+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.id+
   '")"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 

@@ -42,6 +42,7 @@ $data = array();
 
 while($row = mysqli_fetch_assoc($empRecords)) {
   $data[] = array( 
+    "id"=>$row['id'],
     "serialNo"=>$row['serialNo'],
     "veh_number"=>$row['veh_number'],
     "lots_no"=>$row['lots_no'],

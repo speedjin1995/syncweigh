@@ -22,6 +22,7 @@ if(isset($_POST['userID'])){
             $message = array();
             
             while ($row = $result->fetch_assoc()) {
+                $message['id'] = $row['id'];
                 $message['serialNo'] = $row['serialNo'];
                 $message['vehicleNo'] = $row['vehicleNo'];
                 $message['lotNo'] = $row['lotNo'];

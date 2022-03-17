@@ -9,18 +9,28 @@ if(!isset($_SESSION['userID'])){
 }
 else{
   $user = $_SESSION['userID'];
-  $lots = $db->query("SELECT * FROM lots");
-  $vehicles = $db->query("SELECT * FROM vehicles");
-  $vehicles2 = $db->query("SELECT * FROM vehicles");
-  $products2 = $db->query("SELECT * FROM products");
-  $products = $db->query("SELECT * FROM products");
-  $packages = $db->query("SELECT * FROM packages");
-  $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS'");
-  $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS'");
-  $units = $db->query("SELECT * FROM units");
-  $units1 = $db->query("SELECT * FROM units");
-  $status = $db->query("SELECT * FROM `status`");
-  $status2 = $db->query("SELECT * FROM `status`");
+  $stmt = $db->prepare("SELECT * from users where id = ?");
+	$stmt->bind_param('s', $user);
+	$stmt->execute();
+	$result = $stmt->get_result();
+  $role = 'NORMAL';
+	
+	if(($row = $result->fetch_assoc()) !== null){
+    $role = $row['role_code'];
+  }
+
+  $lots = $db->query("SELECT * FROM lots WHERE deleted = '0'");
+  $vehicles = $db->query("SELECT * FROM vehicles WHERE deleted = '0'");
+  $vehicles2 = $db->query("SELECT * FROM vehicles WHERE deleted = '0'");
+  $products2 = $db->query("SELECT * FROM products WHERE deleted = '0'");
+  $products = $db->query("SELECT * FROM products WHERE deleted = '0'");
+  $packages = $db->query("SELECT * FROM packages WHERE deleted = '0'");
+  $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS' AND deleted = '0'");
+  $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS' AND deleted = '0'");
+  $units = $db->query("SELECT * FROM units WHERE deleted = '0'");
+  $units1 = $db->query("SELECT * FROM units WHERE deleted = '0'");
+  $status = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
+  $status2 = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
 }
 ?>
 
@@ -127,19 +137,20 @@ else{
                     <div class="col-6">
                       <h3 class="card-title">Billboard Description :</h3>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3"></div>
+                    <div class="col-1">
                       <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
                         <i class="fas fa-plus"></i>
                       </button>
                     </div>
-                    <div class="col-2">
-                      <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#">
+                    <div class="col-1">
+                      <button type="button" class="btn btn-success btn-sm" id="excelSearch">
                       <i class="fas fa-file-excel"></i>
                       </button>
                     </div>
-                    <div class="col-2">
-                      <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
-                        <i class="fas fa-search"></i>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
+                      <i class="fas fa-search"></i>
                       </button>
                     </div>
                   </div>
@@ -544,6 +555,88 @@ else{
   <!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="setupModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+    <form role="form" id="setupForm">
+      <div class="modal-header bg-gray-dark color-palette">
+        <h4 class="modal-title">Setup</h4>
+        <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label>Serial Port</label>
+              <select class="form-control" style="width: 100%;" id="serialPort" name="serialPort" required></select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Baud Rate</label>
+              <input class="form-control" type="number" id="serialPortBaudRate" name="serialPortBaudRate" value="9600" required>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Data Bits</label>
+              <select class="form-control" style="width: 100%;" id="serialPortDataBits" name="serialPortDataBits" required>
+                <option value="Eight">8</option>
+                <option value="Seven">7</option>
+                <option value="Six">6</option>
+                <option value="Five">5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label>Parity</label>
+              <select class="form-control" style="width: 100%;" id="serialPortParity" name="serialPortParity" required>
+                <option value="None">None</option>
+                <option value="Odd">Odd</option>
+                <option value="Even">Even</option>
+                <option value="Mark">Mark</option>
+                <option value="Space">Space</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Stop bits</label>
+              <select class="form-control" style="width: 100%;" id="serialPortStopBits" name="serialPortStopBits" required>
+                <option value="One">1</option>
+                <option value="OnePointFive">1.5</option>
+                <option value="Two">2</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Flow control</label>
+              <select class="form-control" style="width: 100%;" id="serialPortFlowControl" name="serialPortFlowControl" required>
+                <option value="None">None</option>
+                <option value="XOnXOff">XOnXOff</option>
+                <option value="RequestToSend">RTS (Request to send)</option>
+                <option value="RequestToSendXOnXOff">RTS XOnXOff</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between bg-gray-dark color-palette">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
   $(function () {
     
@@ -630,8 +723,14 @@ else{
     }
     else {
       // Open this row
-      row.child( format(row.data()) ).show();
-      tr.addClass('shown');
+      <?php 
+        if($role == "ADMIN"){
+          echo 'row.child( format(row.data()) ).show();tr.addClass("shown");';
+        }
+        else{
+          echo 'row.child( formatNormal(row.data()) ).show();tr.addClass("shown");';
+        }
+      ?>
     }
   });
 
@@ -646,32 +745,49 @@ else{
 
     $.validator.setDefaults({
         submitHandler: function () {
-            if($('#extendModal').hasClass('show')){
-              
-                $.post('/php/insertCount.php', $('#extendForm').serialize(), function(data){
-                    var obj = JSON.parse(data); 
+          if($('#extendModal').hasClass('show')){
+              $.post('/php/insertCount.php', $('#extendForm').serialize(), function(data){
+                  var obj = JSON.parse(data); 
 
-                    if(obj.status === 'success'){
-                        $('#extendModal').modal('hide');
-                        toastr["success"](obj.message, "Success:");
-                        $('#countTable').DataTable().ajax.reload();
-            			// $.get('insertCount.php', function(data) {
-                  //           $('#mainContents').html(data);
-                  //       });
-            		}
-            		else if(obj.status === 'failed'){
-                        toastr["error"](obj.message, "Failed:");
-                    }
-            		else{
-            			alert("Something wrong when edit");
-            		}
-                });
-            }
+                  if(obj.status === 'success'){
+                      $('#extendModal').modal('hide');
+                      toastr["success"](obj.message, "Success:");
+                      $('#countTable').DataTable().ajax.reload();
+                // $.get('insertCount.php', function(data) {
+                //           $('#mainContents').html(data);
+                //       });
+              }
+              else if(obj.status === 'failed'){
+                      toastr["error"](obj.message, "Failed:");
+                  }
+              else{
+                alert("Something wrong when edit");
+              }
+              });
+          }
+          else if ($('#setupModal').hasClass('show')){
+            serialComm = $('#serialPort').val();
+            baurate = parseInt($('#serialPortBaudRate').val());
+            parity = $('#serialPortParity').val();
+            stopbits = $('#serialPortStopBits').val();
+            databits = $('#serialPortDataBits').val();
+            controlflow = $('#serialPortFlowControl').val();
+            //doOpen();
+            $('#setupModal').modal('hide');
+          }
         }
     });
 
   $('#customerNoHidden').hide();
   $('#supplierNoHidden').hide();
+
+  $('#filterSearch').on('click', function(){
+
+  });
+
+  $('#excelSearch').on('click', function(){
+
+  });
 
   $('#statusFilter').on('change', function () {
     if($(this).val() == '1'){
@@ -813,66 +929,105 @@ else{
 
 });
 
-  function format (row) {
-    return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
-    '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
-    '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
-    '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
-    '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
-    '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
-    '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
-    '</p></div><div class="col-md-3"><p>Package: '+row.packages+
-    '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
+function format (row) {
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
+  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Package: '+row.packages+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
 
-    '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-    '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.serialNo+
-    ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.serialNo+
-    ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.serialNo+
-    ')"><i class="fas fa-print"></i></button></div></div></div></div>';
-  }
+  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
+  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
+  ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
+}
 
-  function newEntry(){
-    let dateTime = new Date();
-    $('#extendModal').find('#unitWeight').val('');
-    $('#extendModal').find('#invoiceNo').val("");
-    $('#extendModal').find('#status').val('');
-    $('#extendModal').find('#lotNo').val('');
-    $('#extendModal').find('#vehicleNo').val('');
-    $('#extendModal').find('#customerNo').val('');
-    $('#extendModal').find('#deliveryNo').val("");
-    $('#extendModal').find('#unitWeight1').val('');
-    $('#extendModal').find('#batchNo').val("");
-    $('#extendModal').find('#purchaseNo').val("");
-    $('#extendModal').find('#currentWeight').val("");
-    $('#extendModal').find('#product').val('');
-    $('#extendModal').find('#moq').val("1");
-    $('#extendModal').find('#tareWeight').val("0.00");
-    $('#extendModal').find('#package').val('');
-    $('#extendModal').find('#actualWeight').val("");
-    $('#extendModal').find('#remark').val("");
-    $('#extendModal').find('#totalPrice').val("");
-    $('#extendModal').find('#totalPCS').val("");
-    $('#extendModal').find('#unitPrice').val("");
-    $('#dateTime').datetimepicker({
-      format: 'D/MM/YYYY h:m:s A'
-    });
-    $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
-    $('#extendModal').modal('show');
-    $("#dateT").val(new Date().toLocaleString());
-    
-    $('#extendForm').validate({
-        errorElement: 'span',
-        errorPlacement: function (error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-        }
-    });
+function formatNormal (row) {
+  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
+  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Package: '+row.packages+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
+
+  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
+}
+
+function newEntry(){
+  let dateTime = new Date();
+  $('#extendModal').find('#unitWeight').val('');
+  $('#extendModal').find('#invoiceNo').val("");
+  $('#extendModal').find('#status').val('');
+  $('#extendModal').find('#lotNo').val('');
+  $('#extendModal').find('#vehicleNo').val('');
+  $('#extendModal').find('#customerNo').val('');
+  $('#extendModal').find('#deliveryNo').val("");
+  $('#extendModal').find('#unitWeight1').val('');
+  $('#extendModal').find('#batchNo').val("");
+  $('#extendModal').find('#purchaseNo').val("");
+  $('#extendModal').find('#currentWeight').val("");
+  $('#extendModal').find('#product').val('');
+  $('#extendModal').find('#moq').val("1");
+  $('#extendModal').find('#tareWeight').val("0.00");
+  $('#extendModal').find('#package').val('');
+  $('#extendModal').find('#actualWeight').val("");
+  $('#extendModal').find('#remark').val("");
+  $('#extendModal').find('#totalPrice').val("");
+  $('#extendModal').find('#totalPCS').val("");
+  $('#extendModal').find('#unitPrice').val("");
+  $('#dateTime').datetimepicker({
+    format: 'D/MM/YYYY h:m:s A'
+  });
+  $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
+  $('#extendModal').modal('show');
+  $("#dateT").val(new Date().toLocaleString());
+  
+  $('#extendForm').validate({
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+      }
+  });
+}
+
+function setup(){
+  $('#setupModal').find('#serialPortBaudRate').val('9600');
+  $('#setupModal').find('#serialPortDataBits').val("Eight");
+  $('#setupModal').find('#serialPortParity').val('None');
+  $('#setupModal').find('#serialPortStopBits').val('One');
+  $('#setupModal').find('#serialPortFlowControl').val('None');
+  $('#setupModal').modal('show');
+
+  $('#setupForm').validate({
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
 }
 
 function edit(id) {
