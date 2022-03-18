@@ -218,6 +218,17 @@ to get the desired effect
             </a>
         
             <ul class="nav nav-treeview" style="display: none;">
+              <?php 
+                if($role == "ADMIN"){
+                  echo '<li class="nav-item">
+                  <a href="#company" data-file="company.php" class="nav-link link">
+                    <i class="nav-icon fas fa-building"></i>
+                    <p>Company Profile</p>
+                  </a>
+                </li>';
+                }
+              ?>
+
               <li class="nav-item">
                 <a href="#myprofile" data-file="myprofile.php" class="nav-link link">
                   <i class="nav-icon fas fa-id-badge"></i>
