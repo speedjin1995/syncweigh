@@ -31,9 +31,9 @@ $excelData = implode("\t", array_values($fields)) . "\n";
  
 // Fetch records from database
 if($_GET["file"] == 'weight'){
-    $query = $db->query("SELECT * FROM weight WHERE deleted = '0' ORDER BY serialNo ASC");
+    $query = $db->query("SELECT * FROM weight ORDER BY serialNo ASC");
 }else{
-    $query = $db->query("SELECT * FROM count WHERE deleted = '0' ORDER BY serialNo ASC");
+    $query = $db->query("SELECT * FROM count ORDER BY serialNo ASC");
 }
 
 if($query->num_rows > 0){ 
