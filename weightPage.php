@@ -931,10 +931,10 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit("'+row.id+
-  '")"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate("'+row.id+
-  '")"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.id+
-  '")"><i class="fas fa-print"></i></button></div></div></div></div>';
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
+  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
+  ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
 }
 
 function formatNormal (row) {
