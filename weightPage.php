@@ -770,7 +770,20 @@ $(function () {
   });
 
   $('#excelSearch').on('click', function(){
-
+    $.post('php/export.php', {file: 'weight'}, function(data){
+      var obj = JSON.parse(data); 
+      if(obj.status === 'success'){
+        $('#extendModal').modal('hide');
+        toastr["success"](obj.message, "Success:");
+        $('#weightTable').DataTable().ajax.reload();
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        alert("Something wrong when edit");
+      }
+    });
   });
 
   $('#statusFilter').on('change', function () {

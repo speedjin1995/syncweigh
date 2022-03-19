@@ -48,7 +48,7 @@ else{
 				
 				<div class="form-group">
 					<label for="address">Company Address *</label>
-                    <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter Address" value="<?=$address ?>" required=""></textarea>
+                    <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter Address" required=""><?=$address ?></textarea>
 				</div>
 
                 <div class="form-group">
