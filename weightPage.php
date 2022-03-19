@@ -1102,7 +1102,22 @@ function deactivate(id) {
 }
 
 function print(id) {
-  console.log("pending");
+  $.post('php/print.php', {userID: id, file: 'weight'}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      toastr["success"](obj.message, "Success:");
+      $.get('weightPage.php', function(data) {
+        $('#mainContents').html(data);
+      });
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when activate", "Failed:");
+    }
+  });
 }
 
 //Check JSPM WebSocket status

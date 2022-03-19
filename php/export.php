@@ -11,14 +11,14 @@ function filterData(&$str){
 } 
  
 // Excel file name for download 
-if($_GET["file"] == 'weight'){
+if($_POST["file"] == 'weight'){
     $fileName = "Weight-data_" . date('Y-m-d') . ".xls";
 }else{
     $fileName = "Count-data_" . date('Y-m-d') . ".xls";
 } 
  
 // Column names 
-if($_GET["file"] == 'weight'){
+if($_POST["file"] == 'weight'){
     $fields = array('SERIAL NO', 'PRODUCT NO', 'UNIT', 'UNIT WEIGHT', 'TARE', 'TOTAL WEIGHT', 'ACTUAL WEIGHT', 'MOQ', 'UNIT PRICE(RM)', 'TOTAL PRICE(RM)',
                 'VEHICLE NO', 'LOT NO', 'BATCH NO', 'INVOICE NO', 'DELIVERY NO', 'PURCHASE NO', 'CUSTOMER', 'PACKAGE', 'DATE', 'REMARK'); 
 }else{
@@ -30,7 +30,7 @@ if($_GET["file"] == 'weight'){
 $excelData = implode("\t", array_values($fields)) . "\n"; 
  
 // Fetch records from database
-if($_GET["file"] == 'weight'){
+if($_POST["file"] == 'weight'){
     $query = $db->query("SELECT * FROM weight ORDER BY serialNo ASC");
 }else{
     $query = $db->query("SELECT * FROM count ORDER BY serialNo ASC");
@@ -40,7 +40,7 @@ if($query->num_rows > 0){
     // Output each row of the data 
     while($row = $query->fetch_assoc()){ 
         // $status = ($row['status'] == 1)?'Active':'Inactive';
-        if($_GET["file"] == 'weight'){
+        if($_POST["file"] == 'weight'){
             $lineData = array($row['serialNo'], $row['productName'], $row['unit'], $row['unitWeight'], $row['tare'], $row['totalWeight'], $row['actualWeight'],
             $row['moq'], $row['unitPrice'], $row['totalPrice'], $row['vehicleNo'], $row['lotNo'], $row['batchNo'], $row['invoiceNo']
             , $row['deliveryNo'], $row['purchaseNo'], $row['customer'], $row['package'], $row['dateTime'], $row['remark']);
