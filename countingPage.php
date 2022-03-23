@@ -161,7 +161,7 @@ else{
                     <div class="form-group col-3">
                       <label>From Date:</label>
                       <div class="input-group date" id="fromDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
+                        <input type="text" class="form-control datetimepicker-input" id="fromDateValue" data-target="#fromDate"/>
                         <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
                       </div>
                     </div>
@@ -169,7 +169,7 @@ else{
                     <div class="form-group col-3">
                       <label>To Date:</label>
                       <div class="input-group date" id="toDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#toDate"/>
+                        <input type="text" class="form-control datetimepicker-input" id="toDateValue" data-target="#toDate"/>
                         <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
                           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -190,7 +190,7 @@ else{
 
                     <div class="form-group col-3">
                       <label>Customer</label>
-                      <input class="form-control" type="text" placeholder="customer">
+                      <input class="form-control" type="text" placeholder="customer" id="customerNoFilter" name="customerNoFilter">
                     </div>
                   </div>
       
@@ -198,7 +198,7 @@ else{
                   <div class="col-3">
                     <div class="form-group">
                       <label>Vehicle No</label>
-                      <select class="form-control vehicleNo" style="width: 100%;">
+                      <select class="form-control vehicleNo" id="vehicleFilter" style="width: 100%;">
                         <option selected="selected">-</option>
                         <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
                           <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
@@ -209,18 +209,18 @@ else{
       
                     <div class="form-group col-3">
                       <label>Invoice No</label>
-                      <input class="form-control" type="text" placeholder="Invoice No">
+                      <input class="form-control" type="text" placeholder="Invoice No" id="invoiceFilter" placeholder="Invoice No">
                     </div>
       
                     <div class="form-group col-3">
                       <label>Batch No</label>
-                      <input class="form-control" type="text" placeholder="Batch No">
+                      <input class="form-control" type="text" placeholder="Batch No" id="batchFilter" placeholder="Batch No">
                     </div>
 
                     <div class="col-3">
                       <div class="form-group">
                         <label>Product</label>
-                        <select class="form-control vehicleNo" style="width: 100%;">
+                        <select class="form-control" id="productFilter"  style="width: 100%;">
                           <option selected="selected">-</option>
                           <?php while($rowProduct=mysqli_fetch_assoc($products2)){ ?>
                             <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
@@ -786,7 +786,17 @@ else{
   });
 
   $('#excelSearch').on('click', function(){
-    $.post('php/export.php', {file: 'count'}, function(data){
+    var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
+    var toDateValue = $('#toDateValue').val() ? $('#toDateValue').val() : '';
+    var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
+    var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
+    var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
+    var invoiceFilter = $('#invoiceFilter').val() ? $('#invoiceFilter').val() : '';
+    var batchFilter = $('#batchFilter').val() ? $('#batchFilter').val() : '';
+    var productFilter = $('#productFilter').val() ? $('#productFilter').val() : '';
+
+    $.post('php/export.php', {file: 'count', fromDate: fromDateValue, toDate: toDateValue, status: statusFilter,
+    customer: customerNoFilter, vehicle: vehicleFilter, invoice: invoiceFilter, batch: batchFilter,product: productFilter}, function(data){
       var obj = JSON.parse(data); 
       if(obj.status === 'success'){
         $('#extendModal').modal('hide');
