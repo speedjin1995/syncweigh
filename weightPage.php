@@ -146,7 +146,7 @@ else{
               <div class="form-group col-3">
                 <label>From Date:</label>
                 <div class="input-group date" id="fromDate" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" data-target="#fromDate"/>
+                  <input type="text" class="form-control datetimepicker-input" id="fromDateValue" data-target="#fromDate"/>
                   <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
                   <div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
                 </div>
@@ -155,7 +155,7 @@ else{
               <div class="form-group col-3">
                 <label>To Date:</label>
                 <div class="input-group date" id="toDate" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" data-target="#toDate"/>
+                  <input type="text" class="form-control datetimepicker-input" id="toDateValue"  data-target="#toDate"/>
                   <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                   </div>
@@ -587,32 +587,6 @@ var stopbits = "One";
 var databits = "Eight";
 var controlflow = "None";
 
-/*.fn.dataTable.ext.search.push(
-  function( settings, data, dataIndex ) {
-    var fromDate = $('#fromDate').val();
-    var toDate = $('#toDate').val();
-    var statusFilter = $('#statusFilter').val();
-    var customerNoFilter = $('#customerNoFilter').val();
-    var vehicleFilter = $('#vehicleFilter').val();
-    var invoiceFilter = $('#invoiceFilter').val();
-    var batchFilter = $('#batchFilter').val();
-    var productFilter = $('#productFilter').val();
-
-    // use data for the each column
-    var age = parseFloat(data[3]) || 0; 
-
-    if ( ( isNaN( min ) && isNaN( max ) ) ||
-          ( isNaN( min ) && age <= max ) ||
-          ( min <= age   && isNaN( max ) ) ||
-          ( min <= age   && age <= max ) )
-    {
-      return true;
-    }
-    
-    return false;
-  }
-);*/
-
 $(function () {
   var table = $("#weightTable").DataTable({
     "responsive": true,
@@ -766,7 +740,96 @@ $(function () {
   $('#supplierNoHidden').hide();
 
   $('#filterSearch').on('click', function(){
+    var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
+    var toDateValue = $('#toDateValue').val() ? $('#toDateValue').val() : '';
+    var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
+    var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
+    var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
+    var invoiceFilter = $('#invoiceFilter').val() ? $('#invoiceFilter').val() : '';
+    var batchFilter = $('#batchFilter').val() ? $('#batchFilter').val() : '';
+    var productFilter = $('#productFilter').val() ? $('#productFilter').val() : '';
 
+    //Destroy the old Datatable
+    table.DataTable().clear().destroy();
+
+    //Create new Datatable
+    table = var table = $("#weightTable").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      'processing': true,
+      'serverSide': true,
+      'serverMethod': 'post',
+      'searching': false,
+      'ajax': {
+        'type': 'POST',
+        'url':'php/filterWeight.php'
+        'data': {
+          fromDate: fromDateValue,
+          toDate: toDateValue,
+          status: statusFilter,
+          customer: customerNoFilter,
+          vehicle: vehicleFilter,
+          invoice: invoiceFilter,
+          batch: batchFilter,
+          product: productFilter,
+        } 
+      },
+      'columns': [
+        { data: 'serialNo' },
+        { data: 'product_name' },
+        { data: 'unit' },
+        { data: 'unitWeight' },
+        { data: 'tare' },
+        { data: 'totalWeight' },
+        { data: 'actualWeight' },
+        { data: 'moq' },
+        { data: 'unitPrice' },
+        { data: 'totalPrice' },
+        { 
+          className: 'dt-control',
+          orderable: false,
+          data: null,
+          render: function ( data, type, row ) {
+            return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+          }
+        }
+      ],
+      "footerCallback": function ( row, data, start, end, display ) {
+        var api = this.api();
+
+        // Remove the formatting to get integer data for summation
+        var intVal = function (i) {
+          return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+        };
+
+        // Total over all pages
+        total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+
+        // Total over this page
+        pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+
+        // Update footer
+        $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+        $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+        $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+        $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+        $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
+        $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+        $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+      }
+    });
   });
 
   $('#excelSearch').on('click', function(){
