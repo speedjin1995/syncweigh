@@ -15,55 +15,55 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 $searchQuery = " ";
 
 if($_POST['fromDate'] != null && $_POST['fromDate'] != ''){
-   $searchQuery = " and weight.dateTime >= '".$_POST['fromDate']."'";
+    $searchQuery = " and weight.dateTime >= '".$_POST['fromDate']."'";
 }
 
 if($_POST['toDate'] != null && $_POST['toDate'] != ''){
-	$searchQuery = " and weight.dateTime <= '".$_POST['toDate']."'";
+  $searchQuery = " and weight.dateTime <= '".$_POST['toDate']."'";
 }
 
 if($_POST['status'] != null && $_POST['status'] != '' && $_POST['status'] != '-'){
-	$searchQuery = " and weight.status = '".$_POST['status']."'";
+  $searchQuery = " and weight.status = '".$_POST['status']."'";
 }
 
 if($_POST['customer'] != null && $_POST['customer'] != '' && $_POST['customer'] != '-'){
-	$searchQuery = " and weight.customer = '".$_POST['customer']."'";
+  $searchQuery = " and weight.customer = '".$_POST['customer']."'";
 }
 
 if($_POST['vehicle'] != null && $_POST['vehicle'] != '' && $_POST['vehicle'] != '-'){
-	$searchQuery = " and weight.vehicleNo = '".$_POST['vehicle']."'";
+  $searchQuery = " and weight.vehicleNo = '".$_POST['vehicle']."'";
 }
 
 if($_POST['invoice'] != null && $_POST['invoice'] != ''){
-	$searchQuery = " and weight.invoiceNo like '%".$_POST['invoice']."%'";
+  $searchQuery = " and weight.invoiceNo like '%".$_POST['invoice']."%'";
 }
 
 if($_POST['batch'] != null && $_POST['batch'] != ''){
-	$searchQuery = " and weight.batchNo like '%".$_POST['batch']."%'";
+  $searchQuery = " and weight.batchNo like '%".$_POST['batch']."%'";
 }
 
 if($_POST['product'] != null && $_POST['product'] != '' && $_POST['product'] != '-'){
-	$searchQuery = " and weight.productName = '".$_POST['product']."'";
+  $searchQuery = " and weight.productName = '".$_POST['product']."'";
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, vehicles, packages, lots, customers, products, status, units WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unit");
+$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products, units, status WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit AND count.deleted = '0'");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, vehicles, packages, lots, customers, products, status, units WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unit AND weight.deleted = '0'".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products, status, units WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit AND count.deleted = '0'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select weight.id, weight.serialNo, vehicles.veh_number, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
-weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
-weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
-weight.totalPrice, weight.remark, status.status from weight, vehicles, packages, lots, customers, products, units, status 
-WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND 
-weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unit AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+$empQuery = "select count.id, count.serialNo, vehicles.veh_number, lots.lots_no, count.batchNo, count.invoiceNo, count.deliveryNo, 
+count.purchaseNo, customers.customer_name, products.product_name, packages.packages, count.unitWeight, count.tare, count.totalWeight, 
+count.actualWeight, count.currentWeight, units.units, count.moq, count.dateTime, count.unitPrice, count.totalPrice,count.totalPCS, 
+count.remark, status.status from count, vehicles, packages, lots, customers, products, units, status WHERE 
+count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND 
+count.productName = products.id AND status.id=count.status AND units.id=count.unit AND count.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 
@@ -84,11 +84,13 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "tare"=>$row['tare'],
     "totalWeight"=>$row['totalWeight'],
     "actualWeight"=>$row['actualWeight'],
+    "currentWeight"=>$row['currentWeight'],
     "unit"=>$row['units'],
     "moq"=>$row['moq'],
     "dateTime"=>$row['dateTime'],
     "unitPrice"=>$row['unitPrice'],
     "totalPrice"=>$row['totalPrice'],
+    "totalPCS"=>$row['totalPCS'],
     "remark"=>$row['remark'],
     "status"=>$row['status']
   );
