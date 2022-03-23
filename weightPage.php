@@ -750,10 +750,10 @@ $(function () {
     var productFilter = $('#productFilter').val() ? $('#productFilter').val() : '';
 
     //Destroy the old Datatable
-    table.DataTable().clear().destroy();
+    $("#weightTable").DataTable().clear().destroy();
 
     //Create new Datatable
-    table = var table = $("#weightTable").DataTable({
+    table = $("#weightTable").DataTable({
       "responsive": true,
       "autoWidth": false,
       'processing': true,
@@ -762,7 +762,7 @@ $(function () {
       'searching': false,
       'ajax': {
         'type': 'POST',
-        'url':'php/filterWeight.php'
+        'url':'php/filterWeight.php',
         'data': {
           fromDate: fromDateValue,
           toDate: toDateValue,

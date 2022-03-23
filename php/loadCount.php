@@ -20,7 +20,7 @@ $searchQuery = " ";
 }*/
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products, units, status WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit");
+$sel = mysqli_query($db,"select count(*) as allcount from count, vehicles, packages, lots, customers, products, units, status WHERE count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND count.productName = products.id AND status.id=count.status AND units.id=count.unit AND count.deleted = '0'");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
