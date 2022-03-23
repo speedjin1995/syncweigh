@@ -1169,7 +1169,11 @@ function print(id) {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      toastr["success"](obj.message, "Success:");
+      var printWindow = window.open('', '', 'height=400,width=800');
+      printWindow.document.write(obj.message);
+      printWindow.document.close();
+      printWindow.print();
+      
       $.get('weightPage.php', function(data) {
         $('#mainContents').html(data);
       });
