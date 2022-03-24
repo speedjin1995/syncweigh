@@ -1168,10 +1168,14 @@ function print(id) {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      toastr["success"](obj.message, "Success:");
-      $.get('weightPage.php', function(data) {
+      tvar printWindow = window.open('', '', 'height=400,width=800');
+      printWindow.document.write(obj.message);
+      printWindow.document.close();
+      printWindow.print();
+
+      /*$.get('weightPage.php', function(data) {
         $('#mainContents').html(data);
-      });
+      });*/
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");
