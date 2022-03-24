@@ -296,8 +296,8 @@ to get the desired effect
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- RS232 Plugins -->
-<!--script src="plugins/zip/dist/zip-full.min.js"></script>
-<script src="plugins/JSPrintManager/scripts/JSPrintManager.js"></script-->
+<script src="plugins/zip/dist/zip-full.min.js"></script>
+<script src="plugins/JSPrintManager/scripts/JSPrintManager.js"></script>
 <script>
   $(function () {
     toastr.options = {
