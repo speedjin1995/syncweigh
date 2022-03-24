@@ -28,7 +28,7 @@ else{
   $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS' AND deleted = '0'");
   $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS' AND deleted = '0'");
   $units = $db->query("SELECT * FROM units WHERE deleted = '0'");
-  $units1 = $db->query("SELECT * FROM units WHERE deleted = '0'");
+  // $units1 = $db->query("SELECT * FROM units WHERE deleted = '0'");
   $status = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
   $status2 = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
 }
@@ -351,8 +351,8 @@ else{
               
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Unit Weight</label>
-                  <select class="form-control" id="unitWeight1" name="unitWeight1" style="width: 100%;" required>
+                  <label>Unit</label>
+                  <select class="form-control" id="unit" name="unit" style="width: 100%;" required>
                     <option selected="selected" value="-">-</option>
                     <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
                       <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
@@ -425,15 +425,11 @@ else{
                 <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
               </div>
 
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Unit Weight</label>
-                  <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
-                    <option selected="selected">-</option>
-                    <?php while($rowunits=mysqli_fetch_assoc($units1)){ ?>
-                      <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
-                    <?php } ?>
-                  </select>
+              <div class="form-group col-md-3">
+                <label>Unit Weight</label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="Unit Weight" id="unitWeight" name="unitWeight" readonly/>
+                  <div class="input-group-text bg-primary color-palette"><i id="changeWeightUnit">KG/G</i></div>
                 </div>
               </div>
             </div>
@@ -453,7 +449,7 @@ else{
                 <label>Current Weight</label>
                 <div class="input-group">
                   <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
-                  <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
+                  <div class="input-group-text bg-primary color-palette"><i id="changeWeightCurrent">KG/G</i></div>
                 </div>
               </div>
             </div>
@@ -839,22 +835,25 @@ else{
     });
   });
 
-  $('#unitWeight').on('change', function () {
-    var unitWeight = $(this).val();
+  $('#unit').on('change', function () {
+    var unit = $(this).val();
 
-    if(unitWeight == 1){
-      $('#changeWeight').text("KG");
+    if(unit == 1){
+      $('#changeWeightUnit').text("KG");
+      $('#changeWeightCurrent').text("KG");
       $('#changeWeightTare').text("KG");
       $('#changeWeightActual').text("KG");
       $('#changeWeightTotal').text("KG");
-    }else if(unitWeight == 2){
-      $('#changeWeight').text("G");
+    }else if(unit == 2){
+      $('#changeWeightUnit').text("G");
+      $('#changeWeightCurrent').text("G");
       $('#changeWeightTare').text("G");
       $('#changeWeightActual').text("G");
       $('#changeWeightTotal').text("G");
 
-    }else if(unitWeight == 3){
-      $('#changeWeight').text("LB");
+    }else if(unit == 3){
+      $('#changeWeightUnit').text("LB");
+      $('#changeWeightCurrent').text("LB");
       $('#changeWeightTare').text("LB");
       $('#changeWeightActual').text("LB");
       $('#changeWeightTotal').text("LB");
@@ -862,8 +861,9 @@ else{
   });
 
   $('#captureWeight').on('click', function () {
-      $('#currentWeight').val("100.00");
+      $('#currentWeight').val("1.00");
       $('#totalWeight').val("1.00");
+      $('#unitWeight').val("0.01");
       $('#totalPCS').val("100.00");
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
@@ -983,7 +983,7 @@ function newEntry(){
   $('#extendModal').find('#vehicleNo').val('');
   $('#extendModal').find('#customerNo').val('');
   $('#extendModal').find('#deliveryNo').val("");
-  $('#extendModal').find('#unitWeight1').val('');
+  $('#extendModal').find('#unit').val('');
   $('#extendModal').find('#batchNo').val("");
   $('#extendModal').find('#purchaseNo').val("");
   $('#extendModal').find('#currentWeight').val("");
@@ -1047,7 +1047,7 @@ function edit(id) {
       
       if(obj.status === 'success'){
         $('#extendModal').find('#serialNo').val(obj.message.serialNo);
-        $('#extendModal').find('#unitWeight').val(obj.message.unit);
+        $('#extendModal').find('#unit').val(obj.message.unit);
         $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
         $('#extendModal').find('#status').val(obj.message.status);
         $('#extendModal').find('#lotNo').val(obj.message.lotNo);
@@ -1056,7 +1056,8 @@ function edit(id) {
         $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
         $('#extendModal').find('#batchNo').val(obj.message.batchNo);
         $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
-        $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
+        $('#extendModal').find('#unitWeight').val(obj.message.unitWeight);
+        $('#extendModal').find('#currentWeight').val(obj.message.totalWeight);
         $('#extendModal').find('#product').val(obj.message.productName);
         $('#extendModal').find('#moq').val(obj.message.moq);
         $('#extendModal').find('#tareWeight').val(obj.message.tare);
@@ -1066,7 +1067,7 @@ function edit(id) {
         $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
         $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
         $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
-        $('#extendModal').find('#totalWeight1').val(obj.message.totalWeight1);
+        // $('#extendModal').find('#totalWeight1').val(obj.message.totalWeight1);
         $('#extendModal').find('#totalPCS').val(obj.message.totalPCS);
         $('#extendModal').modal('show');
         
