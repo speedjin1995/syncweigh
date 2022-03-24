@@ -1225,7 +1225,7 @@ function print(id) {
       printWindow.document.close();
       printWindow.print();
       
-      $.get('weightPage.php', function(data) {
+      $.get('countingPage.php', function(data) {
         $('#mainContents').html(data);
       });
     }
