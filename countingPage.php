@@ -1225,9 +1225,9 @@ function print(id) {
       printWindow.document.close();
       printWindow.print();
       
-      $.get('countingPage.php', function(data) {
+      /*$.get('countingPage.php', function(data) {
         $('#mainContents').html(data);
-      });
+      });*/
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");
