@@ -30,15 +30,9 @@ if(isset($_POST['userID'], $_POST["file"])){
     }
 
     if($_POST["file"] == 'weight'){
-        $empQuery = "select weight.id, weight.serialNo, vehicles.veh_number, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
-weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
-weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
-weight.totalPrice, weight.remark, status.status from weight, vehicles, packages, lots, customers, products, units, status 
-WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND 
-weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unit AND weight.deleted = '0' AND id=?";
+        //$empQuery = ;
 
-        if ($select_stmt = $db->prepare($empQuery)) {
+        if ($select_stmt = $db->prepare("SELECT weight.id, weight.serialNo, vehicles.veh_number, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, weight.totalPrice, weight.remark, status.status FROM weight, vehicles, packages, lots, customers, products, units, status WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unit AND weight.deleted = '0' AND weight.id=?")) {
             $select_stmt->bind_param('s', $id);
 
             // Execute the prepared query.
@@ -51,15 +45,11 @@ units.id=weight.unit AND weight.deleted = '0' AND id=?";
             }
             else{
                 $result = $select_stmt->get_result();
-                
-
+                    
                 if ($row = $result->fetch_assoc()) {
                     $message = '<html>
-                    <head>
-                        <title>Html to PDF</title>
-                    </head>
                     <body>
-                        <h2>'.$compname.'</h2>
+                        <h3>'.$compname.'</h3>
                         <p>No.34, Jalan Bagan 1, <br>Taman Bagan, 13400 Butterworth.<br> Penang. Malaysia.</p>
                         <p>TEL: 6043325822 | EMAIL: admin@synctronix.com.my</p><hr>
                         <table style="width:100%">
@@ -79,9 +69,6 @@ units.id=weight.unit AND weight.deleted = '0' AND id=?";
                                 <h4>Status: '.$row['status'].'</h4>
                                 <p>Date: 23/03/2022<br>Delivery No: '.$row['deliveryNo'].'</p>
                             </td>
-                        </tr>
-                        <tr>
-                            <td><h4>VEHICLE NO: '.$row['veh_number'].'</h4></td>
                         </tr>
                         </table>
                         <table style="width:100%; border:1px solid black;">
@@ -134,6 +121,13 @@ units.id=weight.unit AND weight.deleted = '0' AND id=?";
                     ));
             }
         }
+        else{
+            echo json_encode(
+                array(
+                    "status" => "failed",
+                    "message" => "Something Goes Wrong"
+                ));
+        }
     }
     else{
         $empQuery = "select count.id, count.serialNo, vehicles.veh_number, lots.lots_no, count.batchNo, count.invoiceNo, count.deliveryNo, 
@@ -141,7 +135,7 @@ units.id=weight.unit AND weight.deleted = '0' AND id=?";
         count.actualWeight, count.currentWeight, units.units, count.moq, count.dateTime, count.unitPrice, count.totalPrice,count.totalPCS, 
         count.remark, status.status from count, vehicles, packages, lots, customers, products, units, status WHERE 
         count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND 
-        count.productName = products.id AND status.id=count.status AND units.id=count.unit AND count.deleted = '0' AND id=?";
+        count.productName = products.id AND status.id=count.status AND units.id=count.unit AND count.deleted = '0' AND count.id=?";
 
         if ($select_stmt = $db->prepare($empQuery)) {
             $select_stmt->bind_param('s', $id);
@@ -164,7 +158,7 @@ units.id=weight.unit AND weight.deleted = '0' AND id=?";
                         <title>Html to PDF</title>
                     </head>
                     <body>
-                        <h2>'.$compname.'</h2>
+                        <h3>'.$compname.'</h3>
                         <p>No.34, Jalan Bagan 1, <br>Taman Bagan, 13400 Butterworth.<br> Penang. Malaysia.</p>
                         <p>TEL: 6043325822 | EMAIL: admin@synctronix.com.my</p><hr>
                         <table style="width:100%">
@@ -184,9 +178,6 @@ units.id=weight.unit AND weight.deleted = '0' AND id=?";
                                 <h4>Status: '.$row['status'].'</h4>
                                 <p>Date: 23/03/2022<br>Delivery No: '.$row['deliveryNo'].'</p>
                             </td>
-                        </tr>
-                        <tr>
-                            <td><h4>VEHICLE NO: '.$row['veh_number'].'</h4></td>
                         </tr>
                         </table>
                         <table style="width:100%; border:1px solid black;">
