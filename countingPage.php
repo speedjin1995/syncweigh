@@ -638,9 +638,8 @@ else{
 </div>
 
 <script>
-  $(function () {
-    
-    var table = $("#countTable").DataTable({
+$(function () {
+  var table = $("#countTable").DataTable({
     "responsive": true,
     "autoWidth": false,
     'processing': true,
@@ -743,46 +742,138 @@ else{
   });
 
 
-    $.validator.setDefaults({
-        submitHandler: function () {
-          if($('#extendModal').hasClass('show')){
-              $.post('/php/insertCount.php', $('#extendForm').serialize(), function(data){
-                  var obj = JSON.parse(data); 
+  $.validator.setDefaults({
+      submitHandler: function () {
+        if($('#extendModal').hasClass('show')){
+            $.post('/php/insertCount.php', $('#extendForm').serialize(), function(data){
+                var obj = JSON.parse(data); 
 
-                  if(obj.status === 'success'){
-                      $('#extendModal').modal('hide');
-                      toastr["success"](obj.message, "Success:");
-                      $('#countTable').DataTable().ajax.reload();
-                // $.get('insertCount.php', function(data) {
-                //           $('#mainContents').html(data);
-                //       });
-              }
-              else if(obj.status === 'failed'){
-                      toastr["error"](obj.message, "Failed:");
-                  }
-              else{
-                alert("Something wrong when edit");
-              }
-              });
-          }
-          else if ($('#setupModal').hasClass('show')){
-            serialComm = $('#serialPort').val();
-            baurate = parseInt($('#serialPortBaudRate').val());
-            parity = $('#serialPortParity').val();
-            stopbits = $('#serialPortStopBits').val();
-            databits = $('#serialPortDataBits').val();
-            controlflow = $('#serialPortFlowControl').val();
-            //doOpen();
-            $('#setupModal').modal('hide');
-          }
+                if(obj.status === 'success'){
+                    $('#extendModal').modal('hide');
+                    toastr["success"](obj.message, "Success:");
+                    $('#countTable').DataTable().ajax.reload();
+              // $.get('insertCount.php', function(data) {
+              //           $('#mainContents').html(data);
+              //       });
+            }
+            else if(obj.status === 'failed'){
+                    toastr["error"](obj.message, "Failed:");
+                }
+            else{
+              alert("Something wrong when edit");
+            }
+            });
         }
-    });
+        else if ($('#setupModal').hasClass('show')){
+          serialComm = $('#serialPort').val();
+          baurate = parseInt($('#serialPortBaudRate').val());
+          parity = $('#serialPortParity').val();
+          stopbits = $('#serialPortStopBits').val();
+          databits = $('#serialPortDataBits').val();
+          controlflow = $('#serialPortFlowControl').val();
+          //doOpen();
+          $('#setupModal').modal('hide');
+        }
+      }
+  });
 
   $('#customerNoHidden').hide();
   $('#supplierNoHidden').hide();
 
   $('#filterSearch').on('click', function(){
+    var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
+    var toDateValue = $('#toDateValue').val() ? $('#toDateValue').val() : '';
+    var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
+    var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
+    var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
+    var invoiceFilter = $('#invoiceFilter').val() ? $('#invoiceFilter').val() : '';
+    var batchFilter = $('#batchFilter').val() ? $('#batchFilter').val() : '';
+    var productFilter = $('#productFilter').val() ? $('#productFilter').val() : '';
 
+    //Destroy the old Datatable
+    $("#countTable").DataTable().clear().destroy();
+
+    table = $("#countTable").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      'processing': true,
+      'serverSide': true,
+      'serverMethod': 'post',
+      'searching': false,
+      'ajax': {
+        'type': 'POST',
+        'url':'php/filterCount.php',
+        'data': {
+          fromDate: fromDateValue,
+          toDate: toDateValue,
+          status: statusFilter,
+          customer: customerNoFilter,
+          vehicle: vehicleFilter,
+          invoice: invoiceFilter,
+          batch: batchFilter,
+          product: productFilter,
+        } 
+      },
+      'columns': [
+        //total weight
+
+        { data: 'serialNo' },
+        { data: 'product_name' },
+        { data: 'unit' },
+        { data: 'unitWeight' },
+        { data: 'tare' },
+        { data: 'currentWeight' },
+        { data: 'actualWeight' },
+        { data: 'totalPCS' },
+        { data: 'moq' },
+        { data: 'unitPrice' },
+        { data: 'totalPrice' },
+        { 
+          className: 'dt-control',
+          orderable: false,
+          data: null,
+          render: function ( data, type, row ) {
+            
+            return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+          }
+        }
+      ],
+      "footerCallback": function ( row, data, start, end, display ) {
+        var api = this.api();
+
+        // Remove the formatting to get integer data for summation
+        var intVal = function (i) {
+          return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+        };
+
+        // Total over all pages
+        total = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total2 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total3 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total4 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total5 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total6 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+        total7 = api.column(10).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+
+        // Total over this page
+        pageTotal = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal2 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal3 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal4 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal5 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal6 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+        pageTotal7 = api.column(10, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+
+        // Update footer
+        $(api.column(4).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+        $(api.column(5).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+        $(api.column(6).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+        $(api.column(7).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+        $(api.column(8).footer()).html(pageTotal5 +' ('+ total5 +')');
+        $(api.column(9).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+        $(api.column(10).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+      }
+    });
   });
 
   $('#excelSearch').on('click', function(){
@@ -1124,7 +1215,26 @@ function deactivate(id) {
   });
 }
 
-// function print(id) {
+function print(id) {
+  $.post('php/print.php', {userID: id, file: 'count'}, function(data){
+    var obj = JSON.parse(data);
 
-// }
+    if(obj.status === 'success'){
+      var printWindow = window.open('', '', 'height=400,width=800');
+      printWindow.document.write(obj.message);
+      printWindow.document.close();
+      printWindow.print();
+      
+      $.get('weightPage.php', function(data) {
+        $('#mainContents').html(data);
+      });
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when activate", "Failed:");
+    }
+  });
+}
 </script>
