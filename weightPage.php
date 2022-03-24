@@ -833,20 +833,19 @@ $(function () {
   });
 
   $('#excelSearch').on('click', function(){
-    $.post('php/export.php', {file: 'weight'}, function(data){
-      var obj = JSON.parse(data); 
-      if(obj.status === 'success'){
-        $('#extendModal').modal('hide');
-        toastr["success"](obj.message, "Success:");
-        $('#weightTable').DataTable().ajax.reload();
-      }
-      else if(obj.status === 'failed'){
-        toastr["error"](obj.message, "Failed:");
-      }
-      else{
-        alert("Something wrong when edit");
-      }
-    });
+    var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
+    var toDateValue = $('#toDateValue').val() ? $('#toDateValue').val() : '';
+    var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
+    var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
+    var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
+    var invoiceFilter = $('#invoiceFilter').val() ? $('#invoiceFilter').val() : '';
+    var batchFilter = $('#batchFilter').val() ? $('#batchFilter').val() : '';
+    var productFilter = $('#productFilter').val() ? $('#productFilter').val() : '';
+    
+    window.open("php/export.php?file=weight&fromDate="+fromDateValue+"&toDate="+toDateValue+
+    "&status="+statusFilter+"&customer="+customerNoFilter+"&vehicle="+vehicleFilter+
+    "&invoice="+invoiceFilter+"&batch="+batchFilter+"&product="+productFilter);
+
   });
 
   $('#statusFilter').on('change', function () {
@@ -1169,14 +1168,10 @@ function print(id) {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      var printWindow = window.open('', '', 'height=400,width=800');
-      printWindow.document.write(obj.message);
-      printWindow.document.close();
-      printWindow.print();
-      
-      /*$.get('weightPage.php', function(data) {
+      toastr["success"](obj.message, "Success:");
+      $.get('weightPage.php', function(data) {
         $('#mainContents').html(data);
-      });*/
+      });
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");

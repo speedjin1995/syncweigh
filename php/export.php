@@ -11,23 +11,20 @@ function filterData(&$str){
 } 
  
 // Excel file name for download 
-if($_POST["file"] == 'weight'){
+if($_GET["file"] == 'weight'){
     $fileName = "Weight-data_" . date('Y-m-d') . ".xls";
 }else{
     $fileName = "Count-data_" . date('Y-m-d') . ".xls";
 } 
  
 // Column names 
-if($_POST["file"] == 'weight'){
+if($_GET["file"] == 'weight'){
     $fields = array('SERIAL NO', 'PRODUCT NO', 'UNIT', 'UNIT WEIGHT', 'TARE', 'TOTAL WEIGHT', 'ACTUAL WEIGHT', 'MOQ', 'UNIT PRICE(RM)', 'TOTAL PRICE(RM)',
-                'VEHICLE NO', 'LOT NO', 'BATCH NO', 'INVOICE NO', 'DELIVERY NO', 'PURCHASE NO', 'CUSTOMER', 'PACKAGE', 'DATE', 'REMARK'); 
+                'VEHICLE NO', 'LOT NO', 'BATCH NO', 'INVOICE NO', 'DELIVERY NO', 'PURCHASE NO', 'CUSTOMER', 'PACKAGE', 'DATE', 'REMARK', 'STATUS', 'DELETED'); 
 }else{
     $fields = array('SERIAL NO', 'PRODUCT NO', 'UNIT', 'UNIT WEIGHT', 'TARE', 'CURRENT WEIGHT', 'ACTUAL WEIGHT', 'TOTAL PCS','MOQ', 'UNIT PRICE(RM)', 'TOTAL PRICE(RM)',
     'VEHICLE NO', 'LOT NO', 'BATCH NO', 'INVOICE NO', 'DELIVERY NO', 'PURCHASE NO', 'CUSTOMER', 'PACKAGE', 'DATE', 'REMARK', 'STATUS', 'DELETED');    
 }
-$lineData = array($row['serialNo'], $row['product_name'], $row['units'], $row['unitWeight'], $row['tare'], $row['currentWeight'], $row['actualWeight'],
-$row['totalPCS'], $row['moq'], $row['unitPrice'], $row['totalPrice'], $row['veh_number'], $row['lots_no'], $row['batchNo'], $row['invoiceNo']
-, $row['deliveryNo'], $row['purchaseNo'], $row['customer_name'], $row['packages'], $row['dateTime'], $row['remark'], $row['status'], $deleted);
 
 // Display column names as first row 
 $excelData = implode("\t", array_values($fields)) . "\n"; 
@@ -35,64 +32,96 @@ $excelData = implode("\t", array_values($fields)) . "\n";
 ## Search 
 $searchQuery = " ";
 
-if($_POST['fromDate'] != null && $_POST['fromDate'] != ''){
-   $searchQuery = " and weight.dateTime >= '".$_POST['fromDate']."'";
+
+if($_GET['fromDate'] != null && $_GET['fromDate'] != ''){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.dateTime >= '".$_GET['fromDate']."'";
+    }else{
+        $searchQuery = " and count.dateTime >= '".$_GET['fromDate']."'";
+    }
 }
 
-if($_POST['toDate'] != null && $_POST['toDate'] != ''){
-	$searchQuery = " and weight.dateTime <= '".$_POST['toDate']."'";
+if($_GET['toDate'] != null && $_GET['toDate'] != ''){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.dateTime <= '".$_GET['toDate']."'";
+    }else{
+        $searchQuery = " and count.dateTime <= '".$_GET['toDate']."'";
+    }
 }
 
-if($_POST['status'] != null && $_POST['status'] != '' && $_POST['status'] != '-'){
-	$searchQuery = " and weight.status = '".$_POST['status']."'";
+if($_GET['status'] != null && $_GET['status'] != '' && $_GET['status'] != '-'){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.status = '".$_GET['status']."'";
+    }else{
+        $searchQuery = " and count.status = '".$_GET['status']."'";
+    }	
 }
 
-if($_POST['customer'] != null && $_POST['customer'] != '' && $_POST['customer'] != '-'){
-	$searchQuery = " and weight.customer = '".$_POST['customer']."'";
+if($_GET['customer'] != null && $_GET['customer'] != '' && $_GET['customer'] != '-'){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.customer = '".$_GET['customer']."'";
+    }else{
+        $searchQuery = " and count.customer = '".$_GET['customer']."'";
+    }
 }
 
-if($_POST['vehicle'] != null && $_POST['vehicle'] != '' && $_POST['vehicle'] != '-'){
-	$searchQuery = " and weight.vehicleNo = '".$_POST['vehicle']."'";
+if($_GET['vehicle'] != null && $_GET['vehicle'] != '' && $_GET['vehicle'] != '-'){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.vehicleNo = '".$_GET['vehicle']."'";
+    }else{
+        $searchQuery = " and count.vehicleNo = '".$_GET['vehicle']."'";
+    }
 }
 
-if($_POST['invoice'] != null && $_POST['invoice'] != ''){
-	$searchQuery = " and weight.invoiceNo like '%".$_POST['invoice']."%'";
+if($_GET['invoice'] != null && $_GET['invoice'] != ''){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.invoiceNo like '%".$_GET['invoice']."%'";
+    }else{
+        $searchQuery = " and count.invoiceNo like '%".$_GET['invoice']."%'";
+    }
 }
 
-if($_POST['batch'] != null && $_POST['batch'] != ''){
-	$searchQuery = " and weight.batchNo like '%".$_POST['batch']."%'";
+if($_GET['batch'] != null && $_GET['batch'] != ''){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.batchNo like '%".$_GET['batch']."%'";
+    }else{
+        $searchQuery = " and count.batchNo like '%".$_GET['batch']."%'";
+    }
 }
 
-if($_POST['product'] != null && $_POST['product'] != '' && $_POST['product'] != '-'){
-	$searchQuery = " and weight.productName = '".$_POST['product']."'";
+if($_GET['product'] != null && $_GET['product'] != '' && $_GET['product'] != '-'){
+    if($_GET["file"] == 'weight'){
+        $searchQuery = " and weight.productName = '".$_GET['product']."'";
+    }else{
+        $searchQuery = " and count.productName = '".$_GET['product']."'";
+    }
 }
 
 // Fetch records from database
-if($_POST["file"] == 'weight'){
+if($_GET["file"] == 'weight'){
     $query = $db->query("select weight.id, weight.serialNo, vehicles.veh_number, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
     weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
     weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
     weight.totalPrice, weight.remark, weight.deleted, status.status from weight, vehicles, packages, lots, customers, products, units, status 
     WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND 
-    weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-    units.id=weight.unit ".$searchQuery." ");
+    weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unit ".$searchQuery."");
 }else{
     $query = $db->query("select count.id, count.serialNo, vehicles.veh_number, lots.lots_no, count.batchNo, count.invoiceNo, count.deliveryNo, 
     count.purchaseNo, customers.customer_name, products.product_name, packages.packages, count.unitWeight, count.tare, count.totalWeight, 
     count.actualWeight, count.currentWeight, units.units, count.moq, count.dateTime, count.unitPrice, count.totalPrice,count.totalPCS, 
     count.remark, count.deleted, status.status from count, vehicles, packages, lots, customers, products, units, status WHERE 
     count.vehicleNo = vehicles.id AND count.package = packages.id AND count.lotNo = lots.id AND count.customer = customers.id AND 
-    count.productName = products.id AND status.id=count.status AND units.id=count.unit ".$searchQuery." ");
+    count.productName = products.id AND status.id=count.status AND units.id=count.unit ".$searchQuery."");
 }
 
 if($query->num_rows > 0){ 
     // Output each row of the data 
     while($row = $query->fetch_assoc()){ 
         $deleted = ($row['deleted'] == 1)?'Active':'Inactive';
-        if($_POST["file"] == 'weight'){
+        if($_GET["file"] == 'weight'){
             $lineData = array($row['serialNo'], $row['product_name'], $row['units'], $row['unitWeight'], $row['tare'], $row['totalWeight'], $row['actualWeight'],
             $row['moq'], $row['unitPrice'], $row['totalPrice'], $row['veh_number'], $row['lots_no'], $row['batchNo'], $row['invoiceNo']
-            , $row['deliveryNo'], $row['purchaseNo'], $row['customer_name'], $row['packages'], $row['dateTime'], $row['remark'], $deleted);
+            , $row['deliveryNo'], $row['purchaseNo'], $row['customer_name'], $row['packages'], $row['dateTime'], $row['remark'], $row['status'], $deleted);
         }else{
             $lineData = array($row['serialNo'], $row['product_name'], $row['units'], $row['unitWeight'], $row['tare'], $row['currentWeight'], $row['actualWeight'],
             $row['totalPCS'], $row['moq'], $row['unitPrice'], $row['totalPrice'], $row['veh_number'], $row['lots_no'], $row['batchNo'], $row['invoiceNo']
