@@ -15,35 +15,35 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 $searchQuery = " ";
 
 if($_POST['fromDate'] != null && $_POST['fromDate'] != ''){
-    $searchQuery = " and weight.dateTime >= '".$_POST['fromDate']."'";
+    $searchQuery = " and count.dateTime >= '".$_POST['fromDate']."'";
 }
 
 if($_POST['toDate'] != null && $_POST['toDate'] != ''){
-  $searchQuery = " and weight.dateTime <= '".$_POST['toDate']."'";
+  $searchQuery = " and count.dateTime <= '".$_POST['toDate']."'";
 }
 
 if($_POST['status'] != null && $_POST['status'] != '' && $_POST['status'] != '-'){
-  $searchQuery = " and weight.status = '".$_POST['status']."'";
+  $searchQuery = " and count.status = '".$_POST['status']."'";
 }
 
 if($_POST['customer'] != null && $_POST['customer'] != '' && $_POST['customer'] != '-'){
-  $searchQuery = " and weight.customer = '".$_POST['customer']."'";
+  $searchQuery = " and count.customer = '".$_POST['customer']."'";
 }
 
 if($_POST['vehicle'] != null && $_POST['vehicle'] != '' && $_POST['vehicle'] != '-'){
-  $searchQuery = " and weight.vehicleNo = '".$_POST['vehicle']."'";
+  $searchQuery = " and count.vehicleNo = '".$_POST['vehicle']."'";
 }
 
 if($_POST['invoice'] != null && $_POST['invoice'] != ''){
-  $searchQuery = " and weight.invoiceNo like '%".$_POST['invoice']."%'";
+  $searchQuery = " and count.invoiceNo like '%".$_POST['invoice']."%'";
 }
 
 if($_POST['batch'] != null && $_POST['batch'] != ''){
-  $searchQuery = " and weight.batchNo like '%".$_POST['batch']."%'";
+  $searchQuery = " and count.batchNo like '%".$_POST['batch']."%'";
 }
 
 if($_POST['product'] != null && $_POST['product'] != '' && $_POST['product'] != '-'){
-  $searchQuery = " and weight.productName = '".$_POST['product']."'";
+  $searchQuery = " and count.productName = '".$_POST['product']."'";
 }
 
 ## Total number of records without filtering
