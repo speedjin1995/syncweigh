@@ -1168,7 +1168,7 @@ function print(id) {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      tvar printWindow = window.open('', '', 'height=400,width=800');
+      var printWindow = window.open('', '', 'height=400,width=800');
       printWindow.document.write(obj.message);
       printWindow.document.close();
       printWindow.print();
