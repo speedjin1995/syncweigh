@@ -139,7 +139,7 @@ else{
                     </div>
                     <div class="col-3"></div>
                     <div class="col-1">
-                      <button type="button" class="btn btn-primary btn-sm"  onclick="newEntry()">
+                      <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
                         <i class="fas fa-plus"></i>
                       </button>
                     </div>
@@ -149,7 +149,7 @@ else{
                       </button>
                     </div>
                     <div class="col-1">
-                      <button type="button" class="btn btn-info btn-sm" id="filterSearch">
+                      <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
                       <i class="fas fa-search"></i>
                       </button>
                     </div>
