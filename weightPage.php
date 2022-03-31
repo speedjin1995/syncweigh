@@ -100,10 +100,10 @@ else{
           <div class="card-header">
             <div class="row">
               <div class="col-4">
-                <div class="input-group-text bg-primary color-palette"><i>Indicator Connected</i></div>
+                <div class="input-group-text color-palette" id="indicatorConnected"><i>Indicator Connected</i></div>
               </div>
               <div class="col-4">
-                <div class="input-group-text color-palette"><i>Checking Connection</i></div>
+                <div class="input-group-text bg-danger color-palette" id="checkingConnection"><i>Checking Connection</i></div>
               </div>
               <div class="col-4">
                 <button type="button" class="btn btn-block bg-gradient-primary"  onclick="setup()">
@@ -296,10 +296,9 @@ else{
         <div class="col-lg-6 col-6 d-flex justify-content-center">
           <div class="small-box bg-success">
             <div class="inner">
-              <h3 style="text-align: center; font-size: 80px">
-                100.00
-                <sup style="font-size: 20px">KG</sup>
-              </h3>
+            <h3 style="text-align: center; font-size: 80px" id="indicatorWeight"> 
+              100.00 <sup style="font-size: 20px" id="indicatorUnits">KG</sup> 
+            </h3>
             </div>
           </div>
         </div>
@@ -309,7 +308,7 @@ else{
         <div class="row">
           <div class="col-md-2">
             <div class="form-group">
-              <label>Status :</label>
+              <label>Status *</label>
               <select class="form-control" style="width: 100%;" id="status" name="status" required>
                 <option selected="selected">-</option>
                 <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
@@ -321,7 +320,7 @@ else{
           
           <div class="col-md-2">
             <div class="form-group">
-              <label>Lot No :</label>
+              <label>Lot No *</label>
               <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
                 <option selected="selected">-</option>
                 <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
@@ -339,7 +338,7 @@ else{
           <div class="col-md-3">
             <div class="form-group">
               <label>Vehicle No</label>
-              <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo" required>
+              <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo">
                 <option selected="selected">-</option>
                 <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
                   <option value="<?=$row2['id'] ?>"><?=$row2['veh_number'] ?></option>
@@ -352,7 +351,7 @@ else{
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label class="labelStatus">Customer No</label>
+              <label class="labelStatus">Customer No *</label>
               <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required></select>
             </div>
           </div>
@@ -364,7 +363,7 @@ else{
 
           <div class="col-md-3">
             <div class="form-group">
-              <label>Unit Weight</label>
+              <label>Unit Weight *</label>
               <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
                 <option selected="selected">-</option>
                 <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
@@ -398,7 +397,7 @@ else{
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label>Product</label>
+              <label>Product *</label>
               <select class="form-control" style="width: 100%;" id="product" name="product" required>
                 <option selected="selected">-</option>
                 <?php while($row5=mysqli_fetch_assoc($products)){ ?>
@@ -409,12 +408,12 @@ else{
           </div>
 
           <div class="form-group col-md-3">
-            <label>M.O.Q</label>
+            <label>M.O.Q *</label>
             <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
           </div>
 
           <div class="form-group col-md-3">
-            <label>Tare Weight</label>
+            <label>Tare Weight *</label>
             <div class="input-group">
               <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" required/>
               <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
@@ -425,7 +424,7 @@ else{
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label>Package</label>
+              <label>Package *</label>
               <select class="form-control" style="width: 100%;" id="package" name="package" required>
                 <option selected="selected">-</option>
                 <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
@@ -687,7 +686,7 @@ $(function () {
   });
 
   //JSPrintManager WebSocket settings
-  /*JSPM.JSPrintManager.auto_reconnect = true;
+  JSPM.JSPrintManager.auto_reconnect = true;
   JSPM.JSPrintManager.start();
   JSPM.JSPrintManager.WS.onStatusChanged = function () {
     if (jspmWSStatus()) {
@@ -702,7 +701,7 @@ $(function () {
         $('#serialPort').html(options);
       });
     }
-  };*/
+  };
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -730,7 +729,7 @@ $(function () {
         stopbits = $('#serialPortStopBits').val();
         databits = $('#serialPortDataBits').val();
         controlflow = $('#serialPortFlowControl').val();
-        //doOpen();
+        doOpen();
         $('#setupModal').modal('hide');
       }
     }
@@ -912,12 +911,14 @@ $(function () {
   });
 
   $('#captureWeight').on('click', function () {
-    $('#currentWeight').val("100.00");
+    var text = $('#indicatorWeight').text();
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
     var moq = $('#moq').val();
     var totalWeight;
     var actualWeight;
+
+    $('#currentWeight').val(text.split(" ")[0]);
 
     if(tareWeight != ''){
       actualWeight = currentWeight - tareWeight;
@@ -1029,7 +1030,7 @@ function formatNormal (row) {
 
 function newEntry(){
   let dateTime = new Date();
-  $('#extendModal').find('#serialNo').val("");
+  $('#extendModal').find('#serialNumber').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
   $('#extendModal').find('#status').val('');
@@ -1098,7 +1099,7 @@ function edit(id) {
     var obj = JSON.parse(data);
     
     if(obj.status === 'success'){
-      $('#extendModal').find('#serialNo').val(obj.message.serialNo);
+      $('#extendModal').find('#serialNumber').val(obj.message.serialNo);
       $('#extendModal').find('#unitWeight').val(obj.message.unit);
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
       $('#extendModal').find('#status').val(obj.message.status);
@@ -1144,23 +1145,25 @@ function edit(id) {
 }
 
 function deactivate(id) {
-  $.post('php/deleteWeight.php', {userID: id}, function(data){
-    var obj = JSON.parse(data);
+  if (confirm('Are you sure you want to delete this items?')) {
+    $.post('php/deleteWeight.php', {userID: id}, function(data){
+      var obj = JSON.parse(data);
 
-    if(obj.status === 'success'){
-      toastr["success"](obj.message, "Success:");
-      $('#weightTable').DataTable().ajax.reload();
-      /*$.get('weightPage.php', function(data) {
-        $('#mainContents').html(data);
-      });*/
-    }
-    else if(obj.status === 'failed'){
-      toastr["error"](obj.message, "Failed:");
-    }
-    else{
-      toastr["error"]("Something wrong when activate", "Failed:");
-    }
-  });
+      if(obj.status === 'success'){
+        toastr["success"](obj.message, "Success:");
+        $('#weightTable').DataTable().ajax.reload();
+        /*$.get('weightPage.php', function(data) {
+          $('#mainContents').html(data);
+        });*/
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when activate", "Failed:");
+      }
+    });
+  }
 }
 
 function print(id) {
@@ -1187,7 +1190,7 @@ function print(id) {
 }
 
 //Check JSPM WebSocket status
-/*function jspmWSStatus() {
+function jspmWSStatus() {
   if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
     return true;
   else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
@@ -1218,29 +1221,36 @@ function doSendData() {
 
 //Open port
 function doOpen() {
+  debugger;
   this._serialComm = new JSPM.SerialComm(serialComm, baurate, JSPM.Serial.Parity[parity], JSPM.Serial.StopBits[stopbits], JSPM.Serial.DataBits[databits], JSPM.Serial.Handshake[controlflow]);
 
   this._serialComm.onDataReceived = function (data) {
     //_this.dataReceived += "< " + data + "\r\n";
-    console.log("Data Received:" + data);
-    _this.refreshDisplay();
+    //console.log("Data Received:" + data);
+    $('#indicatorConnected').addClass('bg-primary');
+    $('#checkingConnection').removeClass('bg-danger');
+    _this.refreshDisplay(data);
   };
 
   this._serialComm.onError = function (data, is_critical) {
-      //_this.dataReceived += "ERROR: " + data + "\r\n";
-      console.log("Error: " + data);
-      _this.refreshDisplay();
+    //_this.dataReceived += "ERROR: " + data + "\r\n";
+    console.log("Error: " + data);
+    $('#indicatorConnected').removeClass('bg-primary');
+    $('#checkingConnection').addClass('bg-danger');
+    //_this.refreshDisplay();
   };
 
   this._serialComm.onClose = function (data) {
     //_this.dataReceived += "COMM CLOSED!" + "\r\n";
     console.log("Closed: " + data);
-    _this.refreshDisplay();
+    $('#indicatorConnected').removeClass('bg-primary');
+    $('#checkingConnection').addClass('bg-danger');
+    //_this.refreshDisplay();
   };
 
   this._serialComm.open().then(_ => {
     //_this.dataReceived += "COMM OPEN!" + "\r\n";
-    _this.refreshDisplay();
+    //_this.refreshDisplay();
   });
 }
 
@@ -1255,8 +1265,10 @@ function doClose() {
   }
 }
 
-function refreshDisplay() {
-  //$('#txtDataReceived').val(this._dataReceived);
-}*/
+function refreshDisplay(data) {
+  console.log("Data Received:" + data);
+  var text = data.split(" ");
+  $('#indicatorWeight').html(text[text.length - 1] +' <sup style="font-size: 20px" id="indicatorUnits">KG</sup>');
+}
 
 </script>

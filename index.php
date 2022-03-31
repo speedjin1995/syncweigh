@@ -49,6 +49,9 @@ else{
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Bootstrap4 Duallistbox -->
   <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css?v=3.2.0">
 
   <style>
     body {
@@ -139,12 +142,12 @@ to get the desired effect
               <p>Weight Weighing</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a href="#counting" data-file="countingPage.php" class="nav-link link">
               <i class="nav-icon fas fa-th"></i>
               <p>Counting Weighing</p>
             </a>
-          </li>
+          </li-->
           <?php 
               if($role == "ADMIN"){
                 echo '<li class="nav-item">
