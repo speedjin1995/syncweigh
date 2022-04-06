@@ -143,6 +143,7 @@ $(function () {
     $('#addStatus').on('click', function(){
         $('#statusModal').find('#id').val("");
         $('#statusModal').find('#status').val("");
+        $('#statusModal').find('#prefix').val("");
         $('#statusModal').modal('show');
         
         $('#statusForm').validate({
@@ -168,6 +169,7 @@ function edit(id){
         if(obj.status === 'success'){
             $('#statusModal').find('#id').val(obj.message.id);
             $('#statusModal').find('#status').val(obj.message.status);
+            $('#statusModal').find('#prefix').val(obj.message.prefix);
             $('#statusModal').modal('show');
             
             $('#statusForm').validate({

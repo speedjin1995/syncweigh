@@ -53,7 +53,7 @@ if(isset($_POST['status'], $_POST['prefix'])){
                 );
             }
             else{
-                $last_id = $db->lastInsertId();
+                $last_id = mysqli_insert_id($db);
 
                 if ($insert_stmt = $db->prepare("INSERT INTO `status` (`status`, `prefix`, `misc_id`) VALUES (?, ?, ?)")) {
                     $insert_stmt->bind_param('sss', $lotsNumber, $prefix, $last_id);
