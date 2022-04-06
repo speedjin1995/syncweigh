@@ -732,7 +732,7 @@ $(function () {
   $.validator.setDefaults({
     submitHandler: function () {
         if($('#extendModal').hasClass('show')){
-          $.post('/php/insertWeight.php', $('#extendForm').serialize(), function(data){
+          $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
             var obj = JSON.parse(data); 
             if(obj.status === 'success'){
               $('#extendModal').modal('hide');
