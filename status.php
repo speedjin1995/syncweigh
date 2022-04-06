@@ -43,6 +43,7 @@ else{
 								<tr>
 									<th>No.</th>
 									<th>Status</th>
+                                    <th>Prefix</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -73,6 +74,10 @@ else{
     					<label for="status">Status *</label>
     					<input type="text" class="form-control" name="status" id="status" placeholder="Enter Status" required>
     				</div>
+                    <div class="form-group">
+    					<label for="prefix">Prefix *</label>
+    					<input type="text" class="form-control" name="prefix" id="prefix" placeholder="Enter Prefix" required>
+    				</div>
     			</div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -102,6 +107,7 @@ $(function () {
         'columns': [
             { data: 'counter' },
             { data: 'status' },
+            { data: 'prefix' },
             { 
                 data: 'id',
                 render: function ( data, type, row ) {

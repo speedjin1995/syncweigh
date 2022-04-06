@@ -39,8 +39,7 @@ if(isset($_POST['userID'])){
                 $message['actualWeight'] = $row['actualWeight'];
                 $message['unit'] = $row['unit'];
                 $message['moq'] = $row['moq'];
-                $message['date'] = $row['date'];
-                $message['time'] = $row['time'];
+                $message['dateTime'] = $row['dateTime'];
                 $message['unitPrice'] = $row['unitPrice'];
                 $message['totalPrice'] = $row['totalPrice'];
                 $message['remark'] = $row['remark'];

@@ -296,9 +296,7 @@ else{
         <div class="col-lg-6 col-6 d-flex justify-content-center">
           <div class="small-box bg-success">
             <div class="inner">
-            <h3 style="text-align: center; font-size: 80px" id="indicatorWeight"> 
-              100.00 <sup style="font-size: 20px" id="indicatorUnits">KG</sup> 
-            </h3>
+            <h3 style="text-align: center; font-size: 80px" id="indicatorWeight">0.00kg</h3>
             </div>
           </div>
         </div>
@@ -519,10 +517,10 @@ else{
             <div class="form-group">
               <label>Data Bits</label>
               <select class="form-control" style="width: 100%;" id="serialPortDataBits" name="serialPortDataBits" required>
-                <option value="Eight">8</option>
-                <option value="Seven">7</option>
-                <option value="Six">6</option>
-                <option value="Five">5</option>
+                <option value="8">8</option>
+                <option value="7">7</option>
+                <option value="6">6</option>
+                <option value="5">5</option>
               </select>
             </div>
           </div>
@@ -532,11 +530,11 @@ else{
             <div class="form-group">
               <label>Parity</label>
               <select class="form-control" style="width: 100%;" id="serialPortParity" name="serialPortParity" required>
-                <option value="None">None</option>
-                <option value="Odd">Odd</option>
-                <option value="Even">Even</option>
-                <option value="Mark">Mark</option>
-                <option value="Space">Space</option>
+                <option value="N">None</option>
+                <option value="O">Odd</option>
+                <option value="E">Even</option>
+                <option value="M">Mark</option>
+                <option value="S">Space</option>
               </select>
             </div>
           </div>
@@ -544,13 +542,13 @@ else{
             <div class="form-group">
               <label>Stop bits</label>
               <select class="form-control" style="width: 100%;" id="serialPortStopBits" name="serialPortStopBits" required>
-                <option value="One">1</option>
-                <option value="OnePointFive">1.5</option>
-                <option value="Two">2</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
               </select>
             </div>
           </div>
-          <div class="col-4">
+          <!--div class="col-4">
             <div class="form-group">
               <label>Flow control</label>
               <select class="form-control" style="width: 100%;" id="serialPortFlowControl" name="serialPortFlowControl" required>
@@ -560,7 +558,7 @@ else{
                 <option value="RequestToSendXOnXOff">RTS XOnXOff</option>
               </select>
             </div>
-          </div>
+          </div-->
         </div>
       </div>
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
@@ -574,17 +572,18 @@ else{
 <script>
 // Objects
 var _serialComm = null;
-var _dataToSend = '';
-var _dataReceived = '';
-var _this = this;
+/*var _dataToSend = '';
+var _dataReceived = '';*/
 
 // Values
 var serialComm = "COM5";
 var baurate = 9600;
-var parity = "None";
-var stopbits = "One";
-var databits = "Eight";
+var parity = "N";
+var stopbits = "1";
+var databits = "8";
 var controlflow = "None";
+var indicatorUnit = "kg";
+var weightUnit = "1";
 
 $(function () {
   var table = $("#weightTable").DataTable({
@@ -686,7 +685,7 @@ $(function () {
   });
 
   //JSPrintManager WebSocket settings
-  JSPM.JSPrintManager.auto_reconnect = true;
+  /*JSPM.JSPrintManager.auto_reconnect = true;
   JSPM.JSPrintManager.start();
   JSPM.JSPrintManager.WS.onStatusChanged = function () {
     if (jspmWSStatus()) {
@@ -701,7 +700,34 @@ $(function () {
         $('#serialPort').html(options);
       });
     }
-  };
+  };*/
+  
+  $.post('http://127.0.0.1:5002/getcomport', function(data){
+    var decoded = JSON.parse(data);
+    var options = '';
+
+    for (var i = 0; i < decoded.length; i++) {
+      options += '<option value="' + decoded[i] + '">' + decoded[i] + '</option>';
+    }
+
+    $('#serialPort').html(options);
+  });
+  
+  setInterval(function () {
+      $.post('http://127.0.0.1:5002/handshaking', function(data){
+          if(data != "Error"){
+            console.log("Data Received:" + data);
+            var text = data.split(" ");
+            $('#indicatorWeight').html(text[text.length - 1]);
+            $('#indicatorConnected').addClass('bg-primary');
+            $('#checkingConnection').removeClass('bg-danger');
+          }
+          else{
+            $('#indicatorConnected').removeClass('bg-primary');
+            $('#checkingConnection').addClass('bg-danger');
+          }
+      });
+  }, 1000);
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -723,13 +749,26 @@ $(function () {
         });
       }
       else if ($('#setupModal').hasClass('show')){
-        serialComm = $('#serialPort').val();
+        /*serialComm = $('#serialPort').val();
         baurate = parseInt($('#serialPortBaudRate').val());
         parity = $('#serialPortParity').val();
         stopbits = $('#serialPortStopBits').val();
-        databits = $('#serialPortDataBits').val();
-        controlflow = $('#serialPortFlowControl').val();
-        doOpen();
+        databits = $('#serialPortDataBits').val();*/
+        //controlflow = $('#serialPortFlowControl').val();
+        //doOpen();
+        
+        
+        $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
+            if(data == "true"){
+                $('#indicatorConnected').addClass('bg-primary');
+                $('#checkingConnection').removeClass('bg-danger');
+            }
+            else{
+                $('#indicatorConnected').removeClass('bg-primary');
+                $('#checkingConnection').addClass('bg-danger');
+            }
+        })
+        
         $('#setupModal').modal('hide');
       }
     }
@@ -892,17 +931,57 @@ $(function () {
     var unitWeight = $(this).val();
 
     if(unitWeight == 1){
+      weightUnit = "1";
       $('#changeWeight').text("KG");
       $('#changeWeightTare').text("KG");
       $('#changeWeightActual').text("KG");
       $('#changeWeightTotal').text("KG");
-    }else if(unitWeight == 2){
+      
+      //if(indicatorUnit == "g"){
+          if($('#currentWeight').val()){
+              $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) / 1000).toFixed(2));
+          }
+          
+          if($('#tareWeight').val()){
+              $('#tareWeight').val(parseFloat(parseFloat($('#tareWeight').val()) / 1000).toFixed(2));
+          }
+          
+          if($('#actualWeight').val()){
+              $('#actualWeight').val(parseFloat(parseFloat($('#actualWeight').val()) / 1000).toFixed(2));
+          }
+          
+          if($('#totalWeight').val()){
+              $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) / 1000).toFixed(2));
+          }
+      //}
+    }
+    else if(unitWeight == 2){
+      weightUnit = "2";
       $('#changeWeight').text("G");
       $('#changeWeightTare').text("G");
       $('#changeWeightActual').text("G");
       $('#changeWeightTotal').text("G");
-
-    }else if(unitWeight == 3){
+      
+      //if(indicatorUnit == "kg"){
+          if($('#currentWeight').val()){
+              $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) * 1000).toFixed(2));
+          }
+          
+          if($('#tareWeight').val()){
+              $('#tareWeight').val(parseFloat(parseFloat($('#tareWeight').val()) * 1000).toFixed(2));
+          }
+          
+          if($('#actualWeight').val()){
+              $('#actualWeight').val(parseFloat(parseFloat($('#actualWeight').val()) * 1000).toFixed(2));
+          }
+          
+          if($('#totalWeight').val()){
+              $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) * 1000).toFixed(2));
+          }
+      //}
+    }
+    else if(unitWeight == 3){
+      weightUnit = "3";
       $('#changeWeight').text("LB");
       $('#changeWeightTare').text("LB");
       $('#changeWeightActual').text("LB");
@@ -912,13 +991,33 @@ $(function () {
 
   $('#captureWeight').on('click', function () {
     var text = $('#indicatorWeight').text();
+    
+    if(text[text.length-2] == 'k'){
+        if(weightUnit == "2"){
+            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
+        }
+        else{
+            $('#currentWeight').val(text.substring(0, text.length-2));
+        }
+        
+        indicatorUnit = "kg";
+    }
+    else{
+        if(weightUnit == "1"){
+            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
+        }
+        else{
+            $('#currentWeight').val(text.substring(0, text.length-1)); 
+        }
+         
+        indicatorUnit = "g";
+    }
+    
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
     var moq = $('#moq').val();
     var totalWeight;
     var actualWeight;
-
-    $('#currentWeight').val(text.split(" ")[0]);
 
     if(tareWeight != ''){
       actualWeight = currentWeight - tareWeight;
@@ -1073,9 +1172,9 @@ function newEntry(){
 
 function setup(){
   $('#setupModal').find('#serialPortBaudRate').val('9600');
-  $('#setupModal').find('#serialPortDataBits').val("Eight");
-  $('#setupModal').find('#serialPortParity').val('None');
-  $('#setupModal').find('#serialPortStopBits').val('One');
+  $('#setupModal').find('#serialPortDataBits').val("8");
+  $('#setupModal').find('#serialPortParity').val('N');
+  $('#setupModal').find('#serialPortStopBits').val('1');
   $('#setupModal').find('#serialPortFlowControl').val('None');
   $('#setupModal').modal('show');
 
@@ -1103,7 +1202,7 @@ function edit(id) {
       $('#extendModal').find('#unitWeight').val(obj.message.unit);
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
       $('#extendModal').find('#status').val(obj.message.status);
-      $('#extendModal').find('#lotNo').val(obj.message.lotNo);
+      $('#extendModal').find('#lotNo').val(obj.message.lotNo);	
       $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
       $('#extendModal').find('#customerNo').val(obj.message.customer);
       $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
@@ -1119,6 +1218,10 @@ function edit(id) {
       $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
       $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
       $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
+      $('#dateTime').datetimepicker({
+        format: 'D/MM/YYYY h:m:s A'
+      });
+      $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-US"));
       $('#extendModal').modal('show');
       
       $('#lotForm').validate({
@@ -1190,7 +1293,7 @@ function print(id) {
 }
 
 //Check JSPM WebSocket status
-function jspmWSStatus() {
+/*function jspmWSStatus() {
   if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
     return true;
   else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
@@ -1221,7 +1324,6 @@ function doSendData() {
 
 //Open port
 function doOpen() {
-  debugger;
   this._serialComm = new JSPM.SerialComm(serialComm, baurate, JSPM.Serial.Parity[parity], JSPM.Serial.StopBits[stopbits], JSPM.Serial.DataBits[databits], JSPM.Serial.Handshake[controlflow]);
 
   this._serialComm.onDataReceived = function (data) {
@@ -1249,6 +1351,8 @@ function doOpen() {
   };
 
   this._serialComm.open().then(_ => {
+      debugger;
+      console.log("open connection");
     //_this.dataReceived += "COMM OPEN!" + "\r\n";
     //_this.refreshDisplay();
   });
@@ -1269,6 +1373,6 @@ function refreshDisplay(data) {
   console.log("Data Received:" + data);
   var text = data.split(" ");
   $('#indicatorWeight').html(text[text.length - 1] +' <sup style="font-size: 20px" id="indicatorUnits">KG</sup>');
-}
+}*/
 
 </script>
