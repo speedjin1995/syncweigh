@@ -390,6 +390,19 @@ else{
               <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
             </div>
           </div>
+          
+          <?php 
+            if($role == "ADMIN"){
+              echo '<div class="form-group col-md-2">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="manual" name="manual">
+                    <label class="form-check-label" for="exampleCheck1">Manual</label>
+                  </div>
+              </div>';
+            }
+          ?>
+          
+          
         </div>
 
         <div class="row">
@@ -476,7 +489,7 @@ else{
       </div>
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="captureWeight">Capture Indicator</button>
+        <button type="button" class="btn btn-primary" id="captureWeight" disabled>Capture Indicator</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
     </form>
@@ -727,7 +740,7 @@ $(function () {
             $('#checkingConnection').addClass('bg-danger');
           }
       });
-  }, 1000);
+  }, 500);
 
   $.validator.setDefaults({
     submitHandler: function () {
@@ -762,10 +775,12 @@ $(function () {
             if(data == "true"){
                 $('#indicatorConnected').addClass('bg-primary');
                 $('#checkingConnection').removeClass('bg-danger');
+                $('#captureWeight').removeAttr('disabled');
             }
             else{
                 $('#indicatorConnected').removeClass('bg-primary');
                 $('#checkingConnection').addClass('bg-danger');
+                $('#captureWeight').attr('disabled', true);
             }
         })
         
@@ -776,6 +791,45 @@ $(function () {
 
   $('#customerNoHidden').hide();
   $('#supplierNoHidden').hide();
+  
+  <?php 
+    if($role == "ADMIN"){
+      echo "$('#manual').on('click', function(){
+        if($(this).is(':checked')){
+            $('#currentWeight').removeAttr('readonly');
+        }
+        else{
+            $('#currentWeight').attr('readonly', 'readonly');
+        }
+      })";
+    }
+  ?>
+  
+  $('#currentWeight').on('keyup', function(){
+    var tareWeight =  $('#tareWeight').val();
+    var currentWeight =  $('#currentWeight').val();
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
+
+    if(tareWeight != ''){
+      actualWeight = currentWeight - tareWeight;
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }
+    else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }
+    else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $('#unitPrice').trigger("keyup");
+  });
 
   $('#filterSearch').on('click', function(){
     var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
@@ -1035,7 +1089,7 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     )
 
-    $(unitPrice).trigger("keyup");
+    $('#unitPrice').trigger("keyup");
   });
 
   $('#tareWeight').on('keyup', function () {
@@ -1106,6 +1160,7 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><p>'+row.manual+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
   ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
@@ -1149,6 +1204,7 @@ function newEntry(){
   $('#extendModal').find('#totalPrice').val("");
   $('#extendModal').find('#unitPrice').val("");
   $('#extendModal').find('#totalWeight').val("");
+  $('#extendModal').find('#manual').prop('checked', false);
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });

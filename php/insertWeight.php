@@ -16,6 +16,7 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$batchNo = '-';
 	$purchaseNo = '-';
 	$remark = '';
+	$manual = "0";
 
 	if($_POST['vehicleNo'] != null && $_POST['vehicleNo'] != ''){
 		$vehicleNo = filter_input(INPUT_POST, 'vehicleNo', FILTER_SANITIZE_STRING);
@@ -41,6 +42,10 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 		$remark = filter_input(INPUT_POST, 'remark', FILTER_SANITIZE_STRING);
 	}
 	
+	if($_POST['manual'] != null && $_POST['manual'] != ''){
+	    $manual = "1";
+	}
+	
 	$customerNo = filter_input(INPUT_POST, 'customerNo', FILTER_SANITIZE_STRING);
 	$unitWeight = filter_input(INPUT_POST, 'unitWeight', FILTER_SANITIZE_STRING);
 	$currentWeight = filter_input(INPUT_POST, 'currentWeight', FILTER_SANITIZE_STRING);
@@ -57,10 +62,10 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 
 	if($_POST['serialNumber'] != null && $_POST['serialNumber'] != ''){
 		if ($update_stmt = $db->prepare("UPDATE weight SET vehicleNo=?, lotNo=?, batchNo=?, invoiceNo=?, deliveryNo=?, purchaseNo=?, customer=?, productName=?, package=?
-		, unitWeight=?, tare=?, totalWeight=?, actualWeight=?, unit=?, moq=?, unitPrice=?, totalPrice=?, remark=?, status=?, dateTime=? WHERE serialNo=?")){
-			$update_stmt->bind_param('sssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+		, unitWeight=?, tare=?, totalWeight=?, actualWeight=?, unit=?, moq=?, unitPrice=?, totalPrice=?, remark=?, status=?, dateTime=?, manual=? WHERE serialNo=?")){
+			$update_stmt->bind_param('ssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
 			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, 
-			$dateTime , $_POST['serialNumber']);
+			$dateTime, $manual, $_POST['serialNumber']);
 		
 			// Execute the prepared query.
 			if (! $update_stmt->execute()){
@@ -99,13 +104,13 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 			$update_stmt2->bind_param('s', $status);
 
 			if (! $update_stmt2->execute()) {
-                echo json_encode(
-                    array(
-                        "status" => "failed",
-                        "message" => "Something went wrong when pulling status"
-                    )); 
-            }
-            else{
+          echo json_encode(
+              array(
+                  "status" => "failed",
+                  "message" => "Something went wrong when pulling status"
+              )); 
+      }
+      else{
 				$result2 = $update_stmt2->get_result();
 				$id=$_POST['status'];
 				$firstChar = "";
@@ -141,10 +146,9 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 							$firstChar.=$misValue;  //S00009
 		
 							if ($insert_stmt = $db->prepare("INSERT INTO weight (serialNo, vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
-							, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, dateTime) 
-							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-								$insert_stmt->bind_param('sssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
-								, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $dateTime);
+							, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, dateTime, manual) 
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+								$insert_stmt->bind_param('ssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $dateTime, $manual);
 								
 								// Execute the prepared query.
 								if (! $insert_stmt->execute()){
