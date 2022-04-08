@@ -121,7 +121,7 @@ $(function () {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            $.post('php/products.php', $('#productForms').serialize(), function(data){
+            $.post('php/products.php', $('#productForm').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
                 if(obj.status === 'success'){
