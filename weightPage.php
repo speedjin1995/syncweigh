@@ -34,6 +34,14 @@ else{
 }
 ?>
 
+<style>
+    @media screen and (min-width: 676px) {
+        .modal-dialog {
+          max-width: 1800px; /* New width for default modal */
+        }
+    }
+</style>
+
 <select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
   <option selected="selected">-</option>
   <?php while($rowCustomer=mysqli_fetch_assoc($customers)){ ?>
@@ -259,240 +267,262 @@ else{
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
-    <form role="form" id="extendForm">
-      <div class="modal-header bg-gray-dark color-palette">
-        <h4 class="modal-title">Add New Entry</h4>
-        <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <form role="form" id="extendForm">
+        <div class="modal-header bg-gray-dark color-palette">
+          <h4 class="modal-title">Add New Entry</h4>
+          <button type="button" class="close bg-gray-dark color-palette" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-      <div class="modal-body">
-      <div class="row">
-        <div class="col-3">
+        <div class="modal-body" >
+        
           <div class="row">
-            <div class="col-12">
-              <div class="form-group">
-                <label>Serial No.</label>
-                <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
+            <div class="col-md-3">
+              <div class="d-flex">
+                <div class="small-box bg-success">
+                  <div class="inner">
+                  <h3 style="text-align: center; font-size: 130px" id="indicatorWeight">0.00kg</h3>
+                  </div>
+                </div>
+              </div>      
+            </div>
+            
+            <div class="row col-md-9">
+              <div class="row col-md-12">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Status *</label>
+                        <select class="form-control" style="width: 100%;" id="status" name="status" required>
+                          <option selected="selected">-</option>
+                          <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
+                            <option value="<?=$rowS['id'] ?>"><?=$rowS['status'] ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Invoice No</label>
+                      <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" >
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Supply Weight</label>
+                      <div class="input-group">
+                        <input class="form-control" type="number" placeholder="Supply Weight" id="supplyWeight" name="supplyWeight"/>
+                        <div class="input-group-text bg-success color-palette"><i id="changeSupplyWeight">KG/G</i></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Current Weight
+                      <?php 
+                        if($role == "ADMIN"){         
+                          echo '<span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manual" name="manual"/>Manual</span>';
+                        }
+                      ?>
+                      </label>
+                      <div class="input-group">
+                        <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
+                        <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
+                      </div>
+                    </div>
+
+              </div>
+
+              <div class="row col-md-12">
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Lot No *</label>
+                    <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
+                      <option selected="selected">-</option>
+                      <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
+                        <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>Delivery No</label>
+                  <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
+                </div>            
+
+                <div class="form-group col-md-3">
+                  <label>Actual Weight</label>
+                  <div class="input-group">
+                    <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" readonly required/>
+                    <div class="input-group-text bg-success color-palette"><i id="changeWeightActual">KG/G</i></div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>Tare Weight *</label>
+                  <div class="input-group">
+                    <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" required/>
+                    <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
+
           <div class="row">
-            <div class="col-12">
-              <div class="form-group">
-                <label>Date</label>
-                <div class="input-group date" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
-                  <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+
+              <div class="col-1">
+                <div class="form-group">
+                  <label>Serial No.</label>
+                  <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
+                </div>
+              </div>
+
+              <div class="col-2">
+                <div class="form-group">
+                  <label>Date</label>
+                  <div class="input-group date" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
+                    <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+              
 
-        <div class="col-lg-6 col-6 d-flex justify-content-center">
-          <div class="small-box bg-success">
-            <div class="inner">
-            <h3 style="text-align: center; font-size: 80px" id="indicatorWeight">0.00kg</h3>
-            </div>
-          </div>
-        </div>
-      
-      </div>
-
-        <div class="row">
-          <div class="col-md-2">
-            <div class="form-group">
-              <label>Status *</label>
-              <select class="form-control" style="width: 100%;" id="status" name="status" required>
-                <option selected="selected">-</option>
-                <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
-                  <option value="<?=$rowS['id'] ?>"><?=$rowS['status'] ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-          
-          <div class="col-md-2">
-            <div class="form-group">
-              <label>Lot No *</label>
-              <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
-                <option selected="selected">-</option>
-                <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
-                  <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group col-md-3">
-            <label>Invoice No</label>
-            <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" >
-          </div>
-          
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Vehicle No</label>
-              <select class="form-control" style="width: 100%;" id="vehicleNo" name="vehicleNo">
-                <option selected="selected">-</option>
-                <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
-                  <option value="<?=$row2['id'] ?>"><?=$row2['veh_number'] ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="labelStatus">Customer No *</label>
-              <select class="form-control" style="width: 100%;" id="customerNo" name="customerNo" required></select>
-            </div>
-          </div>
-
-          <div class="form-group col-md-3">
-            <label>Delivery No</label>
-            <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Unit Weight *</label>
-              <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
-                <option selected="selected">-</option>
-                <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
-                  <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label>Batch No</label>
-            <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" >
-          </div>
-
-          <div class="form-group col-md-3">
-            <label>Purchase No</label>
-            <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
-          </div>
-
-          <div class="form-group col-md-3">
-            <label>Current Weight</label>
-            <div class="input-group">
-              <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
-              <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
-            </div>
-          </div>
-          
-          <?php 
-            if($role == "ADMIN"){
-              echo '<div class="form-group col-md-2">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="manual" name="manual">
-                    <label class="form-check-label" for="exampleCheck1">Manual</label>
+              <div class="row col-md-9">
+                <div class="row col-md-12">
+                  <div class="form-group col-md-3">
+                    <label>Batch No</label>
+                    <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" >
                   </div>
-              </div>';
-            }
-          ?>
-          
-          
-        </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Product *</label>
-              <select class="form-control" style="width: 100%;" id="product" name="product" required>
-                <option selected="selected">-</option>
-                <?php while($row5=mysqli_fetch_assoc($products)){ ?>
-                  <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
+                  <div class="form-group col-md-3">
+                    <label>Purchase No</label>
+                    <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
+                  </div>
 
-          <div class="form-group col-md-3">
-            <label>M.O.Q *</label>
-            <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
-          </div>
+                  <div class="form-group col-md-3">
+                      <label style="color:red;">Variance Weight</label>
+                      <div class="input-group">
+                        <input class="form-control" type="number" placeholder="Variance Weight" id="varianceWeight" name="varianceWeight" readonly/>
+                        <div class="input-group-text bg-success color-palette"><i id="changeWeightVariance">KG/G</i></div>
+                      </div>
+                  </div>
 
-          <div class="form-group col-md-3">
-            <label>Tare Weight *</label>
-            <div class="input-group">
-              <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" required/>
-              <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
-            </div>
-          </div>
-        </div>
+                  <div class="form-group col-md-3">
+                      <label>Total Weight</label>
+                      <div class="input-group">
+                        <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" readonly required/>
+                        <div class="input-group-text bg-success color-palette"><i id="changeWeightTotal">KG/G</i></div>
+                      </div>
+                  </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Package *</label>
-              <select class="form-control" style="width: 100%;" id="package" name="package" required>
-                <option selected="selected">-</option>
-                <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
-                  <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
+                </div>
 
-            <div class="form-group col-md-3">
-              <label>Unit Price</label>
-              <div class="input-group">
-                <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
               </div>
           </div>
 
-            <div class="form-group col-md-3">
-              <label>Actual Weight</label>
-              <div class="input-group">
-                <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" readonly required/>
-                <div class="input-group-text bg-success color-palette"><i id="changeWeightActual">KG/G</i></div>
+          <div class="row">
+            <div class="col-md-1">
+              <div class="form-group">
+                <label>Unit Weight *</label>
+                <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
+                  <option selected="selected">-</option>
+                  <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
+                    <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
+                  <?php } ?>
+                </select>
               </div>
             </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label>Remark</label>
-              <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Package *</label>
+                <select class="form-control" style="width: 100%;" id="package" name="package" required>
+                  <option selected="selected">-</option>
+                  <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
+                    <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Product *</label>
+                <select class="form-control" style="width: 100%;" id="product" name="product" required>
+                  <option selected="selected">-</option>
+                  <?php while($row5=mysqli_fetch_assoc($products)){ ?>
+                    <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group col-md-1">
+              <label>M.O.Q *</label>
+              <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Unit Price</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i>RM</i></div>
+                  <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
+                </div>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Total Price</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i>RM</i></div>
+                  <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
+                </div>
             </div>
           </div>
 
-            <div class="form-group col-md-3">
-              <label>Total Price</label>
-              <div class="input-group">
-                <div class="input-group-text"><i>RM</i></div>
-                <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
-              </div>
-          </div>
+          <div class="row">             
+            <div class="col-md-3">
+                <div class="form-group">
+                  <label>Vehicle No
+                      <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle"/>Manual</span>
+                  </label>
 
-            <div class="form-group col-md-3">
-              <label>Total Weight</label>
-              <div class="input-group">
-                <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" readonly required/>
-                <div class="input-group-text bg-success color-palette"><i id="changeWeightTotal">KG/G</i></div>
-              </div>
+                  <select class="form-control" id="vehicleNo" name="vehicleNo">
+                    <option selected="selected">-</option>
+                    <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
+                      <option value="<?=$row2['id'] ?>"><?=$row2['veh_number'] ?></option>
+                    <?php } ?>
+                  </select>
+                  
+                </div>
             </div>
+
+            <div class="col-md-5">
+                <div class="form-group">
+                  <label class="labelStatus">Customer No *</label>
+                  <select class="form-control" id="customerNo" name="customerNo" required></select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label>Remark</label>
+                  <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
+                </div>
+            </div>
+          </div>           
         </div>
-      </div>
-      <div class="modal-footer justify-content-between bg-gray-dark color-palette">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="captureWeight" disabled>Capture Indicator</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </form>
+
+        <div class="modal-footer justify-content-between bg-gray-dark color-palette">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="captureWeight" disabled>Capture Indicator</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
     </div>
     <!-- /.modal-content -->
   </div>

@@ -85,7 +85,7 @@ else{
                 </div>
                 <div class="form-group">
                   <label for="phone">Phone *</label>
-                  <input type="number" class="form-control" name="phone" id="phone" placeholder="Enter Full Name" required>
+                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Full Name" required>
                 </div>
                 <div class="form-group"> 
                   <label for="email">Email *</label>

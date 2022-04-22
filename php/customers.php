@@ -16,6 +16,7 @@ if(isset($_POST['code'], $_POST['name'], $_POST['address'], $_POST['phone'], $_P
 	$address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
         if($_POST['id'] != null && $_POST['id'] != ''){
