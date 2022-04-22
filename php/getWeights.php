@@ -37,6 +37,8 @@ if(isset($_POST['userID'])){
                 $message['tare'] = $row['tare'];
                 $message['totalWeight'] = $row['totalWeight'];
                 $message['actualWeight'] = $row['actualWeight'];
+                $message['supplyWeight'] = $row['supplyWeight'];
+                $message['varianceWeight'] = $row['varianceWeight'];
                 $message['unit'] = $row['unit'];
                 $message['moq'] = $row['moq'];
                 $message['dateTime'] = $row['dateTime'];

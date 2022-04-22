@@ -498,7 +498,7 @@ else{
                     <?php } ?>
                   </select>
 
-                  <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" >
+                  <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
                 </div>
             </div>
 
@@ -835,7 +835,33 @@ $(function () {
       })";
     }
   ?>
-  
+
+  $('#vehicleNo').on('change', function(){
+    debugger;
+      $vehicleNo = $(this).val();
+      $vehicleWeight = "";
+      <?php 
+      while($row2=mysqli_fetch_assoc($vehicles))
+      {
+        if($vehicleNo == $row2['veh_number']){
+          $vehicleWeight = $row2['vehicleWeight'];
+        }
+      } 
+      ?>
+  });
+
+    $('#manualVehicle').on('click', function(){
+      if($(this).is(':checked')){
+        $('#vehicleNoTct').removeAttr('hidden');
+        $('#vehicleNo').attr('hidden', 'hidden');
+      }
+      else{
+        $('#vehicleNo').removeAttr('hidden');
+        $('#vehicleNoTct').attr('hidden', 'hidden');
+      }
+    });
+
+
   $('#currentWeight').on('keyup', function(){
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
@@ -860,6 +886,7 @@ $(function () {
     )
 
     $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
   });
 
   $('#filterSearch').on('click', function(){
@@ -1021,6 +1048,8 @@ $(function () {
       $('#changeWeightTare').text("KG");
       $('#changeWeightActual').text("KG");
       $('#changeWeightTotal').text("KG");
+      $('#changeSupplyWeight').text("KG");
+      $('#changeWeightVariance').text("KG");
       
       //if(indicatorUnit == "g"){
           if($('#currentWeight').val()){
@@ -1046,6 +1075,8 @@ $(function () {
       $('#changeWeightTare').text("G");
       $('#changeWeightActual').text("G");
       $('#changeWeightTotal').text("G");
+      $('#changeSupplyWeight').text("G");
+      $('#changeWeightVariance').text("G");
       
       //if(indicatorUnit == "kg"){
           if($('#currentWeight').val()){
@@ -1071,6 +1102,8 @@ $(function () {
       $('#changeWeightTare').text("LB");
       $('#changeWeightActual').text("LB");
       $('#changeWeightTotal').text("LB");
+      $('#changeSupplyWeight').text("LB");
+      $('#changeWeightVariance').text("LB");
     }
   });
 
@@ -1121,6 +1154,7 @@ $(function () {
     )
 
     $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
   });
 
   $('#tareWeight').on('keyup', function () {
@@ -1145,7 +1179,8 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     }
 
-    $(unitPrice).trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
   });
 
   $('#moq').on('keyup', function () {
@@ -1161,7 +1196,8 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     )
 
-    $(unitPrice).trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
   });
 
   $('#unitPrice').on('keyup', function () {
@@ -1176,6 +1212,17 @@ $(function () {
     else(
       $('#totalPrice').val((0).toFixed(2))
     )
+  });
+
+  $('#supplyWeight').on('keyup', function () {
+    var varianWeight = $(this).val() - $('#totalWeight').val();
+
+    if(supplyWeight != '' && varianWeight != ''){
+      $('#varianceWeight').val(varianWeight.toFixed(2));
+    }
+    else{
+      $('#varianceWeight').val((0).toFixed(2))
+    }
   });
 
 });
@@ -1195,7 +1242,10 @@ function format (row) {
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
   ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
-  ')"><i class="fas fa-print"></i></button></div></div></div></div>';
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
+  '<div class="row"><div class="col-md-3"><p>Supply Weight: '+row.supplyWeight+
+  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
+  ;
 }
 
 function formatNormal (row) {
@@ -1210,7 +1260,9 @@ function formatNormal (row) {
   '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
   '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.id+
-  '")"><i class="fas fa-print"></i></button></div></div></div></div>';
+  '")"><i class="fas fa-print"></i></button></div></div></div></div>'+
+  '<div class="row"><div class="col-md-3"><p>Supply Weight: '+row.supplyWeight+
+  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
 }
 
 function newEntry(){
@@ -1231,11 +1283,17 @@ function newEntry(){
   $('#extendModal').find('#tareWeight').val("0.00");
   $('#extendModal').find('#package').val('');
   $('#extendModal').find('#actualWeight').val("");
+  $('#extendModal').find('#supplyWeight').val("");
+  $('#extendModal').find('#varianceWeight').val("");
   $('#extendModal').find('#remark').val("");
   $('#extendModal').find('#totalPrice').val("");
   $('#extendModal').find('#unitPrice').val("");
   $('#extendModal').find('#totalWeight').val("");
   $('#extendModal').find('#manual').prop('checked', false);
+  $('#extendModal').find('#manualVehicle').prop('checked', false);
+  $('#extendModal').find('#vehicleNoTct').val("");
+  $('#extendModal').find('#vehicleNo').removeAttr('hidden');
+  $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
@@ -1289,7 +1347,7 @@ function edit(id) {
       $('#extendModal').find('#unitWeight').val(obj.message.unit);
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
       $('#extendModal').find('#status').val(obj.message.status);
-      $('#extendModal').find('#lotNo').val(obj.message.lotNo);	
+      $('#extendModal').find('#lotNo').val(obj.message.lotNo);
       $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
       $('#extendModal').find('#customerNo').val(obj.message.customer);
       $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
@@ -1301,6 +1359,8 @@ function edit(id) {
       $('#extendModal').find('#tareWeight').val(obj.message.tare);
       $('#extendModal').find('#package').val(obj.message.package);
       $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
+      $('#extendModal').find('#supplyWeight').val(obj.message.supplyWeight);
+      $('#extendModal').find('#varianceWeight').val(obj.message.varianceWeight);
       $('#extendModal').find('#remark').val(obj.message.remark);
       $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
       $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);

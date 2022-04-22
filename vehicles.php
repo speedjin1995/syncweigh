@@ -42,7 +42,8 @@ else{
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th>Vehicle No.</th>
+									<th>Vehicle No</th>
+                                    <th>Vehicle Weight</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -73,6 +74,10 @@ else{
     					<label for="vehicleNumber">Vehicles No. *</label>
     					<input type="type" class="form-control" name="vehicleNumber" id="vehicleNumber" placeholder="Enter Vehicle Number" required>
     				</div>
+                    <div class="form-group">
+    					<label for="vehicleWeight">Vehicles Weight. *</label>
+    					<input type="number" class="form-control" name="vehicleWeight" id="vehicleWeight" placeholder="Enter Vehicle Weight" required>
+    				</div>
     			</div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -102,6 +107,7 @@ $(function () {
         'columns': [
             { data: 'counter' },
             { data: 'veh_number' },
+            { data: 'vehicleWeight' },
             { 
                 data: 'id',
                 render: function ( data, type, row ) {
@@ -137,6 +143,7 @@ $(function () {
     $('#addVehicles').on('click', function(){
         $('#vehicleModal').find('#id').val("");
         $('#vehicleModal').find('#vehicleNumber').val("");
+        $('#vehicleModal').find('#vehicleWeight').val("");
         $('#vehicleModal').modal('show');
         
         $('#vehicleForm').validate({
@@ -162,6 +169,7 @@ function edit(id){
         if(obj.status === 'success'){
             $('#vehicleModal').find('#id').val(obj.message.id);
             $('#vehicleModal').find('#vehicleNumber').val(obj.message.veh_number);
+            $('#vehicleModal').find('#vehicleWeight').val(obj.message.vehicleWeight);
             $('#vehicleModal').modal('show');
             
             $('#vehicleForm').validate({

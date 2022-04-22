@@ -32,7 +32,7 @@ $totalRecordwithFilter = $records['allcount'];
 ## Fetch records
 $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
 weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
-weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
+weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
 weight.totalPrice, weight.remark, status.status, weight.manual from weight, packages, lots, customers, products, units, status 
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND 
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
@@ -60,6 +60,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "product_name"=>$row['product_name'],
     "packages"=>$row['packages'],
     "unitWeight"=>$row['unitWeight'],
+    "supplyWeight"=>$row['supplyWeight'],
+    "varianceWeight"=>$row['varianceWeight'],
     "tare"=>$row['tare'],
     "totalWeight"=>$row['totalWeight'],
     "actualWeight"=>$row['actualWeight'],

@@ -6,7 +6,7 @@ session_start();
 
 if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeight'],$_POST['moq'],$_POST['tareWeight']
 ,$_POST['currentWeight'],$_POST['product'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight'],$_POST['totalPrice']
-,$_POST['totalWeight'], $_POST['dateTime'])){
+,$_POST['totalWeight'], $_POST['dateTime'], $_POST['supplyWeight'], $_POST['varianceWeight'], $_POST['manualVehicle'], $_POST['vehicleNoTxt'])){
 
 	$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
 	$lotNo = filter_input(INPUT_POST, 'lotNo', FILTER_SANITIZE_STRING);
@@ -42,20 +42,22 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	    $manual = "1";
 	}
 
-	if($_POST['manualVehicle'] != null && $_POST['manualVehicle'] != ''){ //checked
-	    if($_POST['vehicleNo'] != null && $_POST['vehicleNo'] != ''){
-			$vehicleNo = filter_input(INPUT_POST, 'vehicleNo', FILTER_SANITIZE_STRING);
+	if($_POST['manualVehicle'] != null && $_POST['manualVehicle'] != ''){ 
+		if($_POST['vehicleNoTxt'] != null && $_POST['vehicleNoTxt'] != ''){
+			$vehicleNo = filter_input(INPUT_POST, 'vehicleNoTxt', FILTER_SANITIZE_STRING);
 		}
 	}
 	else{
-		if($_POST['vehicleNoTxt'] != null && $_POST['vehicleNoTxt'] != ''){
-			$vehicleNo = filter_input(INPUT_POST, 'vehicleNoTxt', FILTER_SANITIZE_STRING);
+	    if($_POST['vehicleNo'] != null && $_POST['vehicleNo'] != ''){
+			$vehicleNo = filter_input(INPUT_POST, 'vehicleNo', FILTER_SANITIZE_STRING);
 		}
 	}
 	
 	$customerNo = filter_input(INPUT_POST, 'customerNo', FILTER_SANITIZE_STRING);
 	$unitWeight = filter_input(INPUT_POST, 'unitWeight', FILTER_SANITIZE_STRING);
 	$currentWeight = filter_input(INPUT_POST, 'currentWeight', FILTER_SANITIZE_STRING);
+	$supplyWeight = filter_input(INPUT_POST, 'supplyWeight', FILTER_SANITIZE_STRING);
+	$varianceWeight = filter_input(INPUT_POST, 'varianceWeight', FILTER_SANITIZE_STRING);
 	$product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING);
 	$moq = filter_input(INPUT_POST, 'moq', FILTER_SANITIZE_STRING);
 	$tareWeight = filter_input(INPUT_POST, 'tareWeight', FILTER_SANITIZE_STRING);
@@ -69,9 +71,9 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 
 	if($_POST['serialNumber'] != null && $_POST['serialNumber'] != ''){
 		if ($update_stmt = $db->prepare("UPDATE weight SET vehicleNo=?, lotNo=?, batchNo=?, invoiceNo=?, deliveryNo=?, purchaseNo=?, customer=?, productName=?, package=?
-		, unitWeight=?, tare=?, totalWeight=?, actualWeight=?, unit=?, moq=?, unitPrice=?, totalPrice=?, remark=?, status=?, dateTime=?, manual=? WHERE serialNo=?")){
-			$update_stmt->bind_param('ssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
-			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, 
+		, unitWeight=?, tare=?, totalWeight=?, actualWeight=?, unit=?, moq=?, unitPrice=?, totalPrice=?, remark=?, supplyWeight=?, varianceWeight=?, status=?, dateTime=?, manual=? WHERE serialNo=?")){
+			$update_stmt->bind_param('ssssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product
+			, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $supplyWeight, $varianceWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, 
 			$dateTime, $manual, $_POST['serialNumber']);
 		
 			// Execute the prepared query.
@@ -153,9 +155,9 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 							$firstChar.=$misValue;  //S00009
 		
 							if ($insert_stmt = $db->prepare("INSERT INTO weight (serialNo, vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, customer, productName, package
-							, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, dateTime, manual) 
-							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-								$insert_stmt->bind_param('ssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $dateTime, $manual);
+							, unitWeight, tare, totalWeight, actualWeight, unit, moq, unitPrice, totalPrice, remark, status, dateTime, manual, supplyWeight, varianceWeight) 
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+								$insert_stmt->bind_param('ssssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product, $package, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $unitWeight, $moq, $unitPrice, $totalPrice, $remark, $status, $dateTime, $manual, $supplyWeight, $varianceWeight);
 								
 								// Execute the prepared query.
 								if (! $insert_stmt->execute()){
