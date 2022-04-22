@@ -197,7 +197,7 @@ else{
                   <select class="form-control vehicleNo" id="vehicleFilter" style="width: 100%;">
                     <option selected="selected">-</option>
                     <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
-                      <option value="<?=$row1['id'] ?>"><?=$row1['veh_number'] ?></option>
+                      <option value="<?=$row1['veh_number'] ?>"><?=$row1['veh_number'] ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -494,7 +494,7 @@ else{
                   <select class="form-control" id="vehicleNo" name="vehicleNo">
                     <option selected="selected">-</option>
                     <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
-                      <option value="<?=$row2['id'] ?>"><?=$row2['veh_number'] ?></option>
+                      <option value="<?=$row2['veh_number'] ?>"><?=$row2['veh_number'] ?></option>
                     <?php } ?>
                   </select>
                   
