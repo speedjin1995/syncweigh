@@ -18,10 +18,6 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$remark = '';
 	$manual = "0";
 
-	if($_POST['vehicleNo'] != null && $_POST['vehicleNo'] != ''){
-		$vehicleNo = filter_input(INPUT_POST, 'vehicleNo', FILTER_SANITIZE_STRING);
-	}
-
 	if($_POST['invoiceNo'] != null && $_POST['invoiceNo'] != ''){
 		$invoiceNo = filter_input(INPUT_POST, 'invoiceNo', FILTER_SANITIZE_STRING);
 	}
@@ -44,6 +40,17 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	
 	if($_POST['manual'] != null && $_POST['manual'] != ''){
 	    $manual = "1";
+	}
+
+	if($_POST['manualVehicle'] != null && $_POST['manualVehicle'] != ''){ //checked
+	    if($_POST['vehicleNo'] != null && $_POST['vehicleNo'] != ''){
+			$vehicleNo = filter_input(INPUT_POST, 'vehicleNo', FILTER_SANITIZE_STRING);
+		}
+	}
+	else{
+		if($_POST['vehicleNoTxt'] != null && $_POST['vehicleNoTxt'] != ''){
+			$vehicleNo = filter_input(INPUT_POST, 'vehicleNoTxt', FILTER_SANITIZE_STRING);
+		}
 	}
 	
 	$customerNo = filter_input(INPUT_POST, 'customerNo', FILTER_SANITIZE_STRING);

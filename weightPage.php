@@ -497,7 +497,8 @@ else{
                       <option value="<?=$row2['veh_number'] ?>"><?=$row2['veh_number'] ?></option>
                     <?php } ?>
                   </select>
-                  
+
+                  <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" >
                 </div>
             </div>
 
