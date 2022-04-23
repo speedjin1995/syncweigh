@@ -282,7 +282,7 @@ else{
               <div class="d-flex">
                 <div class="small-box bg-success">
                   <div class="inner">
-                  <h3 style="text-align: center; font-size: 130px" id="indicatorWeight">0.00kg</h3>
+                  <h3 style="text-align: center; font-size: 100px" id="indicatorWeight">0.00kg</h3>
                   </div>
                 </div>
               </div>      
@@ -1294,6 +1294,7 @@ function newEntry(){
   $('#extendModal').find('#vehicleNoTct').val("");
   $('#extendModal').find('#vehicleNo').removeAttr('hidden');
   $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
+  $('#extendModal').find('#currentWeight').attr('readonly', true);
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
@@ -1348,8 +1349,6 @@ function edit(id) {
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
       $('#extendModal').find('#status').val(obj.message.status);
       $('#extendModal').find('#lotNo').val(obj.message.lotNo);
-      $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
-      $('#extendModal').find('#customerNo').val(obj.message.customer);
       $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
       $('#extendModal').find('#batchNo').val(obj.message.batchNo);
       $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
@@ -1369,8 +1368,40 @@ function edit(id) {
         format: 'D/MM/YYYY h:m:s A'
       });
       $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-US"));
-      $('#extendModal').modal('show');
       
+    
+      if($('#extendModal').find('#status').val() == '1'){
+        $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($('#extendModal').find('#status').val());
+        $('#extendModal').find('.labelStatus').text('Customer No');
+        $('#extendModal').find('#customerNo').val(obj.message.customer);
+        
+      }
+      else if($('#extendModal').find('#status').val() == '2'){
+        $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($('#extendModal').find('#status').val());
+        $('#extendModal').find('.labelStatus').text('Supplier No');
+        $('#extendModal').find('#customerNo').val(obj.message.customer);
+      }
+
+      if(obj.message.manualVehicle === 1){
+        $('#extendModal').find('#manualVehicle').prop('checked', true);
+        $('#extendModal').find('#vehicleNoTct').removeAttr('hidden');
+        $('#extendModal').find('#vehicleNo').attr('hidden', 'hidden');
+        $('#extendModal').find('#vehicleNoTct').val(obj.message.vehicleNo);
+      }
+      else{
+        $('#extendModal').find('#manualVehicle').prop('checked', false);
+        $('#extendModal').find('#vehicleNo').removeAttr('hidden');
+        $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
+        $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
+      }
+
+            ///still need do some changes
+      if(obj.message.manual === 1){
+        $('#extendModal').find('#manual').prop('checked', true);
+        $('#extendModal').find('#currentWeight').attr('readonly', false);
+      }
+
+      $('#extendModal').modal('show');
       $('#lotForm').validate({
         errorElement: 'span',
         errorPlacement: function (error, element) {

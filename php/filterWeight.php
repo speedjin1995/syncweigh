@@ -60,7 +60,7 @@ $totalRecordwithFilter = $records['allcount'];
 $empQuery = "select weight.id, weight.serialNo, vehicles.veh_number, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
 weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
-weight.totalPrice, weight.remark, status.status from weight, vehicles, packages, lots, customers, products, units, status 
+weight.totalPrice, weight.remark, weight.supplyWeight, weight.varianceWeight, weight.manualVehicle, status.status from weight, vehicles, packages, lots, customers, products, units, status 
 WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND 
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
 units.id=weight.unit AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
@@ -84,13 +84,16 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "tare"=>$row['tare'],
     "totalWeight"=>$row['totalWeight'],
     "actualWeight"=>$row['actualWeight'],
+    "supplyWeight"=>$row['supplyWeight'],
+    "varianceWeight"=>$row['varianceWeight'],
     "unit"=>$row['units'],
     "moq"=>$row['moq'],
     "dateTime"=>$row['dateTime'],
     "unitPrice"=>$row['unitPrice'],
     "totalPrice"=>$row['totalPrice'],
     "remark"=>$row['remark'],
-    "status"=>$row['status']
+    "status"=>$row['status'],
+    "manualVehicle"=>$row['manualVehicle']
   );
 }
 

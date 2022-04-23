@@ -33,7 +33,7 @@ $totalRecordwithFilter = $records['allcount'];
 $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
 weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, 
-weight.totalPrice, weight.remark, status.status, weight.manual from weight, packages, lots, customers, products, units, status 
+weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle from weight, packages, lots, customers, products, units, status 
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND 
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
 units.id=weight.unit AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
@@ -72,7 +72,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "totalPrice"=>$row['totalPrice'],
     "remark"=>$row['remark'],
     "status"=>$row['status'],
-    "manual"=>$manual
+    "manual"=>$manual,
+    "manualVehicle"=>$row['manualVehicle']
   );
 }
 
