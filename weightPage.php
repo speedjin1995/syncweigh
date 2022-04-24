@@ -494,7 +494,7 @@ else{
                   <select class="form-control" id="vehicleNo" name="vehicleNo">
                     <option selected="selected">-</option>
                     <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
-                      <option value="<?=$row2['veh_number'] ?>"><?=$row2['veh_number'] ?></option>
+                      <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
                     <?php } ?>
                   </select>
 
@@ -837,17 +837,11 @@ $(function () {
   ?>
 
   $('#vehicleNo').on('change', function(){
-    debugger;
-      $vehicleNo = $(this).val();
-      $vehicleWeight = "";
-      <?php 
-      while($row2=mysqli_fetch_assoc($vehicles))
-      {
-        if($vehicleNo == $row2['veh_number']){
-          $vehicleWeight = $row2['vehicleWeight'];
-        }
-      } 
-      ?>
+    $vehicleWeight = $('#vehicleNo option:selected').data("weight");
+    if($vehicleWeight != null && $vehicleWeight != ''){
+      $('#currentWeight').val(($vehicleWeight).toFixed(2));
+    }
+    $('#currentWeight').trigger("keyup");
   });
 
     $('#manualVehicle').on('click', function(){
