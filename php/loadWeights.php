@@ -13,11 +13,10 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 
 ## Search 
 $searchQuery = " ";
-/*if($searchValue != ''){
-   $searchQuery = " and (users.name like '%".$searchValue."%' or 
-        users.username like '%".$searchValue."%' or
-        roles.role_name like'%".$searchValue."%' ) ";
-}*/
+if($searchValue != ''){
+   $searchQuery = " and (weight.serialNo like '%".$searchValue."%' or 
+                    weight.vehicleNo like '%".$searchValue."%' ) ";
+}
 
 ## Total number of records without filtering
 $sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unit AND weight.deleted = '0'");

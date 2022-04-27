@@ -71,39 +71,8 @@ else{
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <!--div class="col-6">
-        <div class="small-box bg-success">
-          <div class="inner">
-            <h3 style="text-align: center; font-size: 80px" class="head">
-              100.00
-              <sup style="font-size: 20px">KG</sup>
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-6">
-                <div class="input-group-text bg-primary color-palette"><i>Indicator Connected</i></div>
-              </div>
-              <div class="col-6">
-                <div class="input-group-text color-palette"><i>Checking Connection</i></div>
-              </div>
-            </div>
-            <div class="row" style="margin-top: 3%;">
-              <div class="col-12">
-                <button type="button" class="btn btn-block bg-gradient-primary btn-lg"  onclick="newEntry()">
-                  New Entry
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div-->
 
-      <div class="col-lg-12">
+      <!-- <div class="col-lg-12">
         <div class="card">
           <div class="card-header">
             <div class="row">
@@ -121,36 +90,35 @@ else{
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="col-lg-12">
         <div class="card card-primary">
           <div class="card-header">
-            <div class="row">
-              <div class="col-6">
-                <h3 class="card-title">Billboard Description :</h3>
-              </div>
-              <div class="col-3"></div>
-              <div class="col-1">
-                <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
-                <i class="fas fa-plus"></i>
-                </button>
-              </div>
-              <div class="col-1">
-                <button type="button" class="btn btn-success btn-sm" id="excelSearch">
-                <i class="fas fa-file-excel"></i>
-                </button>
-              </div>
-              <div class="col-1">
-                <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
-                <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
+              <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
+                      <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-success btn-sm" id="excelSearch">
+                      <i class="fas fa-file-excel"></i>
+                      </button>
+                    </div>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
+                      <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                </div>
           </div>
 
           <div class="card-body">
-            <div class="row">
+            <!-- <div class="row">
               <div class="form-group col-3">
                 <label>From Date:</label>
                 <div class="input-group date" id="fromDate" data-target-input="nearest">
@@ -224,44 +192,47 @@ else{
                   </select>
                 </div>
               </div>
-            </div>
+            </div> -->
+            <table id="weightTable" class="table table-bordered table-striped display">
+              <thead>
+                <tr>
+                  <th>Serial No.</th>
+                  <th>Product Name</th>
+                  <th>Unit</th>
+                  <th>Unit Weight</th>
+                  <th>Tare</th>
+                  <th>Total Weight</th>
+                  <th>Actual Weight</th>
+                  <th>MOQ</th>
+                  <th>Unit Price <br> (RM)</th>
+                  <th>Total Price <br> (RM)</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th colspan="3" style="text-align: right;">Total Accumulate</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
           </div>
 
-          <table id="weightTable" class="table table-bordered table-striped display">
-            <thead>
-              <tr>
-                <th>Serial No.</th>
-                <th>Product Name</th>
-                <th>Unit</th>
-                <th>Unit Weight</th>
-                <th>Tare</th>
-                <th>Total Weight</th>
-                <th>Actual Weight</th>
-                <th>MOQ</th>
-                <th>Unit Price <br> (RM)</th>
-                <th>Total Price <br> (RM)</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th colspan="3" style="text-align: right;">Total Accumulate</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
         </div>
       </div>
+      
     </div>
   </div>
 </div>
+
+
 
 <div class="modal fade" id="extendModal">
   <div class="modal-dialog modal-xl">
@@ -592,23 +563,14 @@ else{
               </select>
             </div>
           </div>
-          <!--div class="col-4">
-            <div class="form-group">
-              <label>Flow control</label>
-              <select class="form-control" style="width: 100%;" id="serialPortFlowControl" name="serialPortFlowControl" required>
-                <option value="None">None</option>
-                <option value="XOnXOff">XOnXOff</option>
-                <option value="RequestToSend">RTS (Request to send)</option>
-                <option value="RequestToSendXOnXOff">RTS XOnXOff</option>
-              </select>
-            </div>
-          </div-->
+
         </div>
       </div>
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
+
     </form>
   </div>
 </div>      
@@ -636,7 +598,7 @@ $(function () {
     'processing': true,
     'serverSide': true,
     'serverMethod': 'post',
-    'searching': false,
+    'searching': true,
     'ajax': {
         'url':'php/loadWeights.php'
     },
@@ -660,6 +622,10 @@ $(function () {
         }
       }
     ],
+    "rowCallback": function( row, data, index ) {
+
+        $('td', row).css('background-color', '#E6E6FA');
+    },
     "footerCallback": function ( row, data, start, end, display ) {
       var api = this.api();
 
@@ -903,7 +869,7 @@ $(function () {
       'processing': true,
       'serverSide': true,
       'serverMethod': 'post',
-      'searching': false,
+      'searching': true,
       'ajax': {
         'type': 'POST',
         'url':'php/filterWeight.php',
@@ -1463,88 +1429,5 @@ function print(id) {
     }
   });
 }
-
-//Check JSPM WebSocket status
-/*function jspmWSStatus() {
-  if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
-    return true;
-  else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
-    console.warn('JSPrintManager (JSPM) is not installed or not running!');
-    return false;
-  }
-  else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Blocked) {
-    alert('JSPM has blocked this website!');
-    return false;
-  }
-}
-
-//Sending data to port
-function doSendData() {
-  if (!this._serialComm) {
-    this._dataReceived += "Serial port is not open!\r\n";
-    this.refreshDisplay();
-  } 
-  else {
-    this._dataToSend = $('#txtDataToSend').val();
-    if (this._dataToSend.length > 0) {
-      this._serialComm.send(this._dataToSend + $('#endLineChars').val().replace('CR', '\r').replace('LF', '\n'));
-      this._dataReceived += "> " + this._dataToSend + "\r\n";
-      this.refreshDisplay();
-    }
-  }
-}
-
-//Open port
-function doOpen() {
-  this._serialComm = new JSPM.SerialComm(serialComm, baurate, JSPM.Serial.Parity[parity], JSPM.Serial.StopBits[stopbits], JSPM.Serial.DataBits[databits], JSPM.Serial.Handshake[controlflow]);
-
-  this._serialComm.onDataReceived = function (data) {
-    //_this.dataReceived += "< " + data + "\r\n";
-    //console.log("Data Received:" + data);
-    $('#indicatorConnected').addClass('bg-primary');
-    $('#checkingConnection').removeClass('bg-danger');
-    _this.refreshDisplay(data);
-  };
-
-  this._serialComm.onError = function (data, is_critical) {
-    //_this.dataReceived += "ERROR: " + data + "\r\n";
-    console.log("Error: " + data);
-    $('#indicatorConnected').removeClass('bg-primary');
-    $('#checkingConnection').addClass('bg-danger');
-    //_this.refreshDisplay();
-  };
-
-  this._serialComm.onClose = function (data) {
-    //_this.dataReceived += "COMM CLOSED!" + "\r\n";
-    console.log("Closed: " + data);
-    $('#indicatorConnected').removeClass('bg-primary');
-    $('#checkingConnection').addClass('bg-danger');
-    //_this.refreshDisplay();
-  };
-
-  this._serialComm.open().then(_ => {
-      debugger;
-      console.log("open connection");
-    //_this.dataReceived += "COMM OPEN!" + "\r\n";
-    //_this.refreshDisplay();
-  });
-}
-
-//close port
-function doClose() {
-  if (!this._serialComm && this._serialComm.isOpen !== true) {
-    this._dataReceived += "Serial port is not open!\r\n";
-    this.refreshDisplay();
-  } 
-  else{
-    this._serialComm.close();
-  }
-}
-
-function refreshDisplay(data) {
-  console.log("Data Received:" + data);
-  var text = data.split(" ");
-  $('#indicatorWeight').html(text[text.length - 1] +' <sup style="font-size: 20px" id="indicatorUnits">KG</sup>');
-}*/
 
 </script>

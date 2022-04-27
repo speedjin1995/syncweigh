@@ -69,7 +69,9 @@ else{
     }
   
     thead {
-      background: #dddcdc
+      /* background: #dddcdc */
+      background-color: #007bff; 
+      color:white;
     }
   
     .table-elipse {
@@ -85,8 +87,8 @@ else{
   
     .row-child {
       background-color: #000;
-      color: #fff
     }
+
   </style>
 </head>
 <!--
@@ -102,11 +104,11 @@ to get the desired effect
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-primary navbar-light" >
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars bg-primary"></i></a>
       </li>
     </ul>
   </nav>

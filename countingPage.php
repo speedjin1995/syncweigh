@@ -670,6 +670,10 @@ else{
         }
       }
     ],
+    "rowCallback": function( row, data, index ) {
+
+    $('td', row).css('background-color', '#E6E6FA');
+    },
     "footerCallback": function ( row, data, start, end, display ) {
       var api = this.api();
 
