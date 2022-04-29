@@ -138,11 +138,31 @@ to get the desired effect
         <ul class="nav nav-pills nav-sidebar flex-column" id="sideMenu" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
-            <li class="nav-item">
+          <!--li class="nav-item">
             <a href="#weight" data-file="weightPage.php" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Weight Weighing</p>
             </a>
+          </li-->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Weight Weighing<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview" style="display: block;">
+              <li class="nav-item">
+                <a href="#weightBillboard" data-file="weightBillboard.php" class="nav-link link">
+                  <i class="nav-icon fas fa-bar-chart"></i>
+                  <p>Billboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#status" data-file="weightPage.php" class="nav-link link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>Weighing</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <!--li class="nav-item">
             <a href="#counting" data-file="countingPage.php" class="nav-link link">
@@ -210,6 +230,12 @@ to get the desired effect
                     <a href="#vehicles" data-file="vehicles.php" class="nav-link link">
                       <i class="nav-icon fas fa-car"></i>
                       <p>Vehicles</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#currency" data-file="currency.php" class="nav-link link">
+                      <i class="nav-icon fas fa-dollar"></i>
+                      <p>Currency</p>
                     </a>
                   </li>
                 </ul>
@@ -333,7 +359,7 @@ to get the desired effect
         });
     });
     
-    $("a[href='#weight']").click();
+    $("a[href='#weightBillboard']").click();
   });
 </script>
 </body>
