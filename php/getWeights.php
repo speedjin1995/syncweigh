@@ -39,6 +39,7 @@ if(isset($_POST['userID'])){
                 $message['actualWeight'] = $row['actualWeight'];
                 $message['supplyWeight'] = $row['supplyWeight'];
                 $message['varianceWeight'] = $row['varianceWeight'];
+                $message['currentWeight'] = $row['currentWeight'];
                 $message['unit'] = $row['unit'];
                 $message['moq'] = $row['moq'];
                 $message['dateTime'] = $row['dateTime'];
@@ -47,7 +48,13 @@ if(isset($_POST['userID'])){
                 $message['remark'] = $row['remark'];
                 $message['status'] = $row['status'];
                 $message['manual'] = $row['manual'];
+                $message['manualOutgoing'] = $row['manualOutgoing'];
                 $message['manualVehicle'] = $row['manualVehicle'];
+                $message['reduceWeight'] = $row['reduceWeight'];
+                $message['outGDateTime'] = $row['outGDateTime'];
+                $message['inCDateTime'] = $row['inCDateTime'];
+                $message['pStatus'] = $row['pStatus'];
+
             }
             
             echo json_encode(

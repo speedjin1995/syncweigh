@@ -40,6 +40,77 @@ else{
           max-width: 1800px; /* New width for default modal */
         }
     }
+
+/* .grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+} */
+
+    div.dataTables_wrapper {
+      position : relative;
+    }
+
+    div.b {
+      position: absolute;
+      bottom: 700px;
+      right: 148px;
+      width: 100px;
+      height: 40px;
+      border: 2px solid black;
+      text-align: center;
+      font-size: 18px;
+      background-color: #2196F3;
+      color: white;
+    } 
+
+    div.c {
+      position: absolute;
+      bottom: 700px;
+      right: 50px;
+      width: 100px;
+      height: 40px;
+      border: 2px solid black;
+      text-align: center;
+      font-size: 18px;
+      background-color: #2196F3;
+      color: white;
+    }
+    div.d {
+      position: absolute;
+      margin-top: 38px;
+      right: 148px;
+      width: 100px;
+      height: 45px;
+      border: 2px solid black;
+      text-align: center;
+      font-size: 15px;
+      padding-top: 10px;
+      background-color: #eee;
+    } 
+
+    div.e {
+      position: absolute;
+      margin-top: 38px;
+      right: 50px;
+      width: 100px;
+      height: 45px;
+      border: 2px solid black;
+      text-align: center;
+      font-size: 15px;
+      padding-top: 10px;
+      background-color: #eee;
+    } 
+
 </style>
 
 <select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
@@ -117,7 +188,7 @@ else{
                 </div>
           </div>
 
-          <div class="card-body">
+          <div class="card-body">  
             <!-- <div class="row">
               <div class="form-group col-3">
                 <label>From Date:</label>
@@ -193,35 +264,51 @@ else{
                 </div>
               </div>
             </div> -->
+    
+         
+              <div class="b">Sales</div>
+              <div class="c">Purchase</div>
+              <div class="d">1</div>
+              <div class="e">2</div>
+        
+
+
+            <!-- <div class="row">
+                  <div class="col-1 modalSales">
+                    <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
+                    <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="col-1 modalPending">
+                    <button type="button" class="btn btn-success btn-sm" id="excelSearch">
+                    <i class="fas fa-file-excel"></i>
+                    </button>
+                  </div>
+                  <div class="col-1 modalMisc">
+                    <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
+                    <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+            </div> -->
+
             <table id="weightTable" class="table table-bordered table-striped display">
               <thead>
                 <tr>
-                  <th>Serial No.</th>
-                  <th>Product Name</th>
-                  <th>Unit</th>
-                  <th>Unit Weight</th>
-                  <th>Tare</th>
-                  <th>Total Weight</th>
-                  <th>Actual Weight</th>
-                  <th>MOQ</th>
-                  <th>Unit Price <br> (RM)</th>
-                  <th>Total Price <br> (RM)</th>
+                  <th>No</th>
+                  <th>Status</th>
+                  <th>Weight Status</th>
+                  <th>Serial No</th>
+                  <th>Vehicle No</th>
+                  <th>Product Description Detail</th>
+                  <th>Incoming (Gross Weight)</th>
+                  <th>Incoming (Gross) Date Time</th>
+                  <th>Outgoing (Tare) Weight</th>
+                  <th>Outgoing (Tare) Date Time</th>
+                  <th>Total Nett Weight</th>
                   <th></th>
                 </tr>
               </thead>
-              <tfoot>
-                <tr>
-                  <th colspan="3" style="text-align: right;">Total Accumulate</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </tfoot>
+
             </table>
           </div>
 
@@ -261,7 +348,15 @@ else{
             
             <div class="row col-md-9">
               <div class="row col-md-12">
-                    <div class="col-md-3">
+
+                    <div class="col-2">
+                      <div class="form-group">
+                        <label>Serial No.</label>
+                        <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
                       <div class="form-group">
                         <label>Status *</label>
                         <select class="form-control" style="width: 100%;" id="status" name="status" required>
@@ -273,30 +368,26 @@ else{
                       </div>
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                       <label>Invoice No</label>
                       <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" >
                     </div>
 
-                    <div class="form-group col-md-3">
-                      <label>Supply Weight</label>
+                    <div class="form-group col-md-2">
+                      <label>Delivery No</label>
+                      <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Purchase Order</label>
+                      <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Order Weight</label>
                       <div class="input-group">
                         <input class="form-control" type="number" placeholder="Supply Weight" id="supplyWeight" name="supplyWeight"/>
                         <div class="input-group-text bg-success color-palette"><i id="changeSupplyWeight">KG/G</i></div>
-                      </div>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                      <label>Current Weight
-                      <?php 
-                        if($role == "ADMIN"){         
-                          echo '<span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manual" name="manual"/>Manual</span>';
-                        }
-                      ?>
-                      </label>
-                      <div class="input-group">
-                        <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
-                        <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
                       </div>
                     </div>
 
@@ -304,7 +395,48 @@ else{
 
               <div class="row col-md-12">
 
-                <div class="col-md-3">
+              <div class="col-2">
+                <div class="form-group">
+                  <label>Date / Time</label>
+                  <div class="input-group date" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
+                    <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Unit Weight *</label>
+                    <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
+                      <option selected="selected">-</option>
+                      <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
+                        <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>      
+
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Package *</label>
+                    <select class="form-control" style="width: 100%;" id="package" name="package" required>
+                      <option selected="selected">-</option>
+                      <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
+                        <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Batch No</label>
+                  <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" >
+                </div>
+
+                <div class="col-md-2">
                   <div class="form-group">
                     <label>Lot No *</label>
                     <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
@@ -316,183 +448,159 @@ else{
                   </div>
                 </div>
 
-                <div class="form-group col-md-3">
-                  <label>Delivery No</label>
-                  <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
-                </div>            
+                <div class="form-group col-md-2">
+                    <label style="color:red;">Variance Weight</label>
+                    <div class="input-group">
+                      <input class="form-control" type="number" placeholder="Variance Weight" id="varianceWeight" name="varianceWeight" readonly/>
+                      <div class="input-group-text bg-success color-palette"><i id="changeWeightVariance">KG/G</i></div>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+              
+                <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="labelStatus">Customer No *</label>
+                      <select class="form-control" id="customerNo" name="customerNo" required></select>
+                    </div>
+                </div>
+
+                <div class="row col-md-8">
+                  <div class="row col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Vehicle No
+                          <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle" value="0"/>Manual</span>
+                      </label>
+
+                      <select class="form-control" id="vehicleNo" name="vehicleNo">
+                        <option selected="selected">-</option>
+                        <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
+                          <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
+                        <?php } ?>
+                      </select>
+
+                      <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Product *</label>
+                    <select class="form-control" style="width: 100%;" id="product" name="product" required>
+                      <option selected="selected">-</option>
+                      <?php while($row5=mysqli_fetch_assoc($products)){ ?>
+                        <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-1">
+                  <label>M.O.Q *</label>
+                  <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Unit Price</label>
+                    <div class="input-group">
+                      <div class="input-group-text"><i>RM</i></div>
+                      <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Total Price</label>
+                    <div class="input-group">
+                      <div class="input-group-text"><i>RM</i></div>
+                      <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+              <div class="form-group col-md-2">
+                <label>Incoming - G.W *
+                <?php 
+                  if($role == "ADMIN"){         
+                    echo '<span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manual" name="manual" value="0"/>Manual</span>';
+                  }
+                ?>
+                </label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
+                  <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
+                  <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button>
+                </div>
+              </div>              
+
+              <input type="hidden" id="outGDateTime" name="outGDateTime">
+              <input type="hidden" id="inCDateTime" name="inCDateTime">
+
+              <div class="form-group col-md-2 hidOutgoing" hidden>
+                <label>Outgoing - T.W *
+                  <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualOutgoing" name="manualOutgoing" value="0"/>Manual</span>
+                </label>
+                <div class="input-group">
+                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly required/>
+                  <div class="input-group-text bg-primary color-palette"><i id="changeWeightTare">KG/G</i></div>
+                  <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button>
+                </div>
+              </div>
+              
+            <div class="row col-md-8">
+              <div class="row col-md-12">
 
                 <div class="form-group col-md-3">
-                  <label>Actual Weight</label>
+                  <label>Reduce Weight</label>
+                  <div class="input-group">
+                    <input class="form-control" type="number" placeholder="Reduce Weight" id="reduceWeight" name="reduceWeight" min="0"/>
+                    <div class="input-group-text bg-danger color-palette"><i id="changeReduceWeight">KG/G</i></div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>Sub Nett Weight</label>
                   <div class="input-group">
                     <input class="form-control" type="number" placeholder="Actual Weight" id="actualWeight" name="actualWeight" readonly required/>
                     <div class="input-group-text bg-success color-palette"><i id="changeWeightActual">KG/G</i></div>
                   </div>
                 </div>
 
-                <div class="form-group col-md-3">
-                  <label>Tare Weight *</label>
-                  <div class="input-group">
-                    <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" required/>
-                    <div class="input-group-text bg-danger color-palette"><i id="changeWeightTare">KG/G</i></div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-
-              <div class="col-1">
-                <div class="form-group">
-                  <label>Serial No.</label>
-                  <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
-                </div>
-              </div>
-
-              <div class="col-2">
-                <div class="form-group">
-                  <label>Date</label>
-                  <div class="input-group date" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
-                    <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Remark</label>
+                      <textarea class="form-control" rows="1" placeholder="Enter ..." id="remark" name="remark"></textarea>
                     </div>
-                  </div>
-                </div>
-              </div>
-              
-
-              <div class="row col-md-9">
-                <div class="row col-md-12">
-                  <div class="form-group col-md-3">
-                    <label>Batch No</label>
-                    <input class="form-control" type="text" placeholder="Batch No" id="batchNo" name="batchNo" >
-                  </div>
-
-                  <div class="form-group col-md-3">
-                    <label>Purchase No</label>
-                    <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
-                  </div>
-
-                  <div class="form-group col-md-3">
-                      <label style="color:red;">Variance Weight</label>
-                      <div class="input-group">
-                        <input class="form-control" type="number" placeholder="Variance Weight" id="varianceWeight" name="varianceWeight" readonly/>
-                        <div class="input-group-text bg-success color-palette"><i id="changeWeightVariance">KG/G</i></div>
-                      </div>
-                  </div>
-
-                  <div class="form-group col-md-3">
-                      <label>Total Weight</label>
-                      <div class="input-group">
-                        <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" readonly required/>
-                        <div class="input-group-text bg-success color-palette"><i id="changeWeightTotal">KG/G</i></div>
-                      </div>
-                  </div>
-
                 </div>
 
               </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-1">
-              <div class="form-group">
-                <label>Unit Weight *</label>
-                <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
-                  <option selected="selected">-</option>
-                  <?php while($rowunits=mysqli_fetch_assoc($units)){ ?>
-                    <option value="<?=$rowunits['id'] ?>"><?=$rowunits['units'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
             </div>
+        </div>
 
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Package *</label>
-                <select class="form-control" style="width: 100%;" id="package" name="package" required>
-                  <option selected="selected">-</option>
-                  <?php while($row6=mysqli_fetch_assoc($packages)){ ?>
-                    <option value="<?=$row6['id'] ?>"><?=$row6['packages'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
+        <div class="form-group col-md-3" hidden>
+            <label>Total Weight</label>
+            <div class="input-group">
+              <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" readonly required/>
+              <div class="input-group-text bg-success color-palette"><i id="changeWeightTotal">KG/G</i></div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Product *</label>
-                <select class="form-control" style="width: 100%;" id="product" name="product" required>
-                  <option selected="selected">-</option>
-                  <?php while($row5=mysqli_fetch_assoc($products)){ ?>
-                    <option value="<?=$row5['id'] ?>"><?=$row5['product_name'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-            </div>
+        <input type="hidden" id="pStatus" name="pStatus">
 
-            <div class="form-group col-md-1">
-              <label>M.O.Q *</label>
-              <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label>Unit Price</label>
-                <div class="input-group">
-                  <div class="input-group-text"><i>RM</i></div>
-                  <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
-                </div>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label>Total Price</label>
-                <div class="input-group">
-                  <div class="input-group-text"><i>RM</i></div>
-                  <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
-                </div>
-            </div>
-          </div>
-
-          <div class="row">             
-            <div class="col-md-3">
-                <div class="form-group">
-                  <label>Vehicle No
-                      <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle"/>Manual</span>
-                  </label>
-
-                  <select class="form-control" id="vehicleNo" name="vehicleNo">
-                    <option selected="selected">-</option>
-                    <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
-                      <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
-                    <?php } ?>
-                  </select>
-
-                  <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
-                </div>
-            </div>
-
-            <div class="col-md-5">
-                <div class="form-group">
-                  <label class="labelStatus">Customer No *</label>
-                  <select class="form-control" id="customerNo" name="customerNo" required></select>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                  <label>Remark</label>
-                  <textarea class="form-control" rows="3" placeholder="Enter ..." id="remark" name="remark"></textarea>
-                </div>
-            </div>
-          </div>           
         </div>
 
         <div class="modal-footer justify-content-between bg-gray-dark color-palette">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="captureWeight" disabled>Capture Indicator</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
         </div>
       </form>
     </div>
@@ -603,16 +711,17 @@ $(function () {
         'url':'php/loadWeights.php'
     },
     'columns': [
+      { data: 'pStatus' },
+      { data: 'pStatus' },
+      { data: 'status' },
       { data: 'serialNo' },
+      { data: 'veh_number' },
       { data: 'product_name' },
-      { data: 'unit' },
-      { data: 'unitWeight' },
+      { data: 'currentWeight' },
+      { data: 'inCDateTime' },
       { data: 'tare' },
+      { data: 'outGDateTime' },
       { data: 'totalWeight' },
-      { data: 'actualWeight' },
-      { data: 'moq' },
-      { data: 'unitPrice' },
-      { data: 'totalPrice' },
       { 
         className: 'dt-control',
         orderable: false,
@@ -625,42 +734,42 @@ $(function () {
     "rowCallback": function( row, data, index ) {
 
         $('td', row).css('background-color', '#E6E6FA');
-    },
-    "footerCallback": function ( row, data, start, end, display ) {
-      var api = this.api();
-
-      // Remove the formatting to get integer data for summation
-      var intVal = function (i) {
-        return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-      };
-
-      // Total over all pages
-      total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-
-      // Total over this page
-      pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-
-      // Update footer
-      $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
-      $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
-      $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
-      $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
-      $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
-      $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
-      $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
     }
+    // "footerCallback": function ( row, data, start, end, display ) {
+    //   var api = this.api();
+
+    //   // Remove the formatting to get integer data for summation
+    //   var intVal = function (i) {
+    //     return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+    //   };
+
+    //   // Total over all pages
+    //   total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+
+    //   // Total over this page
+    //   pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+
+    //   // Update footer
+    //   $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+    //   $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+    //   $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+    //   $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+    //   $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
+    //   $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+    //   $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+    // }
   });
 
   // Add event listener for opening and closing details
@@ -793,14 +902,27 @@ $(function () {
     if($role == "ADMIN"){
       echo "$('#manual').on('click', function(){
         if($(this).is(':checked')){
+          $(this).val(1);
             $('#currentWeight').removeAttr('readonly');
         }
         else{
+          $(this).val(0);
             $('#currentWeight').attr('readonly', 'readonly');
         }
       })";
     }
   ?>
+
+  $('#inCButton').on('click', function(){
+      var today  = new Date();
+      $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
+      $('.hidOutgoing').removeAttr('hidden');
+  });
+
+  $('#outGButton').on('click', function(){
+      var today  = new Date();
+      $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
+  });
 
   $('#vehicleNo').on('change', function(){
     $vehicleWeight = $('#vehicleNo option:selected').data("weight");
@@ -810,27 +932,40 @@ $(function () {
     $('#currentWeight').trigger("keyup");
   });
 
-    $('#manualVehicle').on('click', function(){
-      if($(this).is(':checked')){
-        $('#vehicleNoTct').removeAttr('hidden');
-        $('#vehicleNo').attr('hidden', 'hidden');
-      }
-      else{
-        $('#vehicleNo').removeAttr('hidden');
-        $('#vehicleNoTct').attr('hidden', 'hidden');
-      }
-    });
+  $('#manualVehicle').on('click', function(){
+    if($(this).is(':checked')){
+      $(this).val(1);
+      $('#vehicleNoTct').removeAttr('hidden');
+      $('#vehicleNo').attr('hidden', 'hidden');
+    }
+    else{
+      $(this).val(0);
+      $('#vehicleNo').removeAttr('hidden');
+      $('#vehicleNoTct').attr('hidden', 'hidden');
+    }
+  });
 
+  $('#manualOutgoing').on('click', function(){
+    if($(this).is(':checked')){
+      $(this).val(1);
+        $('#tareWeight').removeAttr('readonly');
+    }
+    else{
+      $(this).val(0);
+        $('#tareWeight').attr('readonly', 'readonly');
+    }
+  });
 
   $('#currentWeight').on('keyup', function(){
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
+    var reduceWeight =  $('#reduceWeight').val();
     var moq = $('#moq').val();
     var totalWeight;
     var actualWeight;
 
     if(tareWeight != ''){
-      actualWeight = currentWeight - tareWeight;
+      actualWeight = currentWeight - tareWeight - reduceWeight;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -903,42 +1038,42 @@ $(function () {
             return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
           }
         }
-      ],
-      "footerCallback": function ( row, data, start, end, display ) {
-        var api = this.api();
+      ]
+      // "footerCallback": function ( row, data, start, end, display ) {
+      //   var api = this.api();
 
-        // Remove the formatting to get integer data for summation
-        var intVal = function (i) {
-          return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-        };
+      //   // Remove the formatting to get integer data for summation
+      //   var intVal = function (i) {
+      //     return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+      //   };
 
-        // Total over all pages
-        total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   // Total over all pages
+      //   total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
 
-        // Total over this page
-        pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   // Total over this page
+      //   pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
 
-        // Update footer
-        $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
-        $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
-        $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
-        $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
-        $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
-        $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
-        $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
-      }
+      //   // Update footer
+      //   $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+      //   $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+      //   $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+      //   $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+      //   $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
+      //   $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+      //   $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+      // }
     });
   });
 
@@ -1010,7 +1145,8 @@ $(function () {
       $('#changeWeightTotal').text("KG");
       $('#changeSupplyWeight').text("KG");
       $('#changeWeightVariance').text("KG");
-      
+      $('#changeReduceWeight').text("KG");
+
       //if(indicatorUnit == "g"){
           if($('#currentWeight').val()){
               $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) / 1000).toFixed(2));
@@ -1037,6 +1173,7 @@ $(function () {
       $('#changeWeightTotal').text("G");
       $('#changeSupplyWeight').text("G");
       $('#changeWeightVariance').text("G");
+      $('#changeReduceWeight').text("G");
       
       //if(indicatorUnit == "kg"){
           if($('#currentWeight').val()){
@@ -1064,6 +1201,7 @@ $(function () {
       $('#changeWeightTotal').text("LB");
       $('#changeSupplyWeight').text("LB");
       $('#changeWeightVariance').text("LB");
+      $('#changeReduceWeight').text("LB");
     }
   });
 
@@ -1093,12 +1231,13 @@ $(function () {
     
     var tareWeight =  $('#tareWeight').val();
     var currentWeight =  $('#currentWeight').val();
+    var reduceWeight =  $('#reduceWeight').val();
     var moq = $('#moq').val();
     var totalWeight;
     var actualWeight;
 
     if(tareWeight != ''){
-      actualWeight = currentWeight - tareWeight;
+      actualWeight = currentWeight - tareWeight - reduceWeight;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -1113,18 +1252,20 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     )
 
+    $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
   });
 
   $('#tareWeight').on('keyup', function () {
     var currentWeight =  $('#currentWeight').val();
+    var reduceWeight =  $('#reduceWeight').val();
     var actualWeight;
     var moq = $('#moq').val();
     var totalWeight;
 
-    if(currentWeight != '' && $(this).val() != ''){
-      var actualWeight = currentWeight - $(this).val();
+    if(currentWeight != '' && $(this).val() != '' ){
+      var actualWeight = currentWeight - $(this).val()- reduceWeight;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -1139,6 +1280,7 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     }
 
+    $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
   });
@@ -1175,7 +1317,7 @@ $(function () {
   });
 
   $('#supplyWeight').on('keyup', function () {
-    var varianWeight = $(this).val() - $('#totalWeight').val();
+    var varianWeight = $('#totalWeight').val() - $(this).val();
 
     if(supplyWeight != '' && varianWeight != ''){
       $('#varianceWeight').val(varianWeight.toFixed(2));
@@ -1185,26 +1327,46 @@ $(function () {
     }
   });
 
+  $('#reduceWeight').on('keyup', function () {
+    var actualWeight = $('#currentWeight').val() - $('#tareWeight').val() - $(this).val();
+
+    if(actualWeight != ''){
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }
+    else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+  });
+
 });
 
 function format (row) {
-  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
-  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
-  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
-  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
-  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
-  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unitWeight+
+  '</p></div><div class="col-md-3"><p>Weight Status: '+row.status+
+  '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
+  '</p></div><div class="col-md-3"><p>Batch No: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Weight By: '+row.name+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
-  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><p>'+row.manual+
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Invoice No: '+row.invoiceNo+
+  '</p></div><div class="col-md-3"><p>Unit Price: '+row.unitPrice+
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Order Weight: '+row.supplyWeight+
+  '</p></div><div class="col-md-3"><p>Delivery No: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Total Weight: '+row.totalPrice+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Contact No: '+row.customer_phone+
+  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
+  '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
   ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
-  '<div class="row"><div class="col-md-3"><p>Supply Weight: '+row.supplyWeight+
-  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
+  '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><p>% Variance: '+row.varianceWeight+
+  '</p></div></div>';
   ;
 }
 
@@ -1226,7 +1388,7 @@ function formatNormal (row) {
 }
 
 function newEntry(){
-  let dateTime = new Date();
+  var date = new Date();
   $('#extendModal').find('#serialNumber').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
@@ -1251,14 +1413,20 @@ function newEntry(){
   $('#extendModal').find('#totalWeight').val("");
   $('#extendModal').find('#manual').prop('checked', false);
   $('#extendModal').find('#manualVehicle').prop('checked', false);
+  $('#extendModal').find('#manualOutgoing').prop('checked', false);
   $('#extendModal').find('#vehicleNoTct').val("");
   $('#extendModal').find('#vehicleNo').removeAttr('hidden');
   $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
+  $('#extendModal').find('.hidOutgoing').attr('hidden', 'hidden');
   $('#extendModal').find('#currentWeight').attr('readonly', true);
+  $('#extendModal').find('#reduceWeight').val("");
+  $('#extendModal').find('#outGDateTime').val("");
+  $('#extendModal').find('#inCDateTime').val("");
+  $('#extendModal').find('#pStatus').val("");
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
-  $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
+  $('#extendModal').find('#dateTime').val(date.toLocaleString("en-US"));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
@@ -1305,14 +1473,14 @@ function edit(id) {
     
     if(obj.status === 'success'){
       $('#extendModal').find('#serialNumber').val(obj.message.serialNo);
-      $('#extendModal').find('#unitWeight').val(obj.message.unit);
+      $('#extendModal').find('#unitWeight').val(obj.message.unitWeight);
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
       $('#extendModal').find('#status').val(obj.message.status);
       $('#extendModal').find('#lotNo').val(obj.message.lotNo);
       $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
       $('#extendModal').find('#batchNo').val(obj.message.batchNo);
       $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
-      $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
+      $('#extendModal').find('#currentWeight').val(obj.message.currentWeight);
       $('#extendModal').find('#product').val(obj.message.productName);
       $('#extendModal').find('#moq').val(obj.message.moq);
       $('#extendModal').find('#tareWeight').val(obj.message.tare);
@@ -1324,6 +1492,11 @@ function edit(id) {
       $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
       $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
       $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
+      $('#extendModal').find('#reduceWeight').val(obj.message.reduceWeight);
+      $('#extendModal').find('#pStatus').val(obj.message.pStatus);
+      $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
+      $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
+
       $('#dateTime').datetimepicker({
         format: 'D/MM/YYYY h:m:s A'
       });
@@ -1359,6 +1532,11 @@ function edit(id) {
       if(obj.message.manual === 1){
         $('#extendModal').find('#manual').prop('checked', true);
         $('#extendModal').find('#currentWeight').attr('readonly', false);
+      }
+
+      if(obj.message.manualOutgoing === 1){
+        $('#extendModal').find('#manualOutgoing').prop('checked', true);
+        $('#extendModal').find('#tareWeight').attr('readonly', false);
       }
 
       $('#extendModal').modal('show');
