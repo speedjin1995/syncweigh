@@ -54,6 +54,7 @@ if(isset($_POST['userID'])){
                 $message['outGDateTime'] = $row['outGDateTime'];
                 $message['inCDateTime'] = $row['inCDateTime'];
                 $message['pStatus'] = $row['pStatus'];
+                $message['variancePerc'] = $row['variancePerc'];
 
             }
             

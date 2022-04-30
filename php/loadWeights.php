@@ -30,13 +30,13 @@ $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
 $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, 
-weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
+weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus from weight, packages, lots, customers, products, units, status 
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND 
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+units.id=weight.unitWeight AND weight.deleted = '0' ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
 
 $empRecords = mysqli_query($db, $empQuery);
@@ -55,7 +55,6 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     }else{
         $outGDateTime = $row['outGDateTime'];
     }
-
     
   $data[] = array( 
     "no"=>$counter,
@@ -68,6 +67,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "deliveryNo"=>$row['deliveryNo'],
     "purchaseNo"=>$row['purchaseNo'],
     "customer_name"=>$row['customer_name'],
+    "customer_phone"=>$row['customer_phone'],
+    "customer_address"=>$row['customer_address'],
     "product_name"=>$row['product_name'],
     "packages"=>$row['packages'],
     "unitWeight"=>$row['unitWeight'],
@@ -91,6 +92,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "outGDateTime"=>$outGDateTime,
     "inCDateTime"=>$row['inCDateTime'],
     "pStatus"=>$row['pStatus'],
+    "variancePerc"=> $row['variancePerc'],
   );
 
   $counter++;

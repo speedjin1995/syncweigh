@@ -56,7 +56,7 @@ else{
   font-size: 30px;
 } */
 
-    div.dataTables_wrapper {
+    /* div.dataTables_wrapper {
       position : relative;
     }
 
@@ -109,7 +109,7 @@ else{
       font-size: 15px;
       padding-top: 10px;
       background-color: #eee;
-    } 
+    }  */
 
 </style>
 
@@ -167,15 +167,14 @@ else{
         <div class="card card-primary">
           <div class="card-header">
               <div class="row">
-                    <div class="col-6">
+                    <div class="col-9">
                     </div>
-                    <div class="col-3"></div>
-                    <div class="col-1">
-                      <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
-                      <i class="fas fa-plus"></i>
-                      </button>
+                    <!-- <div class="col-3"></div> -->
+
+                    <div class="col-3">
+                      <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  onclick="newEntry()">Add New Weight</button>
                     </div>
-                    <div class="col-1">
+                    <!-- <div class="col-1">
                       <button type="button" class="btn btn-success btn-sm" id="excelSearch">
                       <i class="fas fa-file-excel"></i>
                       </button>
@@ -184,9 +183,9 @@ else{
                       <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
                       <i class="fas fa-search"></i>
                       </button>
-                    </div>
+                    </div> -->
                 </div>
-          </div>
+              </div>
 
           <div class="card-body">  
             <!-- <div class="row">
@@ -266,10 +265,10 @@ else{
             </div> -->
     
          
-              <div class="b">Sales</div>
+              <!-- <div class="b">Sales</div>
               <div class="c">Purchase</div>
               <div class="d">1</div>
-              <div class="e">2</div>
+              <div class="e">2</div> -->
         
 
 
@@ -594,6 +593,7 @@ else{
         </div>
 
         <input type="hidden" id="pStatus" name="pStatus">
+        <input type="hidden" id="variancePerc" name="variancePerc">
 
         </div>
 
@@ -707,6 +707,7 @@ $(function () {
     'serverSide': true,
     'serverMethod': 'post',
     'searching': true,
+    'columnDefs': [ { orderable: false, targets: [0] }],
     'ajax': {
         'url':'php/loadWeights.php'
     },
@@ -1252,6 +1253,7 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     )
 
+    $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
@@ -1280,6 +1282,7 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     }
 
+    $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
@@ -1336,6 +1339,15 @@ $(function () {
     else{
       $('#actualWeight').val((0).toFixed(2))
     }
+
+    $('#variancePerc').trigger("keyup");
+  });
+
+  $('#variancePerc').on('keyup', function(){
+    var supplyWeight =  $('#supplyWeight').val();
+    var actualWeight =  $('#actualWeight').val();
+    
+    $('#variancePerc').val(((supplyWeight - actualWeight) / actualWeight * 100).toFixed(2));
   });
 
 });
@@ -1365,7 +1377,7 @@ function format (row) {
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><p>% Variance: '+row.varianceWeight+
+  '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
   '</p></div></div>';
   ;
 }
@@ -1423,6 +1435,7 @@ function newEntry(){
   $('#extendModal').find('#outGDateTime').val("");
   $('#extendModal').find('#inCDateTime').val("");
   $('#extendModal').find('#pStatus').val("");
+  $('#extendModal').find('#variancePerc').val("");
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
@@ -1496,7 +1509,8 @@ function edit(id) {
       $('#extendModal').find('#pStatus').val(obj.message.pStatus);
       $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
-
+      $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
+      $('#extendModal').find('.hidOutgoing').removeAttr('hidden');
       $('#dateTime').datetimepicker({
         format: 'D/MM/YYYY h:m:s A'
       });

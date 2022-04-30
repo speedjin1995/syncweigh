@@ -70,6 +70,7 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$currentWeight = filter_input(INPUT_POST, 'currentWeight', FILTER_SANITIZE_STRING);
 	$supplyWeight = filter_input(INPUT_POST, 'supplyWeight', FILTER_SANITIZE_STRING);
 	$varianceWeight = filter_input(INPUT_POST, 'varianceWeight', FILTER_SANITIZE_STRING);
+	$variancePerc = filter_input(INPUT_POST, 'variancePerc', FILTER_SANITIZE_STRING);
 	$product = filter_input(INPUT_POST, 'product', FILTER_SANITIZE_STRING);
 	$moq = filter_input(INPUT_POST, 'moq', FILTER_SANITIZE_STRING);
 	$tareWeight = filter_input(INPUT_POST, 'tareWeight', FILTER_SANITIZE_STRING);
@@ -82,25 +83,27 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$dateTime = date_format($date,"Y-m-d h:m:s");
 	$reduceWeight = filter_input(INPUT_POST, 'reduceWeight', FILTER_SANITIZE_STRING);
 
-	if($_POST['inCDateTime'] != null && $_POST['inCDateTime'] != ''){
-		$inDate = new DateTime($_POST['inCDateTime']);
-		$inCDateTime = date_format($inDate,"Y-m-d h:m:s");
-		$pStatus = "Pending";
-	}
-	
 	if($_POST['outGDateTime'] != null && $_POST['outGDateTime'] != ''){
-		$outDate = new DateTime($_POST['outGDateTime']);
-		$outGDateTime = date_format($outDate,"Y-m-d h:m:s");
-		$pStatus = "Complete";
+		if($_POST['outGDateTime'] != null && $_POST['outGDateTime'] != ''){
+			$outDate = new DateTime($_POST['outGDateTime']);
+			$outGDateTime = date_format($outDate,"Y-m-d h:m:s");
+			$pStatus = "Complete";
+		}
+	}else{
+		if($_POST['inCDateTime'] != null && $_POST['inCDateTime'] != ''){
+			$inDate = new DateTime($_POST['inCDateTime']);
+			$inCDateTime = date_format($inDate,"Y-m-d h:m:s");
+			$pStatus = "Pending";
+		}
 	}
 
 	if($_POST['serialNumber'] != null && $_POST['serialNumber'] != ''){
 		if ($update_stmt = $db->prepare("UPDATE weight SET vehicleNo=?, lotNo=?, batchNo=?, invoiceNo=?, deliveryNo=?, purchaseNo=?, customer=?, productName=?, package=?
 		, unitWeight=?, currentWeight=?, tare=?, totalWeight=?, actualWeight=?, moq=?, unitPrice=?, totalPrice=?, remark=?, supplyWeight=?, varianceWeight=?, status=?, 
-		dateTime=?, manual=?, manualVehicle=?, manualOutgoing=?, reduceWeight=?, outGDateTime=?, inCDateTime=?, pStatus=? WHERE serialNo=?")){
-			$update_stmt->bind_param('ssssssssssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product,
+		dateTime=?, manual=?, manualVehicle=?, manualOutgoing=?, reduceWeight=?, outGDateTime=?, inCDateTime=?, pStatus=?, variancePerc=? WHERE serialNo=?")){
+			$update_stmt->bind_param('sssssssssssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product,
 			$package, $unitWeight, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $moq, $unitPrice, $totalPrice, $remark, $supplyWeight, $varianceWeight, 
-			$status, $dateTime, $manual, $manualVehicle, $manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pstatus, $_POST['serialNumber']);
+			$status, $dateTime, $manual, $manualVehicle, $manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pstatus, $variancePerc, $_POST['serialNumber']);
 		
 			// Execute the prepared query.
 			if (! $update_stmt->execute()){
@@ -182,12 +185,12 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 		
 							if ($insert_stmt = $db->prepare("INSERT INTO weight (serialNo, vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, 
 							customer, productName, package, unitWeight, tare, totalWeight, actualWeight, currentWeight, moq, unitPrice, totalPrice, remark, 
-							status, dateTime, manual, manualVehicle, supplyWeight, varianceWeight, manualOutgoing, reduceWeight, outGDateTime, inCDateTime, pStatus) 
-							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-								$insert_stmt->bind_param('ssssssssssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, 
+							status, dateTime, manual, manualVehicle, supplyWeight, varianceWeight, manualOutgoing, reduceWeight, outGDateTime, inCDateTime, pStatus, variancePerc) 
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+								$insert_stmt->bind_param('sssssssssssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, 
 								$purchaseNo, $customerNo, $product, $package, $unitWeight, $tareWeight, $totalWeight, $actualWeight, $currentWeight, $moq, 
 								$unitPrice, $totalPrice, $remark, $status, $dateTime, $manual, $manualVehicle, $supplyWeight, $varianceWeight, 
-								$manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pStatus);
+								$manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pStatus, $variancePerc);
 								
 								// Execute the prepared query.
 								if (! $insert_stmt->execute()){
