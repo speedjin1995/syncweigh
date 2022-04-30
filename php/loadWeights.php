@@ -33,10 +33,10 @@ $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, 
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status 
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND 
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unitWeight AND weight.deleted = '0' ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
 
 $empRecords = mysqli_query($db, $empQuery);

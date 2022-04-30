@@ -86,13 +86,13 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	if($_POST['outGDateTime'] != null && $_POST['outGDateTime'] != ''){
 		if($_POST['outGDateTime'] != null && $_POST['outGDateTime'] != ''){
 			$outDate = new DateTime($_POST['outGDateTime']);
-			$outGDateTime = date_format($outDate,"Y-m-d h:m:s");
+			$outGDateTime = date_format($outDate,"Y-m-d H:m:s");
 			$pStatus = "Complete";
 		}
 	}else{
 		if($_POST['inCDateTime'] != null && $_POST['inCDateTime'] != ''){
 			$inDate = new DateTime($_POST['inCDateTime']);
-			$inCDateTime = date_format($inDate,"Y-m-d h:m:s");
+			$inCDateTime = date_format($inDate,"Y-m-d H:m:s");
 			$pStatus = "Pending";
 		}
 	}
