@@ -19,27 +19,19 @@ else{
     $role = $row['role_code'];
   }
 
-  $lots = $db->query("SELECT * FROM lots WHERE deleted = '0'");
-  $vehicles = $db->query("SELECT * FROM vehicles WHERE deleted = '0'");
-  $vehicles2 = $db->query("SELECT * FROM vehicles WHERE deleted = '0'");
   $products2 = $db->query("SELECT * FROM products WHERE deleted = '0'");
-  $products = $db->query("SELECT * FROM products WHERE deleted = '0'");
-  $packages = $db->query("SELECT * FROM packages WHERE deleted = '0'");
   $customers = $db->query("SELECT * FROM customers WHERE customer_status = 'CUSTOMERS' AND deleted = '0'");
   $suppliers = $db->query("SELECT * FROM customers WHERE customer_status = 'SUPPLIERS' AND deleted = '0'");
-  $units = $db->query("SELECT * FROM units WHERE deleted = '0'");
-  $units1 = $db->query("SELECT * FROM units WHERE deleted = '0'");
-  $status = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
   $status2 = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
 }
 ?>
 
 <style>
-    @media screen and (min-width: 676px) {
-        .modal-dialog {
-          max-width: 1800px; /* New width for default modal */
-        }
+  @media screen and (min-width: 676px) {
+    .modal-dialog {
+      max-width: 1800px; /* New width for default modal */
     }
+  }
 </style>
 
 <select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
@@ -60,7 +52,7 @@ else{
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Weight Weighing</h1>
+        <h1 class="m-0 text-dark">Weight Billboard</h1>
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
@@ -71,51 +63,8 @@ else{
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-
-      <!-- <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-4">
-                <div class="input-group-text color-palette" id="indicatorConnected"><i>Indicator Connected</i></div>
-              </div>
-              <div class="col-4">
-                <div class="input-group-text bg-danger color-palette" id="checkingConnection"><i>Checking Connection</i></div>
-              </div>
-              <div class="col-4">
-                <button type="button" class="btn btn-block bg-gradient-primary"  onclick="setup()">
-                  Setup
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <div class="col-lg-12">
-        <div class="card card-primary">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-6">Billboard Description</div>
-              <div class="col-4"></div>
-              <!--div class="col-1">
-                <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
-                <i class="fas fa-plus"></i>
-                </button>
-              </div-->
-              <div class="col-1">
-                <button type="button" class="btn btn-success btn-sm" id="excelSearch">
-                <i class="fas fa-file-excel"></i>
-                </button>
-              </div>
-              <div class="col-1">
-                <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
-                <i class="fas fa-search"></i>
-                </button>
-              </div-->
-            </div>
-          </div>
-
+        <div class="card">
           <div class="card-body">
             <div class="row">
               <div class="form-group col-3">
@@ -158,16 +107,9 @@ else{
             </div>
 
             <div class="row">
-              <div class="col-3">
-                <div class="form-group">
-                  <label>Vehicle No</label>
-                  <select class="form-control vehicleNo" id="vehicleFilter" style="width: 100%;">
-                    <option selected="selected">-</option>
-                    <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
-                      <option value="<?=$row1['veh_number'] ?>"><?=$row1['veh_number'] ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
+              <div class="form-group col-3">
+                <label>Vehicle No</label>
+                <input class="form-control" type="text" id="vehicleFilter" placeholder="Vehicle No">
               </div>
 
               <div class="form-group col-3">
@@ -192,44 +134,78 @@ else{
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-9"></div>
+              <div class="col-3">
+                <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  id="filterSearch">
+                  <i class="fas fa-search"></i>
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-9">Weight Billboard</div>
+              <div class="col-3">
+                <button type="button" class="btn btn-block bg-gradient-success btn-sm"  id="excelSearch">
+                  <i class="fas fa-file-excel"></i>
+                  Export Excel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
             <table id="weightTable" class="table table-bordered table-striped display">
               <thead>
                 <tr>
-                  <th>Serial No.</th>
-                  <th>Product Name</th>
-                  <th>Unit</th>
-                  <th>Unit Weight</th>
-                  <th>Tare</th>
-                  <th>Total Weight</th>
-                  <th>Actual Weight</th>
-                  <th>MOQ</th>
-                  <th>Unit Price <br> (RM)</th>
-                  <th>Total Price <br> (RM)</th>
+                  <th>No</th>
+                  <th>Status</th>
+                  <th>Weight Status</th>
+                  <th>Serial No</th>
+                  <th>Vehicle No</th>
+                  <th>Product Description Detail</th>
+                  <th>Incoming (Gross Weight)</th>
+                  <th>Incoming (Gross) Date Time</th>
+                  <th>Outgoing (Tare) Weight</th>
+                  <th>Outgoing (Tare) Date Time</th>
+                  <th>Total Nett Weight</th>
                   <th></th>
                 </tr>
               </thead>
-              <tfoot>
-                <tr>
-                  <th colspan="3" style="text-align: right;">Total Accumulate</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </tfoot>
             </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div>   
 
 <script>
+// Objects
+var _serialComm = null;
+/*var _dataToSend = '';
+var _dataReceived = '';*/
+
+// Values
+var serialComm = "COM5";
+var baurate = 9600;
+var parity = "N";
+var stopbits = "1";
+var databits = "8";
+var controlflow = "None";
+var indicatorUnit = "kg";
+var weightUnit = "1";
+
 $(function () {
   var table = $("#weightTable").DataTable({
     "responsive": true,
@@ -238,20 +214,22 @@ $(function () {
     'serverSide': true,
     'serverMethod': 'post',
     'searching': true,
+    'columnDefs': [ { orderable: false, targets: [0] }],
     'ajax': {
         'url':'php/loadWeights.php'
     },
     'columns': [
+      { data: 'no' },
+      { data: 'pStatus' },
+      { data: 'status' },
       { data: 'serialNo' },
+      { data: 'veh_number' },
       { data: 'product_name' },
-      { data: 'unit' },
-      { data: 'unitWeight' },
+      { data: 'currentWeight' },
+      { data: 'inCDateTime' },
       { data: 'tare' },
+      { data: 'outGDateTime' },
       { data: 'totalWeight' },
-      { data: 'actualWeight' },
-      { data: 'moq' },
-      { data: 'unitPrice' },
-      { data: 'totalPrice' },
       { 
         className: 'dt-control',
         orderable: false,
@@ -264,42 +242,42 @@ $(function () {
     "rowCallback": function( row, data, index ) {
 
         $('td', row).css('background-color', '#E6E6FA');
-    },
-    "footerCallback": function ( row, data, start, end, display ) {
-      var api = this.api();
-
-      // Remove the formatting to get integer data for summation
-      var intVal = function (i) {
-        return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-      };
-
-      // Total over all pages
-      total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-      total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-
-      // Total over this page
-      pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-      pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-
-      // Update footer
-      $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
-      $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
-      $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
-      $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
-      $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
-      $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
-      $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
     }
+    // "footerCallback": function ( row, data, start, end, display ) {
+    //   var api = this.api();
+
+    //   // Remove the formatting to get integer data for summation
+    //   var intVal = function (i) {
+    //     return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+    //   };
+
+    //   // Total over all pages
+    //   total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+    //   total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+
+    //   // Total over this page
+    //   pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+    //   pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+
+    //   // Update footer
+    //   $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+    //   $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+    //   $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+    //   $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+    //   $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
+    //   $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+    //   $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+    // }
   });
 
   // Add event listener for opening and closing details
@@ -332,28 +310,6 @@ $(function () {
 
   $('#toDate').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
-  });
-
-  $.validator.setDefaults({
-    submitHandler: function () {
-      if($('#extendModal').hasClass('show')){
-        $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
-          var obj = JSON.parse(data); 
-
-          if(obj.status === 'success'){
-            $('#extendModal').modal('hide');
-            toastr["success"](obj.message, "Success:");
-            $('#weightTable').DataTable().ajax.reload();
-          }
-          else if(obj.status === 'failed'){
-            toastr["error"](obj.message, "Failed:");
-          }
-          else{
-            alert("Something wrong when edit");
-          }
-        });
-      }
-    }
   });
 
   $('#customerNoHidden').hide();
@@ -413,42 +369,42 @@ $(function () {
             return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
           }
         }
-      ],
-      "footerCallback": function ( row, data, start, end, display ) {
-        var api = this.api();
+      ]
+      // "footerCallback": function ( row, data, start, end, display ) {
+      //   var api = this.api();
 
-        // Remove the formatting to get integer data for summation
-        var intVal = function (i) {
-          return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-        };
+      //   // Remove the formatting to get integer data for summation
+      //   var intVal = function (i) {
+      //     return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
+      //   };
 
-        // Total over all pages
-        total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-        total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   // Total over all pages
+      //   total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
+      //   total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
 
-        // Total over this page
-        pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-        pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   // Total over this page
+      //   pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+      //   pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
 
-        // Update footer
-        $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
-        $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
-        $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
-        $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
-        $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
-        $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
-        $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
-      }
+      //   // Update footer
+      //   $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
+      //   $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
+      //   $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
+      //   $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
+      //   $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
+      //   $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
+      //   $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
+      // }
     });
   });
 
@@ -479,22 +435,31 @@ $(function () {
 });
 
 function format (row) {
-  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
-  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
-  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
-  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
-  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
-  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unitWeight+
+  '</p></div><div class="col-md-3"><p>Weight Status: '+row.status+
+  '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
+  '</p></div><div class="col-md-3"><p>Batch No: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Weight By: '+row.name+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
-  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><p>'+row.manual+
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Invoice No: '+row.invoiceNo+
+  '</p></div><div class="col-md-3"><p>Unit Price: '+row.unitPrice+
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Order Weight: '+row.supplyWeight+
+  '</p></div><div class="col-md-3"><p>Delivery No: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Total Weight: '+row.totalPrice+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Contact No: '+row.customer_phone+
+  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
+  '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
-  '<div class="row"><div class="col-md-3"><p>Supply Weight: '+row.supplyWeight+
-  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
+  '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div></div>';
   ;
 }
 
@@ -515,8 +480,9 @@ function formatNormal (row) {
   '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
 }
 
-/*function newEntry(){
-  let dateTime = new Date();
+function newEntry(){
+  var date = new Date();
+  $('#extendModal').find('#id').val("");
   $('#extendModal').find('#serialNumber').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
@@ -541,14 +507,21 @@ function formatNormal (row) {
   $('#extendModal').find('#totalWeight').val("");
   $('#extendModal').find('#manual').prop('checked', false);
   $('#extendModal').find('#manualVehicle').prop('checked', false);
+  $('#extendModal').find('#manualOutgoing').prop('checked', false);
   $('#extendModal').find('#vehicleNoTct').val("");
   $('#extendModal').find('#vehicleNo').removeAttr('hidden');
   $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
+  $('#extendModal').find('.hidOutgoing').attr('hidden', 'hidden');
   $('#extendModal').find('#currentWeight').attr('readonly', true);
+  $('#extendModal').find('#reduceWeight').val("");
+  $('#extendModal').find('#outGDateTime').val("");
+  $('#extendModal').find('#inCDateTime').val("");
+  $('#extendModal').find('#pStatus').val("");
+  $('#extendModal').find('#variancePerc').val("");
   $('#dateTime').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
-  $('#extendModal').find('#dateTime').val(dateTime.toLocaleString("en-US"));
+  $('#extendModal').find('#dateTime').val(date.toLocaleString("en-US"));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
@@ -589,20 +562,21 @@ function setup(){
   });
 }
 
-function edit(id) {
+/*function edit(id) {
   $.post('php/getWeights.php', {userID: id}, function(data){
     var obj = JSON.parse(data);
     
     if(obj.status === 'success'){
+      $('#extendModal').find('#id').val(obj.message.id);
       $('#extendModal').find('#serialNumber').val(obj.message.serialNo);
-      $('#extendModal').find('#unitWeight').val(obj.message.unit);
+      $('#extendModal').find('#unitWeight').val(obj.message.unitWeight);
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
       $('#extendModal').find('#status').val(obj.message.status);
       $('#extendModal').find('#lotNo').val(obj.message.lotNo);
       $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
       $('#extendModal').find('#batchNo').val(obj.message.batchNo);
       $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
-      $('#extendModal').find('#currentWeight').val(obj.message.unitWeight);
+      $('#extendModal').find('#currentWeight').val(obj.message.currentWeight);
       $('#extendModal').find('#product').val(obj.message.productName);
       $('#extendModal').find('#moq').val(obj.message.moq);
       $('#extendModal').find('#tareWeight').val(obj.message.tare);
@@ -614,6 +588,12 @@ function edit(id) {
       $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
       $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
       $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
+      $('#extendModal').find('#reduceWeight').val(obj.message.reduceWeight);
+      $('#extendModal').find('#pStatus').val(obj.message.pStatus);
+      $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
+      $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
+      $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
+      $('#extendModal').find('.hidOutgoing').removeAttr('hidden');
       $('#dateTime').datetimepicker({
         format: 'D/MM/YYYY h:m:s A'
       });
@@ -651,6 +631,11 @@ function edit(id) {
         $('#extendModal').find('#currentWeight').attr('readonly', false);
       }
 
+      if(obj.message.manualOutgoing === 1){
+        $('#extendModal').find('#manualOutgoing').prop('checked', true);
+        $('#extendModal').find('#tareWeight').attr('readonly', false);
+      }
+
       $('#extendModal').modal('show');
       $('#lotForm').validate({
         errorElement: 'span',
@@ -673,7 +658,7 @@ function edit(id) {
       toastr["error"]("Something wrong when pull data", "Failed:");
     }
   });
-}*/
+}
 
 function deactivate(id) {
   if (confirm('Are you sure you want to delete this items?')) {
@@ -692,7 +677,7 @@ function deactivate(id) {
       }
     });
   }
-}
+}*/
 
 function print(id) {
   $.post('php/print.php', {userID: id, file: 'weight'}, function(data){
@@ -712,5 +697,4 @@ function print(id) {
     }
   });
 }
-
 </script>

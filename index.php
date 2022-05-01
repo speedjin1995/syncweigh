@@ -152,7 +152,7 @@ to get the desired effect
             <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
                 <a href="#weightBillboard" data-file="weightBillboard.php" class="nav-link link">
-                  <i class="nav-icon fas fa-bar-chart"></i>
+                  <i class="nav-icon fas fa-chart-pie"></i>
                   <p>Billboard</p>
                 </a>
               </li>
@@ -234,7 +234,7 @@ to get the desired effect
                   </li>
                   <li class="nav-item">
                     <a href="#currency" data-file="currency.php" class="nav-link link">
-                      <i class="nav-icon fas fa-dollar"></i>
+                      <i class="nav-icon fas fa-dollar-sign"></i>
                       <p>Currency</p>
                     </a>
                   </li>

@@ -347,8 +347,10 @@ else{
             
             <div class="row col-md-9">
               <div class="row col-md-12">
-
                     <div class="col-2">
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                      </div>
                       <div class="form-group">
                         <label>Serial No.</label>
                         <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
@@ -599,7 +601,6 @@ else{
 
         <div class="modal-footer justify-content-between bg-gray-dark color-palette">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="captureWeight" disabled>Capture Indicator</button>
           <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
         </div>
       </form>
@@ -712,7 +713,7 @@ $(function () {
         'url':'php/loadWeights.php'
     },
     'columns': [
-      { data: 'pStatus' },
+      { data: 'no' },
       { data: 'pStatus' },
       { data: 'status' },
       { data: 'serialNo' },
@@ -1401,6 +1402,7 @@ function formatNormal (row) {
 
 function newEntry(){
   var date = new Date();
+  $('#extendModal').find('#id').val("");
   $('#extendModal').find('#serialNumber').val("");
   $('#extendModal').find('#unitWeight').val('');
   $('#extendModal').find('#invoiceNo').val("");
@@ -1485,6 +1487,7 @@ function edit(id) {
     var obj = JSON.parse(data);
     
     if(obj.status === 'success'){
+      $('#extendModal').find('#id').val(obj.message.id);
       $('#extendModal').find('#serialNumber').val(obj.message.serialNo);
       $('#extendModal').find('#unitWeight').val(obj.message.unitWeight);
       $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
