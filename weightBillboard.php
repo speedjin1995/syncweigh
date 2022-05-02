@@ -154,7 +154,7 @@ else{
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-4">
               <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 525px;" width="1050" height="500" class="chartjs-render-monitor"></canvas>
               </div>
             </div>
@@ -207,10 +207,24 @@ else{
 <script>
 $(function () {
   var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+  var pieData = {
+    labels: [
+      'SALES', 
+      'PURCHASES',
+      'LOCAL' 
+    ],
+    datasets: [
+      {
+        data: [0,0,0],
+        backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
+      }
+    ]
+  };
   var pieOptions = {maintainAspectRatio : false, responsive : true};
-  
+
   var pieChart = new Chart(pieChartCanvas, {
     type: 'pie',
+    data: pieData,
     options: pieOptions      
   });
 
@@ -251,10 +265,12 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      removeData(chart);
-      addData(pieChart, 'SALES', settings.json.salesTotal);
-      addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
-      addData(pieChart, 'LOCAL', settings.json.localTotal);
+      removeData(pieChart);
+      setTimeout(() => {
+        addData(pieChart, 'SALES', settings.json.salesTotal);
+        addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
+        addData(pieChart, 'LOCAL', settings.json.localTotal);
+      }, 500);
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -388,10 +404,12 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      removeData(chart);
-      addData(pieChart, 'SALES', settings.json.salesTotal);
-      addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
-      addData(pieChart, 'LOCAL', settings.json.localTotal);
+      removeData(pieChart);
+      setTimeout(() => {
+        addData(pieChart, 'SALES', settings.json.salesTotal);
+        addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
+        addData(pieChart, 'LOCAL', settings.json.localTotal);
+      }, 500);
     }
       // "footerCallback": function ( row, data, start, end, display ) {
       //   var api = this.api();
@@ -466,7 +484,10 @@ function addData(chart, label, data) {
 }
 
 function removeData(chart) {
-  chart.data.labels.pop();
+  while(chart.data.labels.length > 0){
+    chart.data.labels.pop();
+  }
+  
   chart.data.datasets.forEach((dataset) => {
     dataset.data.pop();
   });
