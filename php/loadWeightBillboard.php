@@ -44,17 +44,17 @@ $data = array();
 $counter = 1;
 
 while($row = mysqli_fetch_assoc($empRecords)) {
-    $manual = '';
-    
-    if($row['manual'] == '1'){
-        $manual = "** This is manual weighing!";
-    }
+  $manual = '';
+  
+  if($row['manual'] == '1'){
+      $manual = "** This is manual weighing!";
+  }
 
-    if($row['outGDateTime'] == null || $row['outGDateTime'] == ''){
-        $outGDateTime = '-';
-    }else{
-        $outGDateTime = $row['outGDateTime'];
-    }
+  if($row['outGDateTime'] == null || $row['outGDateTime'] == ''){
+    $outGDateTime = '-';
+  }else{
+    $outGDateTime = $row['outGDateTime'];
+  }
     
   $data[] = array( 
     "no"=>$counter,
@@ -93,7 +93,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "outGDateTime"=>$outGDateTime,
     "inCDateTime"=>$row['inCDateTime'],
     "pStatus"=>$row['pStatus'],
-    "variancePerc"=> $row['variancePerc'],
+    "variancePerc"=> $row['variancePerc']
   );
 
   $counter++;
