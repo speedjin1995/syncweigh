@@ -44,6 +44,7 @@ else{
 									<th>No.</th>
 									<th>Currency</th>
                                     <th>Description</th>
+                                    <th>Rate</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -60,7 +61,7 @@ else{
       <div class="modal-content">
         <form role="form" id="unitForm">
             <div class="modal-header">
-              <h4 class="modal-title">Add Lots</h4>
+              <h4 class="modal-title">Add Currency</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -77,6 +78,10 @@ else{
                     <div class="form-group">
     					<label for="desc">Description *</label>
     					<input type="text" class="form-control" name="desc" id="desc" placeholder="Enter Currency Description" required>
+    				</div>
+                    <div class="form-group">
+    					<label for="rate">Rate *</label>
+    					<input type="number" class="form-control" name="rate" id="rate" placeholder="Enter Currency Rate" required>
     				</div>
     			</div>
             </div>
@@ -108,6 +113,7 @@ $(function () {
             { data: 'counter' },
             { data: 'currency' },
             { data: 'description' },
+            { data: 'rate' },
             { 
                 data: 'id',
                 render: function ( data, type, row ) {
@@ -147,6 +153,7 @@ $(function () {
         $('#unitModal').find('#id').val("");
         $('#unitModal').find('#units').val("");
         $('#unitModal').find('#desc').val("");
+        $('#unitModal').find('#rate').val("");
         $('#unitModal').modal('show');
         
         $('#unitForm').validate({
@@ -173,6 +180,7 @@ function edit(id){
             $('#unitModal').find('#id').val(obj.message.id);
             $('#unitModal').find('#units').val(obj.message.currency);
             $('#unitModal').find('#desc').val(obj.message.description);
+            $('#unitModal').find('#rate').val(obj.message.rate);
             $('#unitModal').modal('show');
             
             $('#unitForm').validate({

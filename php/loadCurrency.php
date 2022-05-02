@@ -38,7 +38,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
       "counter"=>$counter,
       "id"=>$row['id'],
       "currency"=>$row['currency'],
-      "description"=>$row['description']
+      "description"=>$row['description'],
+      "rate"=>$row['rate']
     );
 
     $counter++;

@@ -213,7 +213,8 @@ $(function () {
     'processing': true,
     'serverSide': true,
     'serverMethod': 'post',
-    'searching': true,
+    'searching': false,
+    'order': [[ 1, 'asc' ]],
     'columnDefs': [ { orderable: false, targets: [0] }],
     'ajax': {
         'url':'php/loadWeights.php'

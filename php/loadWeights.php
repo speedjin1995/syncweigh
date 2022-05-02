@@ -12,10 +12,10 @@ $columnSortOrder = $_POST['order'][0]['dir']; // asc or desc
 $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Search value
 
 ## Search 
-$searchQuery = " ";
+$searchQuery = "";
 if($searchValue != ''){
    $searchQuery = " and (weight.serialNo like '%".$searchValue."%' or 
-                    weight.vehicleNo like '%".$searchValue."%' ) ";
+                    weight.vehicleNo like '%".$searchValue."%' )";
 }
 
 ## Total number of records without filtering
