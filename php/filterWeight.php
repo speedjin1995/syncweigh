@@ -68,6 +68,9 @@ units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;
+$sales = 0;
+$purchase = 0;
+$local = 0;
 
 while($row = mysqli_fetch_assoc($empRecords)) {
   $manual = '';
@@ -78,8 +81,19 @@ while($row = mysqli_fetch_assoc($empRecords)) {
 
   if($row['outGDateTime'] == null || $row['outGDateTime'] == ''){
     $outGDateTime = '-';
-  }else{
+  }
+  else{
     $outGDateTime = $row['outGDateTime'];
+  }
+
+  if(strtoupper($row['status']) == 'SALES'){
+    $sales++;
+  }
+  else if(strtoupper($row['status']) == 'PURCHASE'){
+    $purchase++;
+  }
+  else if(strtoupper($row['status']) == 'LOCAL AREA'){
+    $local++;
   }
 
   $data[] = array( 
@@ -130,7 +144,10 @@ $response = array(
   "draw" => intval($draw),
   "iTotalRecords" => $totalRecords,
   "iTotalDisplayRecords" => $totalRecordwithFilter,
-  "aaData" => $data
+  "aaData" => $data,
+  "salesTotal" => $sales,
+  "purchaseTotal" => $purchase,
+  "localTotal" => $local
 );
 
 echo json_encode($response);

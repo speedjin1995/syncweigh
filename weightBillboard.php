@@ -151,6 +151,20 @@ else{
 
     <div class="row">
       <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+              <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 525px;" width="1050" height="500" class="chartjs-render-monitor"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
         <div class="card card-primary">
           <div class="card-header">
             <div class="row">
@@ -192,6 +206,14 @@ else{
 
 <script>
 $(function () {
+  var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+  var pieOptions = {maintainAspectRatio : false, responsive : true};
+  
+  var pieChart = new Chart(pieChartCanvas, {
+    type: 'pie',
+    options: pieOptions      
+  });
+
   var table = $("#weightTable").DataTable({
     "responsive": true,
     "autoWidth": false,
@@ -226,8 +248,13 @@ $(function () {
       }
     ],
     "rowCallback": function( row, data, index ) {
-
-        $('td', row).css('background-color', '#E6E6FA');
+      $('td', row).css('background-color', '#E6E6FA');
+    },
+    "drawCallback": function(settings) {
+      removeData(chart);
+      addData(pieChart, 'SALES', settings.json.salesTotal);
+      addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
+      addData(pieChart, 'LOCAL', settings.json.localTotal);
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -288,7 +315,7 @@ $(function () {
       ?>
     }
   });
-  
+
   //Date picker
   $('#fromDate').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
@@ -337,25 +364,35 @@ $(function () {
         } 
       },
       'columns': [
-        { data: 'serialNo' },
-        { data: 'product_name' },
-        { data: 'unit' },
-        { data: 'unitWeight' },
-        { data: 'tare' },
-        { data: 'totalWeight' },
-        { data: 'actualWeight' },
-        { data: 'moq' },
-        { data: 'unitPrice' },
-        { data: 'totalPrice' },
-        { 
-          className: 'dt-control',
-          orderable: false,
-          data: null,
-          render: function ( data, type, row ) {
-            return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
-          }
+      { data: 'no' },
+      { data: 'pStatus' },
+      { data: 'status' },
+      { data: 'serialNo' },
+      { data: 'veh_number' },
+      { data: 'product_name' },
+      { data: 'currentWeight' },
+      { data: 'inCDateTime' },
+      { data: 'tare' },
+      { data: 'outGDateTime' },
+      { data: 'totalWeight' },
+      { 
+        className: 'dt-control',
+        orderable: false,
+        data: null,
+        render: function ( data, type, row ) {
+          return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
         }
-      ]
+      }
+    ],
+    "rowCallback": function( row, data, index ) {
+      $('td', row).css('background-color', '#E6E6FA');
+    },
+    "drawCallback": function(settings) {
+      removeData(chart);
+      addData(pieChart, 'SALES', settings.json.salesTotal);
+      addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
+      addData(pieChart, 'LOCAL', settings.json.localTotal);
+    }
       // "footerCallback": function ( row, data, start, end, display ) {
       //   var api = this.api();
 
@@ -419,6 +456,22 @@ $(function () {
     }
   });
 });
+
+function addData(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+  chart.update();
+}
+
+function removeData(chart) {
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.pop();
+  });
+  chart.update();
+}
 
 function format (row) {
   return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+

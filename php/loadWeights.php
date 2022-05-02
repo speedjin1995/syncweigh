@@ -37,8 +37,6 @@ weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc fro
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
 units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
-
-
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;

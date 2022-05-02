@@ -145,7 +145,7 @@ else{
       <div class="col-md-4 col-sm-6 col-12">
         <div class="info-box">
           <span class="info-box-icon bg-info">
-            <i class="far fa-shopping-cart"></i>
+            <i class="fas fa-shopping-cart"></i>
           </span>
           <div class="info-box-content">
             <span class="info-box-text">Sales</span>
@@ -157,7 +157,7 @@ else{
       <div class="col-md-4 col-sm-6 col-12">
         <div class="info-box">
           <span class="info-box-icon bg-success">
-            <i class="far fa-shopping-basket"></i>
+            <i class="fas fa-shopping-basket"></i>
           </span>
           <div class="info-box-content">
             <span class="info-box-text">Purchase</span>
@@ -169,7 +169,7 @@ else{
       <div class="col-md-4 col-sm-6 col-12">
         <div class="info-box">
           <span class="info-box-icon bg-warning">
-            <i class="far fa-warehouse"></i>
+            <i class="fas fa-warehouse" style="color: white;"></i>
           </span>
           <div class="info-box-content">
             <span class="info-box-text">Local</span>
@@ -646,13 +646,17 @@ $(function () {
         orderable: false,
         data: null,
         render: function ( data, type, row ) {
-          debugger;
           return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
         }
       }
     ],
     "rowCallback": function( row, data, index ) {
       $('td', row).css('background-color', '#E6E6FA');
+    },
+    "drawCallback": function(settings) {
+      $('#salesInfo').text(settings.json.salesTotal);
+      $('#purchaseInfo').text(settings.json.purchaseTotal);
+      $('#localInfo').text(settings.json.localTotal);
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -721,24 +725,6 @@ $(function () {
   $('#toDate').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
-
-  //JSPrintManager WebSocket settings
-  /*JSPM.JSPrintManager.auto_reconnect = true;
-  JSPM.JSPrintManager.start();
-  JSPM.JSPrintManager.WS.onStatusChanged = function () {
-    if (jspmWSStatus()) {
-      //get serial ports
-      JSPM.JSPrintManager.getSerialPorts().then(function (portsList) {
-        var options = '';
-
-        for (var i = 0; i < portsList.length; i++) {
-          options += '<option value="' + portsList[i] + '">' + portsList[i] + '</option>';
-        }
-
-        $('#serialPort').html(options);
-      });
-    }
-  };*/
   
   $.post('http://127.0.0.1:5002/getcomport', function(data){
     var decoded = JSON.parse(data);
@@ -787,15 +773,6 @@ $(function () {
         });
       }
       else if ($('#setupModal').hasClass('show')){
-        /*serialComm = $('#serialPort').val();
-        baurate = parseInt($('#serialPortBaudRate').val());
-        parity = $('#serialPortParity').val();
-        stopbits = $('#serialPortStopBits').val();
-        databits = $('#serialPortDataBits').val();*/
-        //controlflow = $('#serialPortFlowControl').val();
-        //doOpen();
-        
-        
         $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
             if(data == "true"){
                 $('#indicatorConnected').addClass('bg-primary');
