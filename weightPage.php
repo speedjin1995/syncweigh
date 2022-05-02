@@ -141,6 +141,44 @@ else{
 <!-- Main content -->
 <div class="content">
   <div class="container-fluid">
+    <div div class="row">
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info">
+            <i class="far fa-shopping-cart"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Sales</span>
+            <span class="info-box-number" id="salesInfo">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success">
+            <i class="far fa-shopping-basket"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Purchase</span>
+            <span class="info-box-number" id="purchaseInfo">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning">
+            <i class="far fa-warehouse"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Local</span>
+            <span class="info-box-number" id="localInfo">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
 
       <!-- <div class="col-lg-12">
@@ -166,130 +204,15 @@ else{
       <div class="col-lg-12">
         <div class="card card-primary">
           <div class="card-header">
-              <div class="row">
-                    <div class="col-9">
-                    </div>
-                    <!-- <div class="col-3"></div> -->
-
-                    <div class="col-3">
-                      <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  onclick="newEntry()">Add New Weight</button>
-                    </div>
-                    <!-- <div class="col-1">
-                      <button type="button" class="btn btn-success btn-sm" id="excelSearch">
-                      <i class="fas fa-file-excel"></i>
-                      </button>
-                    </div>
-                    <div class="col-1">
-                      <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
-                      <i class="fas fa-search"></i>
-                      </button>
-                    </div> -->
-                </div>
-              </div>
-
-          <div class="card-body">  
-            <!-- <div class="row">
-              <div class="form-group col-3">
-                <label>From Date:</label>
-                <div class="input-group date" id="fromDate" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" id="fromDateValue" data-target="#fromDate"/>
-                  <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
-                  <div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
-                </div>
-              </div>
-
-              <div class="form-group col-3">
-                <label>To Date:</label>
-                <div class="input-group date" id="toDate" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" id="toDateValue"  data-target="#toDate"/>
-                  <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                  </div>
-                </div>
-              </div>
-
+            <div class="row">
+              <div class="col-9"></div>
               <div class="col-3">
-                <div class="form-group">
-                  <label>Status</label>
-                  <select class="form-control Status" id="statusFilter" name="statusFilter" style="width: 100%;">
-                    <option selected="selected">-</option>
-                    <?php while($rowStatus=mysqli_fetch_assoc($status2)){ ?>
-                      <option value="<?=$rowStatus['id'] ?>"><?=$rowStatus['status'] ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-3">
-                <div class="form-group">
-                  <label>Customer No</label>
-                  <select class="form-control" style="width: 100%;" id="customerNoFilter" name="customerNoFilter"></select>
-                </div>
+                <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  onclick="newEntry()">Add New Weight</button>
               </div>
             </div>
+          </div>
 
-            <div class="row">
-              <div class="col-3">
-                <div class="form-group">
-                  <label>Vehicle No</label>
-                  <select class="form-control vehicleNo" id="vehicleFilter" style="width: 100%;">
-                    <option selected="selected">-</option>
-                    <?php while($row1=mysqli_fetch_assoc($vehicles2)){ ?>
-                      <option value="<?=$row1['veh_number'] ?>"><?=$row1['veh_number'] ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group col-3">
-                <label>Invoice No</label>
-                <input class="form-control" type="text" id="invoiceFilter" placeholder="Invoice No">
-              </div>
-
-              <div class="form-group col-3">
-                <label>Batch No</label>
-                <input class="form-control" type="text" id="batchFilter" placeholder="Batch No">
-              </div>
-
-              <div class="col-3">
-                <div class="form-group">
-                  <label>Product</label>
-                  <select class="form-control" id="productFilter" style="width: 100%;">
-                    <option selected="selected">-</option>
-                    <?php while($rowProduct=mysqli_fetch_assoc($products2)){ ?>
-                      <option value="<?=$rowProduct['id'] ?>"><?=$rowProduct['product_name'] ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-            </div> -->
-    
-         
-              <!-- <div class="b">Sales</div>
-              <div class="c">Purchase</div>
-              <div class="d">1</div>
-              <div class="e">2</div> -->
-        
-
-
-            <!-- <div class="row">
-                  <div class="col-1 modalSales">
-                    <button type="button" class="btn btn-info btn-sm"  onclick="newEntry()">
-                    <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                  <div class="col-1 modalPending">
-                    <button type="button" class="btn btn-success btn-sm" id="excelSearch">
-                    <i class="fas fa-file-excel"></i>
-                    </button>
-                  </div>
-                  <div class="col-1 modalMisc">
-                    <button type="button" class="btn btn-warning btn-sm" id="filterSearch">
-                    <i class="fas fa-search"></i>
-                    </button>
-                  </div>
-            </div> -->
-
+          <div class="card-body">
             <table id="weightTable" class="table table-bordered table-striped display">
               <thead>
                 <tr>
@@ -307,18 +230,13 @@ else{
                   <th></th>
                 </tr>
               </thead>
-
             </table>
           </div>
-
         </div>
       </div>
-      
     </div>
   </div>
 </div>
-
-
 
 <div class="modal fade" id="extendModal">
   <div class="modal-dialog modal-xl">
@@ -348,9 +266,7 @@ else{
             <div class="row col-md-9">
               <div class="row col-md-12">
                     <div class="col-2">
-                      <div class="form-group">
-                        <input type="hidden" class="form-control" id="id" name="id">
-                      </div>
+                      <input type="hidden" class="form-control" id="id" name="id">
                       <div class="form-group">
                         <label>Serial No.</label>
                         <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
@@ -730,13 +646,13 @@ $(function () {
         orderable: false,
         data: null,
         render: function ( data, type, row ) {
+          debugger;
           return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
         }
       }
     ],
     "rowCallback": function( row, data, index ) {
-
-        $('td', row).css('background-color', '#E6E6FA');
+      $('td', row).css('background-color', '#E6E6FA');
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -1361,7 +1277,7 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
   '</p></div><div class="col-md-3"><p>Batch No: '+row.batchNo+
-  '</p></div><div class="col-md-3"><p>Weight By: '+row.name+
+  '</p></div><div class="col-md-3"><p>Weight By: '+row.userName+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3">'+
   '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
@@ -1385,20 +1301,31 @@ function format (row) {
 }
 
 function formatNormal (row) {
-  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
-  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
-  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
-  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
-  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
-  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unitWeight+
+  '</p></div><div class="col-md-3"><p>Weight Status: '+row.status+
+  '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
+  '</p></div><div class="col-md-3"><p>Batch No: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Weight By: '+row.userName+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
-  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.id+
-  '")"><i class="fas fa-print"></i></button></div></div></div></div>'+
-  '<div class="row"><div class="col-md-3"><p>Supply Weight: '+row.supplyWeight+
-  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Invoice No: '+row.invoiceNo+
+  '</p></div><div class="col-md-3"><p>Unit Price: '+row.unitPrice+
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Order Weight: '+row.supplyWeight+
+  '</p></div><div class="col-md-3"><p>Delivery No: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Total Weight: '+row.totalPrice+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Contact No: '+row.customer_phone+
+  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
+  '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
+  ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
+  '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div></div>';
 }
 
 function newEntry(){

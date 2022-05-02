@@ -29,12 +29,12 @@ $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
+$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name, 
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
-WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status 
+WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Complete' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
 units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
@@ -42,33 +42,19 @@ units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;
-$sales = 0;
-$purchase = 0;
-$local = 0;
 
 while($row = mysqli_fetch_assoc($empRecords)) {
-  $manual = '';
-  
-  if($row['manual'] == '1'){
-    $manual = "** This is manual weighing!";
-  }
+    $manual = '';
+    
+    if($row['manual'] == '1'){
+        $manual = "** This is manual weighing!";
+    }
 
-  if($row['outGDateTime'] == null || $row['outGDateTime'] == ''){
-    $outGDateTime = '-';
-  }
-  else{
-    $outGDateTime = $row['outGDateTime'];
-  }
-
-  if(strtoupper($row['status']) == 'SALES'){
-    $sales++;
-  }
-  else if(strtoupper($row['status']) == 'PURCHASE'){
-    $purchase++;
-  }
-  else if(strtoupper($row['status']) == 'LOCAL AREA'){
-    $local++;
-  }
+    if($row['outGDateTime'] == null || $row['outGDateTime'] == ''){
+        $outGDateTime = '-';
+    }else{
+        $outGDateTime = $row['outGDateTime'];
+    }
     
   $data[] = array( 
     "no"=>$counter,
@@ -118,10 +104,7 @@ $response = array(
   "draw" => intval($draw),
   "iTotalRecords" => $totalRecords,
   "iTotalDisplayRecords" => $totalRecordwithFilter,
-  "aaData" => $data,
-  "salesTotal" => $sales,
-  "purchaseTotal" => $purchase,
-  "localTotal" => $local
+  "aaData" => $data
 );
 
 echo json_encode($response);

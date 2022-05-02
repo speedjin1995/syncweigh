@@ -191,21 +191,6 @@ else{
 </div>   
 
 <script>
-// Objects
-var _serialComm = null;
-/*var _dataToSend = '';
-var _dataReceived = '';*/
-
-// Values
-var serialComm = "COM5";
-var baurate = 9600;
-var parity = "N";
-var stopbits = "1";
-var databits = "8";
-var controlflow = "None";
-var indicatorUnit = "kg";
-var weightUnit = "1";
-
 $(function () {
   var table = $("#weightTable").DataTable({
     "responsive": true,
@@ -217,7 +202,7 @@ $(function () {
     'order': [[ 1, 'asc' ]],
     'columnDefs': [ { orderable: false, targets: [0] }],
     'ajax': {
-        'url':'php/loadWeights.php'
+        'url':'php/loadWeightBillboard.php'
     },
     'columns': [
       { data: 'no' },
@@ -442,7 +427,7 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
   '</p></div><div class="col-md-3"><p>Batch No: '+row.batchNo+
-  '</p></div><div class="col-md-3"><p>Weight By: '+row.name+
+  '</p></div><div class="col-md-3"><p>Weight By: '+row.userName+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
   '</p></div></div><div class="row"><div class="col-md-3">'+
   '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
@@ -455,7 +440,7 @@ function format (row) {
   '</p></div></div><div class="row"><div class="col-md-3"><p>Contact No: '+row.customer_phone+
   '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
   '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
@@ -465,102 +450,31 @@ function format (row) {
 }
 
 function formatNormal (row) {
-  return '<div class="row"><div class="col-md-3"><p>Vehicle No.: '+row.veh_number+
-  '</p></div><div class="col-md-3"><p>Lot No.: '+row.lots_no+
-  '</p></div><div class="col-md-3"><p>Batch No.: '+row.batchNo+
-  '</p></div><div class="col-md-3"><p>Invoice No.: '+row.invoiceNo+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Delivery No.: '+row.deliveryNo+
-  '</p></div><div class="col-md-3"><p>Purchase No.: '+row.purchaseNo+
-  '</p></div><div class="col-md-3"><p>Customer: '+row.customer_name+
+  return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+
+  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unitWeight+
+  '</p></div><div class="col-md-3"><p>Weight Status: '+row.status+
+  '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
+  '</p></div><div class="col-md-3"><p>Batch No: '+row.batchNo+
+  '</p></div><div class="col-md-3"><p>Weight By: '+row.userName+
   '</p></div><div class="col-md-3"><p>Package: '+row.packages+
-  '</p></div></div><div class="row"><div class="col-md-3"><p>Date: '+row.dateTime+
-  '</p></div><div class="col-md-3"><p>Remark: '+row.remark+
-  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print("'+row.id+
-  '")"><i class="fas fa-print"></i></button></div></div></div></div>'+
-  '<div class="row"><div class="col-md-3"><p>Supply Weight: '+row.supplyWeight+
-  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+ '</div></div>';
-}
-
-function newEntry(){
-  var date = new Date();
-  $('#extendModal').find('#id').val("");
-  $('#extendModal').find('#serialNumber').val("");
-  $('#extendModal').find('#unitWeight').val('');
-  $('#extendModal').find('#invoiceNo').val("");
-  $('#extendModal').find('#status').val('');
-  $('#extendModal').find('#lotNo').val('');
-  $('#extendModal').find('#vehicleNo').val('');
-  $('#extendModal').find('#customerNo').val('');
-  $('#extendModal').find('#deliveryNo').val("");
-  $('#extendModal').find('#batchNo').val("");
-  $('#extendModal').find('#purchaseNo').val("");
-  $('#extendModal').find('#currentWeight').val("");
-  $('#extendModal').find('#product').val('');
-  $('#extendModal').find('#moq').val("1");
-  $('#extendModal').find('#tareWeight').val("0.00");
-  $('#extendModal').find('#package').val('');
-  $('#extendModal').find('#actualWeight').val("");
-  $('#extendModal').find('#supplyWeight').val("");
-  $('#extendModal').find('#varianceWeight').val("");
-  $('#extendModal').find('#remark').val("");
-  $('#extendModal').find('#totalPrice').val("");
-  $('#extendModal').find('#unitPrice').val("");
-  $('#extendModal').find('#totalWeight').val("");
-  $('#extendModal').find('#manual').prop('checked', false);
-  $('#extendModal').find('#manualVehicle').prop('checked', false);
-  $('#extendModal').find('#manualOutgoing').prop('checked', false);
-  $('#extendModal').find('#vehicleNoTct').val("");
-  $('#extendModal').find('#vehicleNo').removeAttr('hidden');
-  $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
-  $('#extendModal').find('.hidOutgoing').attr('hidden', 'hidden');
-  $('#extendModal').find('#currentWeight').attr('readonly', true);
-  $('#extendModal').find('#reduceWeight').val("");
-  $('#extendModal').find('#outGDateTime').val("");
-  $('#extendModal').find('#inCDateTime').val("");
-  $('#extendModal').find('#pStatus').val("");
-  $('#extendModal').find('#variancePerc').val("");
-  $('#dateTime').datetimepicker({
-    format: 'D/MM/YYYY h:m:s A'
-  });
-  $('#extendModal').find('#dateTime').val(date.toLocaleString("en-US"));
-  $('#extendModal').modal('show');
-  
-  $('#extendForm').validate({
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
-}
-
-function setup(){
-  $('#setupModal').find('#serialPortBaudRate').val('9600');
-  $('#setupModal').find('#serialPortDataBits').val("8");
-  $('#setupModal').find('#serialPortParity').val('N');
-  $('#setupModal').find('#serialPortStopBits').val('1');
-  $('#setupModal').find('#serialPortFlowControl').val('None');
-  $('#setupModal').modal('show');
-
-  $('#setupForm').validate({
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
+  '</p></div><div class="col-md-3"><p>Invoice No: '+row.invoiceNo+
+  '</p></div><div class="col-md-3"><p>Unit Price: '+row.unitPrice+
+  '</p></div></div><div class="row"><div class="col-md-3">'+
+  '</div><div class="col-md-3"><p>Order Weight: '+row.supplyWeight+
+  '</p></div><div class="col-md-3"><p>Delivery No: '+row.deliveryNo+
+  '</p></div><div class="col-md-3"><p>Total Weight: '+row.totalPrice+
+  '</p></div></div><div class="row"><div class="col-md-3"><p>Contact No: '+row.customer_phone+
+  '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
+  '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
+  '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
+  ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
+  '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
+  '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div></div>';
+  ;
 }
 
 /*function edit(id) {
