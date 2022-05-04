@@ -301,9 +301,9 @@ else{
                     </div>
 
                     <div class="form-group col-md-2">
-                      <label>Order Weight</label>
+                      <label class="labelOrder">Order Weight</label>
                       <div class="input-group">
-                        <input class="form-control" type="number" placeholder="Supply Weight" id="supplyWeight" name="supplyWeight"/>
+                        <input class="form-control" type="number" id="supplyWeight" name="supplyWeight"/>
                         <div class="input-group-text bg-success color-palette"><i id="changeSupplyWeight">KG/G</i></div>
                       </div>
                     </div>
@@ -1002,11 +1002,11 @@ $(function () {
     if($(this).val() == '1'){
       $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
       $('#extendModal').find('.labelStatus').text('Customer No');
-      
+      $('#extendModal').find('.labelOrder').text('Order Weight');
     }
     else if($(this).val() == '2'){
       $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
-      $('#extendModal').find('.labelStatus').text('Supplier No');
+      $('#extendModal').find('.labelOrder').text('Supply Weight');
 
     }
   });
@@ -1428,12 +1428,14 @@ function edit(id) {
       if($('#extendModal').find('#status').val() == '1'){
         $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($('#extendModal').find('#status').val());
         $('#extendModal').find('.labelStatus').text('Customer No');
+        $('#extendModal').find('.labelOrder').text('Order Weight');
         $('#extendModal').find('#customerNo').val(obj.message.customer);
         
       }
       else if($('#extendModal').find('#status').val() == '2'){
         $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($('#extendModal').find('#status').val());
         $('#extendModal').find('.labelStatus').text('Supplier No');
+        $('#extendModal').find('.labelOrder').text('Supply Weight');
         $('#extendModal').find('#customerNo').val(obj.message.customer);
       }
 
