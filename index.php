@@ -151,7 +151,7 @@ to get the desired effect
             </a>
             <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
-                <a href="#weightBillboard" data-file="weightBillboard.php" class="nav-link link">
+                <a href="#billboard" data-file="billboard.php" class="nav-link link">
                   <i class="nav-icon fas fa-chart-pie"></i>
                   <p>Billboard</p>
                 </a>
@@ -367,7 +367,7 @@ to get the desired effect
         });
     });
     
-    $("a[href='#weightBillboard']").click();
+    $("a[href='#billboard']").click();
   });
 </script>
 </body>
