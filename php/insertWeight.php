@@ -120,7 +120,7 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 				echo json_encode(
 					array(
 						"status"=> "success", 
-						"message"=> "Added Successfully!!" 
+						"message"=> "Updated Successfully!!" 
 					)
 				);
 			}
