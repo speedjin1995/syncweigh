@@ -69,8 +69,8 @@ else{
             <div class="row">
               <div class="form-group col-3">
                 <label>From Date:</label>
-                <div class="input-group date" id="fromDate" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" id="fromDateValue" data-target="#fromDate"/>
+                <div class="input-group date" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" id="fromDate" data-target="#fromDate"/>
                   <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
                   <div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
                 </div>
@@ -78,8 +78,8 @@ else{
 
               <div class="form-group col-3">
                 <label>To Date:</label>
-                <div class="input-group date" id="toDate" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" id="toDateValue"  data-target="#toDate"/>
+                <div class="input-group date" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" id="toDate"  data-target="#toDate"/>
                   <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                   </div>
