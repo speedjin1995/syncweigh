@@ -1118,7 +1118,7 @@ $(function () {
       $('#changeWeightVariance').text("KG");
       $('#changeReduceWeight').text("KG");
 
-      //if(indicatorUnit == "g"){
+      if(indicatorUnit == "g"){
           if($('#currentWeight').val()){
               $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) / 1000).toFixed(2));
           }
@@ -1134,7 +1134,7 @@ $(function () {
           if($('#totalWeight').val()){
               $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) / 1000).toFixed(2));
           }
-      //}
+      }
     }
     else if(unitWeight == 2){
       weightUnit = "2";
@@ -1146,7 +1146,7 @@ $(function () {
       $('#changeWeightVariance').text("G");
       $('#changeReduceWeight').text("G");
       
-      //if(indicatorUnit == "kg"){
+      if(indicatorUnit == "kg"){
           if($('#currentWeight').val()){
               $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) * 1000).toFixed(2));
           }
@@ -1162,7 +1162,7 @@ $(function () {
           if($('#totalWeight').val()){
               $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) * 1000).toFixed(2));
           }
-      //}
+      }
     }
     else if(unitWeight == 3){
       weightUnit = "3";
@@ -1173,6 +1173,36 @@ $(function () {
       $('#changeSupplyWeight').text("LB");
       $('#changeWeightVariance').text("LB");
       $('#changeReduceWeight').text("LB");
+    }
+    else if(unitWeight == 6){
+      weightUnit = "6";
+      $('#changeWeight').text("mg");
+      $('#changeWeightTare').text("mg");
+      $('#changeWeightActual').text("mg");
+      $('#changeWeightTotal').text("mg");
+      $('#changeSupplyWeight').text("mg");
+      $('#changeWeightVariance').text("mg");
+      $('#changeReduceWeight').text("mg");
+    }
+    else if(unitWeight == 8){
+      weightUnit = "8";
+      $('#changeWeight').text("ct");
+      $('#changeWeightTare').text("ct");
+      $('#changeWeightActual').text("ct");
+      $('#changeWeightTotal').text("ct");
+      $('#changeSupplyWeight').text("ct");
+      $('#changeWeightVariance').text("ct");
+      $('#changeReduceWeight').text("ct");
+    }
+    else if(unitWeight == 9){
+      weightUnit = "9";
+      $('#changeWeight').text("Oz");
+      $('#changeWeightTare').text("Oz");
+      $('#changeWeightActual').text("Oz");
+      $('#changeWeightTotal').text("Oz");
+      $('#changeSupplyWeight').text("Oz");
+      $('#changeWeightVariance').text("Oz");
+      $('#changeReduceWeight').text("Oz");
     }
   });
 
