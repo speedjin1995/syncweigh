@@ -15,11 +15,15 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 $searchQuery = " ";
 
 if($_POST['fromDate'] != null && $_POST['fromDate'] != ''){
-   $searchQuery = " and weight.dateTime >= '".$_POST['fromDate']."'";
+  $inDate = new DateTime($_POST['fromDate']);
+  $inCDateTime = date_format($inDate,"Y-m-d H:m:s");
+   $searchQuery = " and weight.dateTime >= '".$inCDateTime."'";
 }
 
 if($_POST['toDate'] != null && $_POST['toDate'] != ''){
-	$searchQuery = " and weight.dateTime <= '".$_POST['toDate']."'";
+  $inDate = new DateTime($_POST['toDate']);
+  $inCDateTime = date_format($inDate,"Y-m-d H:m:s");
+	$searchQuery = " and weight.dateTime <= '".$inCDateTime."'";
 }
 
 if($_POST['status'] != null && $_POST['status'] != '' && $_POST['status'] != '-'){
