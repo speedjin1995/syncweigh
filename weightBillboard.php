@@ -149,7 +149,7 @@ else{
       </div>
     </div>
 
-    <div class="row">
+    <!--div class="row">
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
@@ -161,7 +161,7 @@ else{
           </div>
         </div>
       </div>
-    </div>
+    </-->
 
     <div class="row">
       <div class="col-lg-12">
@@ -206,7 +206,7 @@ else{
 
 <script>
 $(function () {
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+  /*var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
   var pieData = {
     labels: [
       'SALES', 
@@ -226,7 +226,7 @@ $(function () {
     type: 'pie',
     data: pieData,
     options: pieOptions      
-  });
+  });*/
 
   var table = $("#weightTable").DataTable({
     "responsive": true,
@@ -265,12 +265,12 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      removeData(pieChart);
+      /*removeData(pieChart);
       setTimeout(() => {
         addData(pieChart, 'SALES', settings.json.salesTotal);
         addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
         addData(pieChart, 'LOCAL', settings.json.localTotal);
-      }, 500);
+      }, 500);*/
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -404,12 +404,12 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      removeData(pieChart);
+      /*removeData(pieChart);
       setTimeout(() => {
         addData(pieChart, 'SALES', settings.json.salesTotal);
         addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
         addData(pieChart, 'LOCAL', settings.json.localTotal);
-      }, 500);
+      }, 500);*/
     }
       // "footerCallback": function ( row, data, start, end, display ) {
       //   var api = this.api();

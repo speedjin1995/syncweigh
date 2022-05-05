@@ -53,7 +53,7 @@ else{
 
                 <div class="form-group">
 					<label for="phone">Company Phone </label>
-					<input type="tel" class="form-control" id="phone" name="phone" value="<?=$phone ?>" placeholder="Enter Phone">
+					<input type="text" class="form-control" id="phone" name="phone" value="<?=$phone ?>" placeholder="Enter Phone">
 				</div>
 
                 <div class="form-group">

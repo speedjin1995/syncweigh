@@ -261,6 +261,13 @@ to get the desired effect
               ?>
 
               <li class="nav-item">
+                <a href="#setup" data-file="setup.php" class="nav-link link">
+                  <i class="nav-icon fas fa-user-cog"></i>
+                  <p>Setup</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="#myprofile" data-file="myprofile.php" class="nav-link link">
                   <i class="nav-icon fas fa-id-badge"></i>
                   <p>Profile</p>

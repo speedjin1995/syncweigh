@@ -14,9 +14,19 @@ else{
 	$stmt->execute();
 	$result = $stmt->get_result();
   $role = 'NORMAL';
+  $port = 'COM5';
+  $baudrate = 9600;
+  $databits = "8";
+  $parity = "N";
+  $stopbits = '1';
 	
 	if(($row = $result->fetch_assoc()) !== null){
     $role = $row['role_code'];
+    $port = $row['port'];
+    $baudrate = $row['baudrate'];
+    $databits = $row['databits'];
+    $parity = $row['parity'];
+    $stopbits = $row['stopbits'];
   }
 
   $lots = $db->query("SELECT * FROM lots WHERE deleted = '0'");
@@ -142,7 +152,7 @@ else{
 <div class="content">
   <div class="container-fluid">
     <div div class="row">
-      <div class="col-md-4 col-sm-6 col-12">
+      <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box">
           <span class="info-box-icon bg-info">
             <i class="fas fa-shopping-cart"></i>
@@ -154,7 +164,7 @@ else{
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-6 col-12">
+      <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box">
           <span class="info-box-icon bg-success">
             <i class="fas fa-shopping-basket"></i>
@@ -166,7 +176,7 @@ else{
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-6 col-12">
+      <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box">
           <span class="info-box-icon bg-warning">
             <i class="fas fa-warehouse" style="color: white;"></i>
@@ -176,6 +186,11 @@ else{
             <span class="info-box-number" id="localInfo">0</span>
           </div>
         </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="input-group-text color-palette" id="indicatorConnected"><i>Indicator Connected</i></div>
+        <div class="input-group-text bg-danger color-palette" id="checkingConnection"><i>Checking Connection</i></div>
       </div>
     </div>
 
@@ -544,24 +559,19 @@ else{
           <div class="col-4">
             <div class="form-group">
               <label>Serial Port</label>
-              <select class="form-control" style="width: 100%;" id="serialPort" name="serialPort" required></select>
+              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$port ?>">
             </div>
           </div>
           <div class="col-4">
             <div class="form-group">
               <label>Baud Rate</label>
-              <input class="form-control" type="number" id="serialPortBaudRate" name="serialPortBaudRate" value="9600" required>
+              <input class="form-control" type="number" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$baudrate ?>">
             </div>
           </div>
           <div class="col-4">
             <div class="form-group">
               <label>Data Bits</label>
-              <select class="form-control" style="width: 100%;" id="serialPortDataBits" name="serialPortDataBits" required>
-                <option value="8">8</option>
-                <option value="7">7</option>
-                <option value="6">6</option>
-                <option value="5">5</option>
-              </select>
+              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$databits ?>">
             </div>
           </div>
         </div>
@@ -569,26 +579,15 @@ else{
           <div class="col-4">
             <div class="form-group">
               <label>Parity</label>
-              <select class="form-control" style="width: 100%;" id="serialPortParity" name="serialPortParity" required>
-                <option value="N">None</option>
-                <option value="O">Odd</option>
-                <option value="E">Even</option>
-                <option value="M">Mark</option>
-                <option value="S">Space</option>
-              </select>
+              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$parity ?>">
             </div>
           </div>
           <div class="col-4">
             <div class="form-group">
               <label>Stop bits</label>
-              <select class="form-control" style="width: 100%;" id="serialPortStopBits" name="serialPortStopBits" required>
-                <option value="1">1</option>
-                <option value="1.5">1.5</option>
-                <option value="2">2</option>
-              </select>
+              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$stopbits ?>">
             </div>
           </div>
-
         </div>
       </div>
       <div class="modal-footer justify-content-between bg-gray-dark color-palette">
@@ -601,17 +600,7 @@ else{
 </div>      
 
 <script>
-// Objects
-var _serialComm = null;
-/*var _dataToSend = '';
-var _dataReceived = '';*/
-
 // Values
-var serialComm = "COM5";
-var baurate = 9600;
-var parity = "N";
-var stopbits = "1";
-var databits = "8";
 var controlflow = "None";
 var indicatorUnit = "kg";
 var weightUnit = "1";
@@ -721,36 +710,39 @@ $(function () {
   //Date picker
   $('#fromDate').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
-  }),
+  });
+
   $('#toDate').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
-  
-  $.post('http://127.0.0.1:5002/getcomport', function(data){
-    var decoded = JSON.parse(data);
-    var options = '';
 
-    for (var i = 0; i < decoded.length; i++) {
-      options += '<option value="' + decoded[i] + '">' + decoded[i] + '</option>';
+  $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
+    if(data == "true"){
+      $('#indicatorConnected').addClass('bg-primary');
+      $('#checkingConnection').removeClass('bg-danger');
+      $('#captureWeight').removeAttr('disabled');
     }
-
-    $('#serialPort').html(options);
+    else{
+      $('#indicatorConnected').removeClass('bg-primary');
+      $('#checkingConnection').addClass('bg-danger');
+      $('#captureWeight').attr('disabled', true);
+    }
   });
   
   setInterval(function () {
-      $.post('http://127.0.0.1:5002/handshaking', function(data){
-          if(data != "Error"){
-            console.log("Data Received:" + data);
-            var text = data.split(" ");
-            $('#indicatorWeight').html(text[text.length - 1]);
-            $('#indicatorConnected').addClass('bg-primary');
-            $('#checkingConnection').removeClass('bg-danger');
-          }
-          else{
-            $('#indicatorConnected').removeClass('bg-primary');
-            $('#checkingConnection').addClass('bg-danger');
-          }
-      });
+    $.post('http://127.0.0.1:5002/handshaking', function(data){
+      if(data != "Error"){
+        console.log("Data Received:" + data);
+        var text = data.split(" ");
+        $('#indicatorWeight').html(text[text.length - 1]);
+        $('#indicatorConnected').addClass('bg-primary');
+        $('#checkingConnection').removeClass('bg-danger');
+      }
+      else{
+        $('#indicatorConnected').removeClass('bg-primary');
+        $('#checkingConnection').addClass('bg-danger');
+      }
+    });
   }, 500);
 
   $.validator.setDefaults({
@@ -772,22 +764,22 @@ $(function () {
           }
         });
       }
-      else if ($('#setupModal').hasClass('show')){
+      /*else if ($('#setupModal').hasClass('show')){
         $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
-            if(data == "true"){
-                $('#indicatorConnected').addClass('bg-primary');
-                $('#checkingConnection').removeClass('bg-danger');
-                $('#captureWeight').removeAttr('disabled');
-            }
-            else{
-                $('#indicatorConnected').removeClass('bg-primary');
-                $('#checkingConnection').addClass('bg-danger');
-                $('#captureWeight').attr('disabled', true);
-            }
-        })
+          if(data == "true"){
+            $('#indicatorConnected').addClass('bg-primary');
+            $('#checkingConnection').removeClass('bg-danger');
+            $('#captureWeight').removeAttr('disabled');
+          }
+          else{
+            $('#indicatorConnected').removeClass('bg-primary');
+            $('#checkingConnection').addClass('bg-danger');
+            $('#captureWeight').attr('disabled', true);
+          }
+        });
         
         $('#setupModal').modal('hide');
-      }
+      }*/
     }
   });
 
@@ -853,9 +845,92 @@ $(function () {
   });
 
   $('#currentWeight').on('keyup', function(){
-    var tareWeight =  $('#tareWeight').val();
+    var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  $('#reduceWeight').val();
+    var reduceWeight =  0;
+
+    if($('#tareWeight').val()){
+      tareWeight =  $('#tareWeight').val();
+    }
+
+    if($('#reduceWeight').val()){
+      reduceWeight =  $('#reduceWeight').val();
+    }
+
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
+
+    if(tareWeight != ''){
+      actualWeight = currentWeight - tareWeight - reduceWeight;
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }
+    else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }
+    else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
+  });
+
+  $('#tareWeight').on('keyup', function(){
+    var tareWeight =  0;
+    var currentWeight =  $('#currentWeight').val();
+    var reduceWeight = 0;
+
+    if($('#tareWeight').val()){
+      tareWeight =  $('#tareWeight').val();
+    }
+
+    if($('#reduceWeight').val()){
+      reduceWeight =  $('#reduceWeight').val();
+    }
+
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
+
+    if(tareWeight != '' && ){
+      actualWeight = currentWeight - tareWeight - reduceWeight;
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }
+    else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }
+    else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
+  });
+
+  $('#reduceWeight').on('keyup', function(){
+    var tareWeight =  0;
+    var currentWeight =  $('#currentWeight').val();
+    var reduceWeight =  0;
+
+    if($('#tareWeight').val()){
+      tareWeight =  $('#tareWeight').val();
+    }
+
+    if($('#reduceWeight').val()){
+      reduceWeight =  $('#reduceWeight').val();
+    }
+    
     var moq = $('#moq').val();
     var totalWeight;
     var actualWeight;
@@ -1364,13 +1439,13 @@ function newEntry(){
   });
 }
 
-function setup(){
+/*function setup(){
   $('#setupModal').find('#serialPortBaudRate').val('9600');
   $('#setupModal').find('#serialPortDataBits').val("8");
   $('#setupModal').find('#serialPortParity').val('N');
   $('#setupModal').find('#serialPortStopBits').val('1');
   $('#setupModal').find('#serialPortFlowControl').val('None');
-  $('#setupModal').modal('show');
+  //$('#setupModal').modal('show');
 
   $('#setupForm').validate({
     errorElement: 'span',
@@ -1385,7 +1460,7 @@ function setup(){
       $(element).removeClass('is-invalid');
     }
   });
-}
+}*/
 
 function edit(id) {
   $.post('php/getWeights.php', {userID: id}, function(data){
