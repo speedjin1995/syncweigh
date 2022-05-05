@@ -720,12 +720,12 @@ $(function () {
     if(data == "true"){
       $('#indicatorConnected').addClass('bg-primary');
       $('#checkingConnection').removeClass('bg-danger');
-      $('#captureWeight').removeAttr('disabled');
+      //$('#captureWeight').removeAttr('disabled');
     }
     else{
       $('#indicatorConnected').removeClass('bg-primary');
       $('#checkingConnection').addClass('bg-danger');
-      $('#captureWeight').attr('disabled', true);
+      //$('#captureWeight').attr('disabled', true);
     }
   });
   
@@ -1119,21 +1119,25 @@ $(function () {
       $('#changeReduceWeight').text("KG");
 
       if(indicatorUnit == "g"){
-          if($('#currentWeight').val()){
-              $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) / 1000).toFixed(2));
-          }
-          
-          if($('#tareWeight').val()){
-              $('#tareWeight').val(parseFloat(parseFloat($('#tareWeight').val()) / 1000).toFixed(2));
-          }
-          
-          if($('#actualWeight').val()){
-              $('#actualWeight').val(parseFloat(parseFloat($('#actualWeight').val()) / 1000).toFixed(2));
-          }
-          
-          if($('#totalWeight').val()){
-              $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) / 1000).toFixed(2));
-          }
+        if($('#currentWeight').val()){
+          $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) / 1000).toFixed(2));
+        }
+        
+        if($('#tareWeight').val()){
+            $('#tareWeight').val(parseFloat(parseFloat($('#tareWeight').val()) / 1000).toFixed(2));
+        }
+        
+        if($('#actualWeight').val()){
+          $('#actualWeight').val(parseFloat(parseFloat($('#actualWeight').val()) / 1000).toFixed(2));
+        }
+        
+        if($('#totalWeight').val()){
+          $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) / 1000).toFixed(2));
+        }
+
+        if($('#reduceWeight').val()){
+          $('#reduceWeight').val(parseFloat(parseFloat($('#reduceWeight').val()) / 1000).toFixed(2));
+        }
       }
     }
     else if(unitWeight == 2){
@@ -1147,21 +1151,25 @@ $(function () {
       $('#changeReduceWeight').text("G");
       
       if(indicatorUnit == "kg"){
-          if($('#currentWeight').val()){
-              $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) * 1000).toFixed(2));
-          }
-          
-          if($('#tareWeight').val()){
-              $('#tareWeight').val(parseFloat(parseFloat($('#tareWeight').val()) * 1000).toFixed(2));
-          }
-          
-          if($('#actualWeight').val()){
-              $('#actualWeight').val(parseFloat(parseFloat($('#actualWeight').val()) * 1000).toFixed(2));
-          }
-          
-          if($('#totalWeight').val()){
-              $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) * 1000).toFixed(2));
-          }
+        if($('#currentWeight').val()){
+          $('#currentWeight').val(parseFloat(parseFloat($('#currentWeight').val()) * 1000).toFixed(2));
+        }
+        
+        if($('#tareWeight').val()){
+          $('#tareWeight').val(parseFloat(parseFloat($('#tareWeight').val()) * 1000).toFixed(2));
+        }
+        
+        if($('#actualWeight').val()){
+          $('#actualWeight').val(parseFloat(parseFloat($('#actualWeight').val()) * 1000).toFixed(2));
+        }
+        
+        if($('#totalWeight').val()){
+          $('#totalWeight').val(parseFloat(parseFloat($('#totalWeight').val()) * 1000).toFixed(2));
+        }
+
+        if($('#reduceWeight').val()){
+          $('#reduceWeight').val(parseFloat(parseFloat($('#reduceWeight').val()) * 1000).toFixed(2));
+        }
       }
     }
     else if(unitWeight == 3){
