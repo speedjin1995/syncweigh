@@ -14,7 +14,7 @@ if(isset($_POST['code'], $_POST['product'], $_POST['price'])){
     $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
 
     if($_POST['id'] != null && $_POST['id'] != ''){
-        if ($update_stmt = $db->prepare("UPDATE products SET product_code=? product_name=?, product_price=? WHERE id=?")) {
+        if ($update_stmt = $db->prepare("UPDATE products SET product_code=?, product_name=?, product_price=? WHERE id=?")) {
             $update_stmt->bind_param('ssss', $code, $product, $price, $_POST['id']);
             
             // Execute the prepared query.
