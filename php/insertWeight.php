@@ -83,17 +83,17 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$date = new DateTime($_POST['dateTime']);
 	$dateTime = date_format($date,"Y-m-d h:m:s");
 	$reduceWeight = filter_input(INPUT_POST, 'reduceWeight', FILTER_SANITIZE_STRING);
+	
+	if($_POST['inCDateTime'] != null && $_POST['inCDateTime'] != ''){
+	    $inDate = new DateTime($_POST['inCDateTime']);
+		$inCDateTime = date_format($inDate,"Y-m-d H:m:s");
+		$pStatus = "Pending";
+	}
 
 	if($_POST['outGDateTime'] != null && $_POST['outGDateTime'] != ''){
 		$outDate = new DateTime($_POST['outGDateTime']);
 		$outGDateTime = date_format($outDate,"Y-m-d H:m:s");
 		$pStatus = "Complete";
-	}
-
-	if($_POST['inCDateTime'] != null && $_POST['inCDateTime'] != ''){
-		$inDate = new DateTime($_POST['inCDateTime']);
-		$inCDateTime = date_format($inDate,"Y-m-d H:m:s");
-		$pStatus = "Pending";
 	}
 
 	if($_POST['id'] != null && $_POST['id'] != ''){
@@ -102,7 +102,7 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 		dateTime=?, manual=?, manualVehicle=?, manualOutgoing=?, reduceWeight=?, outGDateTime=?, inCDateTime=?, pStatus=?, variancePerc=?, updated_by=? WHERE id=?")){
 			$update_stmt->bind_param('ssssssssssssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product,
 			$package, $unitWeight, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $moq, $unitPrice, $totalPrice, $remark, $supplyWeight, $varianceWeight, 
-			$status, $dateTime, $manual, $manualVehicle, $manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pstatus, $variancePerc, $userId, $_POST['id']);
+			$status, $dateTime, $manual, $manualVehicle, $manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pStatus, $variancePerc, $userId, $_POST['id']);
 		
 			// Execute the prepared query.
 			if (! $update_stmt->execute()){

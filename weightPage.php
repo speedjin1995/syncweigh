@@ -847,7 +847,10 @@ $(function () {
   $('#currentWeight').on('keyup', function(){
     var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  0;
+    var reduceWeight = 0;
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
 
     if($('#tareWeight').val()){
       tareWeight =  $('#tareWeight').val();
@@ -857,17 +860,8 @@ $(function () {
       reduceWeight =  $('#reduceWeight').val();
     }
 
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if(tareWeight != ''){
-      actualWeight = currentWeight - tareWeight - reduceWeight;
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
+    actualWeight = currentWeight - tareWeight - reduceWeight;
+    $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
@@ -885,6 +879,9 @@ $(function () {
     var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
     var reduceWeight = 0;
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
 
     if($('#tareWeight').val()){
       tareWeight =  $('#tareWeight').val();
@@ -894,17 +891,8 @@ $(function () {
       reduceWeight =  $('#reduceWeight').val();
     }
 
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if(tareWeight != '' && ){
-      actualWeight = currentWeight - tareWeight - reduceWeight;
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
+    actualWeight = currentWeight - tareWeight - reduceWeight;
+    $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
@@ -921,7 +909,10 @@ $(function () {
   $('#reduceWeight').on('keyup', function(){
     var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  0;
+    var reduceWeight = 0;
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
 
     if($('#tareWeight').val()){
       tareWeight =  $('#tareWeight').val();
@@ -930,18 +921,9 @@ $(function () {
     if($('#reduceWeight').val()){
       reduceWeight =  $('#reduceWeight').val();
     }
-    
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
 
-    if(tareWeight != ''){
-      actualWeight = currentWeight - tareWeight - reduceWeight;
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
+    actualWeight = currentWeight - tareWeight - reduceWeight;
+    $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;

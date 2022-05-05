@@ -157,7 +157,7 @@ to get the desired effect
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#status" data-file="weightPage.php" class="nav-link link">
+                <a href="#weight" data-file="weightPage.php" class="nav-link link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>Weighing</p>
                 </a>
