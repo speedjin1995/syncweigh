@@ -30,9 +30,17 @@ if(isset($_POST['userID'], $_POST["file"])){
     }
 
     if($_POST["file"] == 'weight'){
-        //$empQuery = ;
+        //i remove this because both(billboard and weight) also call this print page.
+        //AND weight.pStatus = 'Pending'
 
-        if ($select_stmt = $db->prepare("SELECT weight.id, weight.serialNo, vehicles.veh_number, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, weight.purchaseNo, customers.customer_name, products.product_name, packages.packages, weight.unitWeight, weight.tare, weight.totalWeight, weight.actualWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, weight.totalPrice, weight.remark, status.status FROM weight, vehicles, packages, lots, customers, products, units, status WHERE weight.vehicleNo = vehicles.id AND weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unit AND weight.deleted = '0' AND weight.id=?")) {
+        if ($select_stmt = $db->prepare("SELECT weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
+        weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
+        weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
+        weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
+        weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
+        WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND
+        weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
+        units.id=weight.unitWeight AND weight.deleted = '0' AND weight.id=?")) {
             $select_stmt->bind_param('s', $id);
 
             // Execute the prepared query.
@@ -79,22 +87,22 @@ if(isset($_POST['userID'], $_POST["file"])){
                             <th style="border:1px solid black;">Weight</th>
                         </tr>
                         <tr>
-                            <td style="border:1px solid black;">'.$row['veh_number'].'</td>
+                            <td style="border:1px solid black;">'.$row['vehicleNo'].'</td>
                             <td style="border:1px solid black;">'.$row['product_name'].'</td>
                             <td style="border:1px solid black;">'.$row['dateTime'].'</td>
-                            <td style="border:1px solid black;">'.$row['unitWeight'].' '.$row['units'].'</td>
+                            <td style="border:1px solid black;">'.$row['currentWeight'].' '.$row['unitWeight'].'</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td style="border:1px solid black;">Tare Weight</td>
-                            <td style="border:1px solid black;">'.$row['tare'].' '.$row['units'].'</td>
+                            <td style="border:1px solid black;">'.$row['tare'].' '.$row['unitWeight'].'</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td style="border:1px solid black;">Net Weight</td>
-                            <td style="border:1px solid black;">'.$row['actualWeight'].' '.$row['units'].'</td>
+                            <td style="border:1px solid black;">'.$row['actualWeight'].' '.$row['unitWeight'].'</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -106,7 +114,7 @@ if(isset($_POST['userID'], $_POST["file"])){
                             <td></td>
                             <td></td>
                             <td style="border:1px solid black;">Total Weight</td>
-                            <td style="border:1px solid black;">'.$row['totalWeight'].' '.$row['units'].'</td>
+                            <td style="border:1px solid black;">'.$row['totalWeight'].' '.$row['unitWeight'].'</td>
                         </tr>
                         </table>
                         <p>Remark: '.$row['remark'].'</p>

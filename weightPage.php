@@ -383,7 +383,7 @@ else{
                 <div class="form-group col-md-2">
                     <label style="color:red;">Variance Weight</label>
                     <div class="input-group">
-                      <input class="form-control" type="number" placeholder="Variance Weight" id="varianceWeight" name="varianceWeight" readonly/>
+                      <input class="form-control" type="text" placeholder="Variance Weight" id="varianceWeight" name="varianceWeight" readonly/>
                       <div class="input-group-text bg-success color-palette"><i id="changeWeightVariance">KG/G</i></div>
                     </div>
                 </div>
@@ -441,7 +441,7 @@ else{
                     <label>Unit Price</label>
                     <div class="input-group">
                       <div class="input-group-text"><i>RM</i></div>
-                      <input class="form-control" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
+                      <input class="form-control money" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
                     </div>
                 </div>
 
@@ -449,7 +449,7 @@ else{
                     <label>Total Price</label>
                     <div class="input-group">
                       <div class="input-group-text"><i>RM</i></div>
-                      <input class="form-control" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
+                      <input class="form-control money" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
                     </div>
                 </div>
               </div>
@@ -801,6 +801,32 @@ $(function () {
     }
   ?>
 
+   $("input.money").each((i,ele)=>{
+      let clone=$(ele).clone(false)
+      clone.attr("type","text")
+      let ele1=$(ele)
+      clone.val(Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 }))
+      $(ele).after(clone)
+      $(ele).hide()
+      clone.mouseenter(()=>{
+
+        ele1.show()
+        clone.hide()
+      })
+      setInterval(()=>{
+        let newv=Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 })
+        if(clone.val()!=newv){
+          clone.val(newv)
+        }
+      },10)
+
+      $(ele).mouseleave(()=>{
+        $(clone).show()
+        $(ele1).hide()
+    })
+    
+
+  })
   $('#inCButton').on('click', function(){
       var today  = new Date();
       $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
@@ -860,7 +886,7 @@ $(function () {
       reduceWeight =  $('#reduceWeight').val();
     }
 
-    actualWeight = currentWeight - tareWeight - reduceWeight;
+    actualWeight = tareWeight - currentWeight - reduceWeight;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -891,7 +917,7 @@ $(function () {
       reduceWeight =  $('#reduceWeight').val();
     }
 
-    actualWeight = currentWeight - tareWeight - reduceWeight;
+    actualWeight = tareWeight - currentWeight - reduceWeight;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -922,7 +948,7 @@ $(function () {
       reduceWeight =  $('#reduceWeight').val();
     }
 
-    actualWeight = currentWeight - tareWeight - reduceWeight;
+    actualWeight = tareWeight - currentWeight - reduceWeight;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1228,7 +1254,7 @@ $(function () {
     var actualWeight;
 
     if(tareWeight != ''){
-      actualWeight = currentWeight - tareWeight - reduceWeight;
+      actualWeight =  tareWeight - currentWeight - reduceWeight;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -1257,8 +1283,8 @@ $(function () {
     var totalWeight;
 
     if(currentWeight != '' && $(this).val() != '' ){
-      var actualWeight = currentWeight - $(this).val()- reduceWeight;
-      $('#actualWeight').val(actualWeight.toFixed(2));
+      var actualWeight = $(this).val() - currentWeight - reduceWeight;
+      $('#actualWeight').val((actualWeight.toFixed(2)));
     }
     else{
       $('#actualWeight').val((0).toFixed(2))
@@ -1298,10 +1324,11 @@ $(function () {
   $('#unitPrice').on('keyup', function () {
     var totalPrice;
     var unitPrice = $(this).val();
-    var totalWeight = $('#totalWeight').val();
+    var moq = $('#moq').val();
+    var actualWeight = $("#actualWeight").val();
 
-    if(unitPrice != '' &&  totalWeight != ''){
-      totalPrice = unitPrice * totalWeight;
+    if(unitPrice != '' &&  moq != '' && actualWeight != ''){
+      totalPrice = unitPrice * moq * actualWeight;
       $('#totalPrice').val(totalPrice.toFixed(2));
     }
     else(
@@ -1321,9 +1348,10 @@ $(function () {
   });
 
   $('#reduceWeight').on('keyup', function () {
-    var actualWeight = $('#currentWeight').val() - $('#tareWeight').val() - $(this).val();
+    var actualWeight =  $('#tareWeight').val() - $('#currentWeight').val() - $(this).val();
 
     if(actualWeight != ''){
+      $('#actualWeight').text(actualWeight.toFixed(2));
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -1354,11 +1382,11 @@ function format (row) {
   '</p></div></div><div class="row"><div class="col-md-3">'+
   '</div><div class="col-md-3"><p>Lot No: '+row.lots_no+
   '</p></div><div class="col-md-3"><p>Invoice No: '+row.invoiceNo+
-  '</p></div><div class="col-md-3"><p>Unit Price: '+row.unitPrice+
+  '</p></div><div class="col-md-3 money"><p>Unit Price: '+row.unitPrice+
   '</p></div></div><div class="row"><div class="col-md-3">'+
   '</div><div class="col-md-3"><p>Order Weight: '+row.supplyWeight+
   '</p></div><div class="col-md-3"><p>Delivery No: '+row.deliveryNo+
-  '</p></div><div class="col-md-3"><p>Total Weight: '+row.totalPrice+
+  '</p></div><div class="col-md-3 money"><p>Total Weight: '+row.totalPrice+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Contact No: '+row.customer_phone+
   '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
   '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
@@ -1481,6 +1509,10 @@ function newEntry(){
     }
   });
 }*/
+function numberWithCommas(x) {
+  debugger;
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 function edit(id) {
   $.post('php/getWeights.php', {userID: id}, function(data){
