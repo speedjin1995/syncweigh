@@ -122,7 +122,7 @@ if($query->num_rows > 0){
     while($row = $query->fetch_assoc()){ 
         $deleted = ($row['deleted'] == 1)?'Active':'Inactive';
         if($_GET["file"] == 'weight'){
-            $lineData = array($row['serialNo'], $row['product_name'], $row['unitWeight'], $row['tare'], $row['totalWeight'], $row['actualWeight'],
+            $lineData = array($row['serialNo'], $row['product_name'], $row['units'], $row['tare'], $row['totalWeight'], $row['actualWeight'],
             $row['moq'], $row['unitPrice'], $row['totalPrice'], $row['supplyWeight'], $row['currentWeight'], $row['varianceWeight'], $row['reduceWeight'],
             $row['inCDateTime'], $row['outGDateTime'], $row['variancePerc'], $row['vehicleNo'], $row['lots_no'], $row['batchNo'], $row['invoiceNo']
             , $row['deliveryNo'], $row['purchaseNo'], $row['customer_name'], $row['packages'], $row['dateTime'], $row['remark'], $row['status'], $deleted);

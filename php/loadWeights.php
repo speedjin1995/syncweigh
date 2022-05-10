@@ -19,12 +19,12 @@ if($searchValue != ''){
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND weight.deleted = '0' AND weight.pStatus = 'Pending'");
+$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Pending'");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND weight.deleted = '0' AND weight.pStatus = 'Pending'".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Pending'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
@@ -33,10 +33,10 @@ $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, 
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, lots, customers, products, units, status, users, transporters
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;
@@ -55,7 +55,16 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $outGDateTime = '-';
   }
   else{
-    $outGDateTime = $row['outGDateTime'];
+    $dateOut = new DateTime($row['outGDateTime']);
+    $outGDateTime = date_format($dateOut,"d/m/Y H:m:s A");
+  }
+
+  if($row['inCDateTime'] == null || $row['inCDateTime'] == ''){
+    $outGDateTime = '-';
+  }
+  else{
+    $dateInt = new DateTime($row['inCDateTime']);
+    $inCDateTime = date_format($dateInt,"d/m/Y H:m:s A");
   }
 
   if(strtoupper($row['status']) == 'SALES'){
@@ -84,7 +93,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "customer_address"=>$row['customer_address'],
     "product_name"=>$row['product_name'],
     "packages"=>$row['packages'],
-    "unitWeight"=>$row['unitWeight'],
+    "unitWeight"=>$row['units'],
     "supplyWeight"=>$row['supplyWeight'],
     "varianceWeight"=>$row['varianceWeight'],
     "tare"=>$row['tare'],
@@ -93,7 +102,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "currentWeight"=>$row['currentWeight'],
     "unit"=>$row['units'],
     "moq"=>$row['moq'],
-    "dateTime"=>$row['dateTime'],
+    "dateTime"=> $row['dateTime'],
     "unitPrice"=>$row['unitPrice'],
     "totalPrice"=>$row['totalPrice'],
     "remark"=>$row['remark'],
@@ -103,9 +112,10 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "manualOutgoing"=>$row['manualOutgoing'],
     "reduceWeight"=>$row['reduceWeight'],
     "outGDateTime"=>$outGDateTime,
-    "inCDateTime"=>$row['inCDateTime'],
+    "inCDateTime"=>$inCDateTime,
     "pStatus"=>$row['pStatus'],
     "variancePerc"=> $row['variancePerc'],
+    "transporter_name"=> $row['transporter_name']
   );
 
   $counter++;

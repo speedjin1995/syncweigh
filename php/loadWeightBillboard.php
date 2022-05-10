@@ -55,7 +55,16 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $outGDateTime = '-';
   }
   else{
-    $outGDateTime = $row['outGDateTime'];
+    $dateOut = new DateTime($row['outGDateTime']);
+    $outGDateTime = date_format($dateOut,"d/m/Y H:m:s A");
+  }
+
+  if($row['inCDateTime'] == null || $row['inCDateTime'] == ''){
+    $outGDateTime = '-';
+  }
+  else{
+    $dateInt = new DateTime($row['inCDateTime']);
+    $inCDateTime = date_format($dateInt,"d/m/Y H:m:s A");
   }
 
   if(strtoupper($row['status']) == 'SALES'){
@@ -103,7 +112,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "manualOutgoing"=>$row['manualOutgoing'],
     "reduceWeight"=>$row['reduceWeight'],
     "outGDateTime"=>$outGDateTime,
-    "inCDateTime"=>$row['inCDateTime'],
+    "inCDateTime"=>$inCDateTime,
     "pStatus"=>$row['pStatus'],
     "variancePerc"=> $row['variancePerc']
   );

@@ -233,6 +233,12 @@ to get the desired effect
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="#transporters" data-file="transport.php" class="nav-link link">
+                      <i class="nav-icon fas fa-car"></i>
+                      <p>transporters</p>
+                    </a>
+                  </li>                  
+                  <li class="nav-item">
                     <a href="#currency" data-file="currency.php" class="nav-link link">
                       <i class="nav-icon fas fa-dollar-sign"></i>
                       <p>Currency</p>

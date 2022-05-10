@@ -90,19 +90,19 @@ if(isset($_POST['userID'], $_POST["file"])){
                             <td style="border:1px solid black;">'.$row['vehicleNo'].'</td>
                             <td style="border:1px solid black;">'.$row['product_name'].'</td>
                             <td style="border:1px solid black;">'.$row['dateTime'].'</td>
-                            <td style="border:1px solid black;">'.$row['currentWeight'].' '.$row['unitWeight'].'</td>
+                            <td style="border:1px solid black;">'.$row['currentWeight'].' '.$row['units'].'</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td style="border:1px solid black;">Tare Weight</td>
-                            <td style="border:1px solid black;">'.$row['tare'].' '.$row['unitWeight'].'</td>
+                            <td style="border:1px solid black;">'.$row['tare'].' '.$row['units'].'</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td style="border:1px solid black;">Net Weight</td>
-                            <td style="border:1px solid black;">'.$row['actualWeight'].' '.$row['unitWeight'].'</td>
+                            <td style="border:1px solid black;">'.$row['actualWeight'].' '.$row['units'].'</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -114,7 +114,7 @@ if(isset($_POST['userID'], $_POST["file"])){
                             <td></td>
                             <td></td>
                             <td style="border:1px solid black;">Total Weight</td>
-                            <td style="border:1px solid black;">'.$row['totalWeight'].' '.$row['unitWeight'].'</td>
+                            <td style="border:1px solid black;">'.$row['totalWeight'].' '.$row['units'].'</td>
                         </tr>
                         </table>
                         <p>Remark: '.$row['remark'].'</p>

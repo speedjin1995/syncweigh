@@ -41,6 +41,7 @@ else{
   $units1 = $db->query("SELECT * FROM units WHERE deleted = '0'");
   $status = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
   $status2 = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
+  $transporters = $db->query("SELECT * FROM `transporters` WHERE deleted = '0'");
 }
 ?>
 
@@ -432,9 +433,19 @@ else{
                   </div>
                 </div>
 
-                <div class="form-group col-md-1">
+                <div class="form-group col-md-1" hidden>
                   <label>M.O.Q *</label>
-                  <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0" required>
+                  <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0">
+                </div>
+
+                <div class="form-group col-md-1">
+                  <label>Transporter</label>
+                  <select class="form-control" style="width: 100%;" id="transporter" name="transporter" required>
+                      <option selected="selected">-</option>
+                      <?php while($row5=mysqli_fetch_assoc($transporters)){ ?>
+                        <option value="<?=$row5['id'] ?>"><?=$row5['transporter_name'] ?></option>
+                      <?php } ?>
+                  </select>
                 </div>
 
                 <div class="form-group col-md-2">
@@ -469,21 +480,21 @@ else{
                 <div class="input-group">
                   <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
                   <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
-                  <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button>
+                  <!-- <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button> -->
                 </div>
               </div>              
 
               <input type="hidden" id="outGDateTime" name="outGDateTime">
               <input type="hidden" id="inCDateTime" name="inCDateTime">
 
-              <div class="form-group col-md-2 hidOutgoing" hidden>
+              <div class="form-group col-md-2 hidOutgoing">
                 <label>Outgoing - T.W *
                   <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualOutgoing" name="manualOutgoing" value="0"/>Manual</span>
                 </label>
                 <div class="input-group">
-                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly required/>
+                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly/>
                   <div class="input-group-text bg-primary color-palette"><i id="changeWeightTare">KG/G</i></div>
-                  <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button>
+                  <!-- <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button> -->
                 </div>
               </div>
               
@@ -801,42 +812,30 @@ $(function () {
     }
   ?>
 
-   $("input.money").each((i,ele)=>{
-      let clone=$(ele).clone(false)
-      clone.attr("type","text")
-      let ele1=$(ele)
-      clone.val(Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 }))
-      $(ele).after(clone)
-      $(ele).hide()
-      clone.mouseenter(()=>{
+  //  $("input.money").each((i,ele)=>{
+  //     let clone=$(ele).clone(false)
+  //     clone.attr("type","text")
+  //     let ele1=$(ele)
+  //     clone.val(Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 }))
+  //     $(ele).after(clone)
+  //     $(ele).hide()
+  //     clone.mouseenter(()=>{
 
-        ele1.show()
-        clone.hide()
-      })
-      setInterval(()=>{
-        let newv=Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 })
-        if(clone.val()!=newv){
-          clone.val(newv)
-        }
-      },10)
+  //       ele1.show()
+  //       clone.hide()
+  //     })
+  //     setInterval(()=>{
+  //       let newv=Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 })
+  //       if(clone.val()!=newv){
+  //         clone.val(newv)
+  //       }
+  //     },10)
 
-      $(ele).mouseleave(()=>{
-        $(clone).show()
-        $(ele1).hide()
-    })
-    
-
-  })
-  $('#inCButton').on('click', function(){
-      var today  = new Date();
-      $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
-      $('.hidOutgoing').removeAttr('hidden');
-  });
-
-  $('#outGButton').on('click', function(){
-      var today  = new Date();
-      $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
-  });
+  //     $(ele).mouseleave(()=>{
+  //       $(clone).show()
+  //       $(ele1).hide()
+  //   })
+  // })
 
   $('#vehicleNo').on('change', function(){
     $vehicleWeight = $('#vehicleNo option:selected').data("weight");
@@ -896,6 +895,9 @@ $(function () {
     else(
       $('#totalWeight').val((0).toFixed(2))
     )
+    debugger;
+    var today  = new Date();
+    $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
 
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
@@ -927,6 +929,9 @@ $(function () {
     else(
       $('#totalWeight').val((0).toFixed(2))
     )
+
+    var today  = new Date();
+    $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
 
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
@@ -1298,6 +1303,9 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     }
 
+    var today  = new Date();
+    $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
+    
     $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
@@ -1396,6 +1404,7 @@ function format (row) {
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div><div class="col-md-3"><p>Transporter: '+row.transporter_name+
   '</p></div></div>';
   ;
 }
@@ -1425,6 +1434,7 @@ function formatNormal (row) {
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div><div class="col-md-3"><p>Transporter: '+row.transporter_name+
   '</p></div></div>';
 }
 
@@ -1443,6 +1453,7 @@ function newEntry(){
   $('#extendModal').find('#purchaseNo').val("");
   $('#extendModal').find('#currentWeight').val("");
   $('#extendModal').find('#product').val('');
+  $('#extendModal').find('#transporter').val('');
   $('#extendModal').find('#moq').val("1");
   $('#extendModal').find('#tareWeight').val("0.00");
   $('#extendModal').find('#package').val('');
@@ -1459,17 +1470,18 @@ function newEntry(){
   $('#extendModal').find('#vehicleNoTct').val("");
   $('#extendModal').find('#vehicleNo').removeAttr('hidden');
   $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
-  $('#extendModal').find('.hidOutgoing').attr('hidden', 'hidden');
+  // $('#extendModal').find('.hidOutgoing').attr('hidden', 'hidden');
   $('#extendModal').find('#currentWeight').attr('readonly', true);
+  $('#extendModal').find('#tareWeight').attr('readonly', true);
   $('#extendModal').find('#reduceWeight').val("");
   $('#extendModal').find('#outGDateTime').val("");
   $('#extendModal').find('#inCDateTime').val("");
   $('#extendModal').find('#pStatus').val("");
   $('#extendModal').find('#variancePerc').val("");
   $('#dateTime').datetimepicker({
-    format: 'D/MM/YYYY h:m:s A'
+        format: 'D/MM/YYYY h:m:s A'
   });
-  $('#extendModal').find('#dateTime').val(date.toLocaleString("en-US"));
+  $('#extendModal').find('#dateTime').val(date.toLocaleString('en-GB'));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
@@ -1531,6 +1543,7 @@ function edit(id) {
       $('#extendModal').find('#currentWeight').val(obj.message.currentWeight);
       $('#extendModal').find('#product').val(obj.message.productName);
       $('#extendModal').find('#moq').val(obj.message.moq);
+      $('#extendModal').find('#transporter').val(obj.message.transporter);
       $('#extendModal').find('#tareWeight').val(obj.message.tare);
       $('#extendModal').find('#package').val(obj.message.package);
       $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
@@ -1545,7 +1558,7 @@ function edit(id) {
       $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
       $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
-      $('#extendModal').find('.hidOutgoing').removeAttr('hidden');
+      // $('#extendModal').find('.hidOutgoing').removeAttr('hidden');
       $('#dateTime').datetimepicker({
         format: 'D/MM/YYYY h:m:s A'
       });
