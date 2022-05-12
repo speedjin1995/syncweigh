@@ -480,7 +480,7 @@ else{
                 <div class="input-group">
                   <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
                   <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
-                  <!-- <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button> -->
+                  <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button>
                 </div>
               </div>              
 
@@ -494,7 +494,7 @@ else{
                 <div class="input-group">
                   <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly/>
                   <div class="input-group-text bg-primary color-palette"><i id="changeWeightTare">KG/G</i></div>
-                  <!-- <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button> -->
+                  <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button>
                 </div>
               </div>
               
@@ -837,6 +837,114 @@ $(function () {
   //   })
   // })
 
+  $('#inCButton').on('click', function(){
+    var text = $('#indicatorWeight').text();
+    
+    if(text[text.length-2] == 'k'){
+        if(weightUnit == "2"){
+            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
+        }
+        else{
+            $('#currentWeight').val(text.substring(0, text.length-2));
+        }
+        
+        indicatorUnit = "kg";
+    }
+    else{
+        if(weightUnit == "1"){
+            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
+        }
+        else{
+            $('#currentWeight').val(text.substring(0, text.length-1)); 
+        }
+         
+        indicatorUnit = "g";
+    }
+    
+    var tareWeight =  $('#tareWeight').val();
+    var currentWeight =  $('#currentWeight').val();
+    var reduceWeight =  $('#reduceWeight').val();
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
+
+    if(tareWeight != ''){
+      actualWeight =  tareWeight - currentWeight - reduceWeight;
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }
+    else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }
+    else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $('#currentWeight').trigger("keyup");
+    $('#variancePerc').trigger("keyup");
+    $('#reduceWeight').trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
+  });
+
+  $('#outGButton').on('click', function(){
+    var text = $('#indicatorWeight').text();
+    
+    if(text[text.length-2] == 'k'){
+        if(weightUnit == "2"){
+            $('#tareWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
+        }
+        else{
+            $('#tareWeight').val(text.substring(0, text.length-2));
+        }
+        
+        indicatorUnit = "kg";
+    }
+    else{
+        if(weightUnit == "1"){
+            $('#tareWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
+        }
+        else{
+            $('#tareWeight').val(text.substring(0, text.length-1)); 
+        }
+         
+        indicatorUnit = "g";
+    }
+    
+    var tareWeight =  $('#tareWeight').val();
+    var currentWeight =  $('#currentWeight').val();
+    var reduceWeight =  $('#reduceWeight').val();
+    var moq = $('#moq').val();
+    var totalWeight;
+    var actualWeight;
+
+    if(tareWeight != ''){
+      actualWeight =  tareWeight - currentWeight - reduceWeight;
+      $('#actualWeight').val(actualWeight.toFixed(2));
+    }
+    else{
+      $('#actualWeight').val((0).toFixed(2))
+    }
+
+    if(actualWeight != '' &&  moq != ''){
+      totalWeight = actualWeight * moq;
+      $('#totalWeight').val(totalWeight.toFixed(2));
+    }
+    else(
+      $('#totalWeight').val((0).toFixed(2))
+    )
+
+    $('#variancePerc').trigger("keyup");
+    $('#tareWeight').trigger("keyup");
+    $('#reduceWeight').trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+    $('#supplyWeight').trigger("keyup");
+  });
+
   $('#vehicleNo').on('change', function(){
     $vehicleWeight = $('#vehicleNo option:selected').data("weight");
     if($vehicleWeight != null && $vehicleWeight != ''){
@@ -895,7 +1003,7 @@ $(function () {
     else(
       $('#totalWeight').val((0).toFixed(2))
     )
-    debugger;
+    
     var today  = new Date();
     $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
 
