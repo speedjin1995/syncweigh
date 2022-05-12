@@ -163,6 +163,44 @@ else{
       </div>
     </-->
 
+    <div div class="row">
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info">
+            <i class="fas fa-shopping-cart"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Sales</span>
+            <span class="info-box-number" id="salesInfo">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success">
+            <i class="fas fa-shopping-basket"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Purchase</span>
+            <span class="info-box-number" id="purchaseInfo">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning">
+            <i class="fas fa-warehouse" style="color: white;"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Local</span>
+            <span class="info-box-number" id="localInfo">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-lg-12">
         <div class="card card-primary">
@@ -265,12 +303,9 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      /*removeData(pieChart);
-      setTimeout(() => {
-        addData(pieChart, 'SALES', settings.json.salesTotal);
-        addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
-        addData(pieChart, 'LOCAL', settings.json.localTotal);
-      }, 500);*/
+      $('#salesInfo').text(settings.json.salesTotal);
+      $('#purchaseInfo').text(settings.json.purchaseTotal);
+      $('#localInfo').text(settings.json.localTotal);
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -406,12 +441,9 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      /*removeData(pieChart);
-      setTimeout(() => {
-        addData(pieChart, 'SALES', settings.json.salesTotal);
-        addData(pieChart, 'PURCHASES', settings.json.purchaseTotal);
-        addData(pieChart, 'LOCAL', settings.json.localTotal);
-      }, 500);*/
+      $('#salesInfo').text(settings.json.salesTotal);
+      $('#purchaseInfo').text(settings.json.purchaseTotal);
+      $('#localInfo').text(settings.json.localTotal);
     }
       // "footerCallback": function ( row, data, start, end, display ) {
       //   var api = this.api();
