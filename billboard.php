@@ -303,9 +303,9 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      $('#salesInfo').text('Total Transaction: ' + settings.json.salesTotal + '<br>Total Incoming: ' + settings.json.salesWeight + '<br>Total Outgoing: ' + settings.json.salesTare + '<br>Total Net Weight: ' +settings.json.salesNet);
-      $('#purchaseInfo').text('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + '<br>Total Outgoing: ' + settings.json.purchaseTare + '<br>Total Net Weight: ' +settings.json.purchaseNet);
-      $('#localInfo').text('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + '<br>Total Outgoing: ' + settings.json.localTare + '<br>Total Net Weight: ' +settings.json.localNet);
+      $('#salesInfo').html('Total Transaction: ' + settings.json.salesTotal + '<br>Total Incoming: ' + settings.json.salesWeight + '<br>Total Outgoing: ' + settings.json.salesTare + '<br>Total Net Weight: ' +settings.json.salesNet);
+      $('#purchaseInfo').html('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + '<br>Total Outgoing: ' + settings.json.purchaseTare + '<br>Total Net Weight: ' +settings.json.purchaseNet);
+      $('#localInfo').html('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + '<br>Total Outgoing: ' + settings.json.localTare + '<br>Total Net Weight: ' +settings.json.localNet);
     }
     // "footerCallback": function ( row, data, start, end, display ) {
     //   var api = this.api();
@@ -441,9 +441,9 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
-      $('#salesInfo').text(settings.json.salesTotal);
-      $('#purchaseInfo').text(settings.json.purchaseTotal);
-      $('#localInfo').text(settings.json.localTotal);
+      $('#salesInfo').html('Total Transaction: ' + settings.json.salesTotal + '<br>Total Incoming: ' + settings.json.salesWeight + '<br>Total Outgoing: ' + settings.json.salesTare + '<br>Total Net Weight: ' +settings.json.salesNet);
+      $('#purchaseInfo').html('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + '<br>Total Outgoing: ' + settings.json.purchaseTare + '<br>Total Net Weight: ' +settings.json.purchaseNet);
+      $('#localInfo').html('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + '<br>Total Outgoing: ' + settings.json.localTare + '<br>Total Net Weight: ' +settings.json.localNet);
     }
       // "footerCallback": function ( row, data, start, end, display ) {
       //   var api = this.api();
