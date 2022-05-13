@@ -553,6 +553,7 @@ function format (row) {
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div><div class="col-md-3"><p>Transporter: '+row.transporter_name+
   '</p></div></div>';
   ;
 }
@@ -581,6 +582,7 @@ function formatNormal (row) {
   ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
+  '</p></div><div class="col-md-3"><p>Transporter: '+row.transporter_name+
   '</p></div></div>';
   ;
 }

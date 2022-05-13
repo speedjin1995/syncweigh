@@ -19,24 +19,24 @@ if($searchValue != ''){
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND weight.deleted = '0' AND weight.pStatus = 'Complete'");
+$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Complete'");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND weight.deleted = '0' AND weight.pStatus = 'Complete'".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Complete'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name, 
+$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, weight.status as Status, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, lots, customers, products, units, status, users, transporters
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Complete' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;
@@ -132,7 +132,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "outGDateTime"=>$outGDateTime,
     "inCDateTime"=>$inCDateTime,
     "pStatus"=>$row['pStatus'],
-    "variancePerc"=> $row['variancePerc']
+    "variancePerc"=> $row['variancePerc'],
+    "transporter_name"=> $row['transporter_name']
   );
 
   $counter++;

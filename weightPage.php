@@ -404,22 +404,7 @@ else{
 
                 <div class="row col-md-8">
                   <div class="row col-md-12">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>Vehicle No
-                          <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle" value="0"/>Manual</span>
-                      </label>
 
-                      <select class="form-control" id="vehicleNo" name="vehicleNo">
-                        <option selected="selected">-</option>
-                        <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
-                          <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
-                        <?php } ?>
-                      </select>
-
-                      <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
-                    </div>
-                </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
@@ -433,12 +418,12 @@ else{
                   </div>
                 </div>
 
-                <div class="form-group col-md-1" hidden>
+                <div class="form-group" hidden>
                   <label>M.O.Q *</label>
                   <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0">
                 </div>
 
-                <div class="form-group col-md-1">
+                <div class="form-group col-md-4">
                   <label>Transporter</label>
                   <select class="form-control" style="width: 100%;" id="transporter" name="transporter" required>
                       <option selected="selected">-</option>
@@ -469,6 +454,23 @@ else{
           </div>
 
           <div class="row">
+              <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Vehicle No
+                        <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle" value="0"/>Manual</span>
+                    </label>
+
+                    <select class="form-control" id="vehicleNo" name="vehicleNo">
+                      <option selected="selected">-</option>
+                      <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
+                        <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
+                      <?php } ?>
+                    </select>
+
+                    <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
+                  </div>
+              </div>
+
               <div class="form-group col-md-2">
                 <label>Incoming - G.W *
                 <?php 
@@ -498,7 +500,7 @@ else{
                 </div>
               </div>
               
-            <div class="row col-md-8">
+            <div class="row col-md-6">
               <div class="row col-md-12">
 
                 <div class="form-group col-md-3">
@@ -517,7 +519,7 @@ else{
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                       <label>Remark</label>
                       <textarea class="form-control" rows="1" placeholder="Enter ..." id="remark" name="remark"></textarea>
