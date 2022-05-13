@@ -1,6 +1,7 @@
 <?php
 
 require_once 'db_connect.php';
+include 'phpqrcode/qrlib.php';
 
 $compids = '1';
 $compname = 'SYNCTRONIX TECHNOLOGY (M) SDN BHD';
