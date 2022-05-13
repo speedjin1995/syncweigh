@@ -1586,9 +1586,6 @@ function newEntry(){
   $('#extendModal').find('#inCDateTime').val("");
   $('#extendModal').find('#pStatus').val("");
   $('#extendModal').find('#variancePerc').val("");
-  $('#dateTime').datetimepicker({
-        format: 'D/MM/YYYY h:m:s A'
-  });
   $('#extendModal').find('#dateTime').val(date.toLocaleString('en-GB'));
   $('#extendModal').modal('show');
   
@@ -1666,12 +1663,7 @@ function edit(id) {
       $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
       $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
-      // $('#extendModal').find('.hidOutgoing').removeAttr('hidden');
-      $('#dateTime').datetimepicker({
-        format: 'D/MM/YYYY h:m:s A'
-      });
       $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-US"));
-      
     
       if($('#extendModal').find('#status').val() == '1'){
         $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($('#extendModal').find('#status').val());

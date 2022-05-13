@@ -32,7 +32,7 @@ $totalRecordwithFilter = $records['allcount'];
 $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name, 
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
-weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
+weight.unitPrice, weight.totalPrice, weight.remark, weight.status as Status, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
 weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Complete' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
@@ -41,8 +41,17 @@ $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;
 $sales = 0;
+$salesWeight = 0;
+$salesTare = 0;
+$salesNett = 0;
 $purchase = 0;
+$purchaseWeight = 0;
+$purchaseTare = 0;
+$purchaseNett = 0;
 $local = 0;
+$localWeight = 0;
+$localTare = 0;
+$localNett = 0;
 
 while($row = mysqli_fetch_assoc($empRecords)) {
   $manual = '';
@@ -67,14 +76,23 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $inCDateTime = date_format($dateInt,"d/m/Y H:m:s A");
   }
 
-  if(strtoupper($row['status']) == 'SALES'){
+  if($row['Status'] == '1'){
     $sales++;
+    $salesWeight += (float)$row['currentWeight'];
+    $salesTare += (float)$row['tare'];
+    $salesNett += (float)$row['actualWeight'];
   }
-  else if(strtoupper($row['status']) == 'PURCHASE'){
+  else if($row['Status'] == '2'){
     $purchase++;
+    $purchaseWeight += (float)$row['currentWeight'];
+    $purchaseTare += (float)$row['tare'];
+    $purchaseNett += (float)$row['actualWeight'];
   }
-  else if(strtoupper($row['status']) == 'LOCAL AREA'){
+  else if($row['Status'] == '3'){
     $local++;
+    $localWeight += (float)$row['currentWeight'];
+    $localTare += (float)$row['tare'];
+    $localNett += (float)$row['actualWeight'];
   }
     
   $data[] = array( 
@@ -127,8 +145,17 @@ $response = array(
   "iTotalDisplayRecords" => $totalRecordwithFilter,
   "aaData" => $data,
   "salesTotal" => $sales,
+  "salesWeight" => $salesWeight,
+  "salesTare" => $salesTare,
+  "salesNet" => $salesNett,
   "purchaseTotal" => $purchase,
-  "localTotal" => $local
+  "purchaseWeight" => $purchaseWeight,
+  "purchaseTare" => $purchaseTare,
+  "purchaseNet" => $purchaseNett,
+  "localTotal" => $local,
+  "localWeight" => $localWeight,
+  "localTare" => $localTare,
+  "localNet" => $localNett
 );
 
 echo json_encode($response);
