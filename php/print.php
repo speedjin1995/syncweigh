@@ -35,7 +35,7 @@ if(isset($_POST['userID'], $_POST["file"])){
         //AND weight.pStatus = 'Pending'
 
         if ($select_stmt = $db->prepare("select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
-weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
+weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, customers.customer_email, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
 weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, lots, customers, products, units, status, users, transporters
@@ -220,7 +220,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                 </table>
             </td>
             <td style="width: 20%;">
-                <center><img src="https://speedjin.com/synctronix/php/'.$file.'"></center>
+                <center><img src="https://speedjin.com/synctronix/php/'.$file.'" height="auto" width="50%" /></center>
             </td>
             <td>
                 <p>

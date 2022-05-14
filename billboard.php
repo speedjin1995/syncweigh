@@ -712,8 +712,10 @@ function print(id) {
       var printWindow = window.open('', '', 'height=400,width=800');
       printWindow.document.write(obj.message);
       printWindow.document.close();
-      printWindow.print();
-      printWindow.close();
+      setTimeout(function(){
+        printWindow.print();
+        printWindow.close();
+      }, 500);
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");
