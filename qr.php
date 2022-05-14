@@ -33,7 +33,7 @@ if($_GET["id"] != null && $_GET["file"] != '' && $_GET["compid"] != null && $_GE
         $compiemail = $row['email'];
     }
 
-    if($_POST["file"] == 'weight'){
+    //if($_POST["file"] == 'weight'){
         //i remove this because both(billboard and weight) also call this print page.
         //AND weight.pStatus = 'Pending'
 
@@ -261,12 +261,8 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
         </p>
     </body>
 </html>';
-                    echo json_encode(
-                        array(
-                            "status" => "success",
-                            "message" => $message
-                        )
-                    );
+
+                    echo $message;
                 }
                 else{
                     echo json_encode(
@@ -287,7 +283,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                     "message" => "Something Goes Wrong"
                 ));
         }
-    }
+    /*}
     else{
         $empQuery = "select count.id, count.serialNo, vehicles.veh_number, lots.lots_no, count.batchNo, count.invoiceNo, count.deliveryNo, 
         count.purchaseNo, customers.customer_name, products.product_name, packages.packages, count.unitWeight, count.tare, count.totalWeight, 
@@ -389,7 +385,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                     ));
             }
         }
-    } 
+    } */
 }
 else{
     echo json_encode(
