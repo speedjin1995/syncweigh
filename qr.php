@@ -1,7 +1,7 @@
 <?php
 
-require_once 'db_connect.php';
-include 'phpqrcode/qrlib.php';
+require_once 'php/db_connect.php';
+include 'php/phpqrcode/qrlib.php';
 
 $compids = '1';
 $compname = 'SYNCTRONIX TECHNOLOGY (M) SDN BHD';
@@ -16,12 +16,15 @@ function filterData(&$str){
     if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
 }
 
-if(isset($_POST['userID'], $_POST["file"])){
+if($_GET["id"] != null && $_GET["file"] != '' && $_GET["compid"] != null && $_GET["compid"] != ''){
+    $id = $_GET["id"];
+    $compids = $_GET["compid"];
+
     $stmt = $db->prepare("SELECT * FROM companies WHERE id=?");
     $stmt->bind_param('s', $compids);
     $stmt->execute();
     $result1 = $stmt->get_result();
-    $id = filter_input(INPUT_POST, 'userID', FILTER_SANITIZE_STRING);
+    
             
     if ($row = $result1->fetch_assoc()) {
         $compname = $row['name'];
@@ -78,7 +81,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                     }
                     
                     
-                    $text = "https://speedjin.com/synctronix/qr.php?id=".$id."&compid=".$compids;
+                    /*$text = "https://speedjin.com/synctronix/qr.php?id=".$id;
   
                     // $path variable store the location where to 
                     // store image and $file creates directory name
@@ -93,7 +96,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                     $frame_Size = 10;
                       
                     // Generates QR Code and Stores it in directory given
-                    QRcode::png($text, $file, $ecc, $pixel_Size, $frame_size);
+                    QRcode::png($text, $file, $ecc, $pixel_Size, $frame_size);*/
                     
                     $message = '<html>
     <head>
@@ -220,7 +223,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                 </table>
             </td>
             <td style="width: 20%;">
-                <center><img src="https://speedjin.com/synctronix/php/'.$file.'" height="auto" width="50%" /></center>
+                &nbsp;
             </td>
             <td>
                 <p>
