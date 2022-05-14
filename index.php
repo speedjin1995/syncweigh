@@ -234,8 +234,8 @@ to get the desired effect
                   </li>
                   <li class="nav-item">
                     <a href="#transporters" data-file="transport.php" class="nav-link link">
-                      <i class="nav-icon fas fa-car"></i>
-                      <p>transporters</p>
+                      <i class="nav-icon fas fa-box"></i>
+                      <p>Transporters</p>
                     </a>
                   </li>                  
                   <li class="nav-item">
@@ -315,7 +315,7 @@ to get the desired effect
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="#">Synctronix</a>.</strong>All rights reserved.<div class="float-right d-none d-sm-inline-block"><b>Version</b> 1.0.0 </div>
+    <strong>Copyright &copy; 2022 <a href="#">SyncWeight</a>.</strong>All rights reserved.<div class="float-right d-none d-sm-inline-block"><b>Version</b> 1.0.0 </div>
   </footer>
 </div>
 <!-- ./wrapper -->
