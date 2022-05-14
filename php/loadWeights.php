@@ -56,7 +56,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
   }
   else{
     $dateOut = new DateTime($row['outGDateTime']);
-    $outGDateTime = date_format($dateOut,"d/m/Y H:m:s A");
+    $outGDateTime = date_format($dateOut,"d/m/Y H:i:s A");
   }
 
   if($row['inCDateTime'] == null || $row['inCDateTime'] == ''){
@@ -64,7 +64,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
   }
   else{
     $dateInt = new DateTime($row['inCDateTime']);
-    $inCDateTime = date_format($dateInt,"d/m/Y H:m:s A");
+    $inCDateTime = date_format($dateInt,"d/m/Y H:i:s A");
   }
 
   if(strtoupper($row['status']) == 'SALES'){

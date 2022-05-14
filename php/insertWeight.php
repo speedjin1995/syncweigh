@@ -82,18 +82,18 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$totalPrice = filter_input(INPUT_POST, 'totalPrice', FILTER_SANITIZE_STRING);
 	$totalWeight = filter_input(INPUT_POST, 'totalWeight', FILTER_SANITIZE_STRING);
 	$date = new DateTime($_POST['dateTime']);
-	$dateTime = date_format($date,"Y-m-d h:m:s");
+	$dateTime = date_format($date,"Y-m-d H:i:s");
 	$reduceWeight = filter_input(INPUT_POST, 'reduceWeight', FILTER_SANITIZE_STRING);
 	
 	if($_POST['inCDateTime'] != null && $_POST['inCDateTime'] != ''){
 	    $inDate = new DateTime($_POST['inCDateTime']);
-		$inCDateTime = date_format($inDate,"Y-m-d H:m:s");
+		$inCDateTime = date_format($inDate,"Y-m-d H:i:s");
 		$pStatus = "Pending";
 	}
 
 	if($_POST['outGDateTime'] != null && $_POST['outGDateTime'] != ''){
 		$outDate = new DateTime($_POST['outGDateTime']);
-		$outGDateTime = date_format($outDate,"Y-m-d H:m:s");
+		$outGDateTime = date_format($outDate,"Y-m-d H:i:s");
 		$pStatus = "Complete";
 	}
 

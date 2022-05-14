@@ -761,6 +761,17 @@ $(function () {
   $.validator.setDefaults({
     submitHandler: function () {
         if($('#extendModal').hasClass('show')){
+          //reset date format
+          var convert1 = $('#extendModal').find('#dateTime').val().replace(", ", " ");
+          convert1 = convert1.replace(":", "/");
+          convert1 = convert1.replace(":", "/");
+          convert1 = convert1.replace(" ", "/");
+          convert1 = convert1.replace(" pm", "");
+          convert1 = convert1.replace(" am", "");
+          convert2 = convert1.split("/");
+          var date  = new Date(convert2[2], convert2[1] - 1, convert2[0], convert2[3], convert2[4], convert2[5]);
+          $('#extendModal').find('#dateTime').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+
           $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
             var obj = JSON.parse(data); 
             if(obj.status === 'success'){
@@ -1590,7 +1601,7 @@ function newEntry(){
   $('#extendModal').find('#inCDateTime').val("");
   $('#extendModal').find('#pStatus').val("");
   $('#extendModal').find('#variancePerc').val("");
-  $('#extendModal').find('#dateTime').val(date.toLocaleString('en-GB'));
+  $('#extendModal').find('#dateTime').val(date.toLocaleString('en-AU'));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
@@ -1607,7 +1618,6 @@ function newEntry(){
     }
   });
 }
-
 /*function setup(){
   $('#setupModal').find('#serialPortBaudRate').val('9600');
   $('#setupModal').find('#serialPortDataBits').val("8");
@@ -1667,7 +1677,7 @@ function edit(id) {
       $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
       $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
-      $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-US"));
+      $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-AU"));
     
       if($('#extendModal').find('#status').val() == '1'){
         $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($('#extendModal').find('#status').val());
