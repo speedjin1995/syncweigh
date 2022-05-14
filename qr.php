@@ -16,7 +16,7 @@ function filterData(&$str){
     if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
 }
 
-if($_GET["id"] != null && $_GET["file"] != '' && $_GET["compid"] != null && $_GET["compid"] != ''){
+if($_GET["id"] != null && $_GET["id"] != '' && $_GET["compid"] != null && $_GET["compid"] != ''){
     $id = $_GET["id"];
     $compids = $_GET["compid"];
 

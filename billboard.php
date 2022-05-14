@@ -550,7 +550,8 @@ function format (row) {
   '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
-  ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
+  ')"><i class="fas fa-print"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="portrait('+row.id+
+  ')"><i class="fas fa-receipt"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
   '</p></div><div class="col-md-3"><p>Transporter: '+row.transporter_name+
@@ -579,7 +580,8 @@ function formatNormal (row) {
   '</p></div><div class="col-md-3"><p>Variance Weight: '+row.varianceWeight+
   '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
-  ')"><i class="fas fa-print"></i></button></div></div></div></div>'+
+  ')"><i class="fas fa-print"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="portrait('+row.id+
+  ')"><i class="fas fa-receipt"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
   '</p></div><div class="col-md-3"><p>Transporter: '+row.transporter_name+
@@ -706,6 +708,28 @@ function deactivate(id) {
 
 function print(id) {
   $.post('php/print.php', {userID: id, file: 'weight'}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      var printWindow = window.open('', '', 'height=400,width=800');
+      printWindow.document.write(obj.message);
+      printWindow.document.close();
+      setTimeout(function(){
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when activate", "Failed:");
+    }
+  });
+}
+
+function portrait(id) {
+  $.post('php/printportrait.php', {userID: id, file: 'weight'}, function(data){
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){

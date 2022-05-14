@@ -225,7 +225,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
             <td>
                 <p>
                     <span style="font-size: 12px;">Weight Date & Time : '.$row['inCDateTime'].'</span><br>
-                    <span style="font-size: 12px;">User Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: User</span><br>
+                    <span style="font-size: 12px;">User Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$row['name'].'</span><br>
                     <span style="font-size: 12px;">Current Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$cw.' kg</span><br>
                     <span style="font-size: 12px;">Tare Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$tw.' kg</span><br><br>
                     <span style="font-size: 14px;font-weight: bold;">Total Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$ttw.' kg</span><br>
