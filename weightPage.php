@@ -722,11 +722,11 @@ $(function () {
   
   //Date picker
   $('#fromDate').datetimepicker({
-    format: 'D/MM/YYYY h:m:s A'
+    format: 'D/MM/YYYY h:m:s a'
   });
 
   $('#toDate').datetimepicker({
-    format: 'D/MM/YYYY h:m:s A'
+    format: 'D/MM/YYYY h:m:s a'
   });
 
   $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
@@ -1601,6 +1601,9 @@ function newEntry(){
   $('#extendModal').find('#inCDateTime').val("");
   $('#extendModal').find('#pStatus').val("");
   $('#extendModal').find('#variancePerc').val("");
+  $('#dateTime').datetimepicker({
+    format: 'D/MM/YYYY h:m:s a'
+  });
   $('#extendModal').find('#dateTime').val(date.toLocaleString('en-AU'));
   $('#extendModal').modal('show');
   
@@ -1641,7 +1644,6 @@ function newEntry(){
   });
 }*/
 function numberWithCommas(x) {
-  debugger;
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
