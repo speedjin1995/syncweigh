@@ -713,6 +713,7 @@ function print(id) {
       printWindow.document.write(obj.message);
       printWindow.document.close();
       printWindow.print();
+      printWindow.close();
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");

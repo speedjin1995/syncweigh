@@ -1760,6 +1760,7 @@ function print(id) {
       printWindow.document.write(obj.message);
       printWindow.document.close();
       printWindow.print();
+      printWindow.close();
 
       /*$.get('weightPage.php', function(data) {
         $('#mainContents').html(data);
