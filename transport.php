@@ -209,7 +209,7 @@ function deactivate(id){
         
         if(obj.status === 'success'){
             toastr["success"](obj.message, "Success:");
-            $.get('transporter.php', function(data) {
+            $.get('transport.php', function(data) {
                 $('#mainContents').html(data);
             });
         }
