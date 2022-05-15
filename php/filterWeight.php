@@ -15,48 +15,48 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 $searchQuery = " ";
 
 if($_POST['fromDate'] != null && $_POST['fromDate'] != ''){
-  $inDate = new DateTime($_POST['fromDate']);
-  $inCDateTime = date_format($inDate,"Y-m-d H:m:s");
-   $searchQuery = " and weight.dateTime >= '".$inCDateTime."'";
+  $fromDate = new DateTime($_POST['fromDate']);
+  $fromDateTime = date_format($fromDate,"Y-m-d H:i:s");
+   $searchQuery = " and weight.dateTime >= '".$fromDateTime."'";
 }
 
 if($_POST['toDate'] != null && $_POST['toDate'] != ''){
-  $inDate = new DateTime($_POST['toDate']);
-  $inCDateTime = date_format($inDate,"Y-m-d H:m:s");
-	$searchQuery = " and weight.dateTime <= '".$inCDateTime."'";
+  $toDate = new DateTime($_POST['toDate']);
+  $toDateTime = date_format($toDate,"Y-m-d H:i:s");
+	$searchQuery .= " and weight.dateTime <= '".$toDateTime."'";
 }
 
 if($_POST['status'] != null && $_POST['status'] != '' && $_POST['status'] != '-'){
-	$searchQuery = " and weight.status = '".$_POST['status']."'";
+	$searchQuery .= " and weight.status = '".$_POST['status']."'";
 }
 
 if($_POST['customer'] != null && $_POST['customer'] != '' && $_POST['customer'] != '-'){
-	$searchQuery = " and weight.customer = '".$_POST['customer']."'";
+	$searchQuery .= " and weight.customer = '".$_POST['customer']."'";
 }
 
 if($_POST['vehicle'] != null && $_POST['vehicle'] != '' && $_POST['vehicle'] != '-'){
-	$searchQuery = " and weight.vehicleNo like '%".$_POST['vehicle']."%'";
+	$searchQuery .= " and weight.vehicleNo like '%".$_POST['vehicle']."%'";
 }
 
 if($_POST['invoice'] != null && $_POST['invoice'] != ''){
-	$searchQuery = " and weight.invoiceNo like '%".$_POST['invoice']."%'";
+	$searchQuery .= " and weight.invoiceNo like '%".$_POST['invoice']."%'";
 }
 
 if($_POST['batch'] != null && $_POST['batch'] != ''){
-	$searchQuery = " and weight.batchNo like '%".$_POST['batch']."%'";
+	$searchQuery .= " and weight.batchNo like '%".$_POST['batch']."%'";
 }
 
 if($_POST['product'] != null && $_POST['product'] != '' && $_POST['product'] != '-'){
-	$searchQuery = " and weight.productName = '".$_POST['product']."'";
+	$searchQuery .= " and weight.productName = '".$_POST['product']."'";
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, vehicles, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND weight.deleted = '0' AND weight.pStatus = 'Complete'");
+$sel = mysqli_query($db,"select count(*) as allcount from weight, vehicles, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Complete'");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, vehicles, packages, lots, customers, products, status, units WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND weight.deleted = '0' AND weight.pStatus = 'Complete'".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from weight, vehicles, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Complete'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
@@ -65,10 +65,11 @@ $empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, 
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, weight.status as Status, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc from weight, packages, lots, customers, products, units, status, users 
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, lots, customers, products, units, status, users, transporters
 WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Complete' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unitWeight AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 $counter = 1;

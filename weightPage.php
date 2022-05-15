@@ -331,12 +331,12 @@ else{
               <div class="col-2">
                 <div class="form-group">
                   <label>Date / Time</label>
-                  <div class="input-group date" id="dateTime" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
-                    <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class='input-group date' id="datePicker" data-target-input="nearest">
+                      <input type='text' class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
+                      <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
                     </div>
-                  </div>
                 </div>
               </div>
 
@@ -761,18 +761,35 @@ $(function () {
   $.validator.setDefaults({
     submitHandler: function () {
         if($('#extendModal').hasClass('show')){
+          debugger;
           //reset date format
-          var convert1 = $('#extendModal').find('#dateTime').val().replace(", ", " ");
-          convert1 = convert1.replace(":", "/");
-          convert1 = convert1.replace(":", "/");
-          convert1 = convert1.replace(" ", "/");
-          convert1 = convert1.replace(" pm", "");
-          convert1 = convert1.replace(" am", "");
-          convert1 = convert1.replace(" PM", "");
-          convert1 = convert1.replace(" AM", "");
-          convert2 = convert1.split("/");
-          var date  = new Date(convert2[2], convert2[1] - 1, convert2[0], convert2[3], convert2[4], convert2[5]);
-          $('#extendModal').find('#dateTime').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+          if($('#datePicker').data('info') == 1){
+            var data = $('#extendModal').find('#dateTime').val().replace(":", "/");
+            data = data.replace(":", "/");
+            data = data.replace(" ", "/");
+            data = data.replace(" pm", "");
+            data = data.replace(" am", "");
+            data = data.replace(" PM", "");
+            data = data.replace(" AM", "");
+            var data2 = data.split("/");
+            var date1  = new Date(data2[2], data2[0] - 1, data2[1], data2[3], data2[4]);
+            $('#extendModal').find('#dateTime').val(date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate() + " " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds());            
+
+          }else{
+            var convert1 = $('#extendModal').find('#dateTime').val().replace(", ", " ");
+            convert1 = convert1.replace(":", "/");
+            convert1 = convert1.replace(":", "/");
+            convert1 = convert1.replace(" ", "/");
+            convert1 = convert1.replace(" pm", "");
+            convert1 = convert1.replace(" am", "");
+            convert1 = convert1.replace(" PM", "");
+            convert1 = convert1.replace(" AM", "");
+            var convert2 = convert1.split("/");
+            var date  = new Date(convert2[2], convert2[1] - 1, convert2[0], convert2[3], convert2[4], convert2[5]);
+            $('#extendModal').find('#dateTime').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+          }
+
+          $('#datePicker').removeData('info');
 
           $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
             var obj = JSON.parse(data); 
@@ -1200,6 +1217,10 @@ $(function () {
 
   });
 
+  $('#datePicker').on('click', function () {
+    $('#datePicker').attr('data-info', '1');
+  });
+
   $('#statusFilter').on('change', function () {
     if($(this).val() == '1'){
       $('#customerNoFilter').html($('select#customerNoHidden').html()).append($(this).val());
@@ -1603,8 +1624,8 @@ function newEntry(){
   $('#extendModal').find('#inCDateTime').val("");
   $('#extendModal').find('#pStatus').val("");
   $('#extendModal').find('#variancePerc').val("");
-  $('#dateTime').datetimepicker({
-    format: 'D/MM/YYYY h:m:s a'
+  $('#datePicker').datetimepicker({
+      format: 'Y-m-d H:i'
   });
   $('#extendModal').find('#dateTime').val(date.toLocaleString('en-AU'));
   $('#extendModal').modal('show');

@@ -69,7 +69,7 @@ else{
             <div class="row">
               <div class="form-group col-3">
                 <label>From Date:</label>
-                <div class="input-group date" data-target-input="nearest">
+                <div class="input-group date" id="fromDatePicker" data-target-input="nearest">
                   <input type="text" class="form-control datetimepicker-input" id="fromDate" data-target="#fromDate"/>
                   <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
                   <div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
@@ -78,7 +78,7 @@ else{
 
               <div class="form-group col-3">
                 <label>To Date:</label>
-                <div class="input-group date" data-target-input="nearest">
+                <div class="input-group date" id="toDatePicker" data-target-input="nearest">
                   <input type="text" class="form-control datetimepicker-input" id="toDate"  data-target="#toDate"/>
                   <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -368,11 +368,11 @@ $(function () {
   });
 
   //Date picker
-  $('#fromDate').datetimepicker({
+  $('#fromDatePicker').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
 
-  $('#toDate').datetimepicker({
+  $('#toDatePicker').datetimepicker({
     format: 'D/MM/YYYY h:m:s A'
   });
 
@@ -380,8 +380,8 @@ $(function () {
   $('#supplierNoHidden').hide();
 
   $('#filterSearch').on('click', function(){
-    var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
-    var toDateValue = $('#toDateValue').val() ? $('#toDateValue').val() : '';
+    var fromDateValue = $('#fromDate').val() ? $('#fromDate').val() : '';
+    var toDateValue = $('#toDate').val() ? $('#toDate').val() : '';
     var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
     var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
     var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
