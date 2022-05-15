@@ -425,7 +425,7 @@ else{
 
                 <div class="form-group col-md-4">
                   <label>Transporter</label>
-                  <select class="form-control" style="width: 100%;" id="transporter" name="transporter" required>
+                  <select class="form-control" style="width: 100%;" id="transporter" name="transporter">
                       <option selected="selected">-</option>
                       <?php while($row5=mysqli_fetch_assoc($transporters)){ ?>
                         <option value="<?=$row5['id'] ?>"><?=$row5['transporter_name'] ?></option>
@@ -1681,6 +1681,11 @@ function edit(id) {
       $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
       $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
+
+      $('#extendModal').find('#dateTime').datetimepicker({
+        format: 'D/MM/YYYY h:m:s a'
+      });
+
       $('#extendModal').find('#dateTime').val(obj.message.dateTime);
     
       if($('#extendModal').find('#status').val() == '1'){

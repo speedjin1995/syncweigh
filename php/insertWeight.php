@@ -7,7 +7,7 @@ session_start();
 if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeight'],$_POST['moq'],$_POST['tareWeight']
 ,$_POST['currentWeight'],$_POST['product'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight'],$_POST['totalPrice']
 ,$_POST['totalWeight'], $_POST['dateTime'], $_POST['supplyWeight'], $_POST['varianceWeight'], $_POST['reduceWeight']
-,$_POST['outGDateTime'], $_POST['inCDateTime'], $_POST['transporter'])){
+,$_POST['outGDateTime'], $_POST['inCDateTime'])){
 
 	$userId = $_SESSION['userID'];
 	$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
@@ -19,9 +19,13 @@ if(isset($_POST['status'], $_POST['lotNo'],$_POST['customerNo'],$_POST['unitWeig
 	$batchNo = '-';
 	$purchaseNo = '-';
 	$remark = '';
+	$transporter = '-';
 	$manual = filter_input(INPUT_POST, 'manual', FILTER_SANITIZE_STRING);
 	$manualOutgoing = filter_input(INPUT_POST, 'manualOutgoing', FILTER_SANITIZE_STRING);
-	$transporter = filter_input(INPUT_POST, 'transporter', FILTER_SANITIZE_STRING);
+
+	if($_POST['transporter'] != null && $_POST['transporter'] != ''){
+		$transporter = filter_input(INPUT_POST, 'transporter', FILTER_SANITIZE_STRING);
+	}
 
 	if($_POST['invoiceNo'] != null && $_POST['invoiceNo'] != ''){
 		$invoiceNo = filter_input(INPUT_POST, 'invoiceNo', FILTER_SANITIZE_STRING);
