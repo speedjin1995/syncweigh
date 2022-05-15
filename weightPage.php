@@ -331,7 +331,7 @@ else{
               <div class="col-2">
                 <div class="form-group">
                   <label>Date / Time</label>
-                  <div class="input-group date" data-target-input="nearest">
+                  <div class="input-group date" id="dateTime" data-target-input="nearest">
                     <input type="text" class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
                     <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
