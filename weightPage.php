@@ -768,6 +768,8 @@ $(function () {
           convert1 = convert1.replace(" ", "/");
           convert1 = convert1.replace(" pm", "");
           convert1 = convert1.replace(" am", "");
+          convert1 = convert1.replace(" PM", "");
+          convert1 = convert1.replace(" AM", "");
           convert2 = convert1.split("/");
           var date  = new Date(convert2[2], convert2[1] - 1, convert2[0], convert2[3], convert2[4], convert2[5]);
           $('#extendModal').find('#dateTime').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
@@ -1679,7 +1681,7 @@ function edit(id) {
       $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
       $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
-      $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-AU"));
+      $('#extendModal').find('#dateTime').val(obj.message.dateTime);
     
       if($('#extendModal').find('#status').val() == '1'){
         $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($('#extendModal').find('#status').val());

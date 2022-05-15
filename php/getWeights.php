@@ -22,6 +22,15 @@ if(isset($_POST['userID'])){
             $message = array();
             
             while ($row = $result->fetch_assoc()) {
+
+                if($row['dateTime'] == null || $row['dateTime'] == ''){
+                    $dateTime = '-';
+                  }
+                  else{
+                    $convertDate = new DateTime($row['dateTime']);
+                    $dateTime = date_format($convertDate,"d/m/Y H:i:s a");
+                  }
+
                 $message['id'] = $row['id'];
                 $message['serialNo'] = $row['serialNo'];
                 $message['vehicleNo'] = $row['vehicleNo'];
@@ -42,7 +51,7 @@ if(isset($_POST['userID'])){
                 $message['currentWeight'] = $row['currentWeight'];
                 $message['unit'] = $row['unit'];
                 $message['moq'] = $row['moq'];
-                $message['dateTime'] = $row['dateTime'];
+                $message['dateTime'] = $dateTime;
                 $message['unitPrice'] = $row['unitPrice'];
                 $message['totalPrice'] = $row['totalPrice'];
                 $message['remark'] = $row['remark'];
