@@ -194,7 +194,7 @@ else{
             <i class="fas fa-warehouse" style="color: white;"></i>
           </span>
           <div class="info-box-content">
-            <span class="info-box-text">Local</span>
+            <span class="info-box-text">Miscellaneous</span>
             <span class="info-box-number" id="localInfo">0</span>
           </div>
         </div>
