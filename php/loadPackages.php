@@ -14,7 +14,7 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " WHERE packages like '%".$searchValue."%' OR packages_code like '%".$searchValue."%'";
+   $searchQuery = " AND packages like '%".$searchValue."%' OR packages_code like '%".$searchValue."%'";
 }
 
 ## Total number of records without filtering

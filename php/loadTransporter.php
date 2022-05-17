@@ -14,7 +14,7 @@ $searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Sear
 ## Search 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " WHERE transporter_name like '%".$searchValue."%' OR transporter_code like '%".$searchValue."%'";
+   $searchQuery = " AND transporter_name like '%".$searchValue."%' OR transporter_code like '%".$searchValue."%'";
 }
 
 ## Total number of records without filtering
