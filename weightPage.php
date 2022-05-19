@@ -1165,7 +1165,10 @@ $(function () {
             return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
           }
         }
-      ]
+      ],
+      "rowCallback": function( row, data, index ) {
+        $('td', row).css('background-color', '#E6E6FA');
+      }
     });
   });
 
@@ -1223,7 +1226,10 @@ $(function () {
             return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
           }
         }
-      ]
+      ],
+      "rowCallback": function( row, data, index ) {
+        $('td', row).css('background-color', '#E6E6FA');
+      }
     });
   });
 
@@ -1281,7 +1287,10 @@ $(function () {
             return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
           }
         }
-      ]
+      ],
+      "rowCallback": function( row, data, index ) {
+        $('td', row).css('background-color', '#E6E6FA');
+      }
     });
   });
 
