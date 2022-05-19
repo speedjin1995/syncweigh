@@ -27,7 +27,7 @@ if(isset($_POST['userID'])){
                 }
                 else{
                     $convertDate = new DateTime($row['dateTime']);
-                    $dateTime = date_format($convertDate,"d/m/Y h:i:s a");
+                    $dateTime = date_format($convertDate,"d/m/Y H:i:s A");
                 }
 
                 $message['id'] = $row['id'];

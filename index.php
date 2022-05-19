@@ -43,7 +43,9 @@ else{
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- daterange picker -->
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck for checkboxes and radio inputs -->
+  
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Bootstrap Color Picker -->
   <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
@@ -56,10 +58,6 @@ else{
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css?v=3.2.0">
   
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
- 
   <style>
     body {
       background: #eee;
@@ -530,9 +528,6 @@ to get the desired effect
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script src="plugins/chart.js/Chart.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script>
 $(function () {

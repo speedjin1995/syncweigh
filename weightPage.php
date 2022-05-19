@@ -332,8 +332,8 @@ else{
                 <div class="form-group">
                   <label>Date / Time</label>
                     <div class='input-group date' id="datePicker" data-target-input="nearest">
-                      <input type='text' class="form-control datetimepicker-input" data-target="#dateTime" id="dateTime" name="dateTime" required/>
-                      <div class="input-group-append" data-target="#dateTime" data-toggle="datetimepicker">
+                      <input type='text' class="form-control datetimepicker-input" data-target="#datePicker" id="dateTime" name="dateTime" required/>
+                      <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
@@ -476,7 +476,7 @@ else{
                 <label>Incoming - G.W *
                 <?php 
                   if($role == "ADMIN"){         
-                    echo '<span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manual" name="manual" value="0"/>Manual</span>';
+                    echo '<span style="padding-left: 60px;"><input type="checkbox" class="form-check-input" id="manual" name="manual" value="0"/>Manual</span>';
                   }
                 ?>
                 </label>
@@ -492,7 +492,7 @@ else{
 
               <div class="form-group col-md-2 hidOutgoing">
                 <label>Outgoing - T.W *
-                  <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualOutgoing" name="manualOutgoing" value="0"/>Manual</span>
+                  <span style="padding-left: 70px;"><input type="checkbox" class="form-check-input" id="manualOutgoing" name="manualOutgoing" value="0"/>Manual</span>
                 </label>
                 <div class="input-group">
                   <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly/>
@@ -723,11 +723,13 @@ $(function () {
   
   //Date picker
   $('#fromDate').datetimepicker({
-    format: 'D/MM/YYYY h:m:s a'
+      icons: { time: 'far fa-clock' },
+      format: 'DD/MM/YYYY hh:mm:ss A'
   });
 
   $('#toDate').datetimepicker({
-    format: 'D/MM/YYYY h:m:s a'
+      icons: { time: 'far fa-clock' },
+      format: 'DD/MM/YYYY hh:mm:ss A'
   });
 
   $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
@@ -763,20 +765,7 @@ $(function () {
     submitHandler: function () {
         if($('#extendModal').hasClass('show')){
           $('#spinnerLoading').show();
-          //reset date format
-          if($('#datePicker').data('info') == 1){
-            var data = $('#extendModal').find('#dateTime').val().replace(":", "/");
-            data = data.replace(":", "/");
-            data = data.replace(" ", "/");
-            data = data.replace(" pm", "");
-            data = data.replace(" am", "");
-            data = data.replace(" PM", "");
-            data = data.replace(" AM", "");
-            var data2 = data.split("/");
-            var date1  = new Date(data2[2], data2[0] - 1, data2[1], data2[3], data2[4]);
-            $('#extendModal').find('#dateTime').val(date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate() + " " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds());            
 
-          }else{
             var convert1 = $('#extendModal').find('#dateTime').val().replace(", ", " ");
             convert1 = convert1.replace(":", "/");
             convert1 = convert1.replace(":", "/");
@@ -788,9 +777,6 @@ $(function () {
             var convert2 = convert1.split("/");
             var date  = new Date(convert2[2], convert2[1] - 1, convert2[0], convert2[3], convert2[4], convert2[5]);
             $('#extendModal').find('#dateTime').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
-          }
-
-          $('#datePicker').removeData('info');
 
         $.post('php/insertWeight.php', $('#extendForm').serialize(), function(data){
           var obj = JSON.parse(data); 
@@ -1728,9 +1714,10 @@ function newEntry(){
   $('#extendModal').find('#pStatus').val("");
   $('#extendModal').find('#variancePerc').val("");
   $('#datePicker').datetimepicker({
-      format: 'Y-m-d H:i'
+      icons: { time: 'far fa-clock' },
+      format: 'DD/MM/YYYY HH:mm:ss A'
   });
-  $('#extendModal').find('#dateTime').val(date.toLocaleString('en-AU'));
+  $('#extendModal').find('#dateTime').val(date.toLocaleString('en-AU', { hour12: false }));
   $('#extendModal').modal('show');
   
   $('#extendForm').validate({
@@ -1807,8 +1794,9 @@ function edit(id) {
       $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
       $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
 
-      $('#extendModal').find('#dateTime').datetimepicker({
-        format: 'D/MM/YYYY h:m:s a'
+      $('#extendModal').find('#toDatePicker').datetimepicker({
+        icons: { time: 'far fa-clock' },
+        format: 'DD/MM/YYYY HH:mm:ss A'
       });
 
       $('#extendModal').find('#dateTime').val(obj.message.dateTime);

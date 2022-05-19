@@ -70,8 +70,8 @@ else{
               <div class="form-group col-3">
                 <label>From Date:</label>
                 <div class="input-group date" id="fromDatePicker" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" id="fromDate" data-target="#fromDate"/>
-                  <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#fromDatePicker" id="fromDate"/>
+                  <div class="input-group-append" data-target="#fromDatePicker" data-toggle="datetimepicker">
                   <div class="input-group-text"><i class="fa fa-calendar"></i></div></div>
                 </div>
               </div>
@@ -79,8 +79,8 @@ else{
               <div class="form-group col-3">
                 <label>To Date:</label>
                 <div class="input-group date" id="toDatePicker" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" id="toDate"  data-target="#toDate"/>
-                  <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#toDatePicker" id="toDate"/>
+                  <div class="input-group-append" data-target="#toDatePicker" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                   </div>
                 </div>
@@ -369,11 +369,13 @@ $(function () {
 
   //Date picker
   $('#fromDatePicker').datetimepicker({
-    format: 'D/MM/YYYY h:m:s A'
+      icons: { time: 'far fa-clock' },
+      format: 'DD/MM/YYYY HH:mm:ss A'
   });
 
   $('#toDatePicker').datetimepicker({
-    format: 'D/MM/YYYY h:m:s A'
+      icons: { time: 'far fa-clock' },
+      format: 'DD/MM/YYYY HH:mm:ss A'
   });
 
   $('#customerNoHidden').hide();
