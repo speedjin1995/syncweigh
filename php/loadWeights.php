@@ -76,6 +76,21 @@ while($row = mysqli_fetch_assoc($empRecords)) {
   else if(strtoupper($row['status']) == 'LOCAL AREA'){
     $local++;
   }
+
+  $supplyWeight = 0.00;
+  if($row['supplyWeight'] != null && $row['supplyWeight'] != ''){
+    $supplyWeight = (float)$row['supplyWeight'];
+  }
+
+  $reduceWeight = 0.00;
+  if($row['reduceWeight'] != null && $row['reduceWeight'] != ''){
+    $reduceWeight = (float)$row['reduceWeight'];
+  }
+
+  $variancePerc = 0.00;
+  if($row['variancePerc'] != null && $row['variancePerc'] != ''){
+    $variancePerc = (float)$row['variancePerc'];
+  }
     
   $data[] = array( 
     "no"=>$counter,
@@ -93,28 +108,28 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "customer_address"=>$row['customer_address'],
     "product_name"=>$row['product_name'],
     "packages"=>$row['packages'],
-    "unitWeight"=>$row['units'],
-    "supplyWeight"=>$row['supplyWeight'],
-    "varianceWeight"=>$row['varianceWeight'],
-    "tare"=>$row['tare'],
-    "totalWeight"=>$row['totalWeight'],
-    "actualWeight"=>$row['actualWeight'],
-    "currentWeight"=>$row['currentWeight'],
+    "unitWeight"=>$row['unitWeight'],
+    "supplyWeight"=>number_format($supplyWeight, 2),
+    "varianceWeight"=>$number_format((float)$row['varianceWeight'], 2),
+    "tare"=>number_format((float)$row['tare'], 2),
+    "totalWeight"=>number_format((float)$row['totalWeight'], 2),
+    "actualWeight"=>number_format((float)$row['actualWeight'], 2),
+    "currentWeight"=>number_format((float)$row['currentWeight'], 2),
     "unit"=>$row['units'],
     "moq"=>$row['moq'],
-    "dateTime"=> $row['dateTime'],
-    "unitPrice"=>$row['unitPrice'],
-    "totalPrice"=>$row['totalPrice'],
+    "dateTime"=>$row['dateTime'],
+    "unitPrice"=>number_format((float)$row['unitPrice'],, 2)
+    "totalPrice"=>number_format((float)$row['totalPrice'], 2),
     "remark"=>$row['remark'],
     "status"=>$row['status'],
     "manual"=>$manual,
     "manualVehicle"=>$row['manualVehicle'],
     "manualOutgoing"=>$row['manualOutgoing'],
-    "reduceWeight"=>$row['reduceWeight'],
+    "reduceWeight"=>number_format($reduceWeight, 2),
     "outGDateTime"=>$outGDateTime,
     "inCDateTime"=>$inCDateTime,
     "pStatus"=>$row['pStatus'],
-    "variancePerc"=> $row['variancePerc'],
+    "variancePerc"=> number_format($variancePerc, 2),
     "transporter_name"=> $row['transporter_name']
   );
 
