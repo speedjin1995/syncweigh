@@ -214,7 +214,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 6px;">'.$ow.'</td>
+                                <td style="border:1px solid black;font-size: 6px;text-align: center;">'.$ow.'</td>
                                 <td style="border:1px solid black;font-size: 6px;">kg</td>
                                 <td>
                                     <p><span style="font-size: 6px;">&nbsp; Transaction Status: '.$row['status'].'</span></p>
@@ -235,7 +235,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                                 $message .= '</td>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 6px;">'.$vw.'</td>
+                                <td style="border:1px solid black;font-size: 6px;text-align: center;">'.$vw.'</td>
                                 <td style="border:1px solid black;font-size: 6px;">kg</td>
                                 <td>
                                     <p><span style="font-size: 6px;">&nbsp;&nbsp; Current Weight &nbsp;&nbsp;&nbsp;&nbsp;: '.$cw.' kg</span></p>
@@ -248,7 +248,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="border:1px solid black;font-size: 6px;">'.$row['variancePerc'].' %</td>
+                                <td colspan="2" style="border:1px solid black;font-size: 6px;text-align: center;">'.$row['variancePerc'].' %</td>
                                 <td>
                                     <p><span style="font-size: 6px;font-weight: bold;">&nbsp;&nbsp; Total Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$ttw.' kg</span></p>
                                 </td>
@@ -260,8 +260,8 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                                 <th style="border:1px solid black;font-size: 8px;">Product Name</th>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 8px;">'.$row['vehicleNo'].'</td>
-                                <td style="border:1px solid black;font-size: 8px;">'.$row['product_name'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;text-align: center;">'.$row['vehicleNo'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;text-align: center;">'.$row['product_name'].'</td>
                             </tr>
                         </table><br>
                         <table style="width:100%; border:1px solid black;">
@@ -272,11 +272,11 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                                 <th style="border:1px solid black;font-size: 8px;">Total Price</th>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 8px;">'.$row['packages'].'</td>
-                                <td style="border:1px solid black;font-size: 8px;">RM '.$row['unitPrice'].'</td>
-                                <td style="border:1px solid black;font-size: 8px;">'.$ttw.'</td>
+                                <td style="border:1px solid black;font-size: 8px;text-align: center;">'.$row['packages'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;text-align: center;">RM '.$row['unitPrice'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;text-align: center;">'.$ttw.'</td>
                                 <td style="border:1px solid black;font-size: 8px;">kg</td>
-                                <td style="border:1px solid black;font-size: 8px;">RM '.$row['totalPrice'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;text-align: center;">RM '.$row['totalPrice'].'</td>
                             </tr>
                         </table>
                         <p>

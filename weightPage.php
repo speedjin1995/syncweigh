@@ -399,6 +399,7 @@ else{
                     <div class="form-group">
                       <label class="labelStatus">Customer No *</label>
                       <select class="form-control" id="customerNo" name="customerNo" required></select>
+                      <input class="form-control" type="text" placeholder="Vehicle No." id="customerNoTxt" name="customerNoTxt" hidden>
                     </div>
                 </div>
 
@@ -1328,11 +1329,20 @@ $(function () {
       $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
       $('#extendModal').find('.labelStatus').text('Customer No');
       $('#extendModal').find('.labelOrder').text('Order Weight');
+      $('#customerNo').removeAttr('hidden');
+      $('#customerNoTxt').attr('hidden', 'hidden');
     }
     else if($(this).val() == '2'){
       $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
+      $('#extendModal').find('.labelStatus').text('Supplier No');
       $('#extendModal').find('.labelOrder').text('Supply Weight');
-
+      $('#customerNo').removeAttr('hidden');
+      $('#customerNoTxt').attr('hidden', 'hidden');
+    }
+    else{
+      $('#extendModal').find('.labelStatus').text('Description');
+      $('#customerNoTxt').removeAttr('hidden');
+      $('#customerNo').attr('hidden', 'hidden');
     }
   });
 
