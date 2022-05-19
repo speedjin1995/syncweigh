@@ -53,6 +53,7 @@ else{
 $(function () {
     $.validator.setDefaults({
         submitHandler: function () {
+            $('#spinnerLoading').show();
             $.post('php/changePassword.php', $('#passwordForm').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
@@ -61,13 +62,16 @@ $(function () {
                     
                     $.get('changePassword.php', function(data) {
                         $('#mainContents').html(data);
+                        $('#spinnerLoading').hide();
                     });
                 }
                 else if(obj.status === 'failed'){
                     toastr["error"](obj.message, "Failed:");
+                    $('#spinnerLoading').hide();
                 }
                 else{
                     toastr["error"]("Failed to update password", "Failed:");
+                    $('#spinnerLoading').hide();
                 }
             });
         }

@@ -125,6 +125,7 @@ $(function () {
     
     $.validator.setDefaults({
         submitHandler: function () {
+            $('#spinnerLoading').show();
             $.post('php/transporter.php', $('#transporterForm').serialize(), function(data){
                 var obj = JSON.parse(data); 
                 
@@ -134,13 +135,16 @@ $(function () {
                     
                     $.get('transport.php', function(data) {
                         $('#mainContents').html(data);
+                        $('#spinnerLoading').hide();
                     });
                 }
                 else if(obj.status === 'failed'){
                     toastr["error"](obj.message, "Failed:");
+                    $('#spinnerLoading').hide();
                 }
                 else{
-                    alert("Something wrong when edit");
+                    toastr["error"]("Something wrong when edit", "Failed:");
+                    $('#spinnerLoading').hide();
                 }
             });
         }
@@ -170,6 +174,7 @@ $(function () {
 });
 
 function edit(id){
+    $('#spinnerLoading').show();
     $.post('php/getTransporter.php', {userID: id}, function(data){
         var obj = JSON.parse(data);
         
@@ -200,10 +205,12 @@ function edit(id){
         else{
             toastr["error"]("Something wrong when activate", "Failed:");
         }
+        $('#spinnerLoading').hide();
     });
 }
 
 function deactivate(id){
+    $('#spinnerLoading').show();
     $.post('php/deleteTransporter.php', {userID: id}, function(data){
         var obj = JSON.parse(data);
         
@@ -211,13 +218,16 @@ function deactivate(id){
             toastr["success"](obj.message, "Success:");
             $.get('transport.php', function(data) {
                 $('#mainContents').html(data);
+                $('#spinnerLoading').hide();
             });
         }
         else if(obj.status === 'failed'){
             toastr["error"](obj.message, "Failed:");
+            $('#spinnerLoading').hide();
         }
         else{
             toastr["error"]("Something wrong when activate", "Failed:");
+            $('#spinnerLoading').hide();
         }
     });
 }

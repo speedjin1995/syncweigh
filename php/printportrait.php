@@ -161,7 +161,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                             <tr>
                                 <td>
                                     <p>
-                                        <span style="font-weight: bold;font-size: 12px;">'.$compname.'</span><br>
+                                        <span style="font-weight: bold;font-size: 10px;">'.$compname.'</span><br>
                                         <span style="font-size: 8px;">'.$compaddress.'</span><br>
                                         <span style="font-size: 8px;">'.$compphone.' / '.$compiemail.'</span>
                                     </p>
@@ -190,7 +190,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                                     </p>
                                 </td>
                                 <td style="width: 40%;">
-                                <center><img src="https://speedjin.com/synctronix/php/'.$file.'" height="auto" width="80%" /></center>
+                                <center><img src="https://speedjin.com/synctronix/php/'.$file.'" height="auto" width="60%" /></center>
                                 </td>
                             </tr>
                         </table><hr>
@@ -208,75 +208,75 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                         </table><hr>
                         <table style="width:100%">
                             <tr>
-                                <th colspan="2" style="border:1px solid black;font-size: 8px;width:40%">Order Weight</th>
+                                <th colspan="2" style="border:1px solid black;font-size: 6px;width:30%">Order Weight</th>
                                 <td>
-                                    <p><span style="font-size: 8px;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transaction Date: '.$row['dateTime'].'</span></p>
+                                    <p><span style="font-size: 6px;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transaction Date: '.$row['dateTime'].'</span></p>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 8px;">'.$ow.'</td>
-                                <td style="border:1px solid black;font-size: 8px;">kg</td>
+                                <td style="border:1px solid black;font-size: 6px;">'.$ow.'</td>
+                                <td style="border:1px solid black;font-size: 6px;">kg</td>
                                 <td>
-                                    <p><span style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transaction Status: '.$row['status'].'</span></p>
+                                    <p><span style="font-size: 6px;">&nbsp; Transaction Status: '.$row['status'].'</span></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th colspan="2" style="border:1px solid black;font-size: 8px;width:40%">Variance Weight</th>
+                                <th colspan="2" style="border:1px solid black;font-size: 6px;width:30%">Variance Weight</th>
                                 <td>';
 
                                 if($row['manual'] == '1'){
-                                    $message .= '<p><span style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Weight Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Manual Weighing</span></p>';
+                                    $message .= '<p><span style="font-size: 6px;">&nbsp;&nbsp; Weight Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Manual Weighing</span></p>';
                                 }
                                 else{
-                                    $message .= '<p><span style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Weight Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Auto Weighing</span></p>';
+                                    $message .= '<p><span style="font-size: 6px;">&nbsp;&nbsp; Weight Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Auto Weighing</span></p>';
                                 }
 
                                     
                                 $message .= '</td>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 8px;">'.$vw.'</td>
-                                <td style="border:1px solid black;font-size: 8px;">kg</td>
+                                <td style="border:1px solid black;font-size: 6px;">'.$vw.'</td>
+                                <td style="border:1px solid black;font-size: 6px;">kg</td>
                                 <td>
-                                    <p><span style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Current Weight &nbsp;&nbsp;&nbsp;&nbsp;: '.$cw.' kg</span></p>
+                                    <p><span style="font-size: 6px;">&nbsp;&nbsp; Current Weight &nbsp;&nbsp;&nbsp;&nbsp;: '.$cw.' kg</span></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th colspan="2" style="border:1px solid black;font-size: 8px;width:40%">Variance %</th>
+                                <th colspan="2" style="border:1px solid black;font-size: 6px;width:30%">Variance %</th>
                                 <td>
-                                    <p><span style="font-size: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tare Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$tw.' kg</span></p>
+                                    <p><span style="font-size: 6px;">&nbsp;&nbsp; Tare Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$tw.' kg</span></p>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="border:1px solid black;font-size: 8px;">'.$row['variancePerc'].' %</td>
+                                <td colspan="2" style="border:1px solid black;font-size: 6px;">'.$row['variancePerc'].' %</td>
                                 <td>
-                                    <p><span style="font-size: 8px;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$ttw.' kg</span></p>
+                                    <p><span style="font-size: 6px;font-weight: bold;">&nbsp;&nbsp; Total Weight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: '.$ttw.' kg</span></p>
                                 </td>
                             </tr>
                         </table><br>
                         <table style="width:100%; border:1px solid black;">
                             <tr>
-                                <th style="border:1px solid black;font-size: 10px;">Vehicle No.</th>
-                                <th style="border:1px solid black;font-size: 10px;">Product Name</th>
+                                <th style="border:1px solid black;font-size: 8px;">Vehicle No.</th>
+                                <th style="border:1px solid black;font-size: 8px;">Product Name</th>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 10px;">'.$row['vehicleNo'].'</td>
-                                <td style="border:1px solid black;font-size: 10px;">'.$row['product_name'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;">'.$row['vehicleNo'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;">'.$row['product_name'].'</td>
                             </tr>
-                        </table>
+                        </table><br>
                         <table style="width:100%; border:1px solid black;">
                             <tr>
-                                <th style="border:1px solid black;font-size: 10px;">Package</th>
-                                <th style="border:1px solid black;font-size: 10px;">Unit Price</th>
-                                <th colspan="2" style="border:1px solid black;font-size: 10px;">Total Weight</th>
-                                <th style="border:1px solid black;font-size: 10px;">Total Price</th>
+                                <th style="border:1px solid black;font-size: 8px;">Package</th>
+                                <th style="border:1px solid black;font-size: 8px;">Unit Price</th>
+                                <th colspan="2" style="border:1px solid black;font-size: 8px;">Total Weight</th>
+                                <th style="border:1px solid black;font-size: 8px;">Total Price</th>
                             </tr>
                             <tr>
-                                <td style="border:1px solid black;font-size: 10px;">'.$row['packages'].'</td>
-                                <td style="border:1px solid black;font-size: 10px;">RM '.$row['unitPrice'].'</td>
-                                <td style="border:1px solid black;font-size: 10px;">'.$ttw.'</td>
-                                <td style="border:1px solid black;font-size: 10px;">kg</td>
-                                <td style="border:1px solid black;font-size: 10px;">RM '.$row['totalPrice'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;">'.$row['packages'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;">RM '.$row['unitPrice'].'</td>
+                                <td style="border:1px solid black;font-size: 8px;">'.$ttw.'</td>
+                                <td style="border:1px solid black;font-size: 8px;">kg</td>
+                                <td style="border:1px solid black;font-size: 8px;">RM '.$row['totalPrice'].'</td>
                             </tr>
                         </table>
                         <p>

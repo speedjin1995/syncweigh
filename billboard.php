@@ -380,6 +380,7 @@ $(function () {
   $('#supplierNoHidden').hide();
 
   $('#filterSearch').on('click', function(){
+    $('#spinnerLoading').show();
     var fromDateValue = $('#fromDate').val() ? $('#fromDate').val() : '';
     var toDateValue = $('#toDate').val() ? $('#toDate').val() : '';
     var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
@@ -404,7 +405,7 @@ $(function () {
       'columnDefs': [ { orderable: false, targets: [0] }],
       'ajax': {
         'type': 'POST',
-        'url':'php/filterWeight.php',
+        'url':'php/filterBillboard.php',
         'data': {
           fromDate: fromDateValue,
           toDate: toDateValue,
@@ -441,6 +442,7 @@ $(function () {
       $('td', row).css('background-color', '#E6E6FA');
     },
     "drawCallback": function(settings) {
+      $('#spinnerLoading').hide();
       $('#salesInfo').html('Total Transaction: ' + settings.json.salesTotal + '<br>Total Incoming: ' + settings.json.salesWeight + '<br>Total Outgoing: ' + settings.json.salesTare + '<br>Total Net Weight: ' +settings.json.salesNet);
       $('#purchaseInfo').html('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + '<br>Total Outgoing: ' + settings.json.purchaseTare + '<br>Total Net Weight: ' +settings.json.purchaseNet);
       $('#localInfo').html('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + '<br>Total Outgoing: ' + settings.json.localTare + '<br>Total Net Weight: ' +settings.json.localNet);

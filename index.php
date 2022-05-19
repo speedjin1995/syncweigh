@@ -107,6 +107,7 @@ else{
       width: 100%;
       height: 100%;
       background-color: rgba(16, 16, 16, 0.5);
+      z-index: 5;
     }
 
     @-webkit-keyframes uil-ring-anim {
@@ -554,49 +555,31 @@ $(function () {
   }
   
   $('#sideMenu').on('click', '.link', function(){
+      $('#spinnerLoading').hide();
       var files = $(this).attr('data-file');
       $('#sideMenu').find('.active').removeClass('active');
       $(this).addClass('active');
       
       $.get(files, function(data) {
-          $('#mainContents').html(data);
+        $('#mainContents').html(data);
+        $('#spinnerLoading').hide();
       });
   });
 
   $('#goToProfile').on('click', function(){
+      $('#spinnerLoading').show();
       var files = $(this).attr('data-file');
       $('#sideMenu').find('.active').removeClass('active');
       $(this).addClass('active');
       
       $.get(files, function(data) {
           $('#mainContents').html(data);
+          $('#spinnerLoading').hide();
       });
   });
   
   $("a[href='#billboard']").click();
 });
-
-var loadingOverlay = document.querySelector('.loading');
-function toggleLoading(event){
-  if (event.keyCode !== 13) return;
-  
-  document.activeElement.blur();
-  
-  if (loadingOverlay.classList.contains('hidden')){
-    loadingOverlay.classList.remove('hidden');
-  } else {
-    loadingOverlay.classList.add('hidden');
-  }
-}
-
-document.addEventListener('keydown', toggleLoading);
-
-function showAlert(){
-  alert('de knop werkt!');
-}
-
-var testButton = document.getElementById('testButton');
-testButton.addEventListener('click', showAlert);
 </script>
 </body>
 </html>
