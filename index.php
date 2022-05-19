@@ -96,6 +96,181 @@ else{
       background-color: #000;
     }
 
+    /*.hidden {
+      display: none !important;
+    }*/
+
+    div.loading{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(16, 16, 16, 0.5);
+    }
+
+    @-webkit-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-webkit-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-moz-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-ms-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-moz-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-webkit-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-o-keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes uil-ring-anim {
+      0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    .uil-ring-css {
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+    }
+
+    .uil-ring-css > div {
+      position: absolute;
+      display: block;
+      width: 160px;
+      height: 160px;
+      top: 20px;
+      left: 20px;
+      border-radius: 80px;
+      box-shadow: 0 6px 0 0 #ffffff;
+      -ms-animation: uil-ring-anim 1s linear infinite;
+      -moz-animation: uil-ring-anim 1s linear infinite;
+      -webkit-animation: uil-ring-anim 1s linear infinite;
+      -o-animation: uil-ring-anim 1s linear infinite;
+      animation: uil-ring-anim 1s linear infinite;
+    }
   </style>
 </head>
 <!--
@@ -109,6 +284,12 @@ to get the desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition sidebar-mini">
+<div class="loading" id="spinnerLoading">
+  <div class='uil-ring-css' style='transform:scale(0.79);'>
+    <div></div>
+  </div>
+</div>
+
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-primary navbar-light" >
@@ -352,52 +533,70 @@ to get the desired effect
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-<!-- RS232 Plugins -->
-<script src="plugins/zip/dist/zip-full.min.js"></script>
-<script src="plugins/JSPrintManager/scripts/JSPrintManager.js"></script>
-
 <script>
-  $(function () {
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": false,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
-    
-    $('#sideMenu').on('click', '.link', function(){
-        var files = $(this).attr('data-file');
-        $('#sideMenu').find('.active').removeClass('active');
-        $(this).addClass('active');
-        
-        $.get(files, function(data) {
-            $('#mainContents').html(data);
-        });
-    });
-
-    $('#goToProfile').on('click', function(){
-        var files = $(this).attr('data-file');
-        $('#sideMenu').find('.active').removeClass('active');
-        $(this).addClass('active');
-        
-        $.get(files, function(data) {
-            $('#mainContents').html(data);
-        });
-    });
-    
-    $("a[href='#billboard']").click();
+$(function () {
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+  
+  $('#sideMenu').on('click', '.link', function(){
+      var files = $(this).attr('data-file');
+      $('#sideMenu').find('.active').removeClass('active');
+      $(this).addClass('active');
+      
+      $.get(files, function(data) {
+          $('#mainContents').html(data);
+      });
   });
+
+  $('#goToProfile').on('click', function(){
+      var files = $(this).attr('data-file');
+      $('#sideMenu').find('.active').removeClass('active');
+      $(this).addClass('active');
+      
+      $.get(files, function(data) {
+          $('#mainContents').html(data);
+      });
+  });
+  
+  $("a[href='#billboard']").click();
+});
+
+var loadingOverlay = document.querySelector('.loading');
+function toggleLoading(event){
+  if (event.keyCode !== 13) return;
+  
+  document.activeElement.blur();
+  
+  if (loadingOverlay.classList.contains('hidden')){
+    loadingOverlay.classList.remove('hidden');
+  } else {
+    loadingOverlay.classList.add('hidden');
+  }
+}
+
+document.addEventListener('keydown', toggleLoading);
+
+function showAlert(){
+  alert('de knop werkt!');
+}
+
+var testButton = document.getElementById('testButton');
+testButton.addEventListener('click', showAlert);
 </script>
 </body>
 </html>

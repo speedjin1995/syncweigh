@@ -41,6 +41,7 @@ else{
 						<table id="supplierTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>
+                                    <th>Code</th>
 									<th>Name</th>
 									<th>Address</th>
 									<th>Phone</th>
@@ -116,6 +117,7 @@ $(function () {
             'url':'php/loadSupplier.php'
         },
         'columns': [
+            { data: 'customer_code' },
             { data: 'customer_name' },
             { data: 'customer_address' },
             { data: 'customer_phone' },

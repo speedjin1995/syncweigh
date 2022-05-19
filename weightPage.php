@@ -255,7 +255,7 @@ else{
 </div>
 
 <div class="modal fade" id="extendModal">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-xl" style="max-width: 90%;">
     <div class="modal-content">
 
       <form role="form" id="extendForm">
@@ -372,7 +372,7 @@ else{
                 <div class="col-md-2">
                   <div class="form-group">
                     <label>Lot No *</label>
-                    <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo" required>
+                    <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo">
                       <option selected="selected">-</option>
                       <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
                         <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
