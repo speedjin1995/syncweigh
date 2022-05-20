@@ -17,13 +17,13 @@ $searchQuery = " ";
 if($_POST['fromDate'] != null && $_POST['fromDate'] != ''){
   $fromDate = new DateTime($_POST['fromDate']);
   $fromDateTime = date_format($fromDate,"Y-m-d H:i:s");
-   $searchQuery = " and weight.dateTime >= '".$fromDateTime."'";
+  $searchQuery = " and weight.inCDateTime >= '".$fromDateTime."'";
 }
 
 if($_POST['toDate'] != null && $_POST['toDate'] != ''){
   $toDate = new DateTime($_POST['toDate']);
   $toDateTime = date_format($toDate,"Y-m-d H:i:s");
-	$searchQuery .= " and weight.dateTime <= '".$toDateTime."'";
+	$searchQuery .= " and weight.inCDateTime <= '".$toDateTime."'";
 }
 
 if($_POST['status'] != null && $_POST['status'] != '' && $_POST['status'] != '-'){
@@ -179,7 +179,8 @@ $response = array(
   "localTotal" => $local,
   "localWeight" => $localWeight,
   "localTare" => $localTare,
-  "localNet" => $localNett
+  "localNet" => $localNett,
+  "toDate" => $empQuery
 );
 
 echo json_encode($response);

@@ -371,11 +371,11 @@ else{
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <label>Lot No *</label>
+                    <label>Lot No </label>
                     <select class="form-control" style="width: 100%;" id="lotNo" name="lotNo">
                       <option selected="selected">-</option>
                       <?php while($row3=mysqli_fetch_assoc($lots)){ ?>
-                        <option value="<?=$row3['id'] ?>"><?=$row3['lots_no'] ?></option>
+                        <option value="<?=$row3['lots_no'] ?>"><?=$row3['lots_no'] ?></option>
                       <?php } ?>
                     </select>
                   </div>

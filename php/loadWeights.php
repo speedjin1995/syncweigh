@@ -29,12 +29,12 @@ $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
+$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, weight.lotNo, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
 weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
 weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
 weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, lots, customers, products, units, status, users, transporters
-WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND
+weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, customers, products, units, status, users, transporters
+WHERE weight.package = packages.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND
 weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
 units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
@@ -97,7 +97,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "id"=>$row['id'],
     "serialNo"=>$row['serialNo'],
     "veh_number"=>$row['vehicleNo'],
-    "lots_no"=>$row['lots_no'],
+    "lots_no"=>$row['lotNo'],
     "batchNo"=>$row['batchNo'],
     "invoiceNo"=>$row['invoiceNo'],
     "deliveryNo"=>$row['deliveryNo'],

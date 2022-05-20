@@ -244,29 +244,7 @@ else{
 
 <script>
 $(function () {
-  /*var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
-  var pieData = {
-    labels: [
-      'SALES', 
-      'PURCHASES',
-      'LOCAL' 
-    ],
-    datasets: [
-      {
-        data: [0,0,0],
-        backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
-      }
-    ]
-  };
-  var pieOptions = {maintainAspectRatio : false, responsive : true};
-
-  var pieChart = new Chart(pieChartCanvas, {
-    type: 'pie',
-    data: pieData,
-    options: pieOptions      
-  });*/
-
-  var table = $("#weightTable").DataTable({
+  /*var table = $("#weightTable").DataTable({
     "responsive": true,
     "autoWidth": false,
     'processing': true,
@@ -307,41 +285,61 @@ $(function () {
       $('#purchaseInfo').html('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + '<br>Total Outgoing: ' + settings.json.purchaseTare + '<br>Total Net Weight: ' +settings.json.purchaseNet);
       $('#localInfo').html('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + '<br>Total Outgoing: ' + settings.json.localTare + '<br>Total Net Weight: ' +settings.json.localNet);
     }
-    // "footerCallback": function ( row, data, start, end, display ) {
-    //   var api = this.api();
+  });*/
 
-    //   // Remove the formatting to get integer data for summation
-    //   var intVal = function (i) {
-    //     return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-    //   };
-
-    //   // Total over all pages
-    //   total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-
-    //   // Total over this page
-    //   pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-
-    //   // Update footer
-    //   $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
-    //   $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
-    //   $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
-    //   $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
-    //   $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
-    //   $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
-    //   $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
-    // }
+  var table = $("#weightTable").DataTable({
+    "responsive": true,
+    "autoWidth": false,
+    'processing': true,
+    'serverSide': true,
+    'serverMethod': 'post',
+    'searching': false,
+    'order': [[ 1, 'asc' ]],
+    'columnDefs': [ { orderable: false, targets: [0] }],
+    'ajax': {
+      'type': 'POST',
+      'url':'php/filterBillboard.php',
+      'data': {
+        fromDate:  new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " 00:00:00",
+        toDate: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " 23:59:59",
+        status: '',
+        customer: '',
+        vehicle: '',
+        invoice: '',
+        batch: '',
+        product: '',
+      } 
+    },
+    'columns': [
+      { data: 'no' },
+      { data: 'pStatus' },
+      { data: 'status' },
+      { data: 'serialNo' },
+      { data: 'veh_number' },
+      { data: 'product_name' },
+      { data: 'currentWeight' },
+      { data: 'inCDateTime' },
+      { data: 'tare' },
+      { data: 'outGDateTime' },
+      { data: 'totalWeight' },
+      { 
+        className: 'dt-control',
+        orderable: false,
+        data: null,
+        render: function ( data, type, row ) {
+          return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+        }
+      }
+    ],
+    "rowCallback": function( row, data, index ) {
+      $('td', row).css('background-color', '#E6E6FA');
+    },
+    "drawCallback": function(settings) {
+      $('#spinnerLoading').hide();
+      $('#salesInfo').html('Total Transaction: ' + settings.json.salesTotal + '<br>Total Incoming: ' + settings.json.salesWeight + ' kg<br>Total Outgoing: ' + settings.json.salesTare + ' kg<br>Total Net Weight: ' +settings.json.salesNet+ ' kg');
+      $('#purchaseInfo').html('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + ' kg<br>Total Outgoing: ' + settings.json.purchaseTare + ' kg<br>Total Net Weight: ' +settings.json.purchaseNet+ ' kg');
+      $('#localInfo').html('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + ' kg<br>Total Outgoing: ' + settings.json.localTare + ' kg<br>Total Net Weight: ' +settings.json.localNet+ ' kg');
+    }
   });
 
   // Add event listener for opening and closing details
@@ -370,12 +368,14 @@ $(function () {
   //Date picker
   $('#fromDatePicker').datetimepicker({
       icons: { time: 'far fa-clock' },
-      format: 'DD/MM/YYYY HH:mm:ss A'
+      format: 'DD/MM/YYYY HH:mm:ss A',
+      defaultDate: new Date
   });
 
   $('#toDatePicker').datetimepicker({
       icons: { time: 'far fa-clock' },
-      format: 'DD/MM/YYYY HH:mm:ss A'
+      format: 'DD/MM/YYYY HH:mm:ss A',
+      defaultDate: new Date
   });
 
   $('#customerNoHidden').hide();
@@ -383,6 +383,35 @@ $(function () {
 
   $('#filterSearch').on('click', function(){
     $('#spinnerLoading').show();
+
+    if($('#fromDate').val()){
+      var convert1 = $('#fromDate').val().replace(", ", " ");
+      convert1 = convert1.replace(":", "/");
+      convert1 = convert1.replace(":", "/");
+      convert1 = convert1.replace(" ", "/");
+      convert1 = convert1.replace(" pm", "");
+      convert1 = convert1.replace(" am", "");
+      convert1 = convert1.replace(" PM", "");
+      convert1 = convert1.replace(" AM", "");
+      var convert2 = convert1.split("/");
+      var date  = new Date(convert2[2], convert2[1] - 1, convert2[0], convert2[3], convert2[4], convert2[5]);
+      $('#fromDate').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+    }
+    
+    if($('#toDate').val()){
+      var convert3 = $('#toDate').val().replace(", ", " ");
+      convert3 = convert3.replace(":", "/");
+      convert3 = convert3.replace(":", "/");
+      convert3 = convert3.replace(" ", "/");
+      convert3 = convert3.replace(" pm", "");
+      convert3 = convert3.replace(" am", "");
+      convert1 = convert3.replace(" PM", "");
+      convert3 = convert3.replace(" AM", "");
+      var convert4 = convert3.split("/");
+      var date2  = new Date(convert4[2], convert4[1] - 1, convert4[0], convert4[3], convert4[4], convert4[5]);
+      $('#toDate').val(date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate() + " " + date2.getHours() + ":" + date2.getMinutes() + ":" + date2.getSeconds());
+    }
+
     var fromDateValue = $('#fromDate').val() ? $('#fromDate').val() : '';
     var toDateValue = $('#toDate').val() ? $('#toDate').val() : '';
     var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
@@ -513,6 +542,78 @@ $(function () {
   });
 });
 
+/*function filterByToday(table) {
+  $('#spinnerLoading').show();
+  var date = new Date();
+  var fromDateValue =;
+  var toDateValue = ;
+  var statusFilter = '';
+  var customerNoFilter = '';
+  var vehicleFilter = '';
+  var invoiceFilter = '';
+  var batchFilter = '';
+  var productFilter = '';
+
+  //Destroy the old Datatable
+  $("#weightTable").DataTable().clear().destroy();
+
+  //Create new Datatable
+  table = $("#weightTable").DataTable({
+    "responsive": true,
+    "autoWidth": false,
+    'processing': true,
+    'serverSide': true,
+    'serverMethod': 'post',
+    'searching': false,
+    'order': [[ 1, 'asc' ]],
+    'columnDefs': [ { orderable: false, targets: [0] }],
+    'ajax': {
+      'type': 'POST',
+      'url':'php/filterBillboard.php',
+      'data': {
+        fromDate:  new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " 00:00:00",
+        toDate: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " 23:59:59",
+        status: '',
+        customer: '',
+        vehicle: '',
+        invoice: '',
+        batch: '',
+        product: '',
+      } 
+    },
+    'columns': [
+      { data: 'no' },
+      { data: 'pStatus' },
+      { data: 'status' },
+      { data: 'serialNo' },
+      { data: 'veh_number' },
+      { data: 'product_name' },
+      { data: 'currentWeight' },
+      { data: 'inCDateTime' },
+      { data: 'tare' },
+      { data: 'outGDateTime' },
+      { data: 'totalWeight' },
+      { 
+        className: 'dt-control',
+        orderable: false,
+        data: null,
+        render: function ( data, type, row ) {
+          return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+        }
+      }
+    ],
+    "rowCallback": function( row, data, index ) {
+      $('td', row).css('background-color', '#E6E6FA');
+    },
+    "drawCallback": function(settings) {
+      $('#spinnerLoading').hide();
+      $('#salesInfo').html('Total Transaction: ' + settings.json.salesTotal + '<br>Total Incoming: ' + settings.json.salesWeight + ' kg<br>Total Outgoing: ' + settings.json.salesTare + ' kg<br>Total Net Weight: ' +settings.json.salesNet+ ' kg');
+      $('#purchaseInfo').html('Total Transaction: ' + settings.json.purchaseTotal + '<br>Total Incoming: ' + settings.json.purchaseWeight + ' kg<br>Total Outgoing: ' + settings.json.purchaseTare + ' kg<br>Total Net Weight: ' +settings.json.purchaseNet+ ' kg');
+      $('#localInfo').html('Total Transaction: ' + settings.json.localTotal + '<br>Total Incoming: ' + settings.json.localWeight + ' kg<br>Total Outgoing: ' + settings.json.localTare + ' kg<br>Total Net Weight: ' +settings.json.localNet+ ' kg');
+    }
+  });
+}*/
+
 function addData(chart, label, data) {
   chart.data.labels.push(label);
   chart.data.datasets.forEach((dataset) => {
@@ -592,123 +693,6 @@ function formatNormal (row) {
   '</p></div></div>';
   ;
 }
-
-/*function edit(id) {
-  $.post('php/getWeights.php', {userID: id}, function(data){
-    var obj = JSON.parse(data);
-    
-    if(obj.status === 'success'){
-      $('#extendModal').find('#id').val(obj.message.id);
-      $('#extendModal').find('#serialNumber').val(obj.message.serialNo);
-      $('#extendModal').find('#unitWeight').val(obj.message.unitWeight);
-      $('#extendModal').find('#invoiceNo').val(obj.message.invoiceNo);
-      $('#extendModal').find('#status').val(obj.message.status);
-      $('#extendModal').find('#lotNo').val(obj.message.lotNo);
-      $('#extendModal').find('#deliveryNo').val(obj.message.deliveryNo);
-      $('#extendModal').find('#batchNo').val(obj.message.batchNo);
-      $('#extendModal').find('#purchaseNo').val(obj.message.purchaseNo);
-      $('#extendModal').find('#currentWeight').val(obj.message.currentWeight);
-      $('#extendModal').find('#product').val(obj.message.productName);
-      $('#extendModal').find('#moq').val(obj.message.moq);
-      $('#extendModal').find('#tareWeight').val(obj.message.tare);
-      $('#extendModal').find('#package').val(obj.message.package);
-      $('#extendModal').find('#actualWeight').val(obj.message.actualWeight);
-      $('#extendModal').find('#supplyWeight').val(obj.message.supplyWeight);
-      $('#extendModal').find('#varianceWeight').val(obj.message.varianceWeight);
-      $('#extendModal').find('#remark').val(obj.message.remark);
-      $('#extendModal').find('#totalPrice').val(obj.message.totalPrice);
-      $('#extendModal').find('#unitPrice').val(obj.message.unitPrice);
-      $('#extendModal').find('#totalWeight').val(obj.message.totalWeight);
-      $('#extendModal').find('#reduceWeight').val(obj.message.reduceWeight);
-      $('#extendModal').find('#pStatus').val(obj.message.pStatus);
-      $('#extendModal').find('#outGDateTime').val(obj.message.outGDateTime);
-      $('#extendModal').find('#inCDateTime').val(obj.message.inCDateTime);
-      $('#extendModal').find('#variancePerc').val(obj.message.variancePerc);
-      $('#extendModal').find('.hidOutgoing').removeAttr('hidden');
-      $('#dateTime').datetimepicker({
-        format: 'D/MM/YYYY h:m:s A'
-      });
-      $('#extendModal').find('#dateTime').val(obj.message.dateTime.toLocaleString("en-US"));
-      
-    
-      if($('#extendModal').find('#status').val() == '1'){
-        $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($('#extendModal').find('#status').val());
-        $('#extendModal').find('.labelStatus').text('Customer No');
-        $('#extendModal').find('#customerNo').val(obj.message.customer);
-        
-      }
-      else if($('#extendModal').find('#status').val() == '2'){
-        $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($('#extendModal').find('#status').val());
-        $('#extendModal').find('.labelStatus').text('Supplier No');
-        $('#extendModal').find('#customerNo').val(obj.message.customer);
-      }
-
-      if(obj.message.manualVehicle === 1){
-        $('#extendModal').find('#manualVehicle').prop('checked', true);
-        $('#extendModal').find('#vehicleNoTct').removeAttr('hidden');
-        $('#extendModal').find('#vehicleNo').attr('hidden', 'hidden');
-        $('#extendModal').find('#vehicleNoTct').val(obj.message.vehicleNo);
-      }
-      else{
-        $('#extendModal').find('#manualVehicle').prop('checked', false);
-        $('#extendModal').find('#vehicleNo').removeAttr('hidden');
-        $('#extendModal').find('#vehicleNoTct').attr('hidden', 'hidden');
-        $('#extendModal').find('#vehicleNo').val(obj.message.vehicleNo);
-      }
-
-            ///still need do some changes
-      if(obj.message.manual === 1){
-        $('#extendModal').find('#manual').prop('checked', true);
-        $('#extendModal').find('#currentWeight').attr('readonly', false);
-      }
-
-      if(obj.message.manualOutgoing === 1){
-        $('#extendModal').find('#manualOutgoing').prop('checked', true);
-        $('#extendModal').find('#tareWeight').attr('readonly', false);
-      }
-
-      $('#extendModal').modal('show');
-      $('#lotForm').validate({
-        errorElement: 'span',
-        errorPlacement: function (error, element) {
-          error.addClass('invalid-feedback');
-          element.closest('.form-group').append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-          $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element, errorClass, validClass) {
-          $(element).removeClass('is-invalid');
-        }
-      });
-    }
-    else if(obj.status === 'failed'){
-      toastr["error"](obj.message, "Failed:");
-    }
-    else{
-      toastr["error"]("Something wrong when pull data", "Failed:");
-    }
-  });
-}
-
-function deactivate(id) {
-  if (confirm('Are you sure you want to delete this items?')) {
-    $.post('php/deleteWeight.php', {userID: id}, function(data){
-      var obj = JSON.parse(data);
-
-      if(obj.status === 'success'){
-        toastr["success"](obj.message, "Success:");
-        $('#weightTable').DataTable().ajax.reload();
-      }
-      else if(obj.status === 'failed'){
-        toastr["error"](obj.message, "Failed:");
-      }
-      else{
-        toastr["error"]("Something wrong when activate", "Failed:");
-      }
-    });
-  }
-}*/
 
 function print(id) {
   $.post('php/print.php', {userID: id, file: 'weight'}, function(data){
