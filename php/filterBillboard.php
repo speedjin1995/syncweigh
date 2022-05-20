@@ -209,17 +209,17 @@ $response = array(
   "iTotalDisplayRecords" => $totalRecordwithFilter,
   "aaData" => $data,
   "salesTotal" => $sales,
-  "salesWeight" => $salesWeight,
-  "salesTare" => $salesTare,
-  "salesNet" => $salesNett,
+  "salesWeight" => number_format($salesWeight, 2),
+  "salesTare" => number_format($salesTare, 2),
+  "salesNet" => number_format($salesNett, 2),
   "purchaseTotal" => $purchase,
-  "purchaseWeight" => $purchaseWeight,
-  "purchaseTare" => $purchaseTare,
-  "purchaseNet" => $purchaseNett,
+  "purchaseWeight" => number_format($purchaseWeight, 2),
+  "purchaseTare" => number_format($purchaseTare, 2),
+  "purchaseNet" => number_format($purchaseNett, 2),
   "localTotal" => $local,
-  "localWeight" => $localWeight,
-  "localTare" => $localTare,
-  "localNet" => $localNett
+  "localWeight" => number_format($localWeight, 2),
+  "localTare" => number_format($localTare, 2),
+  "localNet" => number_format($localNett, 2)
 );
 
 echo json_encode($response);
