@@ -534,7 +534,7 @@ function removeData(chart) {
 
 function format (row) {
   return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+
-  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unitWeight+
+  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unit+
   '</p></div><div class="col-md-3"><p>Weight Status: '+row.status+
   '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
@@ -565,7 +565,7 @@ function format (row) {
 
 function formatNormal (row) {
   return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+
-  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unitWeight+
+  '</p></div><div class="col-md-3"><p>Unit Weight: '+row.unit+
   '</p></div><div class="col-md-3"><p>Weight Status: '+row.status+
   '</p></div><div class="col-md-3"><p>MOQ: '+row.moq+
   '</p></div></div><div class="row"><div class="col-md-3"><p>Address: '+row.customer_address+
