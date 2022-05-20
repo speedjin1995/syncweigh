@@ -35,13 +35,12 @@ if(isset($_POST['userID'], $_POST["file"])){
         //AND weight.pStatus = 'Pending'
 
         if ($select_stmt = $db->prepare("select weight.id, weight.serialNo, weight.vehicleNo, weight.lotNo, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
-weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, customers.customer_email, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
-weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
-weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, customers, products, units, status, users, transporters
-WHERE weight.package = packages.id AND users.id = weight.created_by AND
-weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
-units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.id=?")) {
+        weight.purchaseNo, weight.customer, products.product_name, packages.packages, weight.unitWeight, weight.tare, weight.totalWeight, weight.actualWeight, 
+        weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, weight.totalPrice, weight.remark, 
+        weight.status as Status, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight, weight.outGDateTime, weight.inCDateTime, 
+        weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, products, units, status, users, transporters
+        WHERE weight.package = packages.id AND users.id = weight.created_by AND weight.productName = products.id AND status.id=weight.status AND 
+        units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.id=?")) {
             $select_stmt->bind_param('s', $id);
 
             // Execute the prepared query.
@@ -61,6 +60,10 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                     $cw = 0;
                     $tw = 0;
                     $ttw = 0;
+                    $customer = '';
+                    $customerP = '';
+                    $customerA = '';
+                    $customerE = '';
                     
                     if($row['unitWeight'] == '1'){
                         $ow = $row['supplyWeight'];
@@ -77,6 +80,28 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
                         $ttw = number_format(((float)$row['totalWeight'] * 1000), 2);
                     }
                     
+                    if($row['Status'] != '1' && $row['Status'] != '2'){
+                        $customer = $row['customer'];
+                    }
+                    else{
+                        $cid = $row['customer'];
+                    
+                        if ($update_stmt = $db->prepare("SELECT * FROM customers WHERE id=?")) {
+                            $update_stmt->bind_param('s', $cid);
+                            
+                            // Execute the prepared query.
+                            if ($update_stmt->execute()) {
+                                $result2 = $update_stmt->get_result();
+                                
+                                if ($row2 = $result2->fetch_assoc()) {
+                                    $customer = $row2['customer_name'];
+                                    $customerP = $row2['customer_phone'];
+                                    $customerA = $row2['customer_address'];
+                                    $customerE = $row2['customer_email'];
+                                }
+                            }
+                        }
+                    }
                     
                     $text = "https://speedjin.com/synctronix/qr.php?id=".$id."&compid=".$compids;
   
@@ -184,7 +209,7 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
         <tr>
             <td style="width: 40%;">
                 <p>
-                    <span style="font-weight: bold;font-size: 16px;">'.$row['customer_name'].'</span><br>
+                    <span style="font-weight: bold;font-size: 16px;">'.$customer.'</span><br>
                 </p>
             </td>
             <td style="width: 20%;">
@@ -200,9 +225,9 @@ units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.del
         <tr>
             <td>
                 <p>
-                    <span style="font-size: 12px;">'.$row['customer_address'].'</span><br>
-                    <span style="font-size: 12px;">TEL: '.$row['customer_phone'].'</span><br>
-                    <span style="font-size: 12px;">EMAIL: '.$row['customer_email'].'</span>
+                    <span style="font-size: 12px;">'.$customerA.'</span><br>
+                    <span style="font-size: 12px;">TEL: '.$customerP.'</span><br>
+                    <span style="font-size: 12px;">EMAIL: '.$customerE.'</span>
                 </p>
                 <table style="width:100%; border:1px solid black;">
                     <tr>

@@ -51,23 +51,22 @@ if($_POST['product'] != null && $_POST['product'] != '' && $_POST['product'] != 
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Pending'");
+$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, products, status, units, transporters WHERE weight.package = packages.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Pending'");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, lots, customers, products, status, units, transporters WHERE weight.package = packages.id AND weight.lotNo = lots.id AND weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Pending'".$searchQuery);
+$sel = mysqli_query($db,"select count(*) as allcount from weight, packages, products, status, units, transporters WHERE weight.package = packages.id AND weight.productName = products.id AND status.id=weight.status AND units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.pStatus = 'Pending'".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, lots.lots_no, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
-weight.purchaseNo, customers.customer_name, customers.customer_phone, customers.customer_address, products.product_name, packages.packages, weight.unitWeight, weight.tare, 
-weight.totalWeight, weight.actualWeight, weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, 
-weight.unitPrice, weight.totalPrice, weight.remark, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight,
-weight.outGDateTime, weight.inCDateTime, weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, lots, customers, products, units, status, users, transporters
-WHERE weight.package = packages.id AND weight.lotNo = lots.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND
-weight.customer = customers.id AND weight.productName = products.id AND status.id=weight.status AND 
+$empQuery = "select weight.id, weight.serialNo, weight.vehicleNo, weight.lotNo, weight.batchNo, weight.invoiceNo, weight.deliveryNo, users.name,
+weight.purchaseNo, weight.customer, products.product_name, packages.packages, weight.unitWeight, weight.tare, weight.totalWeight, weight.actualWeight, 
+weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, weight.totalPrice, weight.remark, 
+weight.status as Status, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight, weight.outGDateTime, weight.inCDateTime, 
+weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, products, units, status, users, transporters
+WHERE weight.package = packages.id AND users.id = weight.created_by AND weight.pStatus = 'Pending' AND weight.productName = products.id AND status.id=weight.status AND 
 units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0'".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($db, $empQuery);
 $data = array();
@@ -78,10 +77,35 @@ $local = 0;
 
 while($row = mysqli_fetch_assoc($empRecords)) {
   $manual = '';
+  $customer = '';
+  $customerP = '';
+  $customerA = '';
   
   if($row['manual'] == '1'){
     $manual = "** This is manual weighing!";
   }
+
+  if($row['Status'] != '1' && $row['Status'] != '2'){
+		$customer = $row['customer'];
+	}
+	else{
+    $cid = $row['customer'];
+
+		if ($update_stmt = $db->prepare("SELECT * FROM customers WHERE id=?")) {
+      $update_stmt->bind_param('s', $cid);
+      
+      // Execute the prepared query.
+      if ($update_stmt->execute()) {
+        $result = $update_stmt->get_result();
+          
+        if ($row2 = $result->fetch_assoc()) {
+          $customer = $row2['customer_name'];
+          $customerP = $row2['customer_phone'];
+          $customerA = $row2['customer_address'];
+        }
+      }
+    }
+	}
 
   if($row['outGDateTime'] == null || $row['outGDateTime'] == ''){
     $outGDateTime = '-';
@@ -120,9 +144,9 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "deliveryNo"=>$row['deliveryNo'],
     "purchaseNo"=>$row['purchaseNo'],
     "userName"=>$row['name'],
-    "customer_name"=>$row['customer_name'],
-    "customer_phone"=>$row['customer_phone'],
-    "customer_address"=>$row['customer_address'],
+    "customer_name"=>$customer,
+    "customer_phone"=>$customerP,
+    "customer_address"=>$customerA,
     "product_name"=>$row['product_name'],
     "packages"=>$row['packages'],
     "unitWeight"=>$row['units'],

@@ -32,9 +32,9 @@ else{
 					<div class="card-header">
                         <div class="row">
                             <div class="col-9"></div>
-                            <div class="col-3">
+                            <!--div class="col-3">
                                 <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="addStatus">Status</button>
-                            </div>
+                            </div-->
                         </div>
                     </div>
 					<div class="card-body">

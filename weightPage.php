@@ -394,12 +394,11 @@ else{
           </div>
 
           <div class="row">
-              
                 <div class="col-md-4">
                     <div class="form-group">
                       <label class="labelStatus">Customer No *</label>
                       <select class="form-control" id="customerNo" name="customerNo" required></select>
-                      <input class="form-control" type="text" placeholder="Vehicle No." id="customerNoTxt" name="customerNoTxt" hidden>
+                      <input class="form-control" type="text" placeholder="Description" id="customerNoTxt" name="customerNoTxt" hidden>
                     </div>
                 </div>
 
@@ -1281,33 +1280,8 @@ $(function () {
     });
   });
 
-  $('#excelSearch').on('click', function(){
-    var fromDateValue = $('#fromDateValue').val() ? $('#fromDateValue').val() : '';
-    var toDateValue = $('#toDateValue').val() ? $('#toDateValue').val() : '';
-    var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
-    var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
-    var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
-    var invoiceFilter = $('#invoiceFilter').val() ? $('#invoiceFilter').val() : '';
-    var batchFilter = $('#batchFilter').val() ? $('#batchFilter').val() : '';
-    var productFilter = $('#productFilter').val() ? $('#productFilter').val() : '';
-    
-    window.open("php/export.php?file=weight&fromDate="+fromDateValue+"&toDate="+toDateValue+
-    "&status="+statusFilter+"&customer="+customerNoFilter+"&vehicle="+vehicleFilter+
-    "&invoice="+invoiceFilter+"&batch="+batchFilter+"&product="+productFilter);
-
-  });
-
   $('#datePicker').on('click', function () {
     $('#datePicker').attr('data-info', '1');
-  });
-
-  $('#statusFilter').on('change', function () {
-    if($(this).val() == '1'){
-      $('#customerNoFilter').html($('select#customerNoHidden').html()).append($(this).val());
-    }
-    else if($(this).val() == '2'){
-      $('#customerNoFilter').html($('select#supplierNoHidden').html()).append($(this).val());
-    }
   });
 
   $('#extendModal').find('#status').on('change', function () {
@@ -1316,18 +1290,24 @@ $(function () {
       $('#extendModal').find('.labelStatus').text('Customer No');
       $('#extendModal').find('.labelOrder').text('Order Weight');
       $('#customerNo').removeAttr('hidden');
+      $('#customerNo').attr('required', 'required');
       $('#customerNoTxt').attr('hidden', 'hidden');
+      $('#customerNoTxt').removeAttr('required');
     }
     else if($(this).val() == '2'){
       $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
       $('#extendModal').find('.labelStatus').text('Supplier No');
       $('#extendModal').find('.labelOrder').text('Supply Weight');
       $('#customerNo').removeAttr('hidden');
+      $('#customerNo').attr('required', 'required');
       $('#customerNoTxt').attr('hidden', 'hidden');
+      $('#customerNoTxt').removeAttr('required');
     }
     else{
       $('#extendModal').find('.labelStatus').text('Description');
       $('#customerNoTxt').removeAttr('hidden');
+      $('#customerNo').removeAttr('required');
+      $('#customerNoTxt').attr('required', 'required');
       $('#customerNo').attr('hidden', 'hidden');
     }
   });

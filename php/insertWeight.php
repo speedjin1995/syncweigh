@@ -4,7 +4,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 session_start();
 
-if(isset($_POST['status'], $_POST['customerNo'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeight'], $_POST['currentWeight']
+if(isset($_POST['status'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeight'], $_POST['currentWeight']
 ,$_POST['product'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight'],$_POST['totalPrice'],$_POST['totalWeight'], $_POST['dateTime']
 ,$_POST['supplyWeight'], $_POST['varianceWeight'], $_POST['reduceWeight'] ,$_POST['outGDateTime'], $_POST['inCDateTime'])){
 
@@ -17,6 +17,7 @@ if(isset($_POST['status'], $_POST['customerNo'], $_POST['unitWeight'], $_POST['m
 	$deliveryNo = '-';
 	$batchNo = '-';
 	$purchaseNo = '-';
+	$customerNo = '-';
 	$remark = '';
 	$transporter = '-';
 	$manual = filter_input(INPUT_POST, 'manual', FILTER_SANITIZE_STRING);
@@ -73,8 +74,14 @@ if(isset($_POST['status'], $_POST['customerNo'], $_POST['unitWeight'], $_POST['m
 			$vehicleNo = filter_input(INPUT_POST, 'vehicleNo', FILTER_SANITIZE_STRING);
 		}
 	}
+
+	if($status != '1' && $status != '2'){
+		$customerNo = filter_input(INPUT_POST, 'customerNoTxt', FILTER_SANITIZE_STRING);
+	}
+	else{
+		$customerNo = filter_input(INPUT_POST, 'customerNo', FILTER_SANITIZE_STRING);
+	}
 	
-	$customerNo = filter_input(INPUT_POST, 'customerNo', FILTER_SANITIZE_STRING);
 	$unitWeight = filter_input(INPUT_POST, 'unitWeight', FILTER_SANITIZE_STRING);
 	$currentWeight = filter_input(INPUT_POST, 'currentWeight', FILTER_SANITIZE_STRING);
 	$supplyWeight = filter_input(INPUT_POST, 'supplyWeight', FILTER_SANITIZE_STRING);
