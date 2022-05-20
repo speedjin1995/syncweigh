@@ -38,9 +38,9 @@ if(isset($_POST['userID'], $_POST["file"])){
         weight.purchaseNo, weight.customer, products.product_name, packages.packages, weight.unitWeight, weight.tare, weight.totalWeight, weight.actualWeight, 
         weight.supplyWeight, weight.varianceWeight, weight.currentWeight, units.units, weight.moq, weight.dateTime, weight.unitPrice, weight.totalPrice, weight.remark, 
         weight.status as Status, status.status, weight.manual, weight.manualVehicle, weight.manualOutgoing, weight.reduceWeight, weight.outGDateTime, weight.inCDateTime, 
-        weight.pStatus, weight.variancePerc, transporters.transporter_name from weight, packages, products, units, status, users, transporters
+        weight.pStatus, weight.variancePerc, weight.transporter from weight, packages, products, units, status, users 
         WHERE weight.package = packages.id AND users.id = weight.created_by AND weight.productName = products.id AND status.id=weight.status AND 
-        units.id=weight.unitWeight AND transporters.id=weight.transporter AND weight.deleted = '0' AND weight.id=?")) {
+        units.id=weight.unitWeight AND weight.deleted = '0' AND weight.id=?")) {
             $select_stmt->bind_param('s', $id);
 
             // Execute the prepared query.

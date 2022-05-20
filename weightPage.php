@@ -428,7 +428,7 @@ else{
                   <select class="form-control" style="width: 100%;" id="transporter" name="transporter">
                       <option selected="selected">-</option>
                       <?php while($row5=mysqli_fetch_assoc($transporters)){ ?>
-                        <option value="<?=$row5['id'] ?>"><?=$row5['transporter_name'] ?></option>
+                        <option value="<?=$row5['transporter_name'] ?>"><?=$row5['transporter_name'] ?></option>
                       <?php } ?>
                   </select>
                 </div>
