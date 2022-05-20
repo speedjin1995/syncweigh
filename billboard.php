@@ -405,7 +405,7 @@ $(function () {
       convert3 = convert3.replace(" ", "/");
       convert3 = convert3.replace(" pm", "");
       convert3 = convert3.replace(" am", "");
-      convert1 = convert3.replace(" PM", "");
+      convert3 = convert3.replace(" PM", "");
       convert3 = convert3.replace(" AM", "");
       var convert4 = convert3.split("/");
       var date2  = new Date(convert4[2], convert4[1] - 1, convert4[0], convert4[3], convert4[4], convert4[5]);
