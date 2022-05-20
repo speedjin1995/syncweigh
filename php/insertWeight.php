@@ -4,8 +4,8 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 session_start();
 
-if(isset($_POST['status'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeight'], $_POST['currentWeight']
-,$_POST['product'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight'],$_POST['totalPrice'],$_POST['totalWeight'], $_POST['dateTime']
+if(isset($_POST['status'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeight'], $_POST['currentWeight'], $_POST['dateTime']
+,$_POST['product'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight'],$_POST['totalPrice'],$_POST['totalWeight']
 ,$_POST['supplyWeight'], $_POST['varianceWeight'], $_POST['reduceWeight'] ,$_POST['outGDateTime'], $_POST['inCDateTime'])){
 
 	$userId = $_SESSION['userID'];

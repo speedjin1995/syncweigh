@@ -1287,7 +1287,7 @@ $(function () {
   $('#extendModal').find('#status').on('change', function () {
     if($(this).val() == '1'){
       $('#extendModal').find('#customerNo').html($('select#customerNoHidden').html()).append($(this).val());
-      $('#extendModal').find('.labelStatus').text('Customer No');
+      $('#extendModal').find('.labelStatus').text('Customer No *');
       $('#extendModal').find('.labelOrder').text('Order Weight');
       $('#customerNo').removeAttr('hidden');
       $('#customerNo').attr('required', 'required');
@@ -1296,7 +1296,7 @@ $(function () {
     }
     else if($(this).val() == '2'){
       $('#extendModal').find('#customerNo').html($('select#supplierNoHidden').html()).append($(this).val());
-      $('#extendModal').find('.labelStatus').text('Supplier No');
+      $('#extendModal').find('.labelStatus').text('Supplier No *');
       $('#extendModal').find('.labelOrder').text('Supply Weight');
       $('#customerNo').removeAttr('hidden');
       $('#customerNo').attr('required', 'required');
@@ -1304,7 +1304,7 @@ $(function () {
       $('#customerNoTxt').removeAttr('required');
     }
     else{
-      $('#extendModal').find('.labelStatus').text('Description');
+      $('#extendModal').find('.labelStatus').text('Description *');
       $('#customerNoTxt').removeAttr('hidden');
       $('#customerNo').removeAttr('required');
       $('#customerNoTxt').attr('required', 'required');
