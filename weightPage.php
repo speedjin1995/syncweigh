@@ -572,7 +572,7 @@ else{
           <div class="col-4">
             <div class="form-group">
               <label>Serial Port</label>
-              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$port ?>">
+              <input class="form-control" type="text" id="serialPort" name="serialPort" value="<?=$port ?>">
             </div>
           </div>
           <div class="col-4">
@@ -584,7 +584,7 @@ else{
           <div class="col-4">
             <div class="form-group">
               <label>Data Bits</label>
-              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$databits ?>">
+              <input class="form-control" type="text" id="serialPortDataBits" name="serialPortDataBits" value="<?=$databits ?>">
             </div>
           </div>
         </div>
@@ -592,13 +592,13 @@ else{
           <div class="col-4">
             <div class="form-group">
               <label>Parity</label>
-              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$parity ?>">
+              <input class="form-control" type="text" id="serialPortParity" name="serialPortParity" value="<?=$parity ?>">
             </div>
           </div>
           <div class="col-4">
             <div class="form-group">
               <label>Stop bits</label>
-              <input class="form-control" type="text" id="serialPortBaudRate" name="serialPortBaudRate" value="<?=$stopbits ?>">
+              <input class="form-control" type="text" id="serialPortStopBits" name="serialPortStopBits" value="<?=$stopbits ?>">
             </div>
           </div>
         </div>
