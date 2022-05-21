@@ -91,13 +91,13 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $inCDateTime = date_format($dateInt,"d/m/Y H:i:s A");
   }
 
-  if(strtoupper($row['status']) == 'SALES'){
+  if($row['Status'] == '1'){
     $sales++;
   }
-  else if(strtoupper($row['status']) == 'PURCHASE'){
+  else if($row['Status'] == '2'){
     $purchase++;
   }
-  else if(strtoupper($row['status']) == 'LOCAL AREA'){
+  else if($row['Status'] == '3'){
     $local++;
   }
 

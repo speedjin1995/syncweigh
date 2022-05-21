@@ -54,20 +54,20 @@ else{
                         <div class="form-group">
                             <label>Baud Rate</label>
                             <select class="form-control" style="width: 100%;" id="serialPortBaudRate" name="serialPortBaudRate" required>
-                                <option value="110">110</option>
-                                <option value="300">300</option>
-                                <option value="600">600</option>
-                                <option value="1200">1200</option>
-                                <option value="2400">2400</option>
-                                <option value="4800">4800</option>
-                                <option value="9600">9600</option>
-                                <option value="14400">14400</option>
-                                <option value="19200">19200</option>
-                                <option value="38400">38400</option>
-                                <option value="57600">57600</option>
-                                <option value="115200">115200</option>
-                                <option value="128000">128000</option>
-                                <option value="256000">256000</option>
+                                <option value="110" <?=$baudrate == '110' ? 'selected="selected"' : '';?>>110</option>
+                                <option value="300" <?=$baudrate == '300' ? ' selected="selected"' : '';?>>300</option>
+                                <option value="600" <?=$baudrate == '600' ? ' selected="selected"' : '';?>>600</option>
+                                <option value="1200" <?=$baudrate == '1200' ? ' selected="selected"' : '';?>>1200</option>
+                                <option value="2400" <?=$baudrate == '2400' ? ' selected="selected"' : '';?>>2400</option>
+                                <option value="4800" <?=$baudrate == '4800' ? ' selected="selected"' : '';?>>4800</option>
+                                <option value="9600" <?=$baudrate == '9600' ? ' selected="selected"' : '';?>>9600</option>
+                                <option value="14400" <?=$baudrate == '14400' ? ' selected="selected"' : '';?>>14400</option>
+                                <option value="19200" <?=$baudrate == '19200' ? ' selected="selected"' : '';?>>19200</option>
+                                <option value="38400" <?=$baudrate == '38400' ? ' selected="selected"' : '';?>>38400</option>
+                                <option value="57600" <?=$baudrate == '57600' ? ' selected="selected"' : '';?>>57600</option>
+                                <option value="115200" <?=$baudrate == '115200' ? ' selected="selected"' : '';?>>115200</option>
+                                <option value="128000" <?=$baudrate == '128000' ? ' selected="selected"' : '';?>>128000</option>
+                                <option value="256000" <?=$baudrate == '256000' ? ' selected="selected"' : '';?>>256000</option>
                             </select>
                         </div>
                     </div>
@@ -75,10 +75,10 @@ else{
                         <div class="form-group">
                             <label>Data Bits</label>
                             <select class="form-control" style="width: 100%;" id="serialPortDataBits" name="serialPortDataBits" required>
-                                <option value="8">8</option>
-                                <option value="7">7</option>
-                                <option value="6">6</option>
-                                <option value="5">5</option>
+                                <option value="8" <?=$databits == '8' ? 'selected="selected"' : '';?>>8</option>
+                                <option value="7" <?=$databits == '7' ? 'selected="selected"' : '';?>>7</option>
+                                <option value="6" <?=$databits == '6' ? 'selected="selected"' : '';?>>6</option>
+                                <option value="5" <?=$databits == '5' ? 'selected="selected"' : '';?>>5</option>
                             </select>
                         </div>
                     </div>
@@ -88,11 +88,11 @@ else{
                         <div class="form-group">
                             <label>Parity</label>
                             <select class="form-control" style="width: 100%;" id="serialPortParity" name="serialPortParity" required>
-                                <option value="N">None</option>
-                                <option value="O">Odd</option>
-                                <option value="E">Even</option>
-                                <option value="M">Mark</option>
-                                <option value="S">Space</option>
+                                <option value="N" <?=$parity == 'N' ? 'selected="selected"' : '';?>>None</option>
+                                <option value="O" <?=$parity == 'O' ? 'selected="selected"' : '';?>>Odd</option>
+                                <option value="E" <?=$parity == 'E' ? 'selected="selected"' : '';?>>Even</option>
+                                <option value="M" <?=$parity == 'M' ? 'selected="selected"' : '';?>>Mark</option>
+                                <option value="S" <?=$parity == 'S' ? 'selected="selected"' : '';?>>Space</option>
                             </select>
                         </div>
                     </div>
@@ -100,9 +100,9 @@ else{
                         <div class="form-group">
                             <label>Stop bits</label>
                             <select class="form-control" style="width: 100%;" id="serialPortStopBits" name="serialPortStopBits" required>
-                                <option value="1">1</option>
-                                <option value="1.5">1.5</option>
-                                <option value="2">2</option>
+                                <option value="1" <?=$stopbits == '1' ? 'selected="selected"' : '';?>>1</option>
+                                <option value="1.5" <?=$stopbits == '1.5' ? 'selected="selected"' : '';?>>1.5</option>
+                                <option value="2" <?=$stopbits == '2' ? 'selected="selected"' : '';?>>2</option>
                             </select>
                         </div>
                     </div>
@@ -127,6 +127,7 @@ $(function () {
         }
 
         $('#serialPort').html(options);
+        $('#serialPort').val(<?=$port ?>);
     });
 
     $.validator.setDefaults({
