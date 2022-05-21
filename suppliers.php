@@ -74,11 +74,11 @@ else{
                 </div>
                 <div class="form-group">
                   <label for="name">Supplier Code *</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Customer Name" >
+                  <input type="text" class="form-control" name="code" id="code" placeholder="Enter Supplier Code" required>
                 </div>
                 <div class="form-group">
                   <label for="name">Supplier Name *</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Customer Name" required>
+                  <input type="text" class="form-control" name="name" id="name" placeholder="Enter Supplier Name" required>
                 </div>
                 <div class="form-group"> 
                   <label for="address">Address *</label>
@@ -164,6 +164,7 @@ $(function () {
 
     $('#addSuppliers').on('click', function(){
         $('#addModal').find('#id').val("");
+        $('#addModal').find('#code').val("");
         $('#addModal').find('#name').val("");
         $('#addModal').find('#address').val("");
         $('#addModal').find('#phone').val("");
@@ -193,6 +194,7 @@ function edit(id){
         
         if(obj.status === 'success'){
             $('#addModal').find('#id').val(obj.message.id);
+            $('#addModal').find('#code').val(obj.message.customer_code);
             $('#addModal').find('#name').val(obj.message.customer_name);
             $('#addModal').find('#address').val(obj.message.customer_address);
             $('#addModal').find('#phone').val(obj.message.customer_phone);

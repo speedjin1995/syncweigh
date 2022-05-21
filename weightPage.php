@@ -223,7 +223,10 @@ else{
             <div class="row">
               <div class="col-9"></div>
               <div class="col-3">
-                <button type="button" class="btn btn-block bg-gradient-warning btn-sm"  onclick="newEntry()">Add New Weight</button>
+                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="refreshBtn"><i class="fas fa-refresh" aria-hidden="true"></i></button>
+              </div>
+              <div class="col-3">
+                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" onclick="newEntry()">Add New Weight</button>
               </div>
             </div>
           </div>
@@ -998,7 +1001,7 @@ $(function () {
     }
   });
 
-  $('#currentWeight').on('keyup', function(){
+  $('#extendModal').find('#currentWeight').on('keyup', function(){
     var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
     var reduceWeight = 0;
@@ -1028,11 +1031,13 @@ $(function () {
     var today  = new Date();
     $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
 
+    $('#variancePerc').trigger("keyup");
+    $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
   });
 
-  $('#tareWeight').on('keyup', function(){
+  $('#extendModal').find('#tareWeight').on('keyup', function(){
     var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
     var reduceWeight = 0;
@@ -1062,11 +1067,13 @@ $(function () {
     var today  = new Date();
     $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
 
+    $('#variancePerc').trigger("keyup");
+    $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
   });
 
-  $('#reduceWeight').on('keyup', function(){
+  $('#extendModal').find('#reduceWeight').on('keyup', function(){
     var tareWeight =  0;
     var currentWeight =  $('#currentWeight').val();
     var reduceWeight = 0;
@@ -1093,8 +1100,76 @@ $(function () {
       $('#totalWeight').val((0).toFixed(2))
     )
 
+    $('#variancePerc').trigger("keyup");
+    $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
+  });
+
+  $('#refreshBtn').on('click', function(){
+    var fromDateValue = '';
+    var toDateValue = '';
+    var statusFilter = '';
+    var customerNoFilter = '';
+    var vehicleFilter = '';
+    var invoiceFilter = '';
+    var batchFilter = '';
+    var productFilter = '';
+
+    //Destroy the old Datatable
+    $("#weightTable").DataTable().clear().destroy();
+
+    //Create new Datatable
+    table = $("#weightTable").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      'processing': true,
+      'serverSide': true,
+      'serverMethod': 'post',
+      'searching': true,
+      'ajax': {
+        'type': 'POST',
+        'url':'php/filterWeight.php',
+        'data': {
+          fromDate: fromDateValue,
+          toDate: toDateValue,
+          status: statusFilter,
+          customer: customerNoFilter,
+          vehicle: vehicleFilter,
+          invoice: invoiceFilter,
+          batch: batchFilter,
+          product: productFilter,
+        } 
+      },
+      'columns': [
+        { data: 'serialNo' },
+        { data: 'product_name' },
+        { data: 'unit' },
+        { data: 'unitWeight' },
+        { data: 'tare' },
+        { data: 'totalWeight' },
+        { data: 'actualWeight' },
+        { data: 'moq' },
+        { data: 'unitPrice' },
+        { data: 'totalPrice' },
+        { 
+          className: 'dt-control',
+          orderable: false,
+          data: null,
+          render: function ( data, type, row ) {
+            return '<td class="table-elipse" data-toggle="collapse" data-target="#demo'+row.serialNo+'"><i class="fas fa-angle-down"></i></td>';
+          }
+        }
+      ],
+      "rowCallback": function( row, data, index ) {
+        $('td', row).css('background-color', '#E6E6FA');
+      },
+      "drawCallback": function(settings) {
+        $('#salesInfo').text(settings.json.salesTotal);
+        $('#purchaseInfo').text(settings.json.purchaseTotal);
+        $('#localInfo').text(settings.json.localTotal);
+      }
+    });
   });
 
   $('#saleCard').on('click', function(){
@@ -1331,7 +1406,7 @@ $(function () {
     });
   });
 
-  $('#unitWeight').on('change', function () {
+  $('#extendModal').find('#unitWeight').on('change', function () {
     var unitWeight = $(this).val();
 
     if(unitWeight == 1){
@@ -1440,92 +1515,7 @@ $(function () {
     }
   });
 
-  $('#captureWeight').on('click', function () {
-    var text = $('#indicatorWeight').text();
-    
-    if(text[text.length-2] == 'k'){
-        if(weightUnit == "2"){
-            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
-        }
-        else{
-            $('#currentWeight').val(text.substring(0, text.length-2));
-        }
-        
-        indicatorUnit = "kg";
-    }
-    else{
-        if(weightUnit == "1"){
-            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
-        }
-        else{
-            $('#currentWeight').val(text.substring(0, text.length-1)); 
-        }
-         
-        indicatorUnit = "g";
-    }
-    
-    var tareWeight =  $('#tareWeight').val();
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  $('#reduceWeight').val();
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if(tareWeight != ''){
-      actualWeight =  tareWeight - currentWeight - reduceWeight;
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-    }
-    else(
-      $('#totalWeight').val((0).toFixed(2))
-    )
-
-    $('#variancePerc').trigger("keyup");
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
-  });
-
-  $('#tareWeight').on('keyup', function () {
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  $('#reduceWeight').val();
-    var actualWeight;
-    var moq = $('#moq').val();
-    var totalWeight;
-
-    if(currentWeight != '' && $(this).val() != '' ){
-      var actualWeight = $(this).val() - currentWeight - reduceWeight;
-      $('#actualWeight').val((actualWeight.toFixed(2)));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-    }
-    else{
-      $('#totalWeight').val((0).toFixed(2))
-    }
-
-    var today  = new Date();
-    $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
-    
-    $('#variancePerc').trigger("keyup");
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
-  });
-
-  $('#moq').on('keyup', function () {
+  $('#extendModal').find('#moq').on('keyup', function () {
     var actualWeight = $("#actualWeight").val();
     var moq = $(this).val();
     var totalWeight;
@@ -1542,7 +1532,7 @@ $(function () {
     $('#supplyWeight').trigger("keyup");
   });
 
-  $('#unitPrice').on('keyup', function () {
+  $('#extendModal').find('#unitPrice').on('keyup', function () {
     var totalPrice;
     var unitPrice = $(this).val();
     var moq = $('#moq').val();
@@ -1557,7 +1547,7 @@ $(function () {
     )
   });
 
-  $('#supplyWeight').on('keyup', function () {
+  $('#extendModal').find('#supplyWeight').on('keyup', function () {
     var varianWeight = $('#totalWeight').val() - $(this).val();
 
     if(supplyWeight != '' && varianWeight != ''){
@@ -1568,21 +1558,7 @@ $(function () {
     }
   });
 
-  $('#reduceWeight').on('keyup', function () {
-    var actualWeight =  $('#tareWeight').val() - $('#currentWeight').val() - $(this).val();
-
-    if(actualWeight != ''){
-      $('#actualWeight').text(actualWeight.toFixed(2));
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
-
-    $('#variancePerc').trigger("keyup");
-  });
-
-  $('#variancePerc').on('keyup', function(){
+  $('#extendModal').find('#variancePerc').on('keyup', function(){
     var supplyWeight =  $('#supplyWeight').val();
     var actualWeight =  $('#actualWeight').val();
     
@@ -1614,7 +1590,7 @@ function format (row) {
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
   ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-danger btn-sm" onclick="deactivate('+row.id+
   ')"><i class="fas fa-trash"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
-  ')"><i class="fas fa-print"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="portrait('+row.id+
+  ')"><i class="fas fa-print"></i></button></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="portrait('+row.id+
   ')"><i class="fas fa-receipt"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
@@ -1645,7 +1621,7 @@ function formatNormal (row) {
   '</p></div><div class="col-md-3"><p>Purchase No: '+row.purchaseNo+
   '</p></div><div class="col-md-3"><div class="row"><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="edit('+row.id+
   ')"><i class="fas fa-pen"></i></button></div><div class="col-3"><button type="button" class="btn btn-info btn-sm" onclick="print('+row.id+
-  ')"><i class="fas fa-print"></i></button></div><div class="col-3"><button type="button" class="btn btn-warning btn-sm" onclick="portrait('+row.id+
+  ')"><i class="fas fa-print"></i></button></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="portrait('+row.id+
   ')"><i class="fas fa-receipt"></i></button></div></div></div></div>'+
   '</div><div class="row"><div class="col-md-3"><p>Remark: '+row.remark+
   '</p></div><div class="col-md-3"><p>% Variance: '+row.variancePerc+
@@ -1714,28 +1690,7 @@ function newEntry(){
     }
   });
 }
-/*function setup(){
-  $('#setupModal').find('#serialPortBaudRate').val('9600');
-  $('#setupModal').find('#serialPortDataBits').val("8");
-  $('#setupModal').find('#serialPortParity').val('N');
-  $('#setupModal').find('#serialPortStopBits').val('1');
-  $('#setupModal').find('#serialPortFlowControl').val('None');
-  //$('#setupModal').modal('show');
 
-  $('#setupForm').validate({
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
-}*/
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

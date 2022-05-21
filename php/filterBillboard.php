@@ -121,7 +121,16 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $outGDateTime = '-';
   }
   else{
-    $outGDateTime = $row['outGDateTime'];
+    $dateOut = new DateTime($row['outGDateTime']);
+    $outGDateTime = date_format($dateOut,"d/m/Y H:i:s A");
+  }
+
+  if($row['inCDateTime'] == null || $row['inCDateTime'] == ''){
+    $outGDateTime = '-';
+  }
+  else{
+    $dateInt = new DateTime($row['inCDateTime']);
+    $inCDateTime = date_format($dateInt,"d/m/Y H:i:s A");
   }
 
   if($row['Status'] == '1'){
@@ -193,7 +202,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "manualOutgoing"=>$row['manualOutgoing'],
     "reduceWeight"=>number_format($reduceWeight, 2),
     "outGDateTime"=>$outGDateTime,
-    "inCDateTime"=>$row['inCDateTime'],
+    "inCDateTime"=>$inCDateTime,
     "pStatus"=>$row['pStatus'],
     "variancePerc"=> number_format($variancePerc, 2),
     "transporter_name"=> $row['transporter']

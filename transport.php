@@ -43,7 +43,7 @@ else{
 								<tr>
                                     <th>Code</th>
 									<th>Transporter</th>
-									<th>Price (RM)</th>
+									<th>Phone</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -79,8 +79,8 @@ else{
                   <input type="text" class="form-control" name="transporter" id="transporter" placeholder="Enter Transporter Name" required>
                 </div>
                 <div class="form-group"> 
-                  <label for="price">Transporter Price *</label>
-                  <input type="number"  class="form-control" id="price" name="price" placeholder="Enter Transporter Price" required>
+                  <label for="price">Transporter Phone *</label>
+                  <input type="text"  class="form-control" id="price" name="price" placeholder="Enter Transporter Phone" required>
                 </div>
               </div>
             </div>
