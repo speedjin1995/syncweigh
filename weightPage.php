@@ -221,9 +221,9 @@ else{
         <div class="card card-primary">
           <div class="card-header">
             <div class="row">
-              <div class="col-9"></div>
+              <div class="col-6"></div>
               <div class="col-3">
-                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="refreshBtn"><i class="fas fa-refresh" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-block bg-gradient-warning btn-sm" id="refreshBtn">Refresh</button>
               </div>
               <div class="col-3">
                 <button type="button" class="btn btn-block bg-gradient-warning btn-sm" onclick="newEntry()">Add New Weight</button>
@@ -1127,6 +1127,8 @@ $(function () {
       'serverSide': true,
       'serverMethod': 'post',
       'searching': true,
+      'order': [[ 1, 'asc' ]],
+      'columnDefs': [ { orderable: false, targets: [0] }],
       'ajax': {
         'type': 'POST',
         'url':'php/filterWeight.php',
@@ -1142,16 +1144,17 @@ $(function () {
         } 
       },
       'columns': [
+        { data: 'no' },
+        { data: 'pStatus' },
+        { data: 'status' },
         { data: 'serialNo' },
+        { data: 'veh_number' },
         { data: 'product_name' },
-        { data: 'unit' },
-        { data: 'unitWeight' },
+        { data: 'currentWeight' },
+        { data: 'inCDateTime' },
         { data: 'tare' },
+        { data: 'outGDateTime' },
         { data: 'totalWeight' },
-        { data: 'actualWeight' },
-        { data: 'moq' },
-        { data: 'unitPrice' },
-        { data: 'totalPrice' },
         { 
           className: 'dt-control',
           orderable: false,
@@ -1193,6 +1196,8 @@ $(function () {
       'serverSide': true,
       'serverMethod': 'post',
       'searching': true,
+      'order': [[ 1, 'asc' ]],
+      'columnDefs': [ { orderable: false, targets: [0] }],
       'ajax': {
         'type': 'POST',
         'url':'php/filterWeight.php',
@@ -1208,16 +1213,17 @@ $(function () {
         } 
       },
       'columns': [
+        { data: 'no' },
+        { data: 'pStatus' },
+        { data: 'status' },
         { data: 'serialNo' },
+        { data: 'veh_number' },
         { data: 'product_name' },
-        { data: 'unit' },
-        { data: 'unitWeight' },
+        { data: 'currentWeight' },
+        { data: 'inCDateTime' },
         { data: 'tare' },
+        { data: 'outGDateTime' },
         { data: 'totalWeight' },
-        { data: 'actualWeight' },
-        { data: 'moq' },
-        { data: 'unitPrice' },
-        { data: 'totalPrice' },
         { 
           className: 'dt-control',
           orderable: false,
@@ -1254,6 +1260,8 @@ $(function () {
       'serverSide': true,
       'serverMethod': 'post',
       'searching': true,
+      'order': [[ 1, 'asc' ]],
+      'columnDefs': [ { orderable: false, targets: [0] }],
       'ajax': {
         'type': 'POST',
         'url':'php/filterWeight.php',
@@ -1269,16 +1277,17 @@ $(function () {
         } 
       },
       'columns': [
+        { data: 'no' },
+        { data: 'pStatus' },
+        { data: 'status' },
         { data: 'serialNo' },
+        { data: 'veh_number' },
         { data: 'product_name' },
-        { data: 'unit' },
-        { data: 'unitWeight' },
+        { data: 'currentWeight' },
+        { data: 'inCDateTime' },
         { data: 'tare' },
+        { data: 'outGDateTime' },
         { data: 'totalWeight' },
-        { data: 'actualWeight' },
-        { data: 'moq' },
-        { data: 'unitPrice' },
-        { data: 'totalPrice' },
         { 
           className: 'dt-control',
           orderable: false,
@@ -1315,6 +1324,8 @@ $(function () {
       'serverSide': true,
       'serverMethod': 'post',
       'searching': true,
+      'order': [[ 1, 'asc' ]],
+      'columnDefs': [ { orderable: false, targets: [0] }],
       'ajax': {
         'type': 'POST',
         'url':'php/filterWeight.php',
@@ -1330,16 +1341,17 @@ $(function () {
         } 
       },
       'columns': [
+        { data: 'no' },
+        { data: 'pStatus' },
+        { data: 'status' },
         { data: 'serialNo' },
+        { data: 'veh_number' },
         { data: 'product_name' },
-        { data: 'unit' },
-        { data: 'unitWeight' },
+        { data: 'currentWeight' },
+        { data: 'inCDateTime' },
         { data: 'tare' },
+        { data: 'outGDateTime' },
         { data: 'totalWeight' },
-        { data: 'actualWeight' },
-        { data: 'moq' },
-        { data: 'unitPrice' },
-        { data: 'totalPrice' },
         { 
           className: 'dt-control',
           orderable: false,

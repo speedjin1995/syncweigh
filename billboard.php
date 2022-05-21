@@ -1264,8 +1264,6 @@ $(function () {
       toDateValue = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate() + " " + date2.getHours() + ":" + date2.getMinutes() + ":" + date2.getSeconds();
     }
 
-    var fromDateValue = $('#fromDate').val() ? $('#fromDate').val() : '';
-    var toDateValue = $('#toDate').val() ? $('#toDate').val() : '';
     var statusFilter = $('#statusFilter').val() ? $('#statusFilter').val() : '';
     var customerNoFilter = $('#customerNoFilter').val() ? $('#customerNoFilter').val() : '';
     var vehicleFilter = $('#vehicleFilter').val() ? $('#vehicleFilter').val() : '';
