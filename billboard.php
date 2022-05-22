@@ -1534,7 +1534,7 @@ function edit(id) {
       }
 
       $('#extendModal').modal('show');
-      $('#lotForm').validate({
+      $('#extendForm').validate({
         errorElement: 'span',
         errorPlacement: function (error, element) {
           error.addClass('invalid-feedback');
