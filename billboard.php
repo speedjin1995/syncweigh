@@ -812,6 +812,7 @@ $(function () {
 
     if(tareWeight != ''){
       actualWeight =  tareWeight - currentWeight - reduceWeight;
+      actualWeight =  actualWeight * -1;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -866,6 +867,7 @@ $(function () {
 
     if(tareWeight != ''){
       actualWeight =  tareWeight - currentWeight - reduceWeight;
+      actualWeight =  actualWeight * -1;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -936,6 +938,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight =  actualWeight * -1;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -972,6 +975,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight =  actualWeight * -1;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1008,6 +1012,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight =  actualWeight * -1;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1213,7 +1218,7 @@ $(function () {
   });
 
   $('#extendModal').find('#supplyWeight').on('keyup', function () {
-    var varianWeight = $('#totalWeight').val() - $(this).val();
+    var varianWeight = $('#actualWeight').val() - $(this).val();
 
     if(supplyWeight != '' && varianWeight != ''){
       $('#varianceWeight').val(varianWeight.toFixed(2));

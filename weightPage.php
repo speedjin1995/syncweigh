@@ -125,14 +125,14 @@ else{
 </style>
 
 <select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
-  <option selected="selected">-</option>
+  <option value="" selected disabled hidden>Please Select</option>
   <?php while($rowCustomer=mysqli_fetch_assoc($customers)){ ?>
     <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
   <?php } ?>
 </select>
 
 <select class="form-control" style="width: 100%;" id="supplierNoHidden" style="display: none;">
-  <option selected="selected">-</option>
+  <option value="" selected disabled hidden>Please Select</option>
   <?php while($rowCustomer=mysqli_fetch_assoc($suppliers)){ ?>
     <option value="<?=$rowCustomer['id'] ?>"><?=$rowCustomer['customer_name'] ?></option>
   <?php } ?>
@@ -894,6 +894,7 @@ $(function () {
 
     if(tareWeight != ''){
       actualWeight =  tareWeight - currentWeight - reduceWeight;
+      actualWeight = actualWeight * -1;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -912,7 +913,7 @@ $(function () {
     $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
+    //$('#supplyWeight').trigger("keyup");
   });
 
   $('#outGButton').on('click', function(){
@@ -948,6 +949,7 @@ $(function () {
 
     if(tareWeight != ''){
       actualWeight =  tareWeight - currentWeight - reduceWeight;
+      actualWeight = actualWeight * -1;
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -1018,6 +1020,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight = actualWeight * -1;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1054,6 +1057,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight = actualWeight * -1;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1067,7 +1071,6 @@ $(function () {
     var today  = new Date();
     $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
 
-    $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
     $('#supplyWeight').trigger("keyup");
@@ -1090,6 +1093,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight = actualWeight * -1;
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1560,13 +1564,15 @@ $(function () {
   });
 
   $('#extendModal').find('#supplyWeight').on('keyup', function () {
-    var varianWeight = $('#totalWeight').val() - $(this).val();
+    if($('#tareWeight').val()){
+      var varianWeight = $('#actualWeight').val() - $(this).val();
 
-    if(supplyWeight != '' && varianWeight != ''){
-      $('#varianceWeight').val(varianWeight.toFixed(2));
-    }
-    else{
-      $('#varianceWeight').val((0).toFixed(2))
+      if(supplyWeight != '' && varianWeight != ''){
+        $('#varianceWeight').val(varianWeight.toFixed(2));
+      }
+      else{
+        $('#varianceWeight').val((0).toFixed(2))
+      }
     }
   });
 
