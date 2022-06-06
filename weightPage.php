@@ -959,16 +959,18 @@ $(function () {
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
+      $('#supplyWeight').trigger("keyup");
     }
     else(
-      $('#totalWeight').val((0).toFixed(2))
+      $('#totalWeight').val((0).toFixed(2));
+      $('#supplyWeight').trigger("keyup");
     )
 
     $('#variancePerc').trigger("keyup");
     $('#tareWeight').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
+    //$('#supplyWeight').trigger("keyup");
   });
 
   $('#vehicleNo').on('change', function(){
@@ -1037,7 +1039,7 @@ $(function () {
     $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
+    //$('#supplyWeight').trigger("keyup");
   });
 
   $('#extendModal').find('#tareWeight').on('keyup', function(){
@@ -1063,9 +1065,11 @@ $(function () {
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
+      $('#supplyWeight').trigger("keyup");
     }
     else(
-      $('#totalWeight').val((0).toFixed(2))
+      $('#totalWeight').val((0).toFixed(2));
+      $('#supplyWeight').trigger("keyup");
     )
 
     var today  = new Date();
@@ -1073,7 +1077,7 @@ $(function () {
 
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
+    //$('#supplyWeight').trigger("keyup");
   });
 
   $('#extendModal').find('#reduceWeight').on('keyup', function(){
@@ -1099,15 +1103,17 @@ $(function () {
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
+      $('#supplyWeight').trigger("keyup");
     }
     else(
-      $('#totalWeight').val((0).toFixed(2))
+      $('#totalWeight').val((0).toFixed(2));
+      $('#supplyWeight').trigger("keyup");
     )
 
     $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
     $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
+    //$('#supplyWeight').trigger("keyup");
   });
 
   $('#refreshBtn').on('click', function(){
