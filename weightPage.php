@@ -894,7 +894,7 @@ $(function () {
 
     if(tareWeight != ''){
       actualWeight =  tareWeight - currentWeight - reduceWeight;
-      actualWeight = actualWeight * -1;
+      actualWeight = Math.abs(actualWeight);
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -949,7 +949,7 @@ $(function () {
 
     if(tareWeight != ''){
       actualWeight =  tareWeight - currentWeight - reduceWeight;
-      actualWeight = actualWeight * -1;
+      actualWeight = Math.abs(actualWeight);
       $('#actualWeight').val(actualWeight.toFixed(2));
     }
     else{
@@ -961,10 +961,10 @@ $(function () {
       $('#totalWeight').val(totalWeight.toFixed(2));
       $('#supplyWeight').trigger("keyup");
     }
-    else(
+    else{
       $('#totalWeight').val((0).toFixed(2));
       $('#supplyWeight').trigger("keyup");
-    )
+    }
 
     $('#variancePerc').trigger("keyup");
     $('#tareWeight').trigger("keyup");
@@ -1022,16 +1022,16 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
-    actualWeight = actualWeight * -1;
+    actualWeight = Math.abs(actualWeight);
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
       totalWeight = actualWeight * moq;
       $('#totalWeight').val(totalWeight.toFixed(2));
     }
-    else(
+    else{
       $('#totalWeight').val((0).toFixed(2))
-    )
+    }
     
     var today  = new Date();
     $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
@@ -1059,7 +1059,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
-    actualWeight = actualWeight * -1;
+    actualWeight = Math.abs(actualWeight);
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1067,10 +1067,10 @@ $(function () {
       $('#totalWeight').val(totalWeight.toFixed(2));
       $('#supplyWeight').trigger("keyup");
     }
-    else(
+    else{
       $('#totalWeight').val((0).toFixed(2));
       $('#supplyWeight').trigger("keyup");
-    )
+    }
 
     var today  = new Date();
     $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
@@ -1097,7 +1097,7 @@ $(function () {
     }
 
     actualWeight = tareWeight - currentWeight - reduceWeight;
-    actualWeight = actualWeight * -1;
+    actualWeight = Math.abs(actualWeight);
     $('#actualWeight').val(actualWeight.toFixed(2));
 
     if(actualWeight != '' &&  moq != ''){
@@ -1105,10 +1105,10 @@ $(function () {
       $('#totalWeight').val(totalWeight.toFixed(2));
       $('#supplyWeight').trigger("keyup");
     }
-    else(
+    else{
       $('#totalWeight').val((0).toFixed(2));
       $('#supplyWeight').trigger("keyup");
-    )
+    }
 
     $('#variancePerc').trigger("keyup");
     $('#reduceWeight').trigger("keyup");
