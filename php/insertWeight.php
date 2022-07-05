@@ -4,13 +4,14 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 session_start();
 
-if(isset($_POST['status'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeight'], $_POST['currentWeight'], $_POST['dateTime']
+if(isset($_POST['status'], $_POST['unitWeight'], $_POST['currency'], $_POST['moq'], $_POST['tareWeight'], $_POST['currentWeight'], $_POST['dateTime']
 ,$_POST['product'],$_POST['package'],$_POST['unitPrice'],$_POST['actualWeight'],$_POST['totalPrice'],$_POST['totalWeight']
 ,$_POST['supplyWeight'], $_POST['varianceWeight'], $_POST['reduceWeight'] ,$_POST['outGDateTime'], $_POST['inCDateTime'])){
 
 	$userId = $_SESSION['userID'];
 	$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
 	$manualVehicle = filter_input(INPUT_POST, 'manualVehicle', FILTER_SANITIZE_STRING);
+	$currency = filter_input(INPUT_POST, 'currency', FILTER_SANITIZE_STRING);
 	$lotNo = '-';
 	$vehicleNo = '-';
 	$invoiceNo = '-';
@@ -113,10 +114,10 @@ if(isset($_POST['status'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeig
 
 	if($_POST['id'] != null && $_POST['id'] != ''){
 		if ($update_stmt = $db->prepare("UPDATE weight SET vehicleNo=?, lotNo=?, batchNo=?, invoiceNo=?, deliveryNo=?, purchaseNo=?, customer=?, productName=?, package=?
-		, unitWeight=?, currentWeight=?, tare=?, totalWeight=?, actualWeight=?, moq=?, unitPrice=?, totalPrice=?, remark=?, supplyWeight=?, varianceWeight=?, status=?, 
+		, unitWeight=?, currentWeight=?, tare=?, totalWeight=?, actualWeight=?, currency=?, moq=?, unitPrice=?, totalPrice=?, remark=?, supplyWeight=?, varianceWeight=?, status=?, 
 		dateTime=?, manual=?, manualVehicle=?, manualOutgoing=?, reduceWeight=?, outGDateTime=?, inCDateTime=?, pStatus=?, variancePerc=?, transporter=?, updated_by=? WHERE id=?")){
-			$update_stmt->bind_param('sssssssssssssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product,
-			$package, $unitWeight, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $moq, $unitPrice, $totalPrice, $remark, $supplyWeight, $varianceWeight, 
+			$update_stmt->bind_param('ssssssssssssssssssssssssssssssssss', $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, $purchaseNo, $customerNo, $product,
+			$package, $unitWeight, $currentWeight, $tareWeight, $totalWeight, $actualWeight, $currency, $moq, $unitPrice, $totalPrice, $remark, $supplyWeight, $varianceWeight, 
 			$status, $dateTime, $manual, $manualVehicle, $manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pStatus, $variancePerc, $transporter, $userId, $_POST['id']);
 		
 			// Execute the prepared query.
@@ -198,12 +199,12 @@ if(isset($_POST['status'], $_POST['unitWeight'], $_POST['moq'], $_POST['tareWeig
 							$firstChar.=$misValue;  //S00009
 		
 							if ($insert_stmt = $db->prepare("INSERT INTO weight (serialNo, vehicleNo, lotNo, batchNo, invoiceNo, deliveryNo, purchaseNo, 
-							customer, productName, package, unitWeight, tare, totalWeight, actualWeight, currentWeight, moq, unitPrice, totalPrice, remark, 
+							customer, productName, package, unitWeight, tare, totalWeight, actualWeight, currentWeight, currency, moq, unitPrice, totalPrice, remark, 
 							status, dateTime, manual, manualVehicle, supplyWeight, varianceWeight, manualOutgoing, reduceWeight, outGDateTime, inCDateTime, 
 							pStatus, variancePerc, transporter, created_by) 
-							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-								$insert_stmt->bind_param('sssssssssssssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, 
-								$purchaseNo, $customerNo, $product, $package, $unitWeight, $tareWeight, $totalWeight, $actualWeight, $currentWeight, $moq, 
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+								$insert_stmt->bind_param('ssssssssssssssssssssssssssssssssss', $firstChar, $vehicleNo, $lotNo, $batchNo, $invoiceNo, $deliveryNo, 
+								$purchaseNo, $customerNo, $product, $package, $unitWeight, $tareWeight, $totalWeight, $actualWeight, $currentWeight, $currency, $moq, 
 								$unitPrice, $totalPrice, $remark, $status, $dateTime, $manual, $manualVehicle, $supplyWeight, $varianceWeight, 
 								$manualOutgoing, $reduceWeight, $outGDateTime, $inCDateTime, $pStatus, $variancePerc, $transporter, $userId);
 								

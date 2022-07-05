@@ -42,86 +42,16 @@ else{
   $status = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
   $status2 = $db->query("SELECT * FROM `status` WHERE deleted = '0'");
   $transporters = $db->query("SELECT * FROM `transporters` WHERE deleted = '0'");
+  $currency = $db->query("SELECT * FROM `currency` WHERE deleted = '0'");
 }
 ?>
 
 <style>
-    @media screen and (min-width: 676px) {
-        .modal-dialog {
-          max-width: 1800px; /* New width for default modal */
-        }
+  @media screen and (min-width: 676px) {
+    .modal-dialog {
+      max-width: 1800px; /* New width for default modal */
     }
-
-/* .grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 10px;
-  background-color: #2196F3;
-  padding: 10px;
-}
-
-.grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid black;
-  text-align: center;
-  font-size: 30px;
-} */
-
-    /* div.dataTables_wrapper {
-      position : relative;
-    }
-
-    div.b {
-      position: absolute;
-      bottom: 700px;
-      right: 148px;
-      width: 100px;
-      height: 40px;
-      border: 2px solid black;
-      text-align: center;
-      font-size: 18px;
-      background-color: #2196F3;
-      color: white;
-    } 
-
-    div.c {
-      position: absolute;
-      bottom: 700px;
-      right: 50px;
-      width: 100px;
-      height: 40px;
-      border: 2px solid black;
-      text-align: center;
-      font-size: 18px;
-      background-color: #2196F3;
-      color: white;
-    }
-    div.d {
-      position: absolute;
-      margin-top: 38px;
-      right: 148px;
-      width: 100px;
-      height: 45px;
-      border: 2px solid black;
-      text-align: center;
-      font-size: 15px;
-      padding-top: 10px;
-      background-color: #eee;
-    } 
-
-    div.e {
-      position: absolute;
-      margin-top: 38px;
-      right: 50px;
-      width: 100px;
-      height: 45px;
-      border: 2px solid black;
-      text-align: center;
-      font-size: 15px;
-      padding-top: 10px;
-      background-color: #eee;
-    }  */
-
+  }
 </style>
 
 <select class="form-control" style="width: 100%;" id="customerNoHidden" style="display: none;">
@@ -397,19 +327,17 @@ else{
           </div>
 
           <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                      <label class="labelStatus">Customer No *</label>
-                      <select class="form-control" id="customerNo" name="customerNo" required></select>
-                      <input class="form-control" type="text" placeholder="Description" id="customerNoTxt" name="customerNoTxt" hidden>
-                    </div>
-                </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="labelStatus">Customer No *</label>
+                <select class="form-control" id="customerNo" name="customerNo" required></select>
+                <input class="form-control" type="text" placeholder="Description" id="customerNoTxt" name="customerNoTxt" hidden>
+              </div>
+            </div>
 
-                <div class="row col-md-8">
-                  <div class="row col-md-12">
-
-
-                <div class="col-md-4">
+            <div class="row col-md-8">
+              <div class="row col-md-12">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label>Product *</label>
                     <select class="form-control" style="width: 100%;" id="product" name="product" required>
@@ -426,7 +354,7 @@ else{
                   <input class="form-control" type="number" placeholder="moq" id="moq" name="moq" min="0">
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                   <label>Transporter</label>
                   <select class="form-control" style="width: 100%;" id="transporter" name="transporter">
                       <option selected="selected">-</option>
@@ -436,24 +364,35 @@ else{
                   </select>
                 </div>
 
-                <div class="form-group col-md-2">
-                    <label>Unit Price</label>
-                    <div class="input-group">
-                      <div class="input-group-text"><i>RM</i></div>
-                      <input class="form-control money" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
-                    </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Currency *</label>
+                    <select class="form-control" style="width: 100%;" id="currency" name="currency" required>
+                      <option selected="selected">-</option>
+                      <?php while($row50=mysqli_fetch_assoc($currency)){ ?>
+                        <option value="<?=$row50['id'] ?>"><?=$row50['currency'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label>Total Price</label>
-                    <div class="input-group">
-                      <div class="input-group-text"><i>RM</i></div>
-                      <input class="form-control money" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
-                    </div>
+                  <label>Unit Price</label>
+                  <div class="input-group">
+                    <div class="input-group-text"><i>RM</i></div>
+                    <input class="form-control money" type="number" placeholder="unitPrice" id="unitPrice" name="unitPrice" min="0" required/>                        
+                  </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Total Price</label>
+                  <div class="input-group">
+                    <div class="input-group-text"><i>RM</i></div>
+                    <input class="form-control money" type="number" placeholder="Total Price"  id="totalPrice" name="totalPrice" readonly required/>                        
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
 
           <div class="row">
@@ -620,6 +559,7 @@ else{
 var controlflow = "None";
 var indicatorUnit = "kg";
 var weightUnit = "1";
+var rate = 1;
 
 $(function () {
   var table = $("#weightTable").DataTable({
@@ -1416,8 +1356,28 @@ $(function () {
       var obj = JSON.parse(data);
         
       if(obj.status === 'success'){
-        $('#extendModal').find('#unitPrice').val(obj.message.product_price);
-        $('#extendModal').find('#moq').trigger("keyup");
+        var unitPrice = parseFloat(obj.message.product_price) * rate;
+        $('#extendModal').find('#unitPrice').val(unitPrice.toFixed(2));
+        $('#extendModal').find('#moq').trigger("keyup");sdsd
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when activate", "Failed:");
+      }
+    });
+  });
+
+  $('#extendModal').find('#currency').on('change', function () {
+    var id = $(this).val();
+
+    $.post('php/getCurrency.php', {userID: id}, function(data){
+      var obj = JSON.parse(data);
+        
+      if(obj.status === 'success'){
+        rate = parseFloat(obj.message.rate).toFixed(2);
+        $('#extendModal').find('#unitPrice').trigger("keyup");
       }
       else if(obj.status === 'failed'){
         toastr["error"](obj.message, "Failed:");
@@ -1561,7 +1521,7 @@ $(function () {
     var actualWeight = $("#actualWeight").val();
 
     if(unitPrice != '' &&  moq != '' && actualWeight != ''){
-      totalPrice = unitPrice * moq * actualWeight;
+      totalPrice = unitPrice * moq * actualWeight * rate;
       $('#totalPrice').val(totalPrice.toFixed(2));
     }
     else(
@@ -1670,6 +1630,7 @@ function newEntry(){
   $('#extendModal').find('#product').val('');
   $('#extendModal').find('#transporter').val('');
   $('#extendModal').find('#moq').val("1");
+  $('#extendModal').find('#currency').val("1");
   $('#extendModal').find('#tareWeight').val("0.00");
   $('#extendModal').find('#package').val('');
   $('#extendModal').find('#actualWeight').val("");
@@ -1737,6 +1698,7 @@ function edit(id) {
       $('#extendModal').find('#currentWeight').val(obj.message.currentWeight);
       $('#extendModal').find('#product').val(obj.message.productName);
       $('#extendModal').find('#moq').val(obj.message.moq);
+      $('#extendModal').find('#currency').val(obj.message.currency);
       $('#extendModal').find('#transporter').val(obj.message.transporter);
       $('#extendModal').find('#tareWeight').val(obj.message.tare);
       $('#extendModal').find('#package').val(obj.message.package);
