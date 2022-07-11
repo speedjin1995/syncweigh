@@ -190,7 +190,6 @@ else{
 <div class="modal fade" id="extendModal">
   <div class="modal-dialog modal-xl" style="max-width: 90%;">
     <div class="modal-content">
-
       <form role="form" id="extendForm">
         <div class="modal-header bg-gray-dark color-palette">
           <h4 class="modal-title">Add New Entry</h4>
@@ -200,7 +199,6 @@ else{
         </div>
 
         <div class="modal-body" >
-        
           <div class="row">
             <div class="col-md-3">
               <div class="d-flex">
@@ -214,66 +212,64 @@ else{
             
             <div class="row col-md-9">
               <div class="row col-md-12">
-                    <div class="col-2">
-                      <input type="hidden" class="form-control" id="id" name="id">
-                      <div class="form-group">
-                        <label>Serial No.</label>
-                        <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
-                      </div>
-                    </div>
+                <div class="col-2">
+                  <input type="hidden" class="form-control" id="id" name="id">
+                  <div class="form-group">
+                    <label>Serial No.</label>
+                    <input class="form-control" type="text" placeholder="Serial No" id="serialNumber" name="serialNumber" readonly>
+                  </div>
+                </div>
 
-                    <div class="col-md-2">
-                      <div class="form-group">
-                        <label>Status *</label>
-                        <select class="form-control" style="width: 100%;" id="status" name="status" required>
-                          <option selected="selected">-</option>
-                          <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
-                            <option value="<?=$rowS['id'] ?>"><?=$rowS['status'] ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Status *</label>
+                    <select class="form-control" style="width: 100%;" id="status" name="status" required>
+                      <option selected="selected">-</option>
+                      <?php while($rowS=mysqli_fetch_assoc($status)){ ?>
+                        <option value="<?=$rowS['id'] ?>"><?=$rowS['status'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
 
-                    <div class="form-group col-md-2">
-                      <label>Invoice No</label>
-                      <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" >
-                    </div>
+                <div class="form-group col-md-2">
+                  <label>Invoice No</label>
+                  <input class="form-control" type="text" placeholder="Invoice No" id="invoiceNo" name="invoiceNo" >
+                </div>
 
-                    <div class="form-group col-md-2">
-                      <label>Delivery No</label>
-                      <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
-                    </div>
+                <div class="form-group col-md-2">
+                  <label>Delivery No</label>
+                  <input class="form-control" type="text" placeholder="Delivery No" id="deliveryNo" name="deliveryNo" >
+                </div>
 
-                    <div class="form-group col-md-2">
-                      <label>Purchase Order</label>
-                      <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
-                    </div>
+                <div class="form-group col-md-2">
+                  <label>Purchase Order</label>
+                  <input class="form-control" type="text" placeholder="Purchase No" id="purchaseNo" name="purchaseNo" >
+                </div>
 
-                    <div class="form-group col-md-2">
-                      <label class="labelOrder">Order Weight</label>
-                      <div class="input-group">
-                        <input class="form-control" type="number" id="supplyWeight" name="supplyWeight"/>
-                        <div class="input-group-text bg-success color-palette"><i id="changeSupplyWeight">KG/G</i></div>
-                      </div>
-                    </div>
-
-              </div>
-
-              <div class="row col-md-12">
-
-              <div class="col-2">
-                <div class="form-group">
-                  <label>Date / Time</label>
-                    <div class='input-group date' id="datePicker" data-target-input="nearest">
-                      <input type='text' class="form-control datetimepicker-input" data-target="#datePicker" id="dateTime" name="dateTime" required/>
-                      <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div>
+                <div class="form-group col-md-2">
+                  <label class="labelOrder">Order Weight</label>
+                  <div class="input-group">
+                    <input class="form-control" type="number" id="supplyWeight" name="supplyWeight"/>
+                    <div class="input-group-text bg-success color-palette"><i id="changeSupplyWeight">KG/G</i></div>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-md-2">
+              <div class="row col-md-12">
+                <div class="col-2">
+                  <div class="form-group">
+                    <label>Date / Time</label>
+                      <div class='input-group date' id="datePicker" data-target-input="nearest">
+                        <input type='text' class="form-control datetimepicker-input" data-target="#datePicker" id="dateTime" name="dateTime" required/>
+                        <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
                   <div class="form-group">
                     <label>Unit Weight *</label>
                     <select class="form-control" style="width: 100%;" id="unitWeight" name="unitWeight" required> 
@@ -321,7 +317,6 @@ else{
                       <div class="input-group-text bg-success color-palette"><i id="changeWeightVariance">KG/G</i></div>
                     </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -396,55 +391,55 @@ else{
           </div>
 
           <div class="row">
-              <div class="col-md-2">
-                  <div class="form-group">
-                    <label>Vehicle No
-                        <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle" value="0"/>Manual</span>
-                    </label>
+            <input type="hidden" id="outGDateTime" name="outGDateTime">
+            <input type="hidden" id="inCDateTime" name="inCDateTime">
 
-                    <select class="form-control" id="vehicleNo" name="vehicleNo">
-                      <option selected="selected">-</option>
-                      <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
-                        <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
-                      <?php } ?>
-                    </select>
-
-                    <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
-                  </div>
-              </div>
-
-              <div class="form-group col-md-2">
-                <label>Incoming - G.W *
-                <?php 
-                  if($role == "ADMIN"){         
-                    echo '<span style="padding-left: 60px;"><input type="checkbox" class="form-check-input" id="manual" name="manual" value="0"/>Manual</span>';
-                  }
-                ?>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>
+                  Vehicle No
+                  <span style="padding-left: 80px;"><input type="checkbox" class="form-check-input" id="manualVehicle" name="manualVehicle" value="0"/>Manual</span>
                 </label>
-                <div class="input-group">
-                  <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
-                  <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
-                  <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button>
-                </div>
-              </div>              
 
-              <input type="hidden" id="outGDateTime" name="outGDateTime">
-              <input type="hidden" id="inCDateTime" name="inCDateTime">
+                <select class="form-control" id="vehicleNo" name="vehicleNo">
+                  <option selected="selected">-</option>
+                  <?php while($row2=mysqli_fetch_assoc($vehicles)){ ?>
+                    <option value="<?=$row2['veh_number'] ?>" data-weight="<?=$row2['vehicleWeight'] ?>"><?=$row2['veh_number'] ?></option>
+                  <?php } ?>
+                </select>
 
-              <div class="form-group col-md-2 hidOutgoing">
-                <label>Outgoing - T.W *
-                  <span style="padding-left: 70px;"><input type="checkbox" class="form-check-input" id="manualOutgoing" name="manualOutgoing" value="0"/>Manual</span>
-                </label>
-                <div class="input-group">
-                  <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly/>
-                  <div class="input-group-text bg-primary color-palette"><i id="changeWeightTare">KG/G</i></div>
-                  <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button>
-                </div>
+                <input class="form-control" type="text" placeholder="Vehicle No." id="vehicleNoTct" name="vehicleNoTxt" hidden>
               </div>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Incoming - G.W *
+              <?php 
+                if($role == "ADMIN"){         
+                  echo '<span style="padding-left: 60px;"><input type="checkbox" class="form-check-input" id="manual" name="manual" value="0"/>Manual</span>';
+                }
+              ?>
+              </label>
+              <div class="input-group">
+                <input class="form-control" type="number" placeholder="Current Weight" id="currentWeight" name="currentWeight" readonly required/>
+                <div class="input-group-text bg-primary color-palette"><i id="changeWeight">KG/G</i></div>
+                <button type="button" class="btn btn-primary" id="inCButton"><i class="fas fa-sync"></i></button>
+              </div>
+            </div> 
+
+            <div class="form-group col-md-2 hidOutgoing">
+              <label>Outgoing - T.W *
+                <span style="padding-left: 70px;"><input type="checkbox" class="form-check-input" id="manualOutgoing" name="manualOutgoing" value="0"/>Manual</span>
+              </label>
+              <div class="input-group">
+                <input class="form-control" type="number" placeholder="Tare Weight" id="tareWeight" name="tareWeight" min="0" readonly/>
+                <div class="input-group-text bg-primary color-palette"><i id="changeWeightTare">KG/G</i></div>
+                <button type="button" class="btn btn-primary" id="outGButton"><i class="fas fa-sync"></i></button>
+              </div>
+            </div>
               
             <div class="row col-md-6">
               <div class="row col-md-12">
-
                 <div class="form-group col-md-3">
                   <label>Reduce Weight</label>
                   <div class="input-group">
@@ -462,27 +457,25 @@ else{
                 </div>
 
                 <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Remark</label>
-                      <textarea class="form-control" rows="1" placeholder="Enter ..." id="remark" name="remark"></textarea>
-                    </div>
+                  <div class="form-group">
+                    <label>Remark</label>
+                    <textarea class="form-control" rows="1" placeholder="Enter ..." id="remark" name="remark"></textarea>
+                  </div>
                 </div>
-
               </div>
             </div>
-        </div>
+          </div>
 
-        <div class="form-group col-md-3" hidden>
+          <div class="form-group col-md-3" hidden>
             <label>Total Weight</label>
             <div class="input-group">
               <input class="form-control" type="number" placeholder="Total Weight" id="totalWeight" name="totalWeight" readonly required/>
               <div class="input-group-text bg-success color-palette"><i id="changeWeightTotal">KG/G</i></div>
             </div>
-        </div>
+          </div>
 
-        <input type="hidden" id="pStatus" name="pStatus">
-        <input type="hidden" id="variancePerc" name="variancePerc">
-
+          <input type="hidden" id="pStatus" name="pStatus">
+          <input type="hidden" id="variancePerc" name="variancePerc">
         </div>
 
         <div class="modal-footer justify-content-between bg-gray-dark color-palette">
@@ -490,12 +483,9 @@ else{
           <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
         </div>
       </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+    </div> <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- /.modal -->
 
 <div class="modal fade" id="setupModal">
   <div class="modal-dialog modal-xl">
@@ -560,8 +550,12 @@ var controlflow = "None";
 var indicatorUnit = "kg";
 var weightUnit = "1";
 var rate = 1;
+var currency = "1";
 
 $(function () {
+  $('#customerNoHidden').hide();
+  $('#supplierNoHidden').hide();
+
   var table = $("#weightTable").DataTable({
     "responsive": true,
     "autoWidth": false,
@@ -603,41 +597,6 @@ $(function () {
       $('#purchaseInfo').text(settings.json.purchaseTotal);
       $('#localInfo').text(settings.json.localTotal);
     }
-    // "footerCallback": function ( row, data, start, end, display ) {
-    //   var api = this.api();
-
-    //   // Remove the formatting to get integer data for summation
-    //   var intVal = function (i) {
-    //     return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-    //   };
-
-    //   // Total over all pages
-    //   total = api.column(3).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total2 = api.column(4).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total3 = api.column(5).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total4 = api.column(6).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total5 = api.column(7).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total6 = api.column(8).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-    //   total7 = api.column(9).data().reduce( function (a, b) { return intVal(a) + intVal(b); }, 0 );
-
-    //   // Total over this page
-    //   pageTotal = api.column(3, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal2 = api.column(4, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal3 = api.column(5, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal4 = api.column(6, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal5 = api.column(7, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal6 = api.column(8, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-    //   pageTotal7 = api.column(9, {page: 'current'}).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-
-    //   // Update footer
-    //   $(api.column(3).footer()).html(pageTotal +' kg ( '+ total +' kg)');
-    //   $(api.column(4).footer()).html(pageTotal2 +' kg ( '+ total2 +' kg)');
-    //   $(api.column(5).footer()).html(pageTotal3 +' kg ( '+ total3 +' kg)');
-    //   $(api.column(6).footer()).html(pageTotal4 +' kg ( '+ total4 +' kg)');
-    //   $(api.column(7).footer()).html(pageTotal5 +' ('+ total5 +')');
-    //   $(api.column(8).footer()).html('RM'+pageTotal6 +' ( RM'+ total6 +' total)');
-    //   $(api.column(9).footer()).html('RM'+pageTotal7 +' ( RM'+ total7 +' total)');
-    // }
   });
 
   // Add event listener for opening and closing details
@@ -754,306 +713,6 @@ $(function () {
         $('#setupModal').modal('hide');
       }*/
     }
-  });
-
-  $('#customerNoHidden').hide();
-  $('#supplierNoHidden').hide();
-  
-  <?php 
-    if($role == "ADMIN"){
-      echo "$('#manual').on('click', function(){
-        if($(this).is(':checked')){
-          $(this).val(1);
-            $('#currentWeight').removeAttr('readonly');
-        }
-        else{
-          $(this).val(0);
-            $('#currentWeight').attr('readonly', 'readonly');
-        }
-      })";
-    }
-  ?>
-
-  //  $("input.money").each((i,ele)=>{
-  //     let clone=$(ele).clone(false)
-  //     clone.attr("type","text")
-  //     let ele1=$(ele)
-  //     clone.val(Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 }))
-  //     $(ele).after(clone)
-  //     $(ele).hide()
-  //     clone.mouseenter(()=>{
-
-  //       ele1.show()
-  //       clone.hide()
-  //     })
-  //     setInterval(()=>{
-  //       let newv=Number(ele1.val()).toLocaleString("en", { minimumFractionDigits: 2 })
-  //       if(clone.val()!=newv){
-  //         clone.val(newv)
-  //       }
-  //     },10)
-
-  //     $(ele).mouseleave(()=>{
-  //       $(clone).show()
-  //       $(ele1).hide()
-  //   })
-  // })
-
-  
-
-  $('#inCButton').on('click', function(){
-    var text = $('#indicatorWeight').text();
-    
-    if(text[text.length-2] == 'k'){
-        if(weightUnit == "2"){
-            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
-        }
-        else{
-            $('#currentWeight').val(text.substring(0, text.length-2));
-        }
-        
-        indicatorUnit = "kg";
-    }
-    else{
-        if(weightUnit == "1"){
-            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
-        }
-        else{
-            $('#currentWeight').val(text.substring(0, text.length-1)); 
-        }
-         
-        indicatorUnit = "g";
-    }
-    
-    var tareWeight =  $('#tareWeight').val();
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  $('#reduceWeight').val();
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if(tareWeight != ''){
-      actualWeight =  tareWeight - currentWeight - reduceWeight;
-      actualWeight = Math.abs(actualWeight);
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-    }
-    else(
-      $('#totalWeight').val((0).toFixed(2))
-    )
-
-    $('#currentWeight').trigger("keyup");
-    $('#variancePerc').trigger("keyup");
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    //$('#supplyWeight').trigger("keyup");
-  });
-
-  $('#outGButton').on('click', function(){
-    var text = $('#indicatorWeight').text();
-    
-    if(text[text.length-2] == 'k'){
-        if(weightUnit == "2"){
-            $('#tareWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
-        }
-        else{
-            $('#tareWeight').val(text.substring(0, text.length-2));
-        }
-        
-        indicatorUnit = "kg";
-    }
-    else{
-        if(weightUnit == "1"){
-            $('#tareWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
-        }
-        else{
-            $('#tareWeight').val(text.substring(0, text.length-1)); 
-        }
-         
-        indicatorUnit = "g";
-    }
-    
-    var tareWeight =  $('#tareWeight').val();
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight =  $('#reduceWeight').val();
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if(tareWeight != ''){
-      actualWeight =  tareWeight - currentWeight - reduceWeight;
-      actualWeight = Math.abs(actualWeight);
-      $('#actualWeight').val(actualWeight.toFixed(2));
-    }
-    else{
-      $('#actualWeight').val((0).toFixed(2))
-    }
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-      $('#supplyWeight').trigger("keyup");
-    }
-    else{
-      $('#totalWeight').val((0).toFixed(2));
-      $('#supplyWeight').trigger("keyup");
-    }
-
-    $('#variancePerc').trigger("keyup");
-    $('#tareWeight').trigger("keyup");
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    //$('#supplyWeight').trigger("keyup");
-  });
-
-  $('#vehicleNo').on('change', function(){
-    $vehicleWeight = $('#vehicleNo option:selected').data("weight");
-    if($vehicleWeight != null && $vehicleWeight != ''){
-      $('#currentWeight').val(($vehicleWeight).toFixed(2));
-    }
-    $('#currentWeight').trigger("keyup");
-  });
-
-  $('#manualVehicle').on('click', function(){
-    if($(this).is(':checked')){
-      $(this).val(1);
-      $('#vehicleNoTct').removeAttr('hidden');
-      $('#vehicleNo').attr('hidden', 'hidden');
-    }
-    else{
-      $(this).val(0);
-      $('#vehicleNo').removeAttr('hidden');
-      $('#vehicleNoTct').attr('hidden', 'hidden');
-    }
-  });
-
-  $('#manualOutgoing').on('click', function(){
-    if($(this).is(':checked')){
-      $(this).val(1);
-        $('#tareWeight').removeAttr('readonly');
-    }
-    else{
-      $(this).val(0);
-        $('#tareWeight').attr('readonly', 'readonly');
-    }
-  });
-
-  $('#extendModal').find('#currentWeight').on('keyup', function(){
-    var tareWeight =  0;
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight = 0;
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if($('#tareWeight').val()){
-      tareWeight =  $('#tareWeight').val();
-    }
-
-    if($('#reduceWeight').val()){
-      reduceWeight =  $('#reduceWeight').val();
-    }
-
-    actualWeight = tareWeight - currentWeight - reduceWeight;
-    actualWeight = Math.abs(actualWeight);
-    $('#actualWeight').val(actualWeight.toFixed(2));
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-    }
-    else{
-      $('#totalWeight').val((0).toFixed(2))
-    }
-    
-    var today  = new Date();
-    $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
-
-    $('#variancePerc').trigger("keyup");
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    //$('#supplyWeight').trigger("keyup");
-  });
-
-  $('#extendModal').find('#tareWeight').on('keyup', function(){
-    var tareWeight =  0;
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight = 0;
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if($('#tareWeight').val()){
-      tareWeight =  $('#tareWeight').val();
-    }
-
-    if($('#reduceWeight').val()){
-      reduceWeight =  $('#reduceWeight').val();
-    }
-
-    actualWeight = tareWeight - currentWeight - reduceWeight;
-    actualWeight = Math.abs(actualWeight);
-    $('#actualWeight').val(actualWeight.toFixed(2));
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-      $('#supplyWeight').trigger("keyup");
-    }
-    else{
-      $('#totalWeight').val((0).toFixed(2));
-      $('#supplyWeight').trigger("keyup");
-    }
-
-    var today  = new Date();
-    $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
-
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    //$('#supplyWeight').trigger("keyup");
-  });
-
-  $('#extendModal').find('#reduceWeight').on('keyup', function(){
-    var tareWeight =  0;
-    var currentWeight =  $('#currentWeight').val();
-    var reduceWeight = 0;
-    var moq = $('#moq').val();
-    var totalWeight;
-    var actualWeight;
-
-    if($('#tareWeight').val()){
-      tareWeight =  $('#tareWeight').val();
-    }
-
-    if($('#reduceWeight').val()){
-      reduceWeight =  $('#reduceWeight').val();
-    }
-
-    actualWeight = tareWeight - currentWeight - reduceWeight;
-    actualWeight = Math.abs(actualWeight);
-    $('#actualWeight').val(actualWeight.toFixed(2));
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-      $('#supplyWeight').trigger("keyup");
-    }
-    else{
-      $('#totalWeight').val((0).toFixed(2));
-      $('#supplyWeight').trigger("keyup");
-    }
-
-    $('#variancePerc').trigger("keyup");
-    $('#reduceWeight').trigger("keyup");
-    $('#unitPrice').trigger("keyup");
-    //$('#supplyWeight').trigger("keyup");
   });
 
   $('#refreshBtn').on('click', function(){
@@ -1320,6 +979,147 @@ $(function () {
   $('#datePicker').on('click', function () {
     $('#datePicker').attr('data-info', '1');
   });
+  
+  <?php 
+    if($role == "ADMIN"){
+      echo "$('#manual').on('click', function(){
+        if($(this).is(':checked')){
+          $(this).val(1);
+            $('#currentWeight').removeAttr('readonly');
+        }
+        else{
+          $(this).val(0);
+            $('#currentWeight').attr('readonly', 'readonly');
+        }
+      })";
+    }
+  ?>
+
+  $('#extendModal').find('#supplyWeight').on('keyup', function () {
+    if($('#actualWeight').val() && $(this).val()){
+      var varianWeight = $('#actualWeight').val() - $(this).val();
+
+      if(varianWeight != ''){
+        $('#varianceWeight').val(varianWeight.toFixed(2));
+      }
+      else{
+        $('#varianceWeight').val((0).toFixed(2))
+      }
+
+      $('#variancePerc').trigger("keyup");
+    }
+  });
+
+  $('#extendModal').find('#inCButton').on('click', function(){
+    var text = $('#indicatorWeight').text();
+    
+    if(text[text.length-2] == 'k'){
+        if(weightUnit == "2"){
+            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
+        }
+        else{
+            $('#currentWeight').val(text.substring(0, text.length-2));
+        }
+        
+        indicatorUnit = "kg";
+    }
+    else{
+        if(weightUnit == "1"){
+            $('#currentWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
+        }
+        else{
+            $('#currentWeight').val(text.substring(0, text.length-1)); 
+        }
+         
+        indicatorUnit = "g";
+    }
+
+    $('#currentWeight').trigger("keyup");
+  });
+
+  $('#extendModal').find('#currentWeight').on('keyup', function(){
+    updateWeights();
+    var today  = new Date();
+    $('#extendModal').find('#inCDateTime').val(today.toLocaleString("en-US"));
+    $('#supplyWeight').trigger("keyup");
+    $('#variancePerc').trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+  });
+
+  $('#extendModal').find('#outGButton').on('click', function(){
+    var text = $('#indicatorWeight').text();
+    
+    if(text[text.length-2] == 'k'){
+        if(weightUnit == "2"){
+            $('#tareWeight').val(parseFloat(parseFloat(text.substring(0, text.length-2)) * 1000).toFixed(2));
+        }
+        else{
+            $('#tareWeight').val(text.substring(0, text.length-2));
+        }
+        
+        indicatorUnit = "kg";
+    }
+    else{
+        if(weightUnit == "1"){
+            $('#tareWeight').val(parseFloat(parseFloat(text.substring(0, text.length-1)) / 1000).toFixed(2));
+        }
+        else{
+            $('#tareWeight').val(text.substring(0, text.length-1)); 
+        }
+         
+        indicatorUnit = "g";
+    }
+    
+    $('#tareWeight').trigger("keyup");
+  });
+
+  $('#extendModal').find('#tareWeight').on('keyup', function(){
+    updateWeights();
+    var today  = new Date();
+    $('#extendModal').find('#outGDateTime').val(today.toLocaleString("en-US"));
+    $('#supplyWeight').trigger("keyup");
+    $('#variancePerc').trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+  });
+
+  $('#extendModal').find('#reduceWeight').on('keyup', function(){
+    updateWeights();
+    $('#supplyWeight').trigger("keyup");
+    $('#variancePerc').trigger("keyup");
+    $('#unitPrice').trigger("keyup");
+  });
+
+  $('#extendModal').find('#vehicleNo').on('change', function(){
+    $vehicleWeight = $('#vehicleNo option:selected').data("weight");
+    if($vehicleWeight != null && $vehicleWeight != ''){
+      $('#currentWeight').val(($vehicleWeight).toFixed(2));
+    }
+    $('#currentWeight').trigger("keyup");
+  });
+
+  $('#extendModal').find('#manualVehicle').on('click', function(){
+    if($(this).is(':checked')){
+      $(this).val(1);
+      $('#vehicleNoTct').removeAttr('hidden');
+      $('#vehicleNo').attr('hidden', 'hidden');
+    }
+    else{
+      $(this).val(0);
+      $('#vehicleNo').removeAttr('hidden');
+      $('#vehicleNoTct').attr('hidden', 'hidden');
+    }
+  });
+
+  $('#extendModal').find('#manualOutgoing').on('click', function(){
+    if($(this).is(':checked')){
+      $(this).val(1);
+        $('#tareWeight').removeAttr('readonly');
+    }
+    else{
+      $(this).val(0);
+        $('#tareWeight').attr('readonly', 'readonly');
+    }
+  });
 
   $('#extendModal').find('#status').on('change', function () {
     if($(this).val() == '1'){
@@ -1356,16 +1156,15 @@ $(function () {
       var obj = JSON.parse(data);
         
       if(obj.status === 'success'){
-        var unitPrice = parseFloat(obj.message.product_price) * rate;
-        $('#extendModal').find('#unitPrice').val(unitPrice.toFixed(2));
-        $('#extendModal').find('#moq').trigger("keyup");
+        var unitPrice = parseFloat(obj.message.product_price).toFixed(2);
+        $('#extendModal').find('#unitPrice').val(unitPrice);
         $('#unitPrice').trigger("keyup");
       }
       else if(obj.status === 'failed'){
         toastr["error"](obj.message, "Failed:");
       }
       else{
-        toastr["error"]("Something wrong when activate", "Failed:");
+        toastr["error"]("Something wrong when getting product price", "Failed:");
       }
     });
   });
@@ -1377,14 +1176,13 @@ $(function () {
       var obj = JSON.parse(data);
         
       if(obj.status === 'success'){
-        rate = parseFloat(obj.message.rate).toFixed(2);
-        $('#extendModal').find('#unitPrice').trigger("keyup");
+        updatePrices("Y", obj.message.rate);
       }
       else if(obj.status === 'failed'){
         toastr["error"](obj.message, "Failed:");
       }
       else{
-        toastr["error"]("Something wrong when activate", "Failed:");
+        toastr["error"]("Something wrong when getting currency rate", "Failed:");
       }
     });
   });
@@ -1498,59 +1296,85 @@ $(function () {
     }
   });
 
-  $('#extendModal').find('#moq').on('keyup', function () {
-    var actualWeight = $("#actualWeight").val();
-    var moq = $(this).val();
-    var totalWeight;
-
-    if(actualWeight != '' &&  moq != ''){
-      totalWeight = actualWeight * moq;
-      $('#totalWeight').val(totalWeight.toFixed(2));
-    }
-    else(
-      $('#totalWeight').val((0).toFixed(2))
-    )
-
-    $('#unitPrice').trigger("keyup");
-    $('#supplyWeight').trigger("keyup");
-  });
-
   $('#extendModal').find('#unitPrice').on('keyup', function () {
-    var totalPrice;
-    var unitPrice = $(this).val();
-    var moq = $('#moq').val();
-    var actualWeight = $("#actualWeight").val();
-
-    if(unitPrice != '' &&  moq != '' && actualWeight != ''){
-      totalPrice = unitPrice * moq * actualWeight * rate;
-      $('#totalPrice').val(totalPrice.toFixed(2));
-    }
-    else(
-      $('#totalPrice').val((0).toFixed(2))
-    )
-  });
-
-  $('#extendModal').find('#supplyWeight').on('keyup', function () {
-    if($('#tareWeight').val()){
-      var varianWeight = $('#actualWeight').val() - $(this).val();
-
-      if(supplyWeight != '' && varianWeight != ''){
-        $('#varianceWeight').val(varianWeight.toFixed(2));
-      }
-      else{
-        $('#varianceWeight').val((0).toFixed(2))
-      }
-    }
+    updatePrices("N", rate);
   });
 
   $('#extendModal').find('#variancePerc').on('keyup', function(){
-    var supplyWeight =  $('#supplyWeight').val();
-    var actualWeight =  $('#actualWeight').val();
+    if($('#supplyWeight').val() && $('#actualWeight').val()){
+      var supplyWeight =  $('#supplyWeight').val();
+      var actualWeight =  $('#actualWeight').val();
+      $('#variancePerc').val(((supplyWeight - actualWeight) / actualWeight * 100).toFixed(2));
+    }
     
-    $('#variancePerc').val(((supplyWeight - actualWeight) / actualWeight * 100).toFixed(2));
   });
-
 });
+
+function updatePrices(isFromCurrency, rat){
+  var totalPrice;
+  var unitPrice = $('#unitPrice').val();
+  var totalWeight = $('#totalWeight').val();
+
+  if(isFromCurrency == 'Y'){
+    unitPrice = (unitPrice / rate) * parseFloat(rat);
+    $('#extendModal').find('#unitPrice').val(unitPrice.toFixed(2));
+    rate = parseFloat(rat).toFixed(2);
+  }
+  else{
+    unitPrice = unitPrice * parseFloat(rat);
+    $('#extendModal').find('#unitPrice').val(unitPrice.toFixed(2));
+    rate = parseFloat(rat).toFixed(2);
+  }
+  
+
+  if(unitPrice != '' &&  moq != '' && totalWeight != ''){
+    totalPrice = unitPrice * totalWeight;
+    $('#totalPrice').val(totalPrice.toFixed(2));
+  }
+  else(
+    $('#totalPrice').val((0).toFixed(2))
+  )
+}
+
+function updateWeights(){
+  var tareWeight =  0;
+  var currentWeight =  0;
+  var reduceWeight = 0;
+  var moq = $('#moq').val();
+  var totalWeight = 0;
+  var actualWeight = 0;
+
+  if($('#currentWeight').val()){
+    currentWeight =  $('#currentWeight').val();
+  }
+
+  if($('#tareWeight').val()){
+    tareWeight =  $('#tareWeight').val();
+  }
+
+  if($('#reduceWeight').val()){
+    reduceWeight =  $('#reduceWeight').val();
+  }
+
+  if(tareWeight == 0){
+    actualWeight = currentWeight - reduceWeight;
+    actualWeight = Math.abs(actualWeight);
+    $('#actualWeight').val(actualWeight.toFixed(2));
+  }
+  else{
+    actualWeight = tareWeight - currentWeight - reduceWeight;
+    actualWeight = Math.abs(actualWeight);
+    $('#actualWeight').val(actualWeight.toFixed(2));
+  }
+
+  if(actualWeight != '' &&  moq != ''){
+    totalWeight = actualWeight * moq;
+    $('#totalWeight').val(totalWeight.toFixed(2));
+  }
+  else{
+    $('#totalWeight').val((0).toFixed(2))
+  };
+}
 
 function format (row) {
   return '<div class="row"><div class="col-md-3"><p>Customer Name: '+row.customer_name+

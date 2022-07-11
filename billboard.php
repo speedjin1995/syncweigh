@@ -703,14 +703,10 @@ $(function () {
 
   $.post('http://127.0.0.1:5002/', $('#setupForm').serialize(), function(data){
     if(data == "true"){
-      //$('#indicatorConnected').addClass('bg-primary');
-      //$('#checkingConnection').removeClass('bg-danger');
-      //$('#captureWeight').removeAttr('disabled');
+      console.log("Established Connection");
     }
     else{
-      //$('#indicatorConnected').removeClass('bg-primary');
-      //$('#checkingConnection').addClass('bg-danger');
-      //$('#captureWeight').attr('disabled', true);
+      console.log("Failed to Established Connection");
     }
   });
   
