@@ -1358,7 +1358,8 @@ $(function () {
       if(obj.status === 'success'){
         var unitPrice = parseFloat(obj.message.product_price) * rate;
         $('#extendModal').find('#unitPrice').val(unitPrice.toFixed(2));
-        $('#extendModal').find('#moq').trigger("keyup");sdsd
+        $('#extendModal').find('#moq').trigger("keyup");
+        $('#unitPrice').trigger("keyup");
       }
       else if(obj.status === 'failed'){
         toastr["error"](obj.message, "Failed:");
