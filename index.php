@@ -300,7 +300,7 @@ to get the desired effect
     </ul>
   </nav>
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #3d44c1;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link logo-switch">
       <img src="assets/logoSmall.png" alt="Sneakercube Logo" class="brand-image-xl logo-xs">
