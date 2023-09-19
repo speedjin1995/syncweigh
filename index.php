@@ -331,6 +331,12 @@ to get the desired effect
               <p>Weight Weighing</p>
             </a>
           </li-->
+          <li class="nav-item">
+            <a href="#dashboard" data-file="dashboard.php" class="nav-link link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
